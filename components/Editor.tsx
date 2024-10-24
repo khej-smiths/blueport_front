@@ -2,13 +2,22 @@
 
 import { useCallback, useEffect } from "react";
 import useCodemirror from "@/hooks/useCodemirror";
+import { EditorState } from "@codemirror/state";
 
-interface Props {}
+interface Props {
+  initialDoc: string;
+  onChange: (doc: string) => void;
+}
 
-export default function Editor(props: Props) {
+export default function Editor({ initialDoc, onChange }: Props) {
+  const handleChange = useCallback(
+    (state: EditorState) => onChange(state.doc.toString()),
+    [onChange]
+  );
+
   const [editorRef, editorView] = useCodemirror<HTMLDivElement>({
-    initialDoc: "Hello World!",
-    onChange: () => {},
+    initialDoc: initialDoc,
+    onChange: handleChange,
   });
 
   useEffect(() => {
@@ -17,9 +26,5 @@ export default function Editor(props: Props) {
     }
   }, [editorView]);
 
-  return (
-    <div className="h-full" ref={editorRef}>
-      Editor
-    </div>
-  );
+  return <div className="h-full w-full" ref={editorRef} />;
 }
