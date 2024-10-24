@@ -5,27 +5,32 @@ import { EditorState } from "@codemirror/state";
 import {
   EditorView,
   keymap,
-  highlightActiveLine,
+  // highlightActiveLine,
   placeholder,
 } from "@codemirror/view";
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
+import {
+  defaultKeymap,
+  history,
+  historyKeymap,
+  indentWithTab,
+} from "@codemirror/commands";
 import {
   indentOnInput,
-  bracketMatching,
+  // bracketMatching,
   syntaxHighlighting,
   defaultHighlightStyle,
-  HighlightStyle,
+  // HighlightStyle,
 } from "@codemirror/language";
 
 import { languages } from "@codemirror/language-data";
-import { html } from "@codemirror/lang-html";
-import { css } from "@codemirror/lang-css";
-import { javascript } from "@codemirror/lang-javascript";
+// import { html } from "@codemirror/lang-html";
+// import { css } from "@codemirror/lang-css";
+// import { javascript } from "@codemirror/lang-javascript";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
-import { json } from "@codemirror/lang-json";
-import { python } from "@codemirror/lang-python";
-import { java } from "@codemirror/lang-java";
-import { oneDark } from "@codemirror/theme-one-dark";
+// import { json } from "@codemirror/lang-json";
+// import { python } from "@codemirror/lang-python";
+// import { java } from "@codemirror/lang-java";
+// import { oneDark } from "@codemirror/theme-one-dark";
 import { customHighlightStyle, transparentTheme } from "@/style/editorStyle";
 
 interface Props {
@@ -54,7 +59,7 @@ export default function useCodemirror<T extends Element>({
     const startState = EditorState.create({
       doc: initialDoc,
       extensions: [
-        keymap.of([...defaultKeymap, ...historyKeymap]),
+        keymap.of([...defaultKeymap, ...historyKeymap, indentWithTab]),
         placeholder("지금 생각하고있는 이야기를 써보세요..."),
         history(),
         indentOnInput(),

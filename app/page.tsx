@@ -12,7 +12,7 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="flex">
+    <section className="flex h-full">
       <Editor initialDoc={doc} onChange={handleDocChange} />
       <Preview doc={doc} />
     </section>

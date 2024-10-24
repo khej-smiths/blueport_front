@@ -8,8 +8,10 @@ export default function Preview({ doc }: PreviewProps) {
   const Content = useProcessor(doc);
 
   return (
-    <div className="flex flex-col  p-3 w-full box-border overflow-auto [&>pre]:bg-[rgba(27,31,35,0.45)] gap-5">
-      {Content}
+    <div className="w-full p-12 box-border overflow-auto bg-[#fafafa] [&>pre]:bg-[#fdfcfd]">
+      <div className="flex flex-col w-full gap-[18px] text-[1.125em] leading-[1.5]">
+        {Content}
+      </div>
     </div>
   );
 }

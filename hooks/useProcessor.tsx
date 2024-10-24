@@ -8,8 +8,29 @@ import remarkBreak from "remark-breaks";
 import rehypeRaw from "rehype-raw";
 import rehypeStringify from "rehype-stringify";
 import rehypeReact from "rehype-react";
+import H1 from "@/components/H1";
+import H2 from "@/components/h2";
+import H3 from "@/components/H3";
+import H4 from "@/components/H4";
+import UnorderedList from "@/components/UnorderdList";
+import OrderedList from "@/components/OrderedList";
+import Hyperlink from "@/components/Hyperlink";
 
-const production = { Fragment: prod.Fragment, jsx: prod.jsx, jsxs: prod.jsxs };
+const production = {
+  Fragment: prod.Fragment,
+  jsx: prod.jsx,
+  jsxs: prod.jsxs,
+  components: {
+    h1: H1,
+    h2: H2,
+    h3: H3,
+    h4: H4,
+    ul: UnorderedList,
+    ol: OrderedList,
+    a: Hyperlink,
+  },
+  passNode: true,
+};
 
 /** 마크다운 문자열을 HTML로 변환한 뒤 React에서 사용할 수 있도록 변환시켜주는 Hook
  *
@@ -28,6 +49,7 @@ export default function useProcessor(doc: string) {
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
         .use(rehypeStringify)
+        //@ts-expect-error boolean 넣으라는 에러 발생하는데 여기에 넣는 값은 boolean이 아님 https://github.com/rehypejs/rehype-react?tab=readme-ov-file#options
         .use(rehypeReact, production)
         .process(doc);
 

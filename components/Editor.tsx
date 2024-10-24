@@ -26,5 +26,5 @@ export default function Editor({ initialDoc, onChange }: Props) {
     }
   }, [editorView]);
 
-  return <div className="h-full w-full" ref={editorRef} />;
+  return <div className="h-full w-full p-12" ref={editorRef} />;
 }

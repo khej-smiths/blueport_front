@@ -23,32 +23,32 @@ const chalky = "#c18401",
 export const customHighlightStyle = HighlightStyle.define([
   {
     tag: tags.heading1,
-    fontSize: "2.5em",
+    fontSize: "2.5rem",
     fontWeight: 700,
   },
   {
     tag: tags.heading2,
-    fontSize: "2em",
+    fontSize: "2rem",
     fontWeight: 700,
   },
-  { tag: tags.heading3, fontSize: "1.5em", fontWeight: 700 },
-  { tag: tags.heading4, fontSize: "1.313em", fontWeight: 700 },
+  { tag: tags.heading3, fontSize: "1.5rem", fontWeight: 700 },
+  { tag: tags.heading4, fontSize: "1.313rem", fontWeight: 700 },
   {
     tag: tags.strong,
-    fontSize: "1.125em",
+    fontSize: "1.125rem",
     fontWeight: 700,
   },
   {
     tag: tags.emphasis,
-    fontSize: "1.125em",
+    fontSize: "1.125rem",
     fontStyle: "italic",
   },
   {
     tag: tags.strikethrough,
-    fontSize: "1.125em",
+    fontSize: "1.125rem",
     textDecoration: "line-through",
   },
-  { tag: tags.keyword, color: violet },
+  { tag: tags.keyword, color: violet, fontSize: "1.125rem" },
   {
     tag: [
       tags.name,
@@ -57,14 +57,24 @@ export const customHighlightStyle = HighlightStyle.define([
       tags.propertyName,
       tags.macroName,
     ],
-    color: stone,
+    color: coral,
+    fontSize: "1.125rem",
   },
-  { tag: [tags.function(tags.variableName), tags.labelName], color: malibu },
+  {
+    tag: [tags.function(tags.variableName), tags.labelName],
+    color: malibu,
+    fontSize: "1.125rem",
+  },
   {
     tag: [tags.color, tags.constant(tags.name), tags.standard(tags.name)],
     color: whiskey,
+    fontSize: "1.125rem",
   },
-  { tag: [tags.definition(tags.name), tags.separator], color: whiskey },
+  {
+    tag: [tags.definition(tags.name), tags.separator],
+    color: whiskey,
+    fontSize: "1.125rem",
+  },
   {
     tag: [
       tags.typeName,
@@ -77,6 +87,7 @@ export const customHighlightStyle = HighlightStyle.define([
       tags.namespace,
     ],
     color: chalky,
+    fontSize: "1.125rem",
   },
   {
     tag: [
@@ -89,37 +100,46 @@ export const customHighlightStyle = HighlightStyle.define([
       tags.special(tags.string),
     ],
     color: cyan,
+    fontSize: "1.125rem",
   },
-  { tag: [tags.meta, tags.comment], color: stone },
-  { tag: tags.strong, fontWeight: "bold" },
-  { tag: tags.emphasis, fontStyle: "italic" },
-  { tag: tags.strikethrough, textDecoration: "line-through" },
-  { tag: tags.link, color: stone, textDecoration: "underline" },
-  { tag: tags.heading, fontWeight: "bold", color: coral },
+  {
+    tag: [tags.meta, tags.comment],
+    color: stone,
+  },
+  { tag: tags.strong, fontWeight: "bold", fontSize: "1.125rem" },
+  { tag: tags.emphasis, fontStyle: "italic", fontSize: "1.125rem" },
+  {
+    tag: tags.link,
+    color: malibu,
+    textDecoration: "underline",
+    fontSize: "1.125rem",
+  },
+  { tag: tags.heading, fontWeight: "bold", color: coral, fontSize: "1.125rem" },
   {
     tag: [tags.atom, tags.bool, tags.special(tags.variableName)],
     color: malibu,
+    fontSize: "1.125rem",
   },
   {
     tag: [tags.string, tags.inserted],
     color: sage,
+    fontSize: "1.125rem",
   },
-  { tag: tags.invalid, color: invalid },
+  { tag: tags.invalid, color: invalid, fontSize: "1.125rem" },
 ]);
 
 export const transparentTheme = EditorView.theme({
   "&": {
-    backgroundColor: "#fafafa",
     height: "100%",
     color: "#212529",
-    fontSize: "1.125em",
-    lineHeight: "1.5",
+    fontSize: "1.125rem",
+    borderRadius: "1rem",
   },
   "&.cm-focused": {
     outline: "none",
   },
   "&.cm-placeholder": {
-    fontSize: "1.125em",
+    fontSize: "1.125rem",
   },
 
   ".cm-content": {
