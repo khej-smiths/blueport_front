@@ -3,22 +3,18 @@ import { HighlightStyle } from "@codemirror/language";
 import { tags } from "@lezer/highlight";
 
 // One Light Theme
-const chalky = "#c18401",
-  coral = "#ca1143",
-  cyan = "#0184bc",
-  invalid = "#a1a1a1",
-  gray = "#a1a1a1",
-  stone = "#383a42", // Brightened compared to original to increase contrast
-  malibu = "#4078f2",
-  sage = "#50a14f",
-  whiskey = "#986801",
-  violet = "#a626a4",
-  darkBackground = "#cfd0d1",
-  highlightBackground = "#a1a1a1",
-  background = "#fafafa",
-  tooltipBackground = "#383a42",
-  selection = "#cfd0d1",
-  cursor = "#526eff";
+const base = "#fafafa",
+  mono1 = "#383a42",
+  mono2 = "#686b77",
+  mono3 = "#a0a1a7",
+  hue1 = "#0184bb",
+  hue2 = "#4078f2",
+  hue3 = "#a626a4",
+  hue4 = "#50a14f",
+  // hue5 = "#e45649",
+  hue52 = "#c91243",
+  hue6 = "#986801",
+  hue62 = "#c18401";
 
 export const customHighlightStyle = HighlightStyle.define([
   {
@@ -48,7 +44,7 @@ export const customHighlightStyle = HighlightStyle.define([
     fontSize: "1.125rem",
     textDecoration: "line-through",
   },
-  { tag: tags.keyword, color: violet, fontSize: "1.125rem" },
+  { tag: tags.keyword, color: hue3, fontSize: "1.125rem" },
   {
     tag: [
       tags.name,
@@ -57,22 +53,22 @@ export const customHighlightStyle = HighlightStyle.define([
       tags.propertyName,
       tags.macroName,
     ],
-    color: coral,
+    color: hue52,
     fontSize: "1.125rem",
   },
   {
     tag: [tags.function(tags.variableName), tags.labelName],
-    color: malibu,
+    color: hue2,
     fontSize: "1.125rem",
   },
   {
     tag: [tags.color, tags.constant(tags.name), tags.standard(tags.name)],
-    color: whiskey,
+    color: hue6,
     fontSize: "1.125rem",
   },
   {
     tag: [tags.definition(tags.name), tags.separator],
-    color: whiskey,
+    color: hue6,
     fontSize: "1.125rem",
   },
   {
@@ -86,7 +82,7 @@ export const customHighlightStyle = HighlightStyle.define([
       tags.self,
       tags.namespace,
     ],
-    color: chalky,
+    color: hue62,
     fontSize: "1.125rem",
   },
   {
@@ -99,33 +95,33 @@ export const customHighlightStyle = HighlightStyle.define([
       tags.link,
       tags.special(tags.string),
     ],
-    color: cyan,
+    color: hue1,
     fontSize: "1.125rem",
   },
   {
     tag: [tags.meta, tags.comment],
-    color: stone,
+    color: mono1,
   },
   { tag: tags.strong, fontWeight: "bold", fontSize: "1.125rem" },
   { tag: tags.emphasis, fontStyle: "italic", fontSize: "1.125rem" },
   {
     tag: tags.link,
-    color: malibu,
+    color: hue2,
     textDecoration: "underline",
     fontSize: "1.125rem",
   },
-  { tag: tags.heading, fontWeight: "bold", color: coral, fontSize: "1.125rem" },
+  { tag: tags.heading, fontWeight: "bold", color: hue52, fontSize: "1.125rem" },
   {
     tag: [tags.atom, tags.bool, tags.special(tags.variableName)],
-    color: malibu,
+    color: hue2,
     fontSize: "1.125rem",
   },
   {
     tag: [tags.string, tags.inserted],
-    color: sage,
+    color: hue4,
     fontSize: "1.125rem",
   },
-  { tag: tags.invalid, color: invalid, fontSize: "1.125rem" },
+  { tag: tags.invalid, color: mono3, fontSize: "1.125rem" },
 ]);
 
 export const transparentTheme = EditorView.theme({
@@ -143,64 +139,65 @@ export const transparentTheme = EditorView.theme({
   },
 
   ".cm-content": {
-    caretColor: cursor,
+    padding: "0rem",
+    caretColor: hue2,
   },
 
-  ".cm-cursor, .cm-dropCursor": { borderLeftColor: cursor },
-  "&.cm-focused > .cm-scroller > .cm-selectionLayer .cm-selectionBackground, .cm-selectionBackground, .cm-content ::selection":
-    { backgroundColor: selection },
+  ".cm-hue2, .cm-drophue2": { borderLeftColor: hue2 },
+  "&.cm-focused > .cm-scroller > .cm-mono3Layer .cm-mono3base, .cm-mono3base, .cm-content ::mono3":
+    { baseColor: mono3 },
 
-  ".cm-panels": { backgroundColor: darkBackground, color: background },
+  ".cm-panels": { baseColor: mono2, color: base },
   ".cm-panels.cm-panels-top": { borderBottom: "2px solid black" },
   ".cm-panels.cm-panels-bottom": { borderTop: "2px solid black" },
 
   ".cm-searchMatch": {
-    backgroundColor: "#72a1ff59",
+    baseColor: "#72a1ff59",
     outline: "1px solid #457dff",
   },
   ".cm-searchMatch.cm-searchMatch-selected": {
-    backgroundColor: "#6199ff2f",
+    baseColor: "#6199ff2f",
   },
 
-  ".cm-activeLine": { backgroundColor: "#6699ff0b" },
-  ".cm-selectionMatch": { backgroundColor: "#aafe661a" },
+  ".cm-activeLine": { baseColor: "#6699ff0b" },
+  ".cm-mono3Match": { baseColor: "#aafe661a" },
 
   "&.cm-focused .cm-matchingBracket, &.cm-focused .cm-nonmatchingBracket": {
-    backgroundColor: "#bad0f847",
+    baseColor: "#bad0f847",
   },
 
   ".cm-gutters": {
-    backgroundColor: background,
-    color: stone,
+    baseColor: base,
+    color: mono1,
     border: "none",
   },
 
   ".cm-activeLineGutter": {
-    backgroundColor: highlightBackground,
+    baseColor: mono3,
   },
 
   ".cm-foldPlaceholder": {
-    backgroundColor: "transparent",
+    baseColor: "transparent",
     border: "none",
     color: "#ddd",
   },
 
   ".cm-tooltip": {
     border: "none",
-    backgroundColor: tooltipBackground,
+    baseColor: mono1,
   },
   ".cm-tooltip .cm-tooltip-arrow:before": {
     borderTopColor: "transparent",
     borderBottomColor: "transparent",
   },
   ".cm-tooltip .cm-tooltip-arrow:after": {
-    borderTopColor: tooltipBackground,
-    borderBottomColor: tooltipBackground,
+    borderTopColor: mono1,
+    borderBottomColor: mono1,
   },
   ".cm-tooltip-autocomplete": {
     "& > ul > li[aria-selected]": {
-      backgroundColor: highlightBackground,
-      color: gray,
+      baseColor: mono3,
+      color: mono3,
     },
   },
 });

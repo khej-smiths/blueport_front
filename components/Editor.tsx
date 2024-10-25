@@ -26,5 +26,9 @@ export default function Editor({ initialDoc, onChange }: Props) {
     }
   }, [editorView]);
 
-  return <div className="h-full w-full p-12" ref={editorRef} />;
+  return (
+    <section className="w-full p-12 box-border overflow-y-auto">
+      <div className="w-full " ref={editorRef} />
+    </section>
+  );
 }

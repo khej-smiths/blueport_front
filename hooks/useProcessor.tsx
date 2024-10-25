@@ -5,16 +5,22 @@ import remarkParse from "remark-parse";
 // import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import remarkBreak from "remark-breaks";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
 import rehypeRaw from "rehype-raw";
+import rehypeKatex from "rehype-katex";
+import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeReact from "rehype-react";
 import H1 from "@/components/H1";
-import H2 from "@/components/h2";
+import H2 from "@/components/H2";
 import H3 from "@/components/H3";
 import H4 from "@/components/H4";
 import UnorderedList from "@/components/UnorderdList";
 import OrderedList from "@/components/OrderedList";
 import Hyperlink from "@/components/Hyperlink";
+import Code from "@/components/Code";
+import Pre from "@/components/Pre";
 
 const production = {
   Fragment: prod.Fragment,
@@ -28,6 +34,8 @@ const production = {
     ul: UnorderedList,
     ol: OrderedList,
     a: Hyperlink,
+    code: Code,
+    pre: Pre,
   },
   passNode: true,
 };
@@ -46,8 +54,12 @@ export default function useProcessor(doc: string) {
       const md = await unified()
         .use(remarkBreak)
         .use(remarkParse)
+        .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
         .use(rehypeRaw)
+        .use(rehypeHighlight)
+        .use(remarkMath)
+        .use(rehypeKatex)
         .use(rehypeStringify)
         //@ts-expect-error boolean 넣으라는 에러 발생하는데 여기에 넣는 값은 boolean이 아님 https://github.com/rehypejs/rehype-react?tab=readme-ov-file#options
         .use(rehypeReact, production)
