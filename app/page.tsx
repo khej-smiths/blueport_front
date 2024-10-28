@@ -12,9 +12,13 @@ export default function Home() {
   }, []);
 
   return (
-    <section className="flex h-full">
-      <Editor initialDoc={doc} onChange={handleDocChange} />
-      <Preview doc={doc} />
+    <section className="flex h-full overflow-y-auto">
+      <article className="flex flex-col w-full h-full p-12">
+        <Editor initialDoc={doc} onChange={handleDocChange} />
+      </article>
+      <article className="flex flex-col w-full h-full gap-3 p-12">
+        <Preview doc={doc} />
+      </article>
     </section>
   );
 }

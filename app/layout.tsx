@@ -16,7 +16,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className="h-dvh">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

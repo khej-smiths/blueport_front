@@ -3,6 +3,7 @@
 import { useCallback, useEffect } from "react";
 import useCodemirror from "@/hooks/useCodemirror";
 import { EditorState } from "@codemirror/state";
+import Toolbar from "./Toolbar";
 
 interface Props {
   initialDoc: string;
@@ -20,15 +21,10 @@ export default function Editor({ initialDoc, onChange }: Props) {
     onChange: handleChange,
   });
 
-  useEffect(() => {
-    if (editorView) {
-      // 지금은 아무것도 안함
-    }
-  }, [editorView]);
-
   return (
-    <section className="w-full p-12 box-border overflow-y-auto">
+    <div className="flex flex-col gap-3 w-full box-border overflow-y-auto">
+      <Toolbar editorView={editorView} />
       <div className="w-full " ref={editorRef} />
-    </section>
+    </div>
   );
 }

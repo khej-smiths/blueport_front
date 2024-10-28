@@ -12,15 +12,16 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeReact from "rehype-react";
-import H1 from "@/components/H1";
-import H2 from "@/components/H2";
-import H3 from "@/components/H3";
-import H4 from "@/components/H4";
-import UnorderedList from "@/components/UnorderdList";
-import OrderedList from "@/components/OrderedList";
-import Hyperlink from "@/components/Hyperlink";
-import Code from "@/components/Code";
-import Pre from "@/components/Pre";
+import H1 from "@/components/Preview/H1";
+import H2 from "@/components/Preview/H2";
+import H3 from "@/components/Preview/H3";
+import H4 from "@/components/Preview/H4";
+import UnorderedList from "@/components/Preview/UnorderdList";
+import OrderedList from "@/components/Preview/OrderedList";
+import Hyperlink from "@/components/Preview/Hyperlink";
+import Code from "@/components/Preview/Code";
+import Pre from "@/components/Preview/Pre";
+import Blockquote from "@/components/Preview/Blockquote";
 
 const production = {
   Fragment: prod.Fragment,
@@ -36,6 +37,7 @@ const production = {
     a: Hyperlink,
     code: Code,
     pre: Pre,
+    blockquote: Blockquote,
   },
   passNode: true,
 };
