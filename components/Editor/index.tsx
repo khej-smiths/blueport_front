@@ -22,7 +22,7 @@ export default function Editor({ initialDoc, onChange }: Props) {
   });
 
   return (
-    <div className="flex flex-col gap-3 w-full box-border overflow-y-auto">
+    <div className="relative flex flex-col gap-3 w-full box-border overflow-y-auto">
       <Toolbar editorView={editorView} />
       <div className="w-full " ref={editorRef} />
     </div>

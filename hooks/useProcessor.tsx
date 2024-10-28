@@ -2,7 +2,6 @@ import { Fragment, createElement, useEffect, useState } from "react";
 import * as prod from "react/jsx-runtime";
 import { unified } from "unified";
 import remarkParse from "remark-parse";
-// import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import remarkBreak from "remark-breaks";
 import remarkGfm from "remark-gfm";
@@ -58,6 +57,7 @@ export default function useProcessor(doc: string) {
         .use(remarkParse)
         .use(remarkGfm)
         .use(remarkRehype, { allowDangerousHtml: true })
+        //TODO: HTML 코드 입력 방지 추가해야함
         .use(rehypeRaw)
         .use(rehypeHighlight)
         .use(remarkMath)
