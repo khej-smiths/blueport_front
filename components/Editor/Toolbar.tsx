@@ -10,6 +10,7 @@ import {
   MdCode,
 } from "react-icons/md";
 import { EditorSelection } from "@codemirror/state";
+import uploadImage from "@/utils/imageUpload";
 
 interface Props {
   editorView: EditorView | undefined;
@@ -270,7 +271,17 @@ export default function Toolbar({ editorView }: Props) {
       },
       image: () => {
         //TODO: 이미지 업로드 방식 생각해봐야함
-        return console.log("image");
+        const fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.accept = "image/*";
+        fileInput.onchange = () => {
+          if (fileInput.files && fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            uploadImage(file, editorView);
+          }
+        };
+        fileInput.click();
+        return;
       },
       codeblock: () => {
         const range = editorView.state.selection.main;
