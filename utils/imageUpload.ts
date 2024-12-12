@@ -1,6 +1,6 @@
 import { EditorView } from "@codemirror/view";
 
-export default async function uploadImage(file: File, editorView: EditorView) {
+export default async function imageUpload(file: File, editorView: EditorView) {
   const formData = new FormData();
   formData.append("image", file);
 

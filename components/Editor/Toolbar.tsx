@@ -10,7 +10,7 @@ import {
   MdCode,
 } from "react-icons/md";
 import { EditorSelection } from "@codemirror/state";
-import uploadImage from "@/utils/imageUpload";
+import imageUpload from "@/utils/imageUpload";
 
 interface Props {
   editorView: EditorView | undefined;
@@ -277,7 +277,7 @@ export default function Toolbar({ editorView }: Props) {
         fileInput.onchange = () => {
           if (fileInput.files && fileInput.files.length > 0) {
             const file = fileInput.files[0];
-            uploadImage(file, editorView);
+            imageUpload(file, editorView);
           }
         };
         fileInput.click();
