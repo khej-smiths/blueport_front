@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import useCodemirror from "@/hooks/useCodemirror";
 import { EditorState } from "@codemirror/state";
 import Toolbar from "./Toolbar";

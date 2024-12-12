@@ -31,7 +31,7 @@ export default function Toolbar({ editorView }: Props) {
   const handleItemClick = (mode: string) => {
     if (!editorView) return;
 
-    const handler: { [key: string]: Function } = {
+    const handler: { [key: string]: () => void } = {
       ...[1, 2, 3, 4]
         .map((number) => () => {
           const keyword = "#".repeat(number);
