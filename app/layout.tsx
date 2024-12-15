@@ -1,6 +1,5 @@
 import "./globals.css";
 import "../style/prismTheme.css";
-import GNB from "@/components/section/GNB";
 
 export default function RootLayout({
   children,
@@ -17,12 +16,7 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body>
-        <GNB />
-        <section className="flex justify-center min-h-[calc(100dvh-96px)] h-full">
-          {children}
-        </section>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
