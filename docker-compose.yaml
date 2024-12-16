@@ -1,0 +1,23 @@
+# docker 컨테이너 버전을 명시
+version: '3.8'
+
+# services는 컨테이너
+services:
+  next-app:
+    # -it 옵션을 위해 사용됨 (표준입출력)
+    stdin_open: true
+    tty: true
+    # 현재 경로에 이미지 빌드
+    build: .
+    # 포트 포워딩
+    ports:
+      - 3000:3000
+      # 호스트 디렉토리에 바인드 마운트
+    volumes:
+      - ./:/app
+      - /app/node_modules
+      - /app/.next
+      # 환경변수 설정
+    environment:
+      - END_POINT=https://pangho297.endpoint:5000
+    command: npm run dev
