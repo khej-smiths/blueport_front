@@ -4,6 +4,9 @@ export const config: Config = {
   darkMode: ["class"],
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
+    fontFamily: {
+      pretendard: "hsl(var(--pretendard))",
+    },
     extend: {
       colors: {
         background: "hsl(var(--background))",

@@ -9,7 +9,7 @@ export default function LoginContainer({ children }: { children: ReactNode }) {
       <Image
         src={Office}
         alt="login-image"
-        className="w-1/2 object-cover"
+        className="w-1/2 max-h-dvh object-cover"
         priority
       />
     </div>

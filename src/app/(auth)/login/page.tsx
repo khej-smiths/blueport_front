@@ -9,9 +9,11 @@ export default function LoginPage() {
     <LoginContainer>
       <LoginLogo />
       <LoginForm />
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-2 text-gray-400">
         <p>아직 계정이 없으신가요?</p>
-        <Link href={route.SIGNUP}>회원가입</Link>
+        <Link href={route.SIGNUP} className="hover:underline">
+          회원가입
+        </Link>
       </div>
     </LoginContainer>
   );
