@@ -1,5 +1,5 @@
 # docker 컨테이너 버전을 명시
-version: '3.8'
+version: '1'
 
 # services는 컨테이너
 services:
