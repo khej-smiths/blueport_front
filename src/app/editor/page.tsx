@@ -1,7 +1,7 @@
 "use client";
 
-import Editor from "@/components/Editor";
-import Preview from "@/components/Preview";
+import Editor from "@/components/section/Editor";
+import Preview from "@/components/section/Preview";
 import { useCallback, useState } from "react";
 
 export default function EditorPage() {

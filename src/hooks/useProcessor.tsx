@@ -11,16 +11,16 @@ import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import rehypeStringify from "rehype-stringify";
 import rehypeReact from "rehype-react";
-import H1 from "@/components/Preview/H1";
-import H2 from "@/components/Preview/H2";
-import H3 from "@/components/Preview/H3";
-import H4 from "@/components/Preview/H4";
-import UnorderedList from "@/components/Preview/UnorderdList";
-import OrderedList from "@/components/Preview/OrderedList";
-import Hyperlink from "@/components/Preview/Hyperlink";
-import Code from "@/components/Preview/Code";
-import Pre from "@/components/Preview/Pre";
-import Blockquote from "@/components/Preview/Blockquote";
+import H1 from "@/components/section/Preview/H1";
+import H2 from "@/components/section/Preview/H2";
+import H3 from "@/components/section/Preview/H3";
+import H4 from "@/components/section/Preview/H4";
+import UnorderedList from "@/components/section/Preview/UnorderdList";
+import OrderedList from "@/components/section/Preview/OrderedList";
+import Hyperlink from "@/components/section/Preview/Hyperlink";
+import Code from "@/components/section/Preview/Code";
+import Pre from "@/components/section/Preview/Pre";
+import Blockquote from "@/components/section/Preview/Blockquote";
 
 const production = {
   Fragment: prod.Fragment,
