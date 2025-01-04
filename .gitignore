@@ -37,3 +37,13 @@ next-env.d.ts
 
 # cursor
 .cursorrules
+
+# pnpm
+.pnpm-store
+
+# playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
