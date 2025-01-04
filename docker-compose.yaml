@@ -1,5 +1,5 @@
 # docker 컨테이너 버전을 명시
-version: '1'
+version: '2'
 
 # services는 컨테이너
 services:
@@ -12,12 +12,25 @@ services:
     # 포트 포워딩
     ports:
       - 3000:3000
-      # 호스트 디렉토리에 바인드 마운트
+    # 호스트 디렉토리에 바인드 마운트
     volumes:
       - ./:/app
       - /app/node_modules
       - /app/.next
-      # 환경변수 설정
+    # 환경변수 설정
     environment:
       - END_POINT=https://pangho297.endpoint:5000
-    command: npm run dev
+    command: pnpm run dev
+
+  storybook:
+    build:
+      context: .
+      dockerfile: Dockerfile.storybook
+    ports:
+      - "6006:6006"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - WATCHPACK_POLLING=true

@@ -1,0 +1,23 @@
+# Node.js 기본 이미지 사용
+FROM node:22-alpine
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# pnpm 설치
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# package.json과 pnpm-lock.yaml 복사
+COPY package.json pnpm-lock.yaml ./
+
+# 의존성 설치
+RUN pnpm install
+
+# 소스 코드 복사
+COPY . .
+
+# Storybook 포트 노출
+EXPOSE 6006
+
+# Storybook 실행
+CMD ["pnpm", "storybook", "--no-open", "--host", "0.0.0.0"]
