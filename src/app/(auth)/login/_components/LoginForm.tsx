@@ -1,7 +1,7 @@
 "use client";
 
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/common/Input";
+import { Button } from "@/components/common/Button";
 import { Controller, useForm } from "react-hook-form";
 
 export default function LoginForm() {

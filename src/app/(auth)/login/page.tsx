@@ -1,8 +1,8 @@
 import Link from "next/link";
-import LoginForm from "./_form/Loginform";
-import LoginContainer from "./_usecase/LoginContainer";
+import LoginForm from "./_components/LoginForm";
+import LoginContainer from "./_components/LoginContainer";
 import route from "@/constant/route";
-import Logo from "@/components/ui/Logo";
+import Logo from "@/components/common/Logo";
 
 export default function LoginPage() {
   return (

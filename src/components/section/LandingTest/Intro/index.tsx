@@ -1,4 +1,4 @@
-export default function LadingIntro() {
+export default function Intro() {
   return (
     <div className="whitespace-pre-line">
       <span className="text-7xl font-bold leading-relaxed">

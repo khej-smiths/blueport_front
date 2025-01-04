@@ -1,12 +1,12 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/common/Button";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-interface LandingAboutProps {
+interface AboutProps {
   right?: boolean;
 }
 
-export default function LandingAbout({ right }: LandingAboutProps) {
+export default function About({ right }: AboutProps) {
   return (
     <div className={cn("flex gap-12", right ? "flex-row-reverse" : "flex-row")}>
       <Image

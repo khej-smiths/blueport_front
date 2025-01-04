@@ -1,6 +1,6 @@
-import { Button } from "@/components/ui/Button";
+import { Button } from "@/components/common/Button";
 
-export default function LandingPopularPost() {
+export default function PopularPostItem() {
   return (
     <li className="flex flex-row gap-5">
       <div className="size-[220px] aspect-square object-cover bg-gray-500" />

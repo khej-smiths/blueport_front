@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function LandingRecentPost() {
+export default function RecentPostItem() {
   return (
     <Link href="/" className="flex flex-col gap-3">
       <h3 className="text-xl font-bold line-clamp-2">

@@ -1,5 +1,5 @@
 import { EditorView } from "@codemirror/view";
-import ToolbarItem from "./ToolbarItem";
+import ToolbarItem from "../ToolbarItem";
 import {
   MdFormatBold,
   MdFormatItalic,
