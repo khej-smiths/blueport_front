@@ -8,7 +8,12 @@ export default function Hyperlink({
   href: string;
 }) {
   return (
-    <a href={href} target="_blank" className="text-[#4078f2] underline">
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#4078f2] underline"
+    >
       {children}
     </a>
   );
