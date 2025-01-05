@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Intro from ".";
 
-describe("Intro 컴포넌트 | ", () => {
+describe("Intro | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
     render(<Intro />);
     const intro = screen.getByRole("article", { name: "intro-section" });

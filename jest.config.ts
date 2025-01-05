@@ -53,6 +53,7 @@ const config: Config = {
     "^@/(.*)$": "<rootDir>/src/$1",
     // 이미지/스타일 파일 모의 처리
     "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js",
+    // CSS 모듈 모킹
     "\\.(css|less|sass|scss)$": "identity-obj-proxy",
   },
 
@@ -73,6 +74,11 @@ const config: Config = {
   transform: {
     "^.+\\.(ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
   },
+
+  // 패키지들에 대한 예외 처리
+  transformIgnorePatterns: [
+    "node_modules/(?!(unified|unist-util-.*|bail|is-plain-obj|trough|vfile|vfile-message|remark-.*|mdast-util-.*|micromark.*|decode-named-character-reference|character-entities|property-information|hast-util-whitespace|space-separated-tokens|comma-separated-tokens|rehype-.*)/)",
+  ],
 };
 
 // createJestConfig는 next/jest가 비동기적인 Next.js 설정을 로드할 수 있도록 이 방식으로 내보내집니다

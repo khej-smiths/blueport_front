@@ -138,6 +138,27 @@ importers:
         specifier: ^3.24.1
         version: 3.24.1
     devDependencies:
+      '@babel/core':
+        specifier: ^7.26.0
+        version: 7.26.0
+      '@babel/plugin-transform-modules-commonjs':
+        specifier: ^7.26.3
+        version: 7.26.3(@babel/core@7.26.0)
+      '@babel/plugin-transform-runtime':
+        specifier: ^7.25.9
+        version: 7.25.9(@babel/core@7.26.0)
+      '@babel/preset-env':
+        specifier: ^7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@babel/preset-react':
+        specifier: ^7.26.3
+        version: 7.26.3(@babel/core@7.26.0)
+      '@babel/preset-typescript':
+        specifier: ^7.26.0
+        version: 7.26.0(@babel/core@7.26.0)
+      '@babel/runtime-corejs3':
+        specifier: ^7.26.0
+        version: 7.26.0
       '@chromatic-com/storybook':
         specifier: 3.2.3
         version: 3.2.3(react@18.3.1)(storybook@8.4.7)
@@ -863,6 +884,10 @@ packages:
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
+
+  '@babel/runtime-corejs3@7.26.0':
+    resolution: {integrity: sha512-YXHu5lN8kJCb1LOb9PgV6pvak43X2h4HvRApcN5SdWeaItQOzfn1hgP6jasD6KWQyJDBxrVmA9o9OivlnNJK/w==}
+    engines: {node: '>=6.9.0'}
 
   '@babel/runtime@7.26.0':
     resolution: {integrity: sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==}
@@ -6579,6 +6604,11 @@ snapshots:
       '@babel/plugin-transform-typescript': 7.26.3(@babel/core@7.26.0)
     transitivePeerDependencies:
       - supports-color
+
+  '@babel/runtime-corejs3@7.26.0':
+    dependencies:
+      core-js-pure: 3.39.0
+      regenerator-runtime: 0.14.1
 
   '@babel/runtime@7.26.0':
     dependencies:
