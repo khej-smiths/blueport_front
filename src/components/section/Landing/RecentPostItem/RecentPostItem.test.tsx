@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import RecentPostItem from ".";
 
-describe("RecentPostItem 컴포넌트", () => {
+describe("RecentPostItem 컴포넌트 | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
     render(<RecentPostItem />);
     const recentPostItem = screen.getByRole("feed", {

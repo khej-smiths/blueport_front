@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 
 import PopularPostList from ".";
 
-describe("PopularPostList 컴포넌트", () => {
+describe("PopularPostList 컴포넌트 | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
     render(<PopularPostList />);
     const popularPostList = screen.getByRole("listbox", {

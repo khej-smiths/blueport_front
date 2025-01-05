@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import RecentPostList from ".";
 
-describe("RecentPostList 컴포넌트", () => {
+describe("RecentPostList 컴포넌트 | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
     render(<RecentPostList />);
     const recentPostList = screen.getByRole("listbox", {

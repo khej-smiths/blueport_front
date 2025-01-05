@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import PopularPostItem from ".";
 
-describe("PopularPostItem 컴포넌트", () => {
+describe("PopularPostItem 컴포넌트 | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
     render(<PopularPostItem />);
     const popularPostItem = screen.getByRole("feed", {
