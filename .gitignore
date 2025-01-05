@@ -12,6 +12,7 @@
 # next.js
 /.next/
 /out/
+.swc/
 
 # production
 /build
@@ -49,3 +50,14 @@ node_modules/
 /playwright/.cache/
 
 *storybook.log
+
+# jest
+jest-test-results.json
+
+# 임시 문서 파일
+docs/**/*.tmp
+docs/**/*.temp
+docs/**/.DS_Store
+
+# 자동 생성되는 문서 (있는 경우)
+docs/generated/

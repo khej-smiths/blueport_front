@@ -1,0 +1,60 @@
+# 프론트엔드 기술 스택
+
+## 핵심 기술
+
+- Next.js 14
+  - App Router 기반 페이지 구조
+  - Server/Client 컴포넌트 분리
+  - TypeScript 기반 개발
+
+## UI/스타일링
+
+- Tailwind CSS
+  - 레이아웃 > 크기 > 여백 > 스타일 순서로 클래스 작성
+  - 커스텀 유틸리티 클래스 사용
+- Framer Motion
+  - 페이지 전환 애니메이션
+  ```typescript:src/app/template.tsx
+  startLine: 13
+  endLine: 23
+  ```
+
+## 에디터 기능
+
+- CodeMirror 6
+  - 마크다운 에디터 구현
+  - 커스텀 테마 및 하이라이팅
+  - 이미지 업로드 지원
+- Unified
+  - 마크다운 파싱 및 HTML 변환
+  - 수식(KaTeX) 지원
+  - 코드 하이라이팅
+
+## 개발 도구
+
+- Jest
+  - 단위 테스트
+  - 커버리지 리포트
+- Playwright
+  - E2E 테스트
+  - UI 테스트
+- Storybook
+  - 컴포넌트 문서화
+  - Jest 결과 통합
+  ```typescript:.storybook/preview.ts
+  startLine: 17
+  endLine: 23
+  ```
+
+## 배포 환경
+
+- Docker
+  - Next.js 애플리케이션 컨테이너
+  - Storybook 개발 환경 컨테이너
+- GitHub Actions
+  - 테스트 자동화
+  - 개발 환경 배포
+  ```yaml:.github/workflows/develop-deploy.yml
+  startLine: 1
+  endLine: 17
+  ```

@@ -4,3 +4,7 @@ node_modules
 coverage
 .env*
 !.env.example
+docs
+
+# jest
+jest-test-results.json
