@@ -8,7 +8,11 @@ interface AboutProps {
 
 export default function About({ right }: AboutProps) {
   return (
-    <div className={cn("flex gap-12", right ? "flex-row-reverse" : "flex-row")}>
+    <div
+      role="article"
+      aria-label="about-section"
+      className={cn("flex gap-12", right ? "flex-row-reverse" : "flex-row")}
+    >
       <Image
         src="https://avatars.githubusercontent.com/u/72400381?v=4"
         alt="내 사진"

@@ -1,6 +1,10 @@
 export default function Intro() {
   return (
-    <div className="whitespace-pre-line">
+    <div
+      role="article"
+      aria-label="intro-section"
+      className="whitespace-pre-line"
+    >
       <span className="text-7xl font-bold leading-relaxed">
         프론트 개발자한테 털렸죠 ㅋㅋㅋㅋ,
       </span>

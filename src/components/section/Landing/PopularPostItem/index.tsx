@@ -2,7 +2,11 @@ import { Button } from "@/components/common/Button";
 
 export default function PopularPostItem() {
   return (
-    <li className="flex flex-row gap-5">
+    <li
+      role="feed"
+      aria-label="popular-post-item-section"
+      className="flex flex-row gap-5"
+    >
       <div className="size-[220px] aspect-square object-cover bg-gray-500" />
       <div className="flex flex-col justify-between">
         <div className="flex flex-col gap-3">

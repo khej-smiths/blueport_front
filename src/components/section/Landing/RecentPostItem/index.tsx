@@ -2,7 +2,12 @@ import Link from "next/link";
 
 export default function RecentPostItem() {
   return (
-    <Link href="/" className="flex flex-col gap-3">
+    <Link
+      role="feed"
+      aria-label="recent-post-item-section"
+      href="/"
+      className="flex flex-col gap-3"
+    >
       <h3 className="text-xl font-bold line-clamp-2">
         최근 게시글 제목이에요 최근 게시글 제목이에요 최근 게시글 제목이에요
         최근 게시글 제목이에요 최근 게시글 제목이에요 최근 게시글 제목이에요
