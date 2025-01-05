@@ -52,7 +52,7 @@ node_modules/
 *storybook.log
 
 # jest
-jest-test-results.json
+.jest-test-results.json
 
 # 임시 문서 파일
 docs/**/*.tmp

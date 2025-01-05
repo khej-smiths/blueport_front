@@ -45,7 +45,7 @@ const config: Config = {
   testEnvironment: "jest-environment-jsdom",
 
   // 테스트 실행 전 추가 설정을 로드
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.tsx"],
 
   // 모듈 경로 매핑 설정
   moduleNameMapper: {
