@@ -361,32 +361,32 @@ export default function Toolbar({ editorView }: Props) {
       />
       <Separator />
       <ToolbarItem
-        icon={<MdFormatBold />}
+        icon={<MdFormatBold data-testid="format-bold" />}
         onClick={() => handleItemClick("bold")}
       />
       <ToolbarItem
-        icon={<MdFormatItalic />}
+        icon={<MdFormatItalic data-testid="format-italic" />}
         onClick={() => handleItemClick("italic")}
       />
       <ToolbarItem
-        icon={<MdFormatStrikethrough />}
+        icon={<MdFormatStrikethrough data-testid="format-strikethrough" />}
         onClick={() => handleItemClick("strike")}
       />
       <Separator />
       <ToolbarItem
-        icon={<MdFormatQuote />}
+        icon={<MdFormatQuote data-testid="format-quote" />}
         onClick={() => handleItemClick("quote")}
       />
       <ToolbarItem
-        icon={<MdInsertLink />}
+        icon={<MdInsertLink data-testid="format-link" />}
         onClick={() => handleItemClick("link")}
       />
       <ToolbarItem
-        icon={<MdImage />}
+        icon={<MdImage data-testid="format-image" />}
         onClick={() => handleItemClick("image")}
       />
       <ToolbarItem
-        icon={<MdCode />}
+        icon={<MdCode data-testid="format-codeblock" />}
         onClick={() => handleItemClick("codeblock")}
       />
     </div>

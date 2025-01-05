@@ -2,12 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { EditorState } from "@codemirror/state";
-import {
-  EditorView,
-  keymap,
-  // highlightActiveLine,
-  placeholder,
-} from "@codemirror/view";
+import { EditorView, keymap, placeholder } from "@codemirror/view";
 import {
   defaultKeymap,
   history,
@@ -16,21 +11,12 @@ import {
 } from "@codemirror/commands";
 import {
   indentOnInput,
-  // bracketMatching,
   syntaxHighlighting,
   defaultHighlightStyle,
-  // HighlightStyle,
 } from "@codemirror/language";
 
 import { languages } from "@codemirror/language-data";
-// import { html } from "@codemirror/lang-html";
-// import { css } from "@codemirror/lang-css";
-// import { javascript } from "@codemirror/lang-javascript";
 import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
-// import { json } from "@codemirror/lang-json";
-// import { python } from "@codemirror/lang-python";
-// import { java } from "@codemirror/lang-java";
-// import { oneDark } from "@codemirror/theme-one-dark";
 import { customHighlightStyle, transparentTheme } from "@/style/editorStyle";
 
 interface Props {
@@ -68,7 +54,6 @@ export default function useCodemirror<T extends Element>({
           codeLanguages: languages,
           addKeymap: true,
         }),
-        // oneDark,
         transparentTheme,
         syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
         syntaxHighlighting(customHighlightStyle),
