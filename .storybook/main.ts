@@ -9,6 +9,8 @@ const config: StorybookConfig = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
+    "@storybook/addon-coverage",
+    "@storybook/addon-jest",
   ],
 
   // 사용할 프레임워크 설정

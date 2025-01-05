@@ -15,7 +15,7 @@ import H1 from "@/components/section/Preview/H1";
 import H2 from "@/components/section/Preview/H2";
 import H3 from "@/components/section/Preview/H3";
 import H4 from "@/components/section/Preview/H4";
-import UnorderedList from "@/components/section/Preview/UnorderdList";
+import UnorderedList from "@/components/section/Preview/UnorderedList";
 import OrderedList from "@/components/section/Preview/OrderedList";
 import Hyperlink from "@/components/section/Preview/Hyperlink";
 import Code from "@/components/section/Preview/Code";

@@ -5,7 +5,7 @@ import { Button } from ".";
  * `Button` 컴포넌트는 다양한 스타일과 크기를 지원하는 기본적인 버튼 요소입니다.
  */
 const meta: Meta<typeof Button> = {
-  title: "Common/Button",
+  title: "Components/Common/Button",
   component: Button,
   parameters: {
     layout: "centered",
@@ -18,7 +18,7 @@ const meta: Meta<typeof Button> = {
   },
   argTypes: {
     variant: {
-      control: { type: "select" },
+      control: "select",
       options: ["default", "destructive", "outline", "ghost", "link"],
       description: "버튼의 스타일 변형",
       table: {
@@ -27,7 +27,7 @@ const meta: Meta<typeof Button> = {
       },
     },
     size: {
-      control: { type: "select" },
+      control: "select",
       options: ["default", "sm", "lg"],
       description: "버튼의 크기",
       table: {

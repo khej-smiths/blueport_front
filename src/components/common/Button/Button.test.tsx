@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { Button } from "../../ui/Button";
+import { Button } from ".";
 
 describe("Button 컴포넌트", () => {
   it("기본 버튼이 정상적으로 렌더링 되어야 합니다", () => {

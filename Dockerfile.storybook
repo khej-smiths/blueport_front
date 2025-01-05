@@ -16,8 +16,11 @@ RUN pnpm install
 # 소스 코드 복사
 COPY . .
 
+# Jest 테스트 실행 및 결과 파일 생성
+RUN pnpm run test:storybook
+
 # Storybook 포트 노출
 EXPOSE 6006
 
-# Storybook 실행
-CMD ["pnpm", "storybook", "--no-open", "--host", "0.0.0.0"]
+# Storybook 실행 (새로운 명령어 형식 사용)
+CMD ["pnpm", "run", "storybook", "dev", "--no-open", "--host", "0.0.0.0"]

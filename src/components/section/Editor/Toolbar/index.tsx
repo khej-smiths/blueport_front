@@ -16,7 +16,7 @@ interface Props {
   editorView: EditorView | undefined;
 }
 
-function Heading({ level }: { level: string }) {
+export function Heading({ level }: { level: string }) {
   return (
     <div className="text-[1rem] font-bold font-[serif]">
       H<span className="text-[0.75rem]">{level}</span>
