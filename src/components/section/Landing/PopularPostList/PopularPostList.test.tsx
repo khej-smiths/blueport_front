@@ -1,5 +1,4 @@
 import { render, screen } from "@testing-library/react";
-
 import PopularPostList from ".";
 
 describe("PopularPostList | ", () => {
@@ -14,7 +13,7 @@ describe("PopularPostList | ", () => {
   it("PopularPostItem이 렌더링 되어야 합니다", () => {
     render(<PopularPostList />);
     const popularPostItems = screen.getAllByRole("feed", {
-      name: "popular-post-item-section",
+      name: "horizontal-post-card",
     });
     expect(popularPostItems.length).toBeGreaterThan(0);
   });

@@ -1,4 +1,4 @@
-import PopularPostItem from "../PopularPostItem";
+import PostCard from "@/components/section/PostCard";
 
 export default function PopularPostList() {
   return (
@@ -9,16 +9,16 @@ export default function PopularPostList() {
     >
       <h2 className="text-2xl font-bold">초 인기 게시글</h2>
       <ul className="flex flex-col gap-5">
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
-        <PopularPostItem />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
+        <PostCard.Horizontal />
       </ul>
     </div>
   );

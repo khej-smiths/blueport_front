@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import RecentPostItem from ".";
+import Vertical from ".";
 
-const meta: Meta<typeof RecentPostItem> = {
-  title: "Components/Section/Landing/RecentPostItem",
-  component: RecentPostItem,
+const meta: Meta<typeof Vertical> = {
+  title: "Components/Section/PostCard/Vertical",
+  component: Vertical,
   decorators: [
     (Story) => (
       <div className="w-[480px]">
@@ -17,6 +17,6 @@ const meta: Meta<typeof RecentPostItem> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof RecentPostItem>;
+type Story = StoryObj<typeof Vertical>;
 
 export const Default: Story = {};

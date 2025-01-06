@@ -6,10 +6,10 @@ export default function Intro() {
       className="whitespace-pre-line"
     >
       <span className="text-7xl font-bold leading-relaxed">
-        프론트 개발자한테 털렸죠 ㅋㅋㅋㅋ,
+        블로그 이름을 뭘로할까요? EPlog...?
       </span>
       <p className="text-5xl font-thin leading-relaxed">
-        개발은 끝난걸로 치면 되겠습니다 I Have a Monkey Spanner
+        그거 아시나요 EPlog에는 에필로그라는 뜻이 있다는 사실을?
       </p>
     </div>
   );

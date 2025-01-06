@@ -13,7 +13,7 @@ describe("RecentPostList | ", () => {
   it("RecentPostItem이 렌더링 되어야 합니다", () => {
     render(<RecentPostList />);
     const recentPostItems = screen.getAllByRole("feed", {
-      name: "recent-post-item-section",
+      name: "vertical-post-card",
     });
     expect(recentPostItems.length).toBeGreaterThan(0);
   });

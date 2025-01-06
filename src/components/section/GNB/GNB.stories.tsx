@@ -12,7 +12,7 @@ const meta: Meta<typeof GNB> = {
     ),
   ],
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
   },
 };
 

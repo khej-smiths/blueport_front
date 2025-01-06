@@ -11,65 +11,52 @@ export default function About({ right }: AboutProps) {
     <div
       role="article"
       aria-label="about-section"
-      className={cn("flex gap-12", right ? "flex-row-reverse" : "flex-row")}
+      className={cn(
+        "border rounded-lg overflow-hidden hover:shadow-lg transition",
+        "flex flex-row gap-0",
+        right && "flex-row-reverse"
+      )}
     >
-      <Image
-        src="https://avatars.githubusercontent.com/u/72400381?v=4"
-        alt="내 사진"
-        width={480}
-        height={640}
-        className="w-[480px] h-[640px] object-cover"
-      />
-      <div className="flex flex-col justify-between gap-6">
+      <div className="w-full md:w-[480px] h-64 md:h-auto relative flex-shrink-0">
+        <Image
+          src="https://avatars.githubusercontent.com/u/72400381?v=4"
+          alt="내 사진"
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      <div className="flex flex-col justify-between p-6 md:p-8 gap-8 flex-grow">
         <div className="flex flex-col gap-4">
-          <p className="text-2xl font-bold">
+          <h2 className="text-2xl font-bold line-clamp-3">
             인사말, 인사말, 인사말, 인사말, 인사말, 인사말, 인사말, 인사말,
             인사말, 인사말
-          </p>
-          <p className="text-lg max-h-[348px] overflow-auto scrollbar-hide">
+          </h2>
+          <p className="text-gray-600 text-lg max-h-[348px] overflow-auto scrollbar-hide">
             안녕하세요 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자
-            입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다.
-            저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는
-            개발자 입니다. 안녕하세요 저는 개발자 입니다. 저는 개발자 입니다.
-            저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는
-            개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자
-            입니다. 저는 개발자 입니다. 안녕하세요 저는 개발자 입니다. 저는
-            개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자
-            입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다.
-            저는 개발자 입니다. 저는 개발자 입니다. 안녕하세요 저는 개발자
-            입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다.
-            저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는
-            개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 안녕하세요
-            저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는
-            개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자
-            입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다.
-            안녕하세요 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자
-            입니다. 저는 개발자 입니다. 저는 개발자 입니다. 저는 개발자 입니다.
-            저는 개발자 입니다. 저는 개발자 입니다.
+            입니다. 저는 개발자 입니다. 저는 개발자 입니다...
           </p>
         </div>
-        <div className="flex flex-col gap-12">
-          <div className="flex flex-col gap-2">
-            <p className="text-2xl font-bold">사용 기술 스택</p>
-            <div className="flex flex-row gap-4 flex-wrap">
-              <p>기술스택 1</p>
-              <p>기술스택 2</p>
-              <p>기술스택 3</p>
-              <p>기술스택 4</p>
-              <p>기술스택 5</p>
-              <p>기술스택 6</p>
-              <p>기술스택 7</p>
-              <p>기술스택 8</p>
-              <p>기술스택 9</p>
-              <p>기술스택 10</p>
-              <p>기술스택 11</p>
-              <p>기술스택 12</p>
-              <p>기술스택 13</p>
-              <p>기술스택 14</p>
-              <p>기술스택 15</p>
+
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-4">
+            <h3 className="text-xl font-bold">사용 기술 스택</h3>
+            <div className="flex flex-wrap gap-2">
+              {["React", "Next.js", "TypeScript", "Node.js", "AWS"].map(
+                (tech) => (
+                  <span
+                    key={tech}
+                    className="text-sm bg-gray-100 px-3 py-1.5 rounded-full"
+                  >
+                    {tech}
+                  </span>
+                )
+              )}
             </div>
           </div>
-          <Button className="max-w-fit">더 알아보기</Button>
+          <Button variant="outline" className="max-w-fit">
+            더 알아보기
+          </Button>
         </div>
       </div>
     </div>

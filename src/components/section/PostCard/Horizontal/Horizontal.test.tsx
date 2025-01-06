@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import PopularPostItem from ".";
+import Horizontal from ".";
 
-describe("PopularPostItem | ", () => {
+describe("Horizontal | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<PopularPostItem />);
-    const popularPostItem = screen.getByRole("feed", {
-      name: "popular-post-item-section",
+    render(<Horizontal />);
+    const horizontal = screen.getByRole("feed", {
+      name: "horizontal-post-card",
     });
-    expect(popularPostItem).toBeInTheDocument();
+    expect(horizontal).toBeInTheDocument();
   });
 
   it.todo("작성일이 있어야 합니다");

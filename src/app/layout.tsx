@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import "../style/prismTheme.css";
+import Footer from "@/components/section/Footer";
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -24,7 +25,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={`${pretendard.variable} min-h-dvh`}>{children}</body>
+      <body className={`${pretendard.variable} min-h-dvh`}>
+        {children}
+        <Footer />
+      </body>
     </html>
   );
 }

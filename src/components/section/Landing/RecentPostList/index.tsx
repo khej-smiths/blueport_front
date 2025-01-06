@@ -1,4 +1,4 @@
-import RecentPostItem from "../RecentPostItem";
+import PostCard from "@/components/section/PostCard";
 
 export default function RecentPostList() {
   return (
@@ -9,16 +9,15 @@ export default function RecentPostList() {
     >
       <h2 className="text-2xl font-bold">최근 게시글</h2>
       <ul className="flex flex-col gap-4">
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
-        <RecentPostItem />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
+        <PostCard.Vertical />
       </ul>
     </div>
   );
