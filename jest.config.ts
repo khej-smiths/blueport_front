@@ -29,10 +29,10 @@ const config: Config = {
 
   // 코드 커버리지 정보를 수집할 파일들을 지정하는 glob 패턴 배열
   collectCoverageFrom: [
-    "src/**/*.{js,jsx,ts,tsx}",
-    "!src/**/*.d.ts",
-    "!src/**/types.ts",
-    "!src/**/*.stories.{js,jsx,ts,tsx}",
+    "src/components/**/*.{js,jsx,ts,tsx}",
+    "!src/components/**/*.d.ts",
+    "!src/components/**/types.ts",
+    "!src/components/**/*.stories.{js,jsx,ts,tsx}",
   ],
 
   // Jest가 커버리지 파일을 출력할 디렉토리

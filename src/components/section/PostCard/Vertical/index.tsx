@@ -1,11 +1,16 @@
 import Link from "next/link";
 
-export default function Vertical() {
+interface VerticalProps {
+  username: string;
+  postId: string;
+}
+
+export default function Vertical({ username, postId }: VerticalProps) {
   return (
     <Link
       role="feed"
       aria-label="vertical-post-card"
-      href="/"
+      href={`/${username}/${postId}`}
       className="border rounded-lg overflow-hidden hover:shadow-lg transition block"
     >
       {/* 썸네일 */}

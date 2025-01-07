@@ -8,10 +8,10 @@ export default function Profile() {
         프론트엔드 개발자의 기술 블로그입니다.
       </p>
       <div className="flex justify-center gap-4">
-        <a href="#" className="text-gray-600 hover:text-black">
+        <a href="#" className="text-gray-600 hover:text-black hover:underline">
           GitHub
         </a>
-        <a href="#" className="text-gray-600 hover:text-black">
+        <a href="#" className="text-gray-600 hover:text-black hover:underline">
           Resume
         </a>
       </div>

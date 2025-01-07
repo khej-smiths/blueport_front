@@ -1,10 +1,15 @@
 import Link from "next/link";
 
-export default function Horizontal() {
+interface HorizontalProps {
+  username: string;
+  postId: string;
+}
+
+export default function Horizontal({ username, postId }: HorizontalProps) {
   return (
     <li role="feed" aria-label="horizontal-post-card" className="flex w-full">
       <Link
-        href="/"
+        href={`/${username}/${postId}`}
         className="w-full border rounded-lg overflow-hidden hover:shadow-lg transition flex flex-col md:flex-row"
       >
         {/* 썸네일 */}
