@@ -22,9 +22,17 @@ export default function Editor({ initialDoc, onChange }: Props) {
   });
 
   return (
-    <div role="article" aria-label="editor-section" className="relative flex flex-col gap-3 w-full box-border overflow-y-auto">
-      <Toolbar editorView={editorView} />
-      <div className="w-full " ref={editorRef} />
+    <div
+      role="article"
+      aria-label="editor-section"
+      className="relative flex flex-col gap-3 w-full box-border h-full"
+    >
+      <div className="flex w-full flex-wrap items-center sticky top-0 bg-white z-10">
+        <Toolbar editorView={editorView} />
+      </div>
+      <div className="w-full flex-1">
+        <div ref={editorRef} />
+      </div>
     </div>
   );
 }
