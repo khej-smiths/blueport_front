@@ -10,7 +10,7 @@ export default function Blog() {
   const { username } = useParams();
 
   return (
-    <main className="min-h-dvh mt-16 bg-white">
+    <main className="min-h-dvh mt-16 flex flex-col items-center bg-white mb-16">
       <article className="max-w-7xl flex flex-col gap-16 p-8">
         <Profile />
 

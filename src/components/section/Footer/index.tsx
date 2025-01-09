@@ -1,11 +1,7 @@
 export default function Footer() {
   return (
     // Footer
-    <footer
-      className="border-t mt-16"
-      role="article"
-      aria-label="footer-section"
-    >
+    <footer className="border-t" role="article" aria-label="footer-section">
       <div className="max-w-7xl mx-auto py-8 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About 섹션 */}

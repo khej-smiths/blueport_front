@@ -6,7 +6,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="flex flex-col gap-5 min-h-[calc(100dvh-96px)]">
+    <section className="flex flex-col gap-5 min-h-dvh">
       <GNB />
       {children}
     </section>
