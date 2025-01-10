@@ -342,7 +342,10 @@ export default function Toolbar({ editorView }: Props) {
   };
 
   return (
-    <div className="flex w-full flex-wrap items-center sticky top-0">
+    <div
+      id="editor_toolbar"
+      className="flex w-full flex-wrap items-center sticky top-0"
+    >
       <ToolbarItem
         icon={<Heading level={"1"} />}
         onClick={() => handleItemClick("heading1")}

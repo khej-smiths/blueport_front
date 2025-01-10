@@ -1,5 +1,6 @@
 "use client";
 
+import Category from "@/components/common/Category";
 import { Input } from "@/components/common/Input";
 import Editor from "@/components/section/Editor";
 import Preview from "@/components/section/Preview";
@@ -12,6 +13,7 @@ export default function EditorPage() {
   const [categories, setCategories] = useState<string[]>([]);
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
+  const [isCategoryInputFocused, setIsCategoryInputFocused] = useState(false);
 
   const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCategory(e.target.value);
@@ -30,7 +32,11 @@ export default function EditorPage() {
       setCategory("");
     }
 
-    if (e.key === "Backspace" && categories.length > 0) {
+    if (
+      e.key === "Backspace" &&
+      categories.length > 0 &&
+      category.trim() === ""
+    ) {
       handleCategoryDelete(categories.length - 1);
     }
   };
@@ -61,13 +67,11 @@ export default function EditorPage() {
             )}
           >
             {categories.map((category, index) => (
-              <button
+              <Category
                 key={index}
-                className="flex items-center bg-gray-100 rounded-md px-2 py-1 ml-1 text-gray-500 hover:text-gray-700"
+                category={category}
                 onClick={() => handleCategoryDelete(index)}
-              >
-                <span className="text-sm">{category}</span>
-              </button>
+              />
             ))}
             {categories.length < 15 && (
               <Input
@@ -75,6 +79,8 @@ export default function EditorPage() {
                 value={category}
                 onChange={handleCategoryChange}
                 onKeyDown={handleKeyDown}
+                onFocus={() => setIsCategoryInputFocused(true)}
+                onBlur={() => setIsCategoryInputFocused(false)}
                 placeholder="태그를 입력하세요"
                 className={cn(
                   "flex-1 text-lg placeholder:text-gray-500 placeholder:opacity-50",
@@ -83,7 +89,11 @@ export default function EditorPage() {
               />
             )}
           </div>
-          <Editor initialDoc={doc} onChange={handleDocChange} />
+          <Editor
+            initialDoc={doc}
+            onChange={handleDocChange}
+            isCategoryInputFocused={isCategoryInputFocused}
+          />
         </article>
         <article className="flex flex-col w-full border-l border-gray-200 p-5">
           <h1 className="text-[40px] font-bold mt-7 mb-16">{title}</h1>
