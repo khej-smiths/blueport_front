@@ -41,13 +41,14 @@ export default function EditorPage() {
     }
   };
 
+  const handleCategoryDelete = (indexToDelete: number) => {
+    setCategories((prev) => prev.filter((_, index) => index !== indexToDelete));
+  };
+  
   const handleDocChange = useCallback((newDoc: string) => {
     setDoc(newDoc);
   }, []);
 
-  const handleCategoryDelete = (indexToDelete: number) => {
-    setCategories((prev) => prev.filter((_, index) => index !== indexToDelete));
-  };
 
   return (
     <section className="min-d-dvh">

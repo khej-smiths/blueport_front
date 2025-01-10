@@ -1,7 +1,12 @@
+"use client";
+
 import localFont from "next/font/local";
 import "./globals.css";
 import "../style/prismTheme.css";
 import Footer from "@/components/section/Footer";
+import { Plus } from "lucide-react";
+import FloatingButton from "@/components/common/FloatingButton";
+import { usePathname, useRouter } from "next/navigation";
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -15,6 +20,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const disableGoEditor = ["/editor"];
+
   return (
     <html lang="ko">
       <head>
@@ -28,6 +38,13 @@ export default function RootLayout({
       <body className={`${pretendard.variable} min-h-dvh`}>
         {children}
         <Footer />
+        {!disableGoEditor.includes(pathname) && (
+          <FloatingButton
+            position="bottom-10 right-10"
+            icon={<Plus className="w-6 h-6" />}
+            onClick={() => router.push("/editor")}
+          />
+        )}
       </body>
     </html>
   );
