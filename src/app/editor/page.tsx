@@ -1,12 +1,14 @@
 "use client";
 
+import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
+import { Button } from "@/components/common/Button";
 import Category from "@/components/common/Category";
 import { Input } from "@/components/common/Input";
 import Editor from "@/components/section/Editor";
 import Preview from "@/components/section/Preview";
 import { EXAMPLE_DOC } from "@/constant/preview";
+import useRouteChangeBlocking from "@/hooks/useRouteChangeBlocking";
 import { cn } from "@/lib/utils";
-import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
 
 export default function EditorPage() {
   const [doc, setDoc] = useState(EXAMPLE_DOC);
@@ -14,6 +16,8 @@ export default function EditorPage() {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [isCategoryInputFocused, setIsCategoryInputFocused] = useState(false);
+
+  useRouteChangeBlocking();
 
   const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCategory(e.target.value);
@@ -44,11 +48,10 @@ export default function EditorPage() {
   const handleCategoryDelete = (indexToDelete: number) => {
     setCategories((prev) => prev.filter((_, index) => index !== indexToDelete));
   };
-  
+
   const handleDocChange = useCallback((newDoc: string) => {
     setDoc(newDoc);
   }, []);
-
 
   return (
     <section className="min-d-dvh">
@@ -95,6 +98,15 @@ export default function EditorPage() {
             onChange={handleDocChange}
             isCategoryInputFocused={isCategoryInputFocused}
           />
+          <div className="flex justify-between px-5 py-3 sticky bottom-0 bg-white border-t border-gray-200">
+            <Button variant="link" className="text-gray-500 text-xl p-0">
+              ← 나가기
+            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline">임시저장</Button>
+              <Button>개시하기</Button>
+            </div>
+          </div>
         </article>
         <article className="flex flex-col w-full border-l border-gray-200 p-5">
           <h1 className="text-[40px] font-bold mt-7 mb-16">{title}</h1>

@@ -23,7 +23,7 @@ export default function RootLayout({
   const router = useRouter();
   const pathname = usePathname();
 
-  const disableGoEditor = ["/editor"];
+  const isEditor = pathname.includes("/editor");
 
   return (
     <html lang="ko">
@@ -37,8 +37,8 @@ export default function RootLayout({
       </head>
       <body className={`${pretendard.variable} min-h-dvh`}>
         {children}
-        <Footer />
-        {!disableGoEditor.includes(pathname) && (
+        {!isEditor && <Footer />}
+        {!isEditor && (
           <FloatingButton
             position="bottom-10 right-10"
             icon={<Plus className="w-6 h-6" />}
