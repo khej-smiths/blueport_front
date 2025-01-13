@@ -54,7 +54,7 @@ export default function EditorPage() {
 
   return (
     <section className="flex min-h-dvh">
-      <article className="flex flex-col min-w-[970px] w-full">
+      <article className="flex flex-col min-w-[960px] w-1/2">
         <Input
           variant="underline"
           placeholder="지금 생각하고있는 이야기를 써보세요..."
@@ -110,7 +110,7 @@ export default function EditorPage() {
           </div>
         </div>
       </article>
-      <article className="flex flex-col max-w-[970px] w-full border-l border-gray-200 p-5">
+      <article className="flex flex-col min-w-[940px] w-1/2 border-l border-gray-200 p-5">
         <h1 className="text-[40px] font-bold mt-7 mb-16">{title}</h1>
         <Preview doc={doc} />
       </article>
