@@ -1,41 +1,66 @@
-import { useCallback, useEffect, useRef } from "react";
+"use client";
+
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
-export default function useRouteChangeBlocking() {
+/** 기록용으로만 남긴 코드
+ * 
+ * 페이지 이탈, 뒤로가기, 새로고침 방지용 코드
+ * 
+ * Next.js 14 버전에서 popstate 이슈가 있어 사용할 수 없으나
+ * 
+ * 추후 React로 구현 시 참고할만한 코드라 남겨둠실제로 사용하지는 않고있는 코드
+ */
+export default function useRouteChangeBlocking(doc: string) {
+  const [isFirstClicked, setIsFirstClicked] = useState(false);
   const router = useRouter();
-  const isInitialMount = useRef(false);
-  const handleBeforeUnload = useCallback((e: BeforeUnloadEvent) => {
-    e.preventDefault();
-    e.returnValue = "";
-  }, []);
 
-  const handlePopState = useCallback(() => {
-    window.history.pushState(null, "", window.location.href);
-  }, []);
+  const handleBeforeUnload = useCallback(
+    (e: BeforeUnloadEvent) => {
+      if (doc !== "") {
+        e.preventDefault();
+        e.returnValue = "";
+      }
+    },
+    [doc]
+  );
 
+  const handlePopState = useCallback(
+    (e: PopStateEvent) => {
+      if (doc !== "") {
+        e.preventDefault();
+        window.history.pushState(null, "", window.location.href);
+      } else {
+        router.back();
+      }
+    },
+    [doc, router]
+  );
+
+  // strict 모드일 경우, 두번 로드되어서 처음 로드되었을 때에만 등록한다.
   useEffect(() => {
-    if (!isInitialMount.current) {
-      window.history.pushState(null, "", window.location.href);
-      isInitialMount.current = true;
+    if (!isFirstClicked) {
+      setIsFirstClicked(true);
+      // history에 현재 페이지 등록
+      history.pushState(null, "", location.href);
     }
-  }, []);
+  }, [isFirstClicked]);
 
   useEffect(() => {
     const originalPush = router.push;
-    const newPush = (
-      href: string,
-      options?: NavigateOptions | undefined
-    ): void => {
-      originalPush(href, options);
-      return;
+    const newPush = (href: string, options?: NavigateOptions): void => {
+      if (doc !== "") {
+        originalPush(href, options);
+        return;
+      }
     };
     router.push = newPush;
 
     return () => {
       router.push = originalPush;
     };
-  }, [router]);
+  }, [doc, router]);
 
   useEffect(() => {
     window.addEventListener("beforeunload", handleBeforeUnload);
