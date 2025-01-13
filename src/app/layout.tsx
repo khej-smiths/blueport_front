@@ -7,6 +7,7 @@ import Footer from "@/components/section/Footer";
 import { Plus } from "lucide-react";
 import FloatingButton from "@/components/common/FloatingButton";
 import { usePathname, useRouter } from "next/navigation";
+import { Toaster } from "@/components/common/Sonner";
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -45,6 +46,7 @@ export default function RootLayout({
             onClick={() => router.push("/editor")}
           />
         )}
+        <Toaster />
       </body>
     </html>
   );

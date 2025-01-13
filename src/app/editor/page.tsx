@@ -9,6 +9,7 @@ import Preview from "@/components/section/Preview";
 import { EXAMPLE_DOC } from "@/constant/preview";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function EditorPage() {
   const [doc, setDoc] = useState(EXAMPLE_DOC);
@@ -106,7 +107,7 @@ export default function EditorPage() {
           </Button>
           <div className="flex gap-2">
             <Button variant="outline">임시저장</Button>
-            <Button>개시하기</Button>
+            <Button onClick={() => toast("test")}>개시하기</Button>
           </div>
         </div>
       </article>
