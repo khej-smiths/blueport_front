@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import { NavigateOptions } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 /** 기록용으로만 남긴 코드
- * 
+ *
  * 페이지 이탈, 뒤로가기, 새로고침 방지용 코드
- * 
+ *
  * Next.js 14 버전에서 popstate 이슈가 있어 사용할 수 없으나
- * 
- * 추후 React로 구현 시 참고할만한 코드라 남겨둠실제로 사용하지는 않고있는 코드
+ *
+ * 추후 React로 구현 시 참고할만한 코드라 남겨둠 실제로 사용하지는 않고있는 코드
  */
 export default function useRouteChangeBlocking(doc: string) {
   const [isFirstClicked, setIsFirstClicked] = useState(false);

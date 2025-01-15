@@ -46,7 +46,7 @@ export default function RootLayout({
             onClick={() => router.push("/editor")}
           />
         )}
-        <Toaster />
+        <Toaster theme="light" />
       </body>
     </html>
   );
