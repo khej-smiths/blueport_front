@@ -7,6 +7,12 @@ const meta: Meta<typeof Logo> = {
   parameters: {
     layout: "centered",
   },
+  argTypes: {
+    size: {
+      control: "select",
+      options: ["sm", "md"],
+    },
+  },
 };
 
 export default meta;
