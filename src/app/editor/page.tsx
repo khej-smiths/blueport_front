@@ -55,27 +55,30 @@ export default function EditorPage() {
 
   return (
     <section className="flex min-h-dvh">
-      <article className="flex flex-col min-w-[960px] w-1/2">
+      <article className="flex w-1/2 min-w-[960px] flex-col">
         <Input
           variant="underline"
           placeholder="지금 생각하고있는 이야기를 써보세요..."
-          className="h-22 text-[40px] font-bold px-5 pt-4 pb-2 sticky top-0 bg-white z-10 placeholder:text-gray-500 placeholder:opacity-20"
+          className="h-22 sticky top-0 z-10 bg-white px-5 pb-2 pt-4 text-[40px] font-bold placeholder:text-gray-500 placeholder:opacity-20"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
         <div
           className={cn(
-            "flex items-center gap-2 min-h-14 sticky top-[85px] bg-white z-10",
+            "sticky top-[85px] z-10 flex min-h-14 items-center gap-2 bg-white",
             categories.length > 0 && "pl-5"
           )}
         >
-          {categories.map((category, index) => (
-            <Category
-              key={index}
-              category={category}
-              onClick={() => handleCategoryDelete(index)}
-            />
-          ))}
+          <ul className="flex gap-2">
+            {categories.map((category, index) => (
+              <li key={index}>
+                <Category
+                  category={category}
+                  onClick={() => handleCategoryDelete(index)}
+                />
+              </li>
+            ))}
+          </ul>
           {categories.length < 15 && (
             <Input
               variant="borderless"
@@ -97,10 +100,10 @@ export default function EditorPage() {
           onChange={handleDocChange}
           isCategoryInputFocused={isCategoryInputFocused}
         />
-        <div className="flex justify-between px-5 py-3 sticky bottom-0 bg-white border-t border-gray-200">
+        <div className="sticky bottom-0 flex justify-between border-t border-gray-200 bg-white px-5 py-3">
           <Button
             variant="link"
-            className="text-gray-500 text-xl p-0"
+            className="p-0 text-xl text-gray-500"
             onClick={() => router.back()}
           >
             ← 나가기
@@ -111,8 +114,8 @@ export default function EditorPage() {
           </div>
         </div>
       </article>
-      <article className="flex flex-col min-w-[940px] w-1/2 border-l border-gray-200 p-5">
-        <h1 className="text-[40px] font-bold mt-7 mb-16">{title}</h1>
+      <article className="flex w-1/2 min-w-[940px] flex-col border-l border-gray-200 p-5">
+        <h1 className="mb-16 mt-7 text-[40px] font-bold">{title}</h1>
         <Preview doc={doc} />
       </article>
     </section>

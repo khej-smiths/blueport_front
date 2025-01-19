@@ -1,20 +1,13 @@
 interface CategoryProps {
-  key: React.Key;
   category: string;
   total?: number;
   onClick?: () => void;
 }
 
-export default function Category({
-  key,
-  category,
-  total,
-  onClick,
-}: CategoryProps) {
+export default function Category({ category, total, onClick }: CategoryProps) {
   return (
     <button
-      key={key}
-      className="inline-flex items-center px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-sm transition-colors"
+      className="inline-flex items-center rounded-full bg-gray-100 px-3 py-1 text-sm transition-colors hover:bg-gray-200"
       onClick={onClick}
       type="button"
     >

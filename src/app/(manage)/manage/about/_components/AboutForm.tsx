@@ -1,9 +1,12 @@
 "use client";
 
 import { Button } from "@/components/common/Button";
+import Category from "@/components/common/Category";
 import FileUpload from "@/components/common/FileUpload";
+import { Input } from "@/components/common/Input";
 import Label from "@/components/common/Label";
 import LabelInput from "@/components/common/LabelInput";
+import { Textarea } from "@/components/common/Textarea";
 import Image from "next/image";
 import { useFormState } from "react-dom";
 
@@ -34,18 +37,14 @@ export default function AboutForm() {
     <form className="flex flex-col gap-4" action={formAction}>
       <div className="flex gap-6">
         <div className="flex flex-1 flex-col gap-4">
-          <LabelInput
-            label="블로그 이름"
-            required
-            placeholder="블로그 이름을 입력해주세요."
-          />
-          <LabelInput
-            label="도메인 이름"
-            required
-            placeholder="도메인 이름을 입력해주세요."
-          />
+          <LabelInput required placeholder="블로그 이름을 입력해주세요.">
+            블로그 이름
+          </LabelInput>
+          <LabelInput required placeholder="도메인 이름을 입력해주세요.">
+            도메인 이름
+          </LabelInput>
           <div className="flex h-full flex-col gap-2">
-            <Label label="프로필 사진" required />
+            <Label required>프로필 사진</Label>
             <FileUpload />
           </div>
         </div>
@@ -69,8 +68,24 @@ export default function AboutForm() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4"></div>
-      <div className="flex justify-end border-t pt-6">
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-3">
+          <Label required>자기소개</Label>
+          <Textarea />
+        </div>
+        <div className="flex flex-col gap-3">
+          <Label required>기술스택</Label>
+          <ul className="flex gap-2">
+            {Array.from({ length: 15 }).map((_, index) => (
+              <li key={index}>
+                <Category category={`${index + 1} Skill`} />
+              </li>
+            ))}
+          </ul>
+          <Input variant="underline" placeholder="기술스택을 입력해주세요." />
+        </div>
+      </div>
+      <div className="flex justify-end pt-6">
         <Button type="submit">저장하기</Button>
       </div>
     </form>
