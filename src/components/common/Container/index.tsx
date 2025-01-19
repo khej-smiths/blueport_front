@@ -9,7 +9,7 @@ export default function Container({
       role="container"
       aria-label="container"
       className={cn(
-        "flex flex-col rounded-md bg-white p-6 shadow-md",
+        "flex w-full flex-col rounded-md bg-white p-6 shadow-md",
         className
       )}
       {...props}
