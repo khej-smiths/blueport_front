@@ -5,7 +5,6 @@ export default function ManageAbout() {
   return (
     <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
       <Container>
-        {/* TODO: 워딩 고민중 */}
         <p className="text-4xl font-bold">블로그 설정</p>
       </Container>
       <Container>

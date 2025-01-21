@@ -7,11 +7,11 @@ interface MenuTree {
 
 const menuTree: MenuTree[] = [
   {
-    title: "About",
+    title: "블로그 설정",
     path: route.MANAGE_ABOUT,
   },
   {
-    title: "Resume",
+    title: "이력서",
     path: route.MANAGE_RESUME,
   },
 ];
