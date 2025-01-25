@@ -1,5 +1,9 @@
 import { ReactNode } from "react";
 
 export default function H2({ children, ...props }: { children: ReactNode }) {
-  return <h2 className="font-bold text-[2rem] mt-4 " {...props}>{children}</h2>;
+  return (
+    <h2 className="text-h2 mt-4 font-bold" {...props}>
+      {children}
+    </h2>
+  );
 }

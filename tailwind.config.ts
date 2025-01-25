@@ -55,6 +55,12 @@ export const config: Config = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      fontSize: {
+        h1: "2.5rem",
+        h2: "2rem",
+        h3: "1.5rem",
+        h4: "1.313rem",
+      },
     },
   },
   plugins: [
