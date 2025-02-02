@@ -42,7 +42,7 @@ export default function RootLayout({
         {!isEditor && (
           <FloatingButton
             position="bottom-10 right-10"
-            icon={<Plus className="w-6 h-6" />}
+            icon={<Plus className="h-6 w-6" />}
             onClick={() => router.push("/editor")}
           />
         )}
