@@ -1,29 +1,22 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-
 import Container from "@/components/common/Container";
 import SectionTitle from "@/components/common/SectionTitle";
+import EducationItem from "./_components/EducationItem";
+import { useState } from "react";
 
-interface FormType {
-  education: EducationDto[];
-  career: CareerDto[];
-  project: ProjectDto[];
-  portfolio: Portfolio[];
-}
-
-interface EducationDto {
+export interface EducationDto {
   schoolName: string;
-  admissionDate: Date;
-  graduationDate?: Date;
+  admissionDate: Date | null;
+  graduationDate?: Date | null;
 }
 
 interface CareerDto {
   companyName: string;
   position: string;
   description: string;
-  joinDate: Date;
-  quitDate?: Date;
+  joinDate: Date | null;
+  quitDate?: Date | null;
 }
 
 interface ProjectDto {
@@ -31,8 +24,8 @@ interface ProjectDto {
   personnel: string;
   skill: string[];
   description: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
 }
 
 interface Portfolio {
@@ -41,8 +34,16 @@ interface Portfolio {
   url?: string;
 }
 
+const initEducation = {
+  schoolName: "",
+  admissionDate: null,
+  graduationDate: null,
+};
+
 export default function Resume() {
-  const {} = useForm<FormType>();
+  const [educationList, setEducationList] = useState<EducationDto[]>([
+    initEducation,
+  ]);
 
   return (
     <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
@@ -51,10 +52,17 @@ export default function Resume() {
       </Container>
       <Container className="gap-4">
         <div className="flex flex-col gap-3">
-          <SectionTitle title="학력" />
-          <p>학교명</p>
-          <p>기간</p>
-          <p>졸업여부</p>
+          <SectionTitle
+            title="학력"
+            onClick={() => setEducationList((prev) => [...prev, initEducation])}
+          />
+          {educationList.map((item, index) => (
+            <EducationItem
+              key={index}
+              item={item}
+              setEducationList={setEducationList}
+            />
+          ))}
         </div>
         <div className="flex flex-col gap-3">
           <SectionTitle title="경력" />

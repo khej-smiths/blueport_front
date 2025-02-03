@@ -1,11 +1,11 @@
 # 가져올 이미지를 정의
-FROM node:22-alpine
+FROM node:22-alpine as builder
 
 # 경로 설정하기
 WORKDIR /app
 
-# pnpm 활성화
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# pnpm 설치
+RUN npm install -g pnpm
 
 # package.json 워킹 디렉토리에 복사
 COPY package.json pnpm-lock.yaml ./
