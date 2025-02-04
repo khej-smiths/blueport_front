@@ -33,7 +33,7 @@
     "@codemirror/view": "^6.36.1",
     "@hookform/resolvers": "^3.9.1",
     "@lezer/highlight": "^1.2.1",
-    "@radix-ui/react-dialog": "^1.1.5",
+    "@radix-ui/react-alert-dialog": "^1.1.5",
     "@radix-ui/react-slot": "^1.1.1",
     "@tailwindcss/line-clamp": "^0.4.4",
     "class-variance-authority": "^0.7.1",

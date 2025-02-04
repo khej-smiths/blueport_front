@@ -8,6 +8,7 @@ import { Plus } from "lucide-react";
 import FloatingButton from "@/components/common/FloatingButton";
 import { usePathname, useRouter } from "next/navigation";
 import { Toaster } from "@/components/common/Sonner";
+import DialogContainer from "@/components/common/Dialog/DialogContainer";
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -47,6 +48,7 @@ export default function RootLayout({
           />
         )}
         <Toaster theme="light" />
+        <DialogContainer />
       </body>
     </html>
   );
