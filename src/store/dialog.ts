@@ -1,4 +1,3 @@
-import React, { ComponentType } from "react";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
@@ -11,25 +10,20 @@ export interface DialogProps {
   [property: string]: any;
 }
 
-interface Dialog {
-  props: DialogProps;
-  Component: ComponentType<DialogProps>;
+export interface Dialog {
+  open: boolean;
+  props?: DialogProps;
 }
 
 interface DialogStore {
   dialog?: Dialog;
-  open: (Component: ComponentType<any>, props: DialogProps) => void;
-  close: () => void;
+  setDialog: (open: boolean, props?: DialogProps) => void;
 }
 
 export const useDialogStore = create<DialogStore>()(
-  devtools((set, get) => ({
+  devtools((set) => ({
     dialog: undefined,
-    open: (Component: ComponentType<any>, props: DialogProps) =>
-      set({ dialog: { Component, props } }),
-    close: () => set({ dialog: undefined }),
+    setDialog: (open: boolean, props: DialogProps) =>
+      set({ dialog: { open, props } }),
   }))
 );
-
-export const useDialogStoreOpen = () => useDialogStore((state) => state.open);
-export const useDialogStoreClose = () => useDialogStore((state) => state.close);

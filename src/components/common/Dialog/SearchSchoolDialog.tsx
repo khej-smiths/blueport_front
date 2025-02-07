@@ -1,16 +1,16 @@
-import { DialogProps } from "@/store/dialog";
+import { useDialogStore } from "@/store/dialog";
 import { Button } from "../Button";
 import {
+  AlertDialogContent,
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
 } from "./DialogStyle";
 
-export default function SearchSchoolDialog({
-  onConfirm,
-  onClose,
-}: DialogProps) {
+export default function SearchSchoolDialog() {
+  const { dialog } = useDialogStore();
+
   const Header = () => {
     return (
       <AlertDialogHeader>
@@ -29,19 +29,19 @@ export default function SearchSchoolDialog({
   const Footer = () => {
     return (
       <AlertDialogFooter>
-        <Button variant="outline" onClick={onClose}>
+        <Button variant="outline" onClick={dialog?.props?.onClose}>
           닫기
         </Button>
-        <Button onClick={onConfirm}>확인</Button>
+        <Button onClick={dialog?.props?.onConfirm}>확인</Button>
       </AlertDialogFooter>
     );
   };
 
   return (
-    <>
+    <AlertDialogContent>
       {Header()}
       {Content()}
       {Footer()}
-    </>
+    </AlertDialogContent>
   );
 }

@@ -8,7 +8,8 @@ import { Plus } from "lucide-react";
 import FloatingButton from "@/components/common/FloatingButton";
 import { usePathname, useRouter } from "next/navigation";
 import { Toaster } from "@/components/common/Sonner";
-import DialogContainer from "@/components/common/Dialog/DialogContainer";
+import { AlertDialog } from "@/components/common/Dialog/DialogStyle";
+import { useDialogStore } from "@/store/dialog";
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",
@@ -24,6 +25,7 @@ export default function RootLayout({
 }>) {
   const router = useRouter();
   const pathname = usePathname();
+  const { dialog } = useDialogStore();
 
   const isEditor = pathname.includes("/editor");
 
@@ -38,7 +40,11 @@ export default function RootLayout({
         />
       </head>
       <body className={`${pretendard.variable} min-h-dvh`}>
-        {children}
+        {/* Dialog 애니메이션이 닫을때에도 정상적으로 나오려면 Dialog가 미리 렌더링 되어있어야 하며
+            조건부 렌더링 시 모달을 닫을때에는 애니메이션이 재생되지 않고 모달이 사라짐 */}
+        <AlertDialog open={dialog ? dialog.open : false}>
+          {children}
+        </AlertDialog>
         {!isEditor && <Footer />}
         {!isEditor && (
           <FloatingButton
@@ -48,7 +54,6 @@ export default function RootLayout({
           />
         )}
         <Toaster theme="light" />
-        <DialogContainer />
       </body>
     </html>
   );

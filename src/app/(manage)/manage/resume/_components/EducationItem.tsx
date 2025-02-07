@@ -3,8 +3,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { EducationDto } from "../page";
 import { Button } from "@/components/common/Button";
-import useDialog from "@/hooks/useDialog";
-import SearchSchoolDialog from "@/components/common/Dialog/SearchSchoolDialog";
+import { useDialogStore } from "@/store/dialog";
 
 interface EducationItemProps {
   key: React.Key;
@@ -13,16 +12,12 @@ interface EducationItemProps {
 }
 
 export default function EducationItem({ item }: EducationItemProps) {
-  const { openDialog } = useDialog();
+  const { setDialog } = useDialogStore();
 
   const handleOpenSearchSchool = () => {
-    openDialog(SearchSchoolDialog, {
-      onConfirm: () => {
-        console.log("확인");
-      },
-      onClose: () => {
-        console.log("닫기");
-      },
+    setDialog(true, {
+      onConfirm: () => console.log("confirm"),
+      onClose: () => setDialog(false, undefined),
     });
   };
 
