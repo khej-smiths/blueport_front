@@ -4,7 +4,7 @@ import { Button } from "@/components/common/Button";
 import Category from "@/components/common/Category";
 import FileUpload from "@/components/common/FileUpload";
 import { Input } from "@/components/common/Input";
-import Label from "@/components/common/Label";
+import FormLabel from "@/components/common/FormLabel";
 import LabelInput from "@/components/common/LabelInput";
 import { Textarea } from "@/components/common/Textarea";
 import Image from "next/image";
@@ -44,7 +44,7 @@ export default function AboutForm() {
             도메인 이름
           </LabelInput>
           <div className="flex h-full flex-col gap-2">
-            <Label required>프로필 사진</Label>
+            <FormLabel required>프로필 사진</FormLabel>
             <FileUpload />
           </div>
         </div>
@@ -70,11 +70,11 @@ export default function AboutForm() {
       </div>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3">
-          <Label required>자기소개</Label>
+          <FormLabel required>자기소개</FormLabel>
           <Textarea />
         </div>
         <div className="flex flex-col gap-3">
-          <Label required>기술스택</Label>
+          <FormLabel required>기술스택</FormLabel>
           <ul className="flex gap-2">
             {Array.from({ length: 15 }).map((_, index) => (
               <li key={index}>

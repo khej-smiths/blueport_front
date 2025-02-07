@@ -5,8 +5,10 @@ import SectionTitle from "@/components/common/SectionTitle";
 import EducationItem from "./_components/EducationItem";
 import { useState } from "react";
 import SearchSchoolDialog from "@/components/common/Dialog/SearchSchoolDialog";
+import { v4 as uuid } from "uuid";
 
 export interface EducationDto {
+  id: string;
   schoolName: string;
   admissionDate: Date | null;
   graduationDate?: Date | null;
@@ -36,6 +38,7 @@ interface Portfolio {
 }
 
 const initEducation = {
+  id: uuid(),
   schoolName: "",
   admissionDate: null,
   graduationDate: null,
@@ -46,6 +49,19 @@ export default function Resume() {
     initEducation,
   ]);
 
+  const handleAddEducationList = () => {
+    const newEducation: EducationDto = {
+      id: uuid(),
+      schoolName: "",
+      admissionDate: null,
+      graduationDate: null,
+    };
+
+    setEducationList((prev) => [...prev, newEducation]);
+  };
+
+  console.log(educationList);
+
   return (
     <>
       <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
@@ -54,15 +70,10 @@ export default function Resume() {
         </Container>
         <Container className="gap-4">
           <div className="flex flex-col gap-3">
-            <SectionTitle
-              title="학력"
-              onClick={() =>
-                setEducationList((prev) => [...prev, initEducation])
-              }
-            />
-            {educationList.map((item, index) => (
+            <SectionTitle title="학력" onClick={handleAddEducationList} />
+            {educationList.map((item) => (
               <EducationItem
-                key={index}
+                key={item.id}
                 item={item}
                 setEducationList={setEducationList}
               />

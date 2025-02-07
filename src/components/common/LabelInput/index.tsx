@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Input } from "../Input";
-import Label from "../Label";
+import FormLabel from "../FormLabel";
 
 interface LabelInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   children: React.ReactNode;
@@ -18,9 +18,9 @@ export default function LabelInput({
 
   return (
     <div className="flex flex-col gap-2" aria-label="textbox">
-      <Label labelStyle={labelStyle} required={required}>
+      <FormLabel labelStyle={labelStyle} required={required}>
         {children}
-      </Label>
+      </FormLabel>
       <Input
         variant="underline"
         className={cn("w-full p-0", className)}

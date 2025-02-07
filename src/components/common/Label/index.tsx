@@ -1,16 +1,26 @@
+"use client";
+
+import * as React from "react";
+import * as LabelPrimitive from "@radix-ui/react-label";
+import { cva, type VariantProps } from "class-variance-authority";
+
 import { cn } from "@/lib/utils";
 
-interface LabelProps {
-  children: React.ReactNode;
-  required?: boolean;
-  labelStyle?: React.HTMLAttributes<HTMLSpanElement>["className"];
-}
+const labelVariants = cva(
+  "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+);
 
-export default function Label({ children, required, labelStyle }: LabelProps) {
-  return (
-    <div aria-label="label">
-      <span className={cn("text-lg font-thin", labelStyle)}>{children}</span>
-      {required && <span className="ml-1 font-thin text-red-500">*</span>}
-    </div>
-  );
-}
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &
+    VariantProps<typeof labelVariants>
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(labelVariants(), className)}
+    {...props}
+  />
+));
+Label.displayName = LabelPrimitive.Root.displayName;
+
+export { Label };

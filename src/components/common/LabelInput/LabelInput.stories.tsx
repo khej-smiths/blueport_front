@@ -15,7 +15,7 @@ const meta: Meta<typeof LabelInput> = {
     layout: "centered",
   },
   argTypes: {
-    label: {
+    children: {
       control: "text",
       description: "라벨 텍스트",
     },
@@ -36,6 +36,6 @@ type Story = StoryObj<typeof LabelInput>;
 
 export const Default: Story = {
   args: {
-    label: "Input 라벨",
+    children: "Input 라벨",
   },
 };
