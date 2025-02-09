@@ -16,10 +16,13 @@ interface EducationItemProps {
   setEducationList: Dispatch<SetStateAction<EducationDto[]>>;
 }
 
+type EducationStatus = "graduate" | "attend" | "expected";
+
 export default function EducationItem({
   item,
   setEducationList,
 }: EducationItemProps) {
+  const [status, setStatus] = useState<EducationStatus>("graduate");
   const [isEdit, setIsEdit] = useState(false);
   const { setDialog } = useDialogStore();
 
@@ -73,8 +76,13 @@ export default function EducationItem({
           </Button>
         </div>
       </div>
-      <div>기간</div>
-      <RadioGroup className="flex" defaultValue="graduate">
+      <>기간</>
+      <RadioGroup
+        className="flex"
+        defaultValue="graduate"
+        value={status}
+        onValueChange={(value) => setStatus(value as EducationStatus)}
+      >
         <div className="flex items-center gap-2">
           <RadioGroupItem value="graduate" />
           <Label htmlFor="graduate">졸업</Label>

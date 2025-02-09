@@ -4,7 +4,7 @@ import Preview from "@/components/section/Preview";
 import { EXAMPLE_DOC } from "@/constant/preview";
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import dayjs from "dayjs";
+import { format } from "date-fns";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
@@ -111,16 +111,16 @@ export default function BlogPost() {
   };
 
   return (
-    <div className="w-full flex justify-center relative mb-16">
-      <article className="max-w-5xl w-full flex flex-col gap-5">
-        <div className="max-w-5xl w-full flex flex-col gap-4">
+    <div className="relative mb-16 flex w-full justify-center">
+      <article className="flex w-full max-w-5xl flex-col gap-5">
+        <div className="flex w-full max-w-5xl flex-col gap-4">
           <h1 ref={titleRef} className="text-5xl font-bold leading-relaxed">
             제목을 뭘로 할까요?
           </h1>
           {/* 작성자 */}
           <div className="flex items-center gap-2">
             <Link
-              className="font-bold text-base hover:underline"
+              className="text-base font-bold hover:underline"
               href={`/${username}`}
             >
               {username}
@@ -128,7 +128,7 @@ export default function BlogPost() {
             <p>⁝</p>
             {/* 작성일 */}
             <p className="text-gray-400">
-              {dayjs(new Date()).format("YYYY년 MM월 DD일")}
+              {format(new Date(), "yyyy년 MM월 dd일")}
             </p>
           </div>
           {/* 카테고리 */}
@@ -138,7 +138,7 @@ export default function BlogPost() {
             <Category key="3" category="React" />
             <Category key="4" category="Next.js" />
           </div>
-          <div className="w-full h-[1px] bg-gray-200" />
+          <div className="h-[1px] w-full bg-gray-200" />
           {/* 광고 */}
           <div className="relative flex">
             <Preview doc={EXAMPLE_DOC} />
@@ -147,10 +147,10 @@ export default function BlogPost() {
       </article>
 
       {/* TOC를 article 밖으로 분리 */}
-      <div className="w-48 ml-8">
+      <div className="ml-8 w-48">
         <nav
           className={cn(
-            "p-4 border-l-4",
+            "border-l-4 p-4",
             !inView ? "fixed top-[110px]" : "absolute top-48"
           )}
         >
@@ -160,12 +160,12 @@ export default function BlogPost() {
                 key={index}
                 onClick={() => goToHeading(heading)}
                 className={cn(
-                  "text-base hover:font-bold hover:text-black cursor-pointer text-gray-400 transition-colors",
+                  "cursor-pointer text-base text-gray-400 transition-colors hover:font-bold hover:text-black",
                   heading.level === 1 || heading.level === 2
                     ? "pl-0"
                     : heading.level === 3
-                    ? "pl-4"
-                    : "pl-8",
+                      ? "pl-4"
+                      : "pl-8",
                   // activeId와 일치하면 볼드 처리
                   activeId === heading.id && "font-bold text-black"
                 )}
