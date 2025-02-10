@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import useCodemirror from "@/hooks/useCodemirror";
 import { EditorState } from "@codemirror/state";
 import Toolbar from "./Toolbar";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/cn";
 
 interface Props {
   initialDoc: string;
@@ -31,11 +31,11 @@ export default function Editor({
     <div
       role="article"
       aria-label="editor-section"
-      className="relative flex flex-col gap-3 w-full box-border h-full mb-16"
+      className="relative mb-16 box-border flex h-full w-full flex-col gap-3"
     >
       <div
         className={cn(
-          "flex w-full flex-wrap items-center sticky top-[141px] bg-white z-10 p-2 border-y border-gray-200 transition-colors",
+          "sticky top-[141px] z-10 flex w-full flex-wrap items-center border-y border-gray-200 bg-white p-2 transition-colors",
           isCategoryInputFocused && "border-t-1 border-t-black"
         )}
       >

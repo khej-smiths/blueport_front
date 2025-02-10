@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import Editor from ".";
-import { EXAMPLE_DOC } from "@/constant/preview";
+import { EXAMPLE_DOC } from "@/shared/constant/preview";
 
 describe("Editor | ", () => {
   it("렌더링이 정상적으로 이루어져야 합니다", () => {

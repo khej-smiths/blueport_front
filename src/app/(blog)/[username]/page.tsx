@@ -3,21 +3,21 @@
 import PostCard from "@/components/section/PostCard";
 import Profile from "@/components/section/Profile";
 import Loading from "@/components/common/Loading";
-import Category from "@/components/common/Category";
+import Category from "@/entities/category";
 import { useParams } from "next/navigation";
 
 export default function Blog() {
   const { username } = useParams();
 
   return (
-    <main className="min-h-dvh mt-16 flex flex-col items-center bg-white mb-16">
-      <article className="max-w-7xl flex flex-col gap-16 p-8">
+    <main className="mb-16 mt-16 flex min-h-dvh flex-col items-center bg-white">
+      <article className="flex max-w-7xl flex-col gap-16 p-8">
         <Profile />
 
         {/* 최신 글 섹션 */}
         <section className="">
-          <h3 className="text-2xl font-bold mb-6">최신 글</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <h3 className="mb-6 text-2xl font-bold">최신 글</h3>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3].map((i) => (
               <PostCard.Vertical
                 key={i}
@@ -30,7 +30,7 @@ export default function Blog() {
 
         {/* 카테고리 섹션 */}
         <section className="">
-          <h3 className="text-2xl font-bold mb-6">카테고리</h3>
+          <h3 className="mb-6 text-2xl font-bold">카테고리</h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
             <Category key="all" category="전체" total={12} />
             {[

@@ -1,4 +1,4 @@
-import Container from "@/components/common/Container";
+import Container from "@/shared/ui/Container";
 import AboutForm from "./_components/AboutForm";
 
 export default function ManageAbout() {

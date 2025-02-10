@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import menuTree from "./menuTree";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/cn";
 import { usePathname } from "next/navigation";
 
 export default function LNB() {

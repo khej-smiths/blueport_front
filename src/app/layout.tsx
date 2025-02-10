@@ -5,11 +5,9 @@ import "./globals.css";
 import "../style/prismTheme.css";
 import Footer from "@/components/section/Footer";
 import { Plus } from "lucide-react";
-import FloatingButton from "@/components/common/FloatingButton";
+import { AlertDialog, useDialogStore, Toaster } from "@/shared";
+import { FloatingButton } from "@/features/FloatingButton";
 import { usePathname, useRouter } from "next/navigation";
-import { Toaster } from "@/components/common/Sonner";
-import { AlertDialog } from "@/components/common/Dialog/DialogStyle";
-import { useDialogStore } from "@/store/dialog";
 
 const pretendard = localFont({
   src: "../assets/fonts/PretendardVariable.woff2",

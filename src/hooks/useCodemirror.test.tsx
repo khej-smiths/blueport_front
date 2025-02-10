@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import useCodemirror from "./useCodemirror";
-import { EXAMPLE_DOC } from "@/constant/preview";
+import { EXAMPLE_DOC } from "@/shared/constant/preview";
 
 describe("useCodemirror", () => {
   const onChange = jest.fn();

@@ -1,4 +1,4 @@
-import route from "@/constant/route";
+import route from "@/shared/constant/route";
 
 interface MenuTree {
   title: string;

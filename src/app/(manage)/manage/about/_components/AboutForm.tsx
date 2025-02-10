@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/common/Button";
-import Category from "@/components/common/Category";
+import { Button } from "@/shared/ui/Button";
+import Category from "@/entities/category";
 import FileUpload from "@/components/common/FileUpload";
 import { Input } from "@/components/common/Input";
 import FormLabel from "@/components/common/FormLabel";

@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 
 import Preview from ".";
-import { EXAMPLE_DOC } from "@/constant/preview";
+import { EXAMPLE_DOC } from "@/shared/constant/preview";
 
 // useProcessor 훅의 결과를 모킹
 jest.mock("@/hooks/useProcessor", () => ({

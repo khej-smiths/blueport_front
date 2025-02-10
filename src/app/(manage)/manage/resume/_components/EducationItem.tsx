@@ -2,8 +2,8 @@
 
 import { Dispatch, SetStateAction, useState } from "react";
 import { EducationDto } from "../page";
-import { Button } from "@/components/common/Button";
-import { useDialogStore } from "@/store/dialog";
+import { Button } from "@/shared/ui/Button";
+import { useDialogStore } from "@/shared/store/dialog";
 import { Input } from "@/components/common/Input";
 import { Pencil, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";

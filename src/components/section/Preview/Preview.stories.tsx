@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Preview from ".";
-import { EXAMPLE_DOC } from "@/constant/preview";
+import { EXAMPLE_DOC } from "@/shared/constant/preview";
 
 const meta: Meta<typeof Preview> = {
   title: "Components/Section/Preview",

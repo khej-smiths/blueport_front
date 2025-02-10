@@ -1,7 +1,7 @@
 "use client";
 
 import Preview from "@/components/section/Preview";
-import { EXAMPLE_DOC } from "@/constant/preview";
+import { EXAMPLE_DOC } from "@/shared/constant/preview";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { format } from "date-fns";
@@ -10,9 +10,9 @@ import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/shared/lib/cn";
 import { Heading as MdastHeading, PhrasingContent, Text } from "mdast";
-import Category from "@/components/common/Category";
+import Category from "@/entities/category";
 import { useInView } from "motion/react";
 
 interface Heading {

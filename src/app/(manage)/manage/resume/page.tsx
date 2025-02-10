@@ -1,10 +1,10 @@
 "use client";
 
-import Container from "@/components/common/Container";
+import { Container } from "@/shared/ui/Container";
 import SectionTitle from "@/components/common/SectionTitle";
 import EducationItem from "./_components/EducationItem";
 import { useState } from "react";
-import SearchSchoolDialog from "@/components/common/Dialog/SearchSchoolDialog";
+import SearchSchoolDialog from "@/features/SearchDialog/ui";
 import { v4 as uuid } from "uuid";
 
 export interface EducationDto {

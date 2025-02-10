@@ -1,13 +1,13 @@
 "use client";
 
 import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
-import { Button } from "@/components/common/Button";
-import Category from "@/components/common/Category";
+import { Button } from "@/shared/ui/Button";
+import Category from "@/entities/category";
 import { Input } from "@/components/common/Input";
 import Editor from "@/components/section/Editor";
 import Preview from "@/components/section/Preview";
-import { EXAMPLE_DOC } from "@/constant/preview";
-import { cn } from "@/lib/utils";
+import { EXAMPLE_DOC } from "@/shared/constant/preview";
+import { cn } from "@/shared/lib/cn";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 

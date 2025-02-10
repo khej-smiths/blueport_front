@@ -10,7 +10,7 @@ import {
   MdCode,
 } from "react-icons/md";
 import { EditorSelection } from "@codemirror/state";
-import imageUpload from "@/utils/imageUpload";
+import { imageUpload } from "@/shared";
 
 interface Props {
   editorView: EditorView | undefined;
@@ -18,14 +18,14 @@ interface Props {
 
 export function Heading({ level }: { level: string }) {
   return (
-    <div className="text-[1rem] font-bold font-[serif]">
+    <div className="font-[serif] text-[1rem] font-bold">
       H<span className="text-[0.75rem]">{level}</span>
     </div>
   );
 }
 
 function Separator() {
-  return <div className="w-[1px] h-[1.25rem] mx-2 bg-[#dee2e6]" />;
+  return <div className="mx-2 h-[1.25rem] w-[1px] bg-[#dee2e6]" />;
 }
 
 export default function Toolbar({ editorView }: Props) {
@@ -344,7 +344,7 @@ export default function Toolbar({ editorView }: Props) {
   return (
     <div
       id="editor_toolbar"
-      className="flex w-full flex-wrap items-center sticky top-0"
+      className="sticky top-0 flex w-full flex-wrap items-center"
     >
       <ToolbarItem
         icon={<Heading level={"1"} />}
