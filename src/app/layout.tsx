@@ -2,11 +2,12 @@
 
 import localFont from "next/font/local";
 import "./globals.css";
-import "../style/prismTheme.css";
-import Footer from "@/components/section/Footer";
+import "./prismTheme.css";
 import { Plus } from "lucide-react";
+
 import { AlertDialog, useDialogStore, Toaster } from "@/shared";
-import { FloatingButton } from "@/features/FloatingButton";
+import { FloatingButton } from "@/features";
+import { Footer } from "@/widgets";
 import { usePathname, useRouter } from "next/navigation";
 
 const pretendard = localFont({

@@ -1,9 +1,12 @@
 import { Plus } from "lucide-react";
 
 import { Button } from "@/shared";
-import { AddItemButtonProps } from "../model/type";
 
-export function AddItemButton({ onClick }: AddItemButtonProps) {
+interface Props {
+  onClick?: () => void;
+}
+
+export function AddItemButton({ onClick }: Props) {
   return (
     <Button
       className="size-8 rounded-sm p-0"

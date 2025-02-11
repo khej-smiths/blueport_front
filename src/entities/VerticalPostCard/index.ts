@@ -1,0 +1,1 @@
+export { VerticalPostCard } from "./ui";

@@ -1,7 +1,10 @@
 import { cn } from "../../lib/cn";
-import { LogoProps } from "../../types/logo";
 
-export function Logo({ size = "md" }: LogoProps) {
+interface Props {
+  size?: "sm" | "md";
+}
+
+export function Logo({ size = "md" }: Props) {
   return (
     <div className="flex w-full flex-row">
       <h1 className="flex flex-row items-baseline" aria-label="P.log">

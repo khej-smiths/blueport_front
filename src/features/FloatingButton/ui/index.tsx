@@ -1,12 +1,17 @@
 import { cn, Button } from "@/shared";
-import { FloatingButtonProps } from "../model/type";
+
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon: React.ReactNode;
+  position?: string;
+  animation?: boolean;
+}
 
 export function FloatingButton({
   icon,
   position = "",
   animation = true,
   ...props
-}: FloatingButtonProps) {
+}: Props) {
   const { className, ...rest } = props;
   return (
     <Button

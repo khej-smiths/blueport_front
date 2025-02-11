@@ -1,0 +1,1 @@
+export { LandingAbout } from "./ui";

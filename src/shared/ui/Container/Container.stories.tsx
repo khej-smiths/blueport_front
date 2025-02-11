@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Container } from ".";
-import H1 from "@/components/section/Preview/H1";
-import Blockquote from "@/components/section/Preview/Blockquote";
+import H1 from "@/shared/ui/H1";
+import Blockquote from "@/shared/ui/Blockquote";
 
 const meta: Meta<typeof Container> = {
   title: "Components/Common/Container",

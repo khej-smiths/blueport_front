@@ -1,9 +1,12 @@
 import * as React from "react";
 
-import { InputProps } from "../../types/input";
 import { cn } from "../../lib/cn";
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  variant?: "default" | "underline" | "borderless";
+}
+
+const Input = React.forwardRef<HTMLInputElement, Props>(
   ({ className, type, variant = "default", ...props }, ref) => {
     return (
       <input

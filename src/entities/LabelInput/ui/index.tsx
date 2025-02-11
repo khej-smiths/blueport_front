@@ -1,12 +1,12 @@
 import { cn, Input, FormLabel } from "@/shared";
-import { LabelInputProps } from "../model/type";
 
-export function LabelInput({
-  children,
-  required,
-  labelStyle,
-  ...rest
-}: LabelInputProps) {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  children: React.ReactNode;
+  labelStyle?: React.HTMLAttributes<HTMLSpanElement>["className"];
+  required?: boolean;
+}
+
+export function LabelInput({ children, required, labelStyle, ...rest }: Props) {
   const { className, ...props } = rest;
 
   return (
