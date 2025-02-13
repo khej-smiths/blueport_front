@@ -9,17 +9,6 @@ export { Loading } from "./ui/Loading";
 export { Logo } from "./ui/Logo";
 export { Toaster } from "./ui/Sonner";
 export { Textarea } from "./ui/Textarea";
-// -- EditorPreview
-// export { Blockquote } from "./ui/Blockquote";
-// export { Code } from "./ui/Code";
-// export { H1 } from "./ui/H1";
-// export { H2 } from "./ui/H2";
-// export { H3 } from "./ui/H3";
-// export { H4 } from "./ui/H4";
-// export { Hyperlink } from "./ui/Hyperlink";
-// export { OrderedList } from "./ui/OrderedList";
-// export { Pre } from "./ui/Pre";
-// export { UnorderedList } from "./ui/UnorderedList";
 export * from "./ui/Dialog";
 export * from "./ui/Select";
 export * from "./ui/RadioGroup";

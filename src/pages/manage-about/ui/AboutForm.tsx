@@ -1,12 +1,8 @@
 "use client";
 
-import { Button } from "@/shared/ui/Button";
-import Category from "@/entities/category";
-import FileUpload from "@/components/common/FileUpload";
-import { Input } from "@/components/common/Input";
-import FormLabel from "@/components/common/FormLabel";
-import LabelInput from "@/components/common/LabelInput";
-import { Textarea } from "@/components/common/Textarea";
+import { LabelInput } from "@/entities";
+import { FileUpload } from "@/features";
+import { Button, Category, FormLabel, Input, Textarea } from "@/shared";
 import Image from "next/image";
 import { useFormState } from "react-dom";
 
@@ -18,7 +14,7 @@ interface AboutFormState {
   skills: string[];
 }
 
-export default function AboutForm() {
+export function AboutForm() {
   const handleSubmit = async (
     initalState: AboutFormState,
     formData: FormData
@@ -33,6 +29,7 @@ export default function AboutForm() {
     description: "",
     skills: [],
   });
+
   return (
     <form className="flex flex-col gap-4" action={formAction}>
       <div className="flex gap-6">

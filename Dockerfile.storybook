@@ -5,7 +5,7 @@ FROM node:22-alpine
 WORKDIR /app
 
 # pnpm 설치
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN npm install -g pnpm
 
 # package.json과 pnpm-lock.yaml 복사
 COPY package.json pnpm-lock.yaml ./

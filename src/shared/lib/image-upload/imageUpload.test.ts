@@ -1,5 +1,5 @@
 import { EditorView } from "@codemirror/view";
-import imageUpload from ".";
+import { imageUpload } from ".";
 
 describe("imageUpload", () => {
   let mockEditorView: EditorView;

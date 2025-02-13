@@ -1,5 +1,4 @@
-import LNB from "@/components/section/LNB";
-import ManageGNB from "@/components/section/ManageGNB";
+import { LNB, ManageGNB } from "@/widgets";
 
 export default function ManageLayout({
   children,

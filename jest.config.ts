@@ -5,6 +5,7 @@
 
 import type { Config } from "jest";
 import nextJest from "next/jest";
+import path from "path";
 
 const createJestConfig = nextJest({
   // Next.js 앱의 경로를 제공하여 테스트 환경에서 next.config.js와 .env 파일을 로드합니다
@@ -50,7 +51,7 @@ const config: Config = {
   // 모듈 경로 매핑 설정
   moduleNameMapper: {
     // src 디렉토리의 절대 경로 지원
-    "^@/(.*)$": "<rootDir>/src/$1",
+    "@/(.*)": path.join(__dirname, "src/$1"),
     // 이미지/스타일 파일 모의 처리
     "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js",
     // CSS 모듈 모킹

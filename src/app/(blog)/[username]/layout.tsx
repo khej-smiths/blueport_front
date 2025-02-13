@@ -1,4 +1,4 @@
-import GNB from "@/components/section/GNB";
+import { GNB } from "@/widgets";
 
 export default function BlogLayout({
   children,
@@ -6,7 +6,7 @@ export default function BlogLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <section className="flex flex-col gap-5 min-h-dvh">
+    <section className="flex min-h-dvh flex-col gap-5">
       <GNB />
       {children}
     </section>

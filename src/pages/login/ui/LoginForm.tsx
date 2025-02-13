@@ -1,9 +1,9 @@
 "use client";
 
-import { Input } from "@/components/common/Input";
-import { Button } from "@/shared/ui/Button";
 import { useFormState } from "react-dom";
-import { action } from "./action";
+
+import { action } from "../model/action";
+import { Button, Input } from "@/shared";
 
 export default function LoginForm() {
   const [state, dispatch] = useFormState(action, null);

@@ -7,3 +7,4 @@ export { Profile } from "./Profile";
 export { RecentPostList } from "./RecentPostLIst";
 export { PopularPostList } from "./PopularPostList";
 export { LandingIntro } from "./LandingIntro";
+export { LandingAbout } from "./LandingAbout";

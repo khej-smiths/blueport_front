@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react";
-import useCodemirror from "./useCodemirror";
+import { useCodemirror } from "./useCodemirror";
 import { EXAMPLE_DOC } from "@/shared/constant/preview";
 
 describe("useCodemirror", () => {

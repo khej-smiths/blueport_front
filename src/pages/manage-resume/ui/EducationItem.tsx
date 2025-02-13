@@ -1,14 +1,17 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { EducationDto } from "../page";
-import { Button } from "@/shared/ui/Button";
-import { useDialogStore } from "@/shared/store/dialog";
-import { Input } from "@/components/common/Input";
 import { Pencil, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { RadioGroup, RadioGroupItem } from "@/components/common/RadioGroup";
-import { Label } from "@/components/common/Label";
+import { EducationDto } from ".";
+import {
+  Button,
+  Input,
+  Label,
+  RadioGroup,
+  RadioGroupItem,
+  useDialogStore,
+} from "@/shared";
 
 interface EducationItemProps {
   key: React.Key;
@@ -18,10 +21,7 @@ interface EducationItemProps {
 
 type EducationStatus = "graduate" | "attend" | "expected";
 
-export default function EducationItem({
-  item,
-  setEducationList,
-}: EducationItemProps) {
+export function EducationItem({ item, setEducationList }: EducationItemProps) {
   const [status, setStatus] = useState<EducationStatus>("graduate");
   const [isEdit, setIsEdit] = useState(false);
   const { setDialog } = useDialogStore();

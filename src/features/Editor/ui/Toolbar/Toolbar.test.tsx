@@ -3,7 +3,7 @@ import { EditorView } from "@codemirror/view";
 import { Toolbar } from ".";
 
 // imageUpload 모킹
-jest.mock("@/utils/imageUpload", () => ({
+jest.mock("@/shared/lib/imageUpload", () => ({
   __esModule: true,
   default: jest.fn(),
 }));

@@ -1,15 +1,5 @@
-import Container from "@/shared/ui/Container";
-import AboutForm from "./_components/AboutForm";
+import { ManageAboutPage } from "@/pages";
 
-export default function ManageAbout() {
-  return (
-    <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
-      <Container>
-        <h1 className="text-h1 font-bold">블로그 설정</h1>
-      </Container>
-      <Container>
-        <AboutForm />
-      </Container>
-    </article>
-  );
+export default function Page() {
+  return <ManageAboutPage />;
 }

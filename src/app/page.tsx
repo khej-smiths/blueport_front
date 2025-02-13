@@ -1,15 +1,20 @@
-import Landing from "@/components/section/Landing";
+import {
+  LandingAbout,
+  LandingIntro,
+  PopularPostList,
+  RecentPostList,
+} from "@/widgets";
 
 export default function Home() {
   return (
-    <article className="min-h-dvh flex justify-center mb-16">
-      <div className="flex flex-col max-w-7xl w-full py-24 gap-12">
-        <Landing.Intro />
-        <Landing.About />
-        <Landing.About right />
+    <article className="mb-16 flex min-h-dvh justify-center">
+      <div className="flex w-full max-w-7xl flex-col gap-12 py-24">
+        <LandingIntro />
+        <LandingAbout />
+        <LandingAbout right />
         <div className="flex flex-row gap-5">
-          <Landing.PopularPostList />
-          <Landing.RecentPostList />
+          <PopularPostList />
+          <RecentPostList />
         </div>
       </div>
     </article>

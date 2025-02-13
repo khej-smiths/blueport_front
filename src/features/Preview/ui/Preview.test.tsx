@@ -4,7 +4,7 @@ import { Preview } from ".";
 import { EXAMPLE_DOC } from "@/shared";
 
 // useProcessor 훅의 결과를 모킹
-jest.mock("@/hooks/useProcessor", () => ({
+jest.mock("@/shared/hooks/useProcessor", () => ({
   __esModule: true,
   default: (doc: string) => doc,
 }));
