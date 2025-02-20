@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/shared";
 import { usePathname } from "next/navigation";
 import { MenuTree } from "../model/type";

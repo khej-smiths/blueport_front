@@ -1,9 +1,10 @@
+import { vi } from "vitest";
 import { renderHook } from "@testing-library/react";
 import { useCodemirror } from "./useCodemirror";
 import { EXAMPLE_DOC } from "@/shared/constant/preview";
 
 describe("useCodemirror", () => {
-  const onChange = jest.fn();
+  const onChange = vi.fn();
 
   beforeEach(() => {
     onChange.mockClear();

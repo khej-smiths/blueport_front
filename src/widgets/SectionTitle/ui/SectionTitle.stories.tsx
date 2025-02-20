@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { SectionTitle } from "../../../features/manage-resume/ui/SectionTitle";
+import { SectionTitle } from ".";
 
 const meta: Meta<typeof SectionTitle> = {
   title: "Components/Common/SectionTItle",

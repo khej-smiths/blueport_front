@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { SectionTitle } from "../../../features/manage-resume/ui/SectionTitle";
+import { SectionTitle } from ".";
 
 describe("SectionTitle | ", () => {
   it("제목 요소가 정상적으로 렌더링 되어야 합니다", () => {

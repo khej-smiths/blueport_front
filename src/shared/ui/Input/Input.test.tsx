@@ -1,3 +1,4 @@
+import { vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Input } from ".";
 
@@ -15,7 +16,7 @@ describe("Input 컴포넌트", () => {
   });
 
   it("onChange 이벤트가 정상적으로 동작해야 합니다", () => {
-    const onChange = jest.fn();
+    const onChange = vi.fn();
     render(<Input onChange={onChange} />);
 
     const input = screen.getByRole("textbox");

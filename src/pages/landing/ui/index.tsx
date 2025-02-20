@@ -5,7 +5,7 @@ import {
   RecentPostList,
 } from "@/widgets";
 
-export default function Home() {
+export function Landing() {
   return (
     <article className="mb-16 flex min-h-dvh justify-center">
       <div className="flex w-full max-w-7xl flex-col gap-12 py-24">

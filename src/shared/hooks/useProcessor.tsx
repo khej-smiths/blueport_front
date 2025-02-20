@@ -1,3 +1,5 @@
+"use client";
+
 import { Fragment, createElement, useEffect, useState } from "react";
 import * as prod from "react/jsx-runtime";
 import { unified } from "unified";

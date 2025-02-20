@@ -1,3 +1,4 @@
+import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 import { EditorView } from "@codemirror/view";
 import { imageUpload } from ".";
 
@@ -14,22 +15,22 @@ describe("imageUpload", () => {
           },
         },
       },
-      dispatch: jest.fn(),
+      dispatch: vi.fn(),
     } as unknown as EditorView;
 
     // fetch 전역 모킹
-    global.fetch = jest.fn();
+    global.fetch = vi.fn();
   });
 
   afterEach(() => {
-    jest.clearAllMocks();
+    vi.clearAllMocks();
   });
 
   it("이미지 업로드 성공 시 마크다운 문법이 삽입되어야 합니다", async () => {
     const mockFile = new File(["test"], "test.png", { type: "image/png" });
     const mockImageUrl = "https://example.com/image.png";
 
-    (global.fetch as jest.Mock).mockResolvedValueOnce({
+    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
       json: () => Promise.resolve({ imageUrl: mockImageUrl }),
     });
 
@@ -52,9 +53,9 @@ describe("imageUpload", () => {
 
   it("이미지 업로드 실패 시 에러 메시지가 삽입되어야 합니다", async () => {
     const mockFile = new File(["test"], "test.png", { type: "image/png" });
-    const consoleErrorSpy = jest.spyOn(console, "error");
+    const consoleErrorSpy = vi.spyOn(console, "error");
 
-    (global.fetch as jest.Mock).mockRejectedValueOnce(
+    (global.fetch as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
       new Error("Upload failed")
     );
 

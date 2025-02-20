@@ -11,7 +11,7 @@ import { Footer } from "@/widgets";
 import { usePathname, useRouter } from "next/navigation";
 
 const pretendard = localFont({
-  src: "../assets/fonts/PretendardVariable.woff2",
+  src: "../src/shared/assets/fonts/PretendardVariable.woff2",
   display: "swap",
   weight: "45 920",
   variable: "--pretendard",
@@ -26,7 +26,7 @@ export default function RootLayout({
   const pathname = usePathname();
   const { dialog } = useDialogStore();
 
-  const isEditor = pathname.includes("/editor");
+  const isEditor = pathname?.includes("/editor");
 
   return (
     <html lang="ko">

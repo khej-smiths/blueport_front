@@ -7,6 +7,9 @@ WORKDIR /app
 # pnpm 설치
 RUN npm install -g pnpm
 
+# 테스트 결과 파일을 위한 디렉토리 생성 및 권한 설정
+RUN mkdir -p /app && chmod 777 /app
+
 # package.json과 pnpm-lock.yaml 복사
 COPY package.json pnpm-lock.yaml ./
 
@@ -16,7 +19,7 @@ RUN pnpm install
 # 소스 코드 복사
 COPY . .
 
-# Jest 테스트 실행 및 결과 파일 생성
+# vitest 테스트 실행 및 결과 파일 생성
 RUN pnpm run test:storybook
 
 # Storybook 포트 노출

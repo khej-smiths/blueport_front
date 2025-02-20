@@ -1,16 +1,16 @@
+import { vi, describe, it, expect, beforeEach } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { EditorView } from "@codemirror/view";
 import { Toolbar } from ".";
 
 // imageUpload 모킹
-jest.mock("@/shared/lib/imageUpload", () => ({
-  __esModule: true,
-  default: jest.fn(),
+vi.mock("../../../../shared/lib/imageUpload", () => ({
+  imageUpload: vi.fn(),
 }));
 
 // EditorView Mock
-const mockDispatch = jest.fn();
-const mockFocus = jest.fn();
+const mockDispatch = vi.fn();
+const mockFocus = vi.fn();
 const mockSelection = {
   main: {
     from: 0,
@@ -23,8 +23,8 @@ const mockEditorView = {
   state: {
     selection: mockSelection,
     doc: {
-      sliceString: jest.fn().mockReturnValue(""),
-      lineAt: jest.fn().mockReturnValue({ from: 0, to: 0, text: "" }),
+      sliceString: vi.fn().mockReturnValue(""),
+      lineAt: vi.fn().mockReturnValue({ from: 0, to: 0, text: "" }),
     },
   },
   dispatch: mockDispatch,
@@ -33,16 +33,18 @@ const mockEditorView = {
 
 describe("Toolbar | ", () => {
   beforeEach(() => {
-    jest.clearAllMocks();
-    (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue("");
+    vi.clearAllMocks();
+    (
+      mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+    ).mockReturnValue("");
   });
 
   describe("서식 핸들러 테스트", () => {
     describe("헤딩 핸들러", () => {
       it("선택된 텍스트에 H1 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const heading1Button = screen.getByText("1").closest("button");
@@ -62,9 +64,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 H2 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const heading2Button = screen.getByText("2").closest("button");
@@ -84,9 +86,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 H3 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const heading3Button = screen.getByText("3").closest("button");
@@ -106,9 +108,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 H4 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const heading4Button = screen.getByText("4").closest("button");
@@ -144,9 +146,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 볼드 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const boldButton = screen.getByTestId("format-bold");
@@ -162,9 +164,9 @@ describe("Toolbar | ", () => {
       });
 
       it("이미 볼드 처리된 텍스트의 서식을 제거해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "**샘플 텍스트**"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("**샘플 텍스트**");
 
         render(<Toolbar editorView={mockEditorView} />);
         const boldButton = screen.getByTestId("format-bold");
@@ -196,9 +198,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 이탤릭 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const italicButton = screen.getByTestId("format-italic");
@@ -230,9 +232,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 취소선 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const strikeButton = screen.getByTestId("format-strikethrough");
@@ -264,9 +266,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 인용구 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 텍스트"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 텍스트");
 
         render(<Toolbar editorView={mockEditorView} />);
         const quoteButton = screen.getByTestId("format-quote");
@@ -298,9 +300,9 @@ describe("Toolbar | ", () => {
       });
 
       it("선택된 텍스트에 코드블록 서식을 적용해야 합니다", () => {
-        (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-          "샘플 코드"
-        );
+        (
+          mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+        ).mockReturnValue("샘플 코드");
 
         render(<Toolbar editorView={mockEditorView} />);
         const codeblockButton = screen.getByTestId("format-codeblock");
@@ -319,16 +321,16 @@ describe("Toolbar | ", () => {
 
   describe("서식 제거 테스트", () => {
     beforeEach(() => {
-      jest.clearAllMocks();
+      vi.clearAllMocks();
       // selection 초기화
       mockSelection.main = { from: 0, to: 0 };
       mockSelection.ranges = [{ from: 0, to: 0 }];
     });
 
     it("볼드 서식이 적용된 '텍스트'를 선택하면 서식이 제거되어야 합니다", () => {
-      (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-        "텍스트"
-      );
+      (
+        mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+      ).mockReturnValue("텍스트");
       // selection 업데이트
       mockSelection.main = { from: 2, to: 5 };
       mockSelection.ranges = [{ from: 2, to: 5 }];
@@ -350,9 +352,9 @@ describe("Toolbar | ", () => {
     });
 
     it("이탤릭 서식이 적용된 '텍스트'를 선택하면 서식이 제거되어야 합니다", () => {
-      (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-        "텍스트"
-      );
+      (
+        mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+      ).mockReturnValue("텍스트");
       // selection 업데이트
       mockSelection.main = { from: 1, to: 4 };
       mockSelection.ranges = [{ from: 1, to: 4 }];
@@ -374,9 +376,9 @@ describe("Toolbar | ", () => {
     });
 
     it("취소선 서식이 적용된 '텍스트'를 선택하면 서식이 제거되어야 합니다", () => {
-      (mockEditorView.state.doc.sliceString as jest.Mock).mockReturnValue(
-        "텍스트"
-      );
+      (
+        mockEditorView.state.doc.sliceString as ReturnType<typeof vi.fn>
+      ).mockReturnValue("텍스트");
       // selection 업데이트
       mockSelection.main = { from: 2, to: 5 };
       mockSelection.ranges = [{ from: 2, to: 5 }];

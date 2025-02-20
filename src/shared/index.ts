@@ -17,7 +17,7 @@ export * from "./ui/RadioGroup";
 
 // Utils & Constants
 export { cn } from "./lib/cn";
-export { imageUpload } from "./lib/image-upload";
+export { imageUpload } from "./lib/imageUpload";
 export { EXAMPLE_DOC } from "./constant/preview";
 export { ROUTE } from "./constant/route";
 

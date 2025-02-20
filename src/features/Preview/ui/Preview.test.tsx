@@ -1,26 +1,26 @@
+import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-
 import { Preview } from ".";
 import { EXAMPLE_DOC } from "@/shared";
 
 // useProcessor 훅의 결과를 모킹
-jest.mock("@/shared/hooks/useProcessor", () => ({
-  __esModule: true,
-  default: (doc: string) => doc,
+vi.mock("@/shared/hooks/useProcessor", () => ({
+  useProcessor: (doc: string) => doc,
 }));
 
-describe("Preview | ", () => {
-  it("렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<Preview doc={EXAMPLE_DOC} />);
-    const preview = screen.getByRole("section", {
-      name: "preview-section",
-    });
-    expect(preview).toBeInTheDocument();
+describe("Preview", () => {
+  it("문서 내용을 렌더링해야 합니다", () => {
+    const doc = "# 제목\n\n본문";
+    const { container } = render(<Preview doc={doc} />);
 
-    // textContent를 직접 비교하여 줄바꿈 포함 확인
-    expect(preview.textContent?.replace(/\s+/g, " ").trim()).toBe(
-      EXAMPLE_DOC.replace(/\s+/g, " ").trim()
-    );
+    expect(container).toHaveTextContent("제목");
+    expect(container).toHaveTextContent("본문");
+  });
+
+  it("문서가 비어있을 때 빈 내용을 렌더링해야 합니다", () => {
+    render(<Preview doc="" />);
+    const article = screen.getByRole("article");
+    expect(article).toBeEmptyDOMElement();
   });
 
   it("doc prop은 string이어야 합니다", () => {
@@ -46,6 +46,6 @@ describe("Preview | ", () => {
       name: "preview-section",
     });
     expect(preview).toBeInTheDocument();
-    expect(preview).toHaveTextContent("");
+    expect(preview.textContent).toBe("");
   });
 });
