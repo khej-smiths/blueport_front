@@ -1,36 +1,42 @@
 "use client";
 
 import { Dispatch, SetStateAction, useState } from "react";
-import { Pencil, Trash2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { EducationDto } from ".";
+import { Trash2 } from "lucide-react";
+import { EducationDto } from "../model/type";
 import {
   Button,
   Input,
   Label,
-  RadioGroup,
-  RadioGroupItem,
+  ToggleGroup,
+  ToggleGroupItem,
   useDialogStore,
 } from "@/shared";
 
-interface EducationItemProps {
+interface Props {
   key: React.Key;
   item: EducationDto;
+  educationList: EducationDto[];
   setEducationList: Dispatch<SetStateAction<EducationDto[]>>;
 }
 
 type EducationStatus = "graduate" | "attend" | "expected";
 
-export function EducationItem({ item, setEducationList }: EducationItemProps) {
+export function EducationItem({
+  item,
+  educationList,
+  setEducationList,
+}: Props) {
   const [status, setStatus] = useState<EducationStatus>("graduate");
-  const [isEdit, setIsEdit] = useState(false);
-  const { setDialog } = useDialogStore();
+  const { setOpen } = useDialogStore();
 
   const handleOpenSearchSchool = () => {
-    setDialog(true, {
-      onConfirm: () => console.log("confirm"),
-      onClose: () => setDialog(false, undefined),
-    });
+    setOpen(true);
+  };
+
+  const handleDeleteItem = () => {
+    if (educationList.length === 1) return;
+
+    setEducationList((prev) => prev.filter((edu) => edu.id !== item.id));
   };
 
   return (
@@ -43,59 +49,24 @@ export function EducationItem({ item, setEducationList }: EducationItemProps) {
             readOnly
             value="test"
           />
-          <AnimatePresence>
-            {isEdit && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <Button onClick={handleOpenSearchSchool}>학교 찾아보기</Button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <Button onClick={handleOpenSearchSchool}>학교 찾아보기</Button>
         </div>
         <div className="flex flex-row gap-1">
           <Button
             className="size-8 rounded-sm p-0"
             variant="ghost"
-            onClick={() => setIsEdit((prev) => !prev)}
-          >
-            <Pencil className="size-4 text-gray-400" />
-          </Button>
-          <Button
-            className="size-8 rounded-sm p-0"
-            variant="ghost"
-            onClick={() =>
-              setEducationList((prev) =>
-                prev.filter((edu) => edu.id !== item.id)
-              )
-            }
+            onClick={handleDeleteItem}
           >
             <Trash2 className="size-4 text-gray-400" />
           </Button>
         </div>
       </div>
       <>기간</>
-      <RadioGroup
-        className="flex"
-        defaultValue="graduate"
-        value={status}
-        onValueChange={(value) => setStatus(value as EducationStatus)}
-      >
-        <div className="flex items-center gap-2">
-          <RadioGroupItem value="graduate" />
-          <Label htmlFor="graduate">졸업</Label>
-        </div>
-        <div className="flex items-center gap-2">
-          <RadioGroupItem value="attend" />
-          <Label htmlFor="attend">재학중</Label>
-        </div>
-        <div className="flex items-center gap-2">
-          <RadioGroupItem value="expected" />
-          <Label htmlFor="expected">졸업예정</Label>
-        </div>
-      </RadioGroup>
+      <ToggleGroup type="single" className="w-fit">
+        <ToggleGroupItem value="graduate">졸업</ToggleGroupItem>
+        <ToggleGroupItem value="attend">재학중</ToggleGroupItem>
+        <ToggleGroupItem value="expected">졸업예정</ToggleGroupItem>
+      </ToggleGroup>
     </div>
   );
 }

@@ -24,7 +24,7 @@ export default function RootLayout({
 }>) {
   const router = useRouter();
   const pathname = usePathname();
-  const { dialog } = useDialogStore();
+  const { open } = useDialogStore();
 
   const isEditor = pathname?.includes("/editor");
 
@@ -41,9 +41,7 @@ export default function RootLayout({
       <body className={`${pretendard.variable} min-h-dvh`}>
         {/* Dialog 애니메이션이 닫을때에도 정상적으로 나오려면 Dialog가 미리 렌더링 되어있어야 하며
             조건부 렌더링 시 모달을 닫을때에는 애니메이션이 재생되지 않고 모달이 사라짐 */}
-        <AlertDialog open={dialog ? dialog.open : false}>
-          {children}
-        </AlertDialog>
+        <AlertDialog open={open}>{children}</AlertDialog>
         {!isEditor && <Footer />}
         {!isEditor && (
           <FloatingButton

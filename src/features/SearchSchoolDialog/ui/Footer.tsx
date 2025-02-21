@@ -1,14 +1,12 @@
 import { AlertDialogFooter, Button, useDialogStore } from "@/shared";
 
 export const Footer = () => {
-  const { dialog } = useDialogStore();
-
+  const { setOpen } = useDialogStore();
   return (
     <AlertDialogFooter>
-      <Button variant="outline" onClick={dialog?.props?.onClose}>
+      <Button variant="outline" onClick={() => setOpen(false)}>
         닫기
       </Button>
-      <Button onClick={dialog?.props?.onConfirm}>확인</Button>
     </AlertDialogFooter>
   );
 };

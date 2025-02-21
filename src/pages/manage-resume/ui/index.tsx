@@ -6,36 +6,7 @@ import { useState } from "react";
 import { v4 as uuid } from "uuid";
 import { EducationItem } from "./EducationItem";
 import { SearchSchoolDialog } from "@/features";
-
-export interface EducationDto {
-  id: string;
-  schoolName: string;
-  admissionDate: Date | null;
-  graduationDate?: Date | null;
-}
-
-interface CareerDto {
-  companyName: string;
-  position: string;
-  description: string;
-  joinDate: Date | null;
-  quitDate?: Date | null;
-}
-
-interface ProjectDto {
-  projectName: string;
-  personnel: string;
-  skill: string[];
-  description: string;
-  startDate: Date | null;
-  endDate: Date | null;
-}
-
-interface Portfolio {
-  type: "link" | "file";
-  file?: File;
-  url?: string;
-}
+import { EducationDto } from "../model/type";
 
 const initEducation = {
   id: uuid(),
@@ -60,8 +31,6 @@ export function ManageResumePage() {
     setEducationList((prev) => [...prev, newEducation]);
   };
 
-  console.log(educationList);
-
   return (
     <>
       <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
@@ -75,6 +44,7 @@ export function ManageResumePage() {
               <EducationItem
                 key={item.id}
                 item={item}
+                educationList={educationList}
                 setEducationList={setEducationList}
               />
             ))}

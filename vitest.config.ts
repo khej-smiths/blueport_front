@@ -25,7 +25,7 @@ export default defineConfig({
     deps: {
       optimizer: {
         web: {
-          include: [/@testing-library\/react/],
+          include: [/@testing-library\/react/] as any,
         },
       },
     },
