@@ -40,16 +40,22 @@ export function EducationItem({
   };
 
   return (
-    <div className="flex flex-col gap-2 rounded-lg border p-6">
+    <div className="flex flex-col gap-5 rounded-lg border p-6">
       <div className="flex flex-row justify-between">
-        <div className="flex min-w-[330px] flex-row gap-2">
+        <div className="flex flex-row items-center gap-5">
+          <Button
+            className="min-w-[212px]"
+            variant="outline"
+            onClick={handleOpenSearchSchool}
+          >
+            학교 찾아보기
+          </Button>
           <Input
-            className="focus-visible:none hover:border-primary"
+            className="focus-visible:none w-full hover:border-primary"
             variant="underline"
             readOnly
             value="test"
           />
-          <Button onClick={handleOpenSearchSchool}>학교 찾아보기</Button>
         </div>
         <div className="flex flex-row gap-1">
           <Button
@@ -61,12 +67,25 @@ export function EducationItem({
           </Button>
         </div>
       </div>
-      <>기간</>
-      <ToggleGroup type="single" className="w-fit">
-        <ToggleGroupItem value="graduate">졸업</ToggleGroupItem>
-        <ToggleGroupItem value="attend">재학중</ToggleGroupItem>
-        <ToggleGroupItem value="expected">졸업예정</ToggleGroupItem>
-      </ToggleGroup>
+      <div className="flex flex-row items-center">
+        <Input
+          className="max-w-[430px]"
+          variant="underline"
+          placeholder="전공을 입력해 주세요"
+        />
+      </div>
+      <div className="flex flex-row items-center gap-5">
+        <ToggleGroup
+          type="single"
+          variant="outline"
+          className="w-fit max-w-[212px]"
+        >
+          <ToggleGroupItem value="graduate">졸업</ToggleGroupItem>
+          <ToggleGroupItem value="attend">재학중</ToggleGroupItem>
+          <ToggleGroupItem value="expected">졸업예정</ToggleGroupItem>
+        </ToggleGroup>
+        <>기간</>
+      </div>
     </div>
   );
 }

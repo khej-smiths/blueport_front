@@ -3,6 +3,7 @@ export interface EducationDto {
   schoolName: string;
   admissionDate: Date | null;
   graduationDate?: Date | null;
+  specialty?: string;
 }
 
 export interface CareerDto {
