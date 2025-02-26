@@ -5,6 +5,7 @@ import { Trash2 } from "lucide-react";
 import { EducationDto } from "../model/type";
 import {
   Button,
+  DatePicker,
   Input,
   Label,
   ToggleGroup,
@@ -26,6 +27,7 @@ export function EducationItem({
   educationList,
   setEducationList,
 }: Props) {
+  const [startDate, setStartDate] = useState<Date | undefined>();
   const [status, setStatus] = useState<EducationStatus>("graduate");
   const { setOpen } = useDialogStore();
 
@@ -84,7 +86,7 @@ export function EducationItem({
           <ToggleGroupItem value="attend">재학중</ToggleGroupItem>
           <ToggleGroupItem value="expected">졸업예정</ToggleGroupItem>
         </ToggleGroup>
-        <>기간</>
+        <DatePicker date={startDate} setDate={setStartDate} />
       </div>
     </div>
   );

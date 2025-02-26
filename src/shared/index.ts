@@ -9,10 +9,13 @@ export { Loading } from "./ui/Loading";
 export { Logo } from "./ui/Logo";
 export { Toaster } from "./ui/Sonner";
 export { Textarea } from "./ui/Textarea";
+export { Calendar } from "./ui/Calendar";
+export { DatePicker } from "./ui/DatePicker";
 export * from "./ui/ToggleGroup";
 export * from "./ui/Toggle";
 export * from "./ui/Dialog";
 export * from "./ui/Select";
+export * from "./ui/Popover";
 
 // Types
 
