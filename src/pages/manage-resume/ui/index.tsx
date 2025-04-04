@@ -2,33 +2,41 @@
 
 import { Container } from "@/shared";
 import { SectionTitle } from "@/widgets";
-import { useState } from "react";
-import { v4 as uuid } from "uuid";
+import { useForm, useFieldArray } from "react-hook-form";
 import { EducationItem } from "./EducationItem";
 import { SearchSchoolDialog } from "@/features";
-import { EducationDto } from "../model/type";
+import { EducationDto, ResumeForm } from "../model/type";
 
-const initEducation = {
-  id: uuid(),
+const initEducation: EducationDto = {
   schoolName: "",
-  admissionDate: null,
-  graduationDate: null,
+  educationStatus: "graduate",
+  admissionYear: "",
+  admissionMonth: "",
+  graduationYear: "",
+  graduationMonth: "",
+  specialty: "",
 };
 
 export function ManageResumePage() {
-  const [educationList, setEducationList] = useState<EducationDto[]>([
-    initEducation,
-  ]);
+  const { control, watch } = useForm<ResumeForm>({
+    defaultValues: {
+      educationList: [initEducation],
+    },
+  });
 
-  const handleAddEducationList = () => {
-    const newEducation: EducationDto = {
-      id: uuid(),
-      schoolName: "",
-      admissionDate: null,
-      graduationDate: null,
-    };
+  const {
+    fields: educationList,
+    append: educationListAppend,
+    remove: educationListRemove,
+  } = useFieldArray({
+    name: "educationList",
+    control,
+  });
 
-    setEducationList((prev) => [...prev, newEducation]);
+  const handleEducationListRemove = (index: number) => {
+    if (educationList.length === 1) return;
+
+    educationListRemove(index);
   };
 
   return (
@@ -39,13 +47,17 @@ export function ManageResumePage() {
         </Container>
         <Container className="gap-4">
           <div className="flex flex-col gap-3">
-            <SectionTitle title="학력" onClick={handleAddEducationList} />
-            {educationList.map((item) => (
+            <SectionTitle
+              title="학력"
+              onClick={() => educationListAppend(initEducation)}
+            />
+            {educationList.map((item, index) => (
               <EducationItem
                 key={item.id}
-                item={item}
-                educationList={educationList}
-                setEducationList={setEducationList}
+                index={index}
+                control={control}
+                remove={handleEducationListRemove}
+                watch={watch}
               />
             ))}
           </div>

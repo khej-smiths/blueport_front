@@ -1,9 +1,18 @@
+export interface ResumeForm {
+  educationList: EducationDto[];
+  careerList: CareerDto[];
+  projectList: ProjectDto[];
+  portfolioList: Portfolio[];
+}
+
 export interface EducationDto {
-  id: string;
   schoolName: string;
-  admissionDate: Date | null;
-  graduationDate?: Date | null;
-  specialty?: string;
+  educationStatus: EducationStatus;
+  admissionYear: string;
+  admissionMonth: string;
+  graduationYear: string;
+  graduationMonth: string;
+  specialty: string;
 }
 
 export interface CareerDto {
@@ -28,3 +37,5 @@ export interface Portfolio {
   file?: File;
   url?: string;
 }
+
+export type EducationStatus = "graduate" | "attend" | "expected";
