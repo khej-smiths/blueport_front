@@ -3,11 +3,15 @@ import { Header } from "./Header";
 import { Content } from "./Content";
 import { Footer } from "./Footer";
 
-export function SearchSchoolDialog() {
+interface Props {
+  handleSelectSchool: (schoolName: string) => void;
+}
+
+export function SearchSchoolDialog({ handleSelectSchool }: Props) {
   return (
     <AlertDialogContent>
       <Header />
-      <Content />
+      <Content handleSelectSchool={handleSelectSchool} />
       <Footer />
     </AlertDialogContent>
   );

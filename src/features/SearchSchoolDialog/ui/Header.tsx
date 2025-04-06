@@ -9,7 +9,7 @@ export const Header = () => {
     <AlertDialogHeader>
       <AlertDialogTitle>학교 찾아보기</AlertDialogTitle>
       <AlertDialogDescription>
-        학교명을 입력해 검색해주세요
+        학교를 검색 후 선택해 주세요
       </AlertDialogDescription>
     </AlertDialogHeader>
   );

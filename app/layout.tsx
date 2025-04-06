@@ -9,6 +9,7 @@ import { AlertDialog, useDialogStore, Toaster } from "@/shared";
 import { FloatingButton } from "@/features";
 import { Footer } from "@/widgets";
 import { usePathname, useRouter } from "next/navigation";
+import { Providers } from "./_provider";
 
 const pretendard = localFont({
   src: "../src/shared/assets/fonts/PretendardVariable.woff2",
@@ -39,18 +40,20 @@ export default function RootLayout({
         />
       </head>
       <body className={`${pretendard.variable} min-h-dvh`}>
-        {/* Dialog 애니메이션이 닫을때에도 정상적으로 나오려면 Dialog가 미리 렌더링 되어있어야 하며
+        <Providers>
+          {/* Dialog 애니메이션이 닫을때에도 정상적으로 나오려면 Dialog가 미리 렌더링 되어있어야 하며
             조건부 렌더링 시 모달을 닫을때에는 애니메이션이 재생되지 않고 모달이 사라짐 */}
-        <AlertDialog open={open}>{children}</AlertDialog>
-        {!isEditor && <Footer />}
-        {!isEditor && (
-          <FloatingButton
-            position="bottom-10 right-10"
-            icon={<Plus className="h-6 w-6" />}
-            onClick={() => router.push("/editor")}
-          />
-        )}
-        <Toaster theme="light" />
+          <AlertDialog open={open}>{children}</AlertDialog>
+          {!isEditor && <Footer />}
+          {!isEditor && (
+            <FloatingButton
+              position="bottom-10 right-10"
+              icon={<Plus className="h-6 w-6" />}
+              onClick={() => router.push("/editor")}
+            />
+          )}
+          <Toaster theme="light" />
+        </Providers>
       </body>
     </html>
   );

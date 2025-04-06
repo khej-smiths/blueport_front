@@ -12,6 +12,7 @@ import {
 } from "@/shared";
 import { Control, Controller, UseFormWatch } from "react-hook-form";
 import { getMonthOptions, getYearOptions } from "../consts";
+import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   key: React.Key;
@@ -19,13 +20,21 @@ interface Props {
   control: Control<ResumeForm, any>;
   remove: (index: number) => void;
   watch: UseFormWatch<ResumeForm>;
+  setModalCallerIndex: Dispatch<SetStateAction<number>>;
 }
 
-export function EducationItem({ index, control, remove, watch }: Props) {
+export function EducationItem({
+  index,
+  control,
+  remove,
+  watch,
+  setModalCallerIndex,
+}: Props) {
   const { setOpen } = useDialogStore();
 
   const handleOpenSearchSchool = () => {
     setOpen(true);
+    setModalCallerIndex(index);
   };
 
   return (
@@ -44,7 +53,7 @@ export function EducationItem({ index, control, remove, watch }: Props) {
             name={`educationList.${index}.schoolName`}
             render={({ field }) => (
               <Input
-                className="focus-visible:none w-full hover:border-primary"
+                className="focus-visible:none min-w-96 hover:border-primary"
                 variant="underline"
                 readOnly
                 value={field.value}
@@ -68,7 +77,7 @@ export function EducationItem({ index, control, remove, watch }: Props) {
           name={`educationList.${index}.specialty`}
           render={({ field }) => (
             <Input
-              className="max-w-[430px]"
+              className="max-w-[616px]"
               variant="underline"
               placeholder="전공을 입력해 주세요"
               {...field}

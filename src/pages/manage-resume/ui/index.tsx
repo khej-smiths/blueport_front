@@ -1,11 +1,12 @@
 "use client";
 
-import { Container } from "@/shared";
+import { Container, useDialogStore } from "@/shared";
 import { SectionTitle } from "@/widgets";
 import { useForm, useFieldArray } from "react-hook-form";
 import { EducationItem } from "./EducationItem";
 import { SearchSchoolDialog } from "@/features";
 import { EducationDto, ResumeForm } from "../model/type";
+import { useState } from "react";
 
 const initEducation: EducationDto = {
   schoolName: "",
@@ -18,7 +19,10 @@ const initEducation: EducationDto = {
 };
 
 export function ManageResumePage() {
-  const { control, watch } = useForm<ResumeForm>({
+  const [modalCallerIndex, setModalCallerIndex] = useState<number>(0);
+
+  const { setOpen } = useDialogStore();
+  const { control, watch, setValue } = useForm<ResumeForm>({
     defaultValues: {
       educationList: [initEducation],
     },
@@ -39,6 +43,13 @@ export function ManageResumePage() {
     educationListRemove(index);
   };
 
+  const handleSelectSchool = (schoolName: string) => {
+    setValue(`educationList.${modalCallerIndex}.schoolName`, schoolName);
+    setOpen(false);
+  };
+
+  console.log(watch());
+
   return (
     <>
       <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
@@ -58,6 +69,7 @@ export function ManageResumePage() {
                 control={control}
                 remove={handleEducationListRemove}
                 watch={watch}
+                setModalCallerIndex={setModalCallerIndex}
               />
             ))}
           </div>
@@ -84,7 +96,7 @@ export function ManageResumePage() {
           </div>
         </Container>
       </article>
-      <SearchSchoolDialog />
+      <SearchSchoolDialog handleSelectSchool={handleSelectSchool} />
     </>
   );
 }
