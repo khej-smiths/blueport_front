@@ -1,25 +1,21 @@
-import { GetSchoolListResponse } from "../../types/open";
+import { GetSchoolListRequest, GetSchoolListResponse } from "../../types/open";
 
-export const getSchoolList = async (keyword?: string) => {
+export const getSchoolList = async (params?: GetSchoolListRequest) => {
   try {
     const url = process.env.NEXT_PUBLIC_OPEN_API_ENDPOINT ?? "";
-    const params = new URLSearchParams({
-      KEY: process.env.NEXT_PUBLIC_OPEN_API_KEY ?? "",
-      Type: "json",
-      pIndex: "1",
-      pSize: "100",
-      ...(keyword ? { SCHUL_NM: keyword } : undefined),
+    const searchParams = new URLSearchParams({
+      apiKey: process.env.NEXT_PUBLIC_OPEN_API_KEY ?? "",
+      svcType: "api",
+      svcCode: "SCHOOL",
+      contentType: "json",
+      ...params,
     });
 
-    const res = await fetch(`${url}?${params}`);
+    const res = await fetch(`${url}?${searchParams}`);
 
     const data: GetSchoolListResponse = await res.json();
 
-    if ("schoolInfo" in data) {
-      return data;
-    } else {
-      return data.RESULT.MESSAGE;
-    }
+    return data.dataSearch.content;
   } catch (error) {
     console.error(error);
     throw error;

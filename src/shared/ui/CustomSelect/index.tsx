@@ -1,5 +1,9 @@
 import { SelectOption } from "../../types/common";
-import { SelectProps, SelectValueProps } from "@radix-ui/react-select";
+import {
+  SelectProps,
+  SelectTriggerProps,
+  SelectValueProps,
+} from "@radix-ui/react-select";
 import {
   Select,
   SelectContent,
@@ -11,12 +15,18 @@ import {
 interface Props extends SelectProps {
   selectOptions: SelectOption<string>[];
   placeholder: SelectValueProps["placeholder"];
+  className?: SelectTriggerProps["className"];
 }
 
-export function CustomSelect({ selectOptions, placeholder, ...rest }: Props) {
+export function CustomSelect({
+  selectOptions,
+  placeholder,
+  className,
+  ...rest
+}: Props) {
   return (
     <Select {...rest}>
-      <SelectTrigger>
+      <SelectTrigger className={className}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>

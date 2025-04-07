@@ -4,32 +4,36 @@ import { useEffect, useState } from "react";
 import { getSchoolList } from ".";
 import { QUERY_KEY } from "../../constant/queryKey";
 import { useQuery } from "@tanstack/react-query";
+import { GetSchoolListRequest } from "@/shared/types/open";
 
 // Query
 
 /** 학교 정보 조회 */
-export function useGetSchoolList(keyword?: string) {
+export function useGetSchoolList(params?: GetSchoolListRequest) {
   return useQuery({
-    queryKey: QUERY_KEY.open.getSchoolList(keyword),
+    queryKey: QUERY_KEY.open.getSchoolList(params),
     queryFn: async () => {
-      const res = await getSchoolList(keyword);
+      const res = await getSchoolList(params);
       return res;
     },
-    enabled: Boolean(keyword),
+    enabled: Boolean(params?.searchSchulNm),
   });
 }
 
 /** 학교 정보 조회 디바운싱 */
-export const useDebounceSchoolListQuery = (keyword?: string, delay = 500) => {
-  const [debouncedKeyword, setDebouncedKeyword] = useState(keyword);
+export const useDebounceSchoolListQuery = (
+  params?: GetSchoolListRequest,
+  delay = 500
+) => {
+  const [debounceParams, setDebounceParams] = useState(params);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedKeyword(keyword);
+      setDebounceParams(params);
     }, delay);
 
     return () => clearTimeout(timer);
-  }, [keyword, delay]);
+  }, [params, delay]);
 
-  return useGetSchoolList(debouncedKeyword);
+  return useGetSchoolList(debounceParams);
 };
