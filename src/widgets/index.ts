@@ -8,3 +8,4 @@ export { RecentPostList } from "./RecentPostLIst";
 export { PopularPostList } from "./PopularPostList";
 export { LandingIntro } from "./LandingIntro";
 export { LandingAbout } from "./LandingAbout";
+export { ResumeForm } from "./ResumeForm";

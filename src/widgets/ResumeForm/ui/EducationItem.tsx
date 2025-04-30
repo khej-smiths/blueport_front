@@ -1,7 +1,7 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
-import { EducationStatus, ResumeForm } from "../model/type";
+import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
 import {
   Button,
   CustomSelect,
@@ -17,9 +17,9 @@ import { Dispatch, SetStateAction } from "react";
 interface Props {
   key: React.Key;
   index: number;
-  control: Control<ResumeForm, any>;
-  remove: (index: number) => void;
-  watch: UseFormWatch<ResumeForm>;
+  control: Control<ResumeFormDto, any>;
+  remove: (index: number, type: ResumeListType) => void;
+  watch: UseFormWatch<ResumeFormDto>;
   setModalCallerIndex: Dispatch<SetStateAction<number>>;
 }
 
@@ -65,7 +65,7 @@ export function EducationItem({
           <Button
             className="size-8 rounded-sm p-0"
             variant="ghost"
-            onClick={() => remove(index)}
+            onClick={() => remove(index, "education")}
           >
             <Trash2 className="size-4 text-gray-400" />
           </Button>
