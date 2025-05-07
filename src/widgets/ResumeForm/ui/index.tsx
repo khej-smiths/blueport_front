@@ -15,7 +15,7 @@ import {
 } from "../model/type";
 import { useState } from "react";
 import { CareerItem } from "./CareerItem";
-import { ProjectItem } from "./projectItem";
+import { ProjectItem } from "./ProjectItem";
 import { PortfolioItem } from "./PortfolioItem";
 
 const initEducation: EducationDto = {
