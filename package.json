@@ -15,7 +15,8 @@
     "test:e2e:debug": "playwright test --debug",
     "test:storybook": "vitest run --reporter=json --outputFile=.jest-test-results.json || true",
     "storybook": "pnpm run test:storybook && storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
     "@codemirror/commands": "^6.7.1",
@@ -79,11 +80,17 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@0no-co/graphqlsp": "^1.12.16",
     "@chromatic-com/storybook": "3.2.3",
-    "@graphql-codegen/cli": "^5.0.5",
+    "@graphql-codegen/cli": "5.0.6",
+    "@graphql-codegen/client-preset": "4.8.1",
+    "@graphql-codegen/introspection": "4.0.3",
+    "@graphql-codegen/schema-ast": "^4.1.0",
     "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^4.6.0",
     "@graphql-codegen/typescript-react-query": "^6.1.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@parcel/watcher": "^2.5.1",
     "@playwright/test": "^1.49.1",
     "@storybook/addon-essentials": "8.4.7",
     "@storybook/addon-interactions": "8.4.7",

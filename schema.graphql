@@ -1,0 +1,151 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Blog {
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """도메인"""
+  domain: String!
+  """id"""
+  id: String!
+  """자기소개"""
+  introduction: String
+  """블로그 이름"""
+  name: String!
+  """블로그 주인 전체 정보"""
+  owner: User!
+  """프로필 사진"""
+  profilePhoto: String
+  """기술 스택"""
+  skills: String
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+}
+
+input CreateBlogInputDto {
+  """도메인"""
+  domain: String!
+  """자기소개"""
+  introduction: String
+  """블로그 이름"""
+  name: String!
+  """프로필 사진"""
+  profilePhoto: String
+  """기술 스택"""
+  skills: String
+}
+
+input CreatePostInputDto {
+  """게시글 내용"""
+  content: String!
+  """게시글의 해시태그"""
+  hashtagList: [String!]
+  """게시글의 제목"""
+  title: String!
+}
+
+input CreateUserInputDto {
+  """유저의 이메일"""
+  email: String!
+  """유저의 이름"""
+  name: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeletePostInputDto {
+  """id"""
+  id: String!
+}
+
+input LoginInputDto {
+  """유저의 이메일"""
+  email: String!
+}
+
+type Mutation {
+  """블로그 생성"""
+  createBlog(input: CreateBlogInputDto!): Blog!
+  """게시글 작성하기, 로그인 유저만 게시글 작성 가능"""
+  createPost(input: CreatePostInputDto!): Post!
+  """유저 생성"""
+  createUser(input: CreateUserInputDto!): User!
+  """게시글 삭제하기"""
+  deletePost(input: DeletePostInputDto!): Boolean!
+  """게시글 수정하기"""
+  updatePost(input: UpdatePostInputDto!): Post!
+}
+
+type Post {
+  """게시글 내용"""
+  content: String!
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """게시글의 해시태그"""
+  hashtagList: [String!]
+  """id"""
+  id: String!
+  """게시글의 제목"""
+  title: String!
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+  """게시글 작성자"""
+  writer: User!
+}
+
+type Query {
+  login(input: LoginInputDto!): String!
+  """게시글 조회하기"""
+  readPost(input: ReadPostInputDto!): Post!
+  """게시글 목록 조회하기"""
+  readPostList(input: ReadPostListInputDto!): [Post!]!
+}
+
+input ReadPostInputDto {
+  """id"""
+  id: String!
+}
+
+input ReadPostListInputDto {
+  """페이지 당 자료의 개수"""
+  limit: Int! = 10
+  """페이지 번호"""
+  pageNumber: Int! = 0
+}
+
+input UpdatePostInputDto {
+  """게시글 내용"""
+  content: String
+  """게시글의 해시태그"""
+  hashtagList: [String!]
+  """id"""
+  id: String!
+  """게시글의 제목"""
+  title: String
+}
+
+type User {
+  blog: Blog
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """유저의 이메일"""
+  email: String!
+  """id"""
+  id: String!
+  """유저의 이름"""
+  name: String!
+  postList: [Post!]
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+}

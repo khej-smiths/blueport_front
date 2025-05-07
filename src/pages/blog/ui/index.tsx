@@ -7,7 +7,8 @@ import { HorizontalPostCard, VerticalPostCard } from "@/entities";
 import { Profile } from "@/widgets";
 
 export function BlogPage() {
-  const { username } = useParams();
+  const params = useParams();
+  const username = params?.username;
 
   return (
     <main className="mb-16 mt-16 flex min-h-dvh flex-col items-center bg-white">

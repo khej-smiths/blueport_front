@@ -65,7 +65,9 @@ const getToc = (markdown: string) => {
 
 export function BlogPostPage() {
   const [activeId, setActiveId] = useState<string>("");
-  const { username } = useParams();
+  const params = useParams();
+  const username = params?.username;
+
   const headings = useMemo(() => getToc(EXAMPLE_DOC), []);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const inView = useInView(titleRef);

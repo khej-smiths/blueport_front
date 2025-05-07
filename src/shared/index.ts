@@ -37,3 +37,5 @@ export { useProcessor } from "./hooks/useProcessor";
 
 // API
 export * from "./api/open/hooks";
+export * from "./api/gql";
+export * as QUERIES from "./api/queries"
