@@ -6,7 +6,7 @@ export default function ManageLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col">
+    <div className="relative flex flex-col">
       <ManageGNB />
       <div className="flex bg-gray-100">
         <LNB />
