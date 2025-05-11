@@ -21,7 +21,7 @@ function getStartOfCurrentMonth() {
 
 interface MonthCalendarProps {
   select: Date;
-  onSelect: React.Dispatch<React.SetStateAction<Date>>;
+  onSelect?: React.Dispatch<React.SetStateAction<Date>>;
 }
 
 export default function MonthCalendar({
@@ -116,7 +116,7 @@ export default function MonthCalendar({
                   role="gridcell"
                   tabIndex={-1}
                   type="button"
-                  onClick={() => onSelect(month)}
+                  onClick={() => onSelect?.(month)}
                 >
                   <time dateTime={format(month, "yyyy-MM-dd", { locale: ko })}>
                     {format(month, "MMM", { locale: ko })}

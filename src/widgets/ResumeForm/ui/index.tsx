@@ -39,8 +39,10 @@ const initProject: ProjectDto = {
   personnel: "",
   skill: [],
   description: "",
-  startDate: null,
-  endDate: null,
+  projectDate: {
+    start: null,
+    end: null,
+  },
 };
 
 const initPortfolio: PortfolioDto = {
@@ -53,7 +55,7 @@ export function ResumeForm() {
   const [modalCallerIndex, setModalCallerIndex] = useState<number>(0);
 
   const { setOpen } = useDialogStore();
-  const { control, watch, setValue } = useForm<ResumeFormDto>({
+  const { control, watch, setValue, getValues } = useForm<ResumeFormDto>({
     defaultValues: {
       educationList: [initEducation],
       careerList: [initCareer],
@@ -181,6 +183,8 @@ export function ResumeForm() {
                 index={index}
                 control={control}
                 watch={watch}
+                setValue={setValue}
+                getValues={getValues}
                 remove={handleRemoveItem}
               />
             ))}

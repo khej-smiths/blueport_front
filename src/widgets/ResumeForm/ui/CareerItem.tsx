@@ -39,7 +39,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
 
   return (
     <div className="flex flex-col gap-5 rounded-lg border p-6">
-      <div className="flex flex-row items-center justify-between">
+      <div className="flex items-center justify-between">
         <Controller
           control={control}
           name={`careerList.${index}.companyName`}
@@ -60,7 +60,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
           <Trash2 className="size-4 text-gray-400" />
         </Button>
       </div>
-      <div className="flex flex-row items-center gap-5">
+      <div className="flex items-center gap-5">
         <ToggleGroup
           type="single"
           variant="outline"
@@ -70,7 +70,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
           <ToggleGroupItem value="working">재직중</ToggleGroupItem>
           <ToggleGroupItem value="quit">퇴직</ToggleGroupItem>
         </ToggleGroup>
-        <div className="flex flex-row gap-2">
+        <div className="flex gap-2">
           <Controller
             control={control}
             name={`careerList.${index}.joinDate`}
@@ -85,7 +85,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
         {status === "quit" && (
           <>
             <p> ~ </p>
-            <div className="flex flex-row gap-2">
+            <div className="flex gap-2">
               <Controller
                 control={control}
                 name={`careerList.${index}.quitDate`}

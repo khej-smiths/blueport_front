@@ -35,8 +35,8 @@ export function EducationItem({
 
   return (
     <div className="flex flex-col gap-5 rounded-lg border p-6">
-      <div className="flex flex-row justify-between">
-        <div className="flex flex-row items-center gap-5">
+      <div className="flex justify-between">
+        <div className="flex items-center gap-5">
           <Button
             className="min-w-[212px]"
             variant="outline"
@@ -65,7 +65,7 @@ export function EducationItem({
           <Trash2 className="size-4 text-gray-400" />
         </Button>
       </div>
-      <div className="flex flex-row items-center">
+      <div className="flex items-center">
         <Controller
           control={control}
           name={`educationList.${index}.specialty`}
@@ -79,7 +79,7 @@ export function EducationItem({
           )}
         />
       </div>
-      <div className="flex flex-row items-center gap-5">
+      <div className="flex items-center gap-5">
         <Controller
           control={control}
           name={`educationList.${index}.educationStatus`}
@@ -97,7 +97,7 @@ export function EducationItem({
             </ToggleGroup>
           )}
         />
-        <div className="flex flex-row gap-2">
+        <div className="flex gap-2">
           <Controller
             control={control}
             name={`educationList.${index}.admissionDate`}

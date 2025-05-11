@@ -26,6 +26,7 @@ export type * from "./types/open";
 // Utils & Constants
 export { cn } from "./lib/cn";
 export { imageUpload } from "./lib/imageUpload";
+export { onlyNumber } from "./lib/onlyNumber";
 export { EXAMPLE_DOC } from "./constant/preview";
 export { ROUTE } from "./constant/route";
 

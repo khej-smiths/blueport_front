@@ -26,10 +26,13 @@ export interface ProjectDto {
   personnel: string;
   skill: string[];
   description: string;
-  startDate: Date | null;
-  endDate: Date | null;
+  projectDate: ProjectDateDto;
 }
 
+interface ProjectDateDto {
+  start: Date | null;
+  end: Date | null;
+}
 export interface PortfolioDto {
   type: "link" | "file";
   file?: File;
