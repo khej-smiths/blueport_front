@@ -2,16 +2,14 @@ import { Trash2 } from "lucide-react";
 import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
 import {
   Button,
-  CustomSelect,
   Input,
+  MonthPicker,
   ToggleGroup,
   ToggleGroupItem,
   useDialogStore,
 } from "@/shared";
 import { Control, Controller, UseFormWatch } from "react-hook-form";
-import { getMonthOptions, getYearOptions } from "../consts";
 import { Dispatch, SetStateAction } from "react";
-
 interface Props {
   key: React.Key;
   index: number;
@@ -102,25 +100,11 @@ export function EducationItem({
         <div className="flex flex-row gap-2">
           <Controller
             control={control}
-            name={`educationList.${index}.admissionYear`}
+            name={`educationList.${index}.admissionDate`}
             render={({ field }) => (
-              <CustomSelect
-                selectOptions={getYearOptions()}
-                placeholder="입학 연도"
-                value={field.value}
-                onValueChange={(value) => field.onChange(value)}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name={`educationList.${index}.admissionMonth`}
-            render={({ field }) => (
-              <CustomSelect
-                selectOptions={getMonthOptions()}
-                placeholder="입학 월"
-                value={field.value}
-                onValueChange={(value) => field.onChange(value)}
+              <MonthPicker
+                date={field.value}
+                setDate={(value) => field.onChange(value)}
               />
             )}
           />
@@ -128,32 +112,16 @@ export function EducationItem({
         {watch(`educationList.${index}.educationStatus`) !== "attend" && (
           <>
             <p> ~ </p>
-            <div className="flex flex-row gap-2">
-              <Controller
-                control={control}
-                name={`educationList.${index}.graduationYear`}
-                render={({ field }) => (
-                  <CustomSelect
-                    selectOptions={getYearOptions()}
-                    placeholder="졸업 연도"
-                    value={field.value}
-                    onValueChange={(value) => field.onChange(value)}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name={`educationList.${index}.graduationMonth`}
-                render={({ field }) => (
-                  <CustomSelect
-                    selectOptions={getMonthOptions()}
-                    placeholder="졸업 월"
-                    value={field.value}
-                    onValueChange={(value) => field.onChange(value)}
-                  />
-                )}
-              />
-            </div>
+            <Controller
+              control={control}
+              name={`educationList.${index}.graduationDate`}
+              render={({ field }) => (
+                <MonthPicker
+                  date={field.value}
+                  setDate={(value) => field.onChange(value)}
+                />
+              )}
+            />
           </>
         )}
       </div>

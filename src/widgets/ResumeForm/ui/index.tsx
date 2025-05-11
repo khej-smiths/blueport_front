@@ -21,10 +21,8 @@ import { PortfolioItem } from "./PortfolioItem";
 const initEducation: EducationDto = {
   schoolName: "",
   educationStatus: "graduate",
-  admissionYear: "",
-  admissionMonth: "",
-  graduationYear: "",
-  graduationMonth: "",
+  admissionDate: null,
+  graduationDate: undefined,
   specialty: "",
 };
 
@@ -32,10 +30,8 @@ const initCareer: CareerDto = {
   companyName: "",
   position: "",
   description: "",
-  joinYear: "",
-  joinMonth: "",
-  quitYear: "",
-  quitMonth: "",
+  joinDate: null,
+  quitDate: undefined,
 };
 
 const initProject: ProjectDto = {
@@ -169,7 +165,6 @@ export function ResumeForm() {
                 key={item.id}
                 index={index}
                 control={control}
-                watch={watch}
                 setValue={setValue}
                 remove={handleRemoveItem}
               />

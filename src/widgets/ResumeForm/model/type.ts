@@ -8,21 +8,17 @@ export interface ResumeFormDto {
 export interface EducationDto {
   schoolName: string;
   educationStatus: EducationStatus;
-  admissionYear: string;
-  admissionMonth: string;
-  graduationYear: string;
-  graduationMonth: string;
   specialty: string;
+  admissionDate: Date | null;
+  graduationDate?: Date | null;
 }
 
 export interface CareerDto {
   companyName: string;
   position: string;
   description: string;
-  joinYear: string;
-  joinMonth: string;
-  quitYear?: string;
-  quitMonth?: string;
+  joinDate: Date | null;
+  quitDate?: Date | null;
 }
 
 export interface ProjectDto {

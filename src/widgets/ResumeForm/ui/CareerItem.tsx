@@ -1,36 +1,27 @@
-"use client";
-
-import {
-  Control,
-  Controller,
-  UseFormSetValue,
-  UseFormWatch,
-} from "react-hook-form";
+import { Control, Controller, UseFormSetValue } from "react-hook-form";
 import { ResumeFormDto, ResumeListType } from "../model/type";
 import {
   Button,
-  CustomSelect,
   Input,
+  MonthPicker,
   Textarea,
   ToggleGroup,
   ToggleGroupItem,
 } from "@/shared";
 import { Trash2 } from "lucide-react";
-import { getMonthOptions, getYearOptions } from "../consts";
 import { useCallback, useState } from "react";
 
 interface Props {
   key: React.Key;
   index: number;
   control: Control<ResumeFormDto, any>;
-  watch: UseFormWatch<ResumeFormDto>;
   setValue: UseFormSetValue<ResumeFormDto>;
   remove: (index: number, type: ResumeListType) => void;
 }
 
 type StatusType = "working" | "quit";
 
-export function CareerItem({ index, control, watch, setValue, remove }: Props) {
+export function CareerItem({ index, control, setValue, remove }: Props) {
   const [status, setStatus] = useState<StatusType>("working");
 
   const handleChangeStatus = useCallback(
@@ -38,8 +29,7 @@ export function CareerItem({ index, control, watch, setValue, remove }: Props) {
       setStatus(value);
 
       if (status === "quit") {
-        setValue(`careerList.${index}.quitYear`, undefined);
-        setValue(`careerList.${index}.quitMonth`, undefined);
+        setValue(`careerList.${index}.quitDate`, undefined);
       }
 
       return;
@@ -83,25 +73,11 @@ export function CareerItem({ index, control, watch, setValue, remove }: Props) {
         <div className="flex flex-row gap-2">
           <Controller
             control={control}
-            name={`careerList.${index}.joinYear`}
+            name={`careerList.${index}.joinDate`}
             render={({ field }) => (
-              <CustomSelect
-                selectOptions={getYearOptions()}
-                placeholder="입사 연도"
-                value={field.value}
-                onValueChange={(value) => field.onChange(value)}
-              />
-            )}
-          />
-          <Controller
-            control={control}
-            name={`careerList.${index}.joinMonth`}
-            render={({ field }) => (
-              <CustomSelect
-                selectOptions={getMonthOptions()}
-                placeholder="입사 월"
-                value={field.value}
-                onValueChange={(value) => field.onChange(value)}
+              <MonthPicker
+                date={field.value}
+                setDate={(value) => field.onChange(value)}
               />
             )}
           />
@@ -112,25 +88,11 @@ export function CareerItem({ index, control, watch, setValue, remove }: Props) {
             <div className="flex flex-row gap-2">
               <Controller
                 control={control}
-                name={`careerList.${index}.quitYear`}
+                name={`careerList.${index}.quitDate`}
                 render={({ field }) => (
-                  <CustomSelect
-                    selectOptions={getYearOptions()}
-                    placeholder="퇴사 연도"
-                    value={field.value}
-                    onValueChange={(value) => field.onChange(value)}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name={`careerList.${index}.quitMonth`}
-                render={({ field }) => (
-                  <CustomSelect
-                    selectOptions={getMonthOptions()}
-                    placeholder="퇴사 월"
-                    value={field.value}
-                    onValueChange={(value) => field.onChange(value)}
+                  <MonthPicker
+                    date={field.value}
+                    setDate={(value) => field.onChange(value)}
                   />
                 )}
               />

@@ -12,6 +12,7 @@ export { Textarea } from "./ui/Textarea";
 export { Calendar } from "./ui/Calendar";
 export { DatePicker } from "./ui/DatePicker";
 export { CustomSelect } from "./ui/CustomSelect";
+export { MonthPicker } from "./ui/MonthPicker";
 export * from "./ui/ToggleGroup";
 export * from "./ui/Toggle";
 export * from "./ui/Dialog";
@@ -38,4 +39,4 @@ export { useProcessor } from "./hooks/useProcessor";
 // API
 export * from "./api/open/hooks";
 export * from "./api/gql";
-export * as QUERIES from "./api/queries"
+export * as QUERIES from "./api/queries";
