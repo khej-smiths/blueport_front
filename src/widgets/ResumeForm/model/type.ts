@@ -19,8 +19,10 @@ export interface CareerDto {
   companyName: string;
   position: string;
   description: string;
-  joinDate: Date | null;
-  quitDate?: Date | null;
+  joinYear: string;
+  joinMonth: string;
+  quitYear?: string;
+  quitMonth?: string;
 }
 
 export interface ProjectDto {

@@ -1,5 +1,5 @@
 import { Container } from "@/shared";
-import { AboutForm } from "./AboutForm";
+import { AboutForm } from "@/widgets";
 
 export function ManageAboutPage() {
   return (

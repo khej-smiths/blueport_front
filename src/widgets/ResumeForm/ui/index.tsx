@@ -32,8 +32,10 @@ const initCareer: CareerDto = {
   companyName: "",
   position: "",
   description: "",
-  joinDate: null,
-  quitDate: null,
+  joinYear: "",
+  joinMonth: "",
+  quitYear: "",
+  quitMonth: "",
 };
 
 const initProject: ProjectDto = {
@@ -168,6 +170,7 @@ export function ResumeForm() {
                 index={index}
                 control={control}
                 watch={watch}
+                setValue={setValue}
                 remove={handleRemoveItem}
               />
             ))}

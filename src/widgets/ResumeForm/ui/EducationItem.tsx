@@ -1,5 +1,3 @@
-"use client";
-
 import { Trash2 } from "lucide-react";
 import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
 import {
@@ -61,15 +59,13 @@ export function EducationItem({
             )}
           />
         </div>
-        <div className="flex flex-row gap-1">
-          <Button
-            className="size-8 rounded-sm p-0"
-            variant="ghost"
-            onClick={() => remove(index, "education")}
-          >
-            <Trash2 className="size-4 text-gray-400" />
-          </Button>
-        </div>
+        <Button
+          className="size-8 rounded-sm p-0"
+          variant="ghost"
+          onClick={() => remove(index, "education")}
+        >
+          <Trash2 className="size-4 text-gray-400" />
+        </Button>
       </div>
       <div className="flex flex-row items-center">
         <Controller
