@@ -1,6 +1,6 @@
 "use client";
 
-import { Container, useDialogStore } from "@/shared";
+import { Button, Container, useDialogStore } from "@/shared";
 import { SectionTitle } from "@/widgets";
 import { useForm, useFieldArray } from "react-hook-form";
 import { EducationItem } from "./EducationItem";
@@ -47,22 +47,23 @@ const initProject: ProjectDto = {
 
 const initPortfolio: PortfolioDto = {
   type: "link",
-  url: undefined,
-  file: undefined,
+  url: "",
+  file: null,
 };
 
 export function ResumeForm() {
   const [modalCallerIndex, setModalCallerIndex] = useState<number>(0);
 
   const { setOpen } = useDialogStore();
-  const { control, watch, setValue, getValues } = useForm<ResumeFormDto>({
-    defaultValues: {
-      educationList: [initEducation],
-      careerList: [initCareer],
-      projectList: [initProject],
-      portfolioList: [initPortfolio],
-    },
-  });
+  const { control, watch, setValue, getValues, handleSubmit } =
+    useForm<ResumeFormDto>({
+      defaultValues: {
+        educationList: [initEducation],
+        careerList: [initCareer],
+        projectList: [initProject],
+        portfolioList: [initPortfolio],
+      },
+    });
 
   const {
     fields: educationList,
@@ -100,6 +101,8 @@ export function ResumeForm() {
     control,
   });
 
+  const onSubmit = handleSubmit((data) => console.log(data));
+
   const handleRemoveItem = (index: number, type: ResumeListType) => {
     if (type === "education") {
       if (educationList.length === 1) return;
@@ -132,11 +135,12 @@ export function ResumeForm() {
     setOpen(false);
   };
 
-  console.log(watch());
-
   return (
     <>
-      <article className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6">
+      <form
+        className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6"
+        onSubmit={onSubmit}
+      >
         <Container>
           <h1 className="text-h1 font-bold">이력서</h1>
         </Container>
@@ -200,12 +204,14 @@ export function ResumeForm() {
                 index={index}
                 control={control}
                 watch={watch}
+                setValue={setValue}
                 remove={handleRemoveItem}
               />
             ))}
           </div>
         </Container>
-      </article>
+        <Button type="submit">저장하기</Button>
+      </form>
       <SearchSchoolDialog handleSelectSchool={handleSelectSchool} />
     </>
   );

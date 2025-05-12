@@ -34,10 +34,12 @@ interface ProjectDateDto {
   end: Date | null;
 }
 export interface PortfolioDto {
-  type: "link" | "file";
-  file?: File;
+  type: PortfolioType;
+  file?: File | null;
   url?: string;
 }
+
+export type PortfolioType = "link" | "file";
 
 export type EducationStatus = "graduate" | "attend" | "expected";
 

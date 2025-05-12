@@ -14,7 +14,7 @@ import {
   onlyNumber,
   Textarea,
 } from "@/shared";
-import { KeyboardEvent, useCallback, useRef, useState } from "react";
+import { KeyboardEvent, useRef, useState } from "react";
 import { Trash2 } from "lucide-react";
 
 interface Props {
@@ -38,7 +38,7 @@ export function ProjectItem({
   const isComposing = useRef(false); // 리렌더링 방지를 위해 ref로 관리
   const [skillKeyword, setSkillKeyword] = useState("");
 
-  const handleAddSkill = useCallback(() => {
+  const handleAddSkill = () => {
     const currentList = getValues(`projectList.${index}.skill`);
 
     setValue(`projectList.${index}.skill`, [
@@ -47,7 +47,7 @@ export function ProjectItem({
     ]);
     setSkillKeyword("");
     return;
-  }, [skillKeyword]);
+  };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     const key = event.code;
@@ -64,7 +64,7 @@ export function ProjectItem({
       (key === "Enter" || key === "Comma" || key === "Space")
     ) {
       handleAddSkill();
-      if (key === "Comma") event.preventDefault(); // , 문자 입력 방지
+      event.preventDefault(); // , 문자 입력 방지
     }
   };
 
