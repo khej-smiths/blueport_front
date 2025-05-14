@@ -7,9 +7,7 @@ export function ManageAboutPage() {
       <Container>
         <h1 className="text-h1 font-bold">블로그 설정</h1>
       </Container>
-      <Container>
-        <AboutForm />
-      </Container>
+      <AboutForm />
     </article>
   );
 }

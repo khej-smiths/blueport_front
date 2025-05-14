@@ -1,10 +1,43 @@
+import { AboutFormDto } from "@/widgets/AboutForm/model/type";
 import { ImageUp } from "lucide-react";
+import { Dispatch, DragEvent, SetStateAction } from "react";
+import { UseFormSetValue } from "react-hook-form";
+import { toast } from "sonner";
 
-export function FileUpload() {
+interface Props {
+  setValue: UseFormSetValue<AboutFormDto>;
+  setPreview: Dispatch<SetStateAction<string>>;
+}
+
+export function FileUpload({ setValue, setPreview }: Props) {
+  const handleDropFiles = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    const fileList = event.dataTransfer.files;
+
+    if (fileList.length > 1) {
+      toast("프로필 사진은 1개만 업로드 가능합니다");
+      return;
+    }
+
+    const file = fileList[0];
+
+    if (!file) {
+      toast("프로필 사진을 가져오는데 실패했습니다");
+      return;
+    }
+
+    const image = URL.createObjectURL(file);
+
+    setValue("photo", file);
+    setPreview(image);
+  };
+
   return (
     <div
       className="h-full w-full rounded-lg border-2 border-dashed p-2"
       role="button"
+      onDrop={handleDropFiles}
+      onDragOver={(e) => e.preventDefault()}
     >
       <input
         className="hidden"
