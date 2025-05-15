@@ -1,22 +1,29 @@
 import { Trash2 } from "lucide-react";
 import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
 import {
+  AlertDialog,
+  AlertDialogTrigger,
   Button,
   Input,
   MonthPicker,
   ToggleGroup,
   ToggleGroupItem,
-  useDialogStore,
 } from "@/shared";
-import { Control, Controller, UseFormWatch } from "react-hook-form";
-import { Dispatch, SetStateAction } from "react";
+import {
+  Control,
+  Controller,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
+import { SearchSchoolDialog } from "@/features";
+import { useState } from "react";
 interface Props {
   key: React.Key;
   index: number;
   control: Control<ResumeFormDto, any>;
   remove: (index: number, type: ResumeListType) => void;
   watch: UseFormWatch<ResumeFormDto>;
-  setModalCallerIndex: Dispatch<SetStateAction<number>>;
+  setValue: UseFormSetValue<ResumeFormDto>;
 }
 
 export function EducationItem({
@@ -24,26 +31,34 @@ export function EducationItem({
   control,
   remove,
   watch,
-  setModalCallerIndex,
+  setValue,
 }: Props) {
-  const { setOpen } = useDialogStore();
+  const [open, setOpen] = useState(false);
 
-  const handleOpenSearchSchool = () => {
-    setOpen(true);
-    setModalCallerIndex(index);
+  const handleSelectSchool = (schoolName: string) => {
+    setValue(`educationList.${index}.schoolName`, schoolName);
+    setOpen(false);
   };
 
   return (
     <div className="flex flex-col gap-5 rounded-lg border p-6">
       <div className="flex justify-between">
         <div className="flex items-center gap-5">
-          <Button
-            className="min-w-[212px]"
-            variant="outline"
-            onClick={handleOpenSearchSchool}
-          >
-            학교 찾아보기
-          </Button>
+          <AlertDialog open={open}>
+            <AlertDialogTrigger>
+              <Button
+                className="min-w-[212px]"
+                variant="outline"
+                onClick={() => setOpen(true)}
+              >
+                학교 찾아보기
+              </Button>
+              <SearchSchoolDialog
+                handleSelectSchool={handleSelectSchool}
+                setOpen={setOpen}
+              />
+            </AlertDialogTrigger>
+          </AlertDialog>
           <Controller
             control={control}
             name={`educationList.${index}.schoolName`}

@@ -5,15 +5,14 @@ import { Footer } from "./Footer";
 import { Dispatch, SetStateAction } from "react";
 
 interface Props {
-  handleSelectSchool: (schoolName: string) => void;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function SearchSchoolDialog({ handleSelectSchool, setOpen }: Props) {
+export function EditorDemoModal({ setOpen }: Props) {
   return (
-    <AlertDialogContent>
+    <AlertDialogContent className="w-full max-w-96">
       <Header />
-      <Content handleSelectSchool={handleSelectSchool} />
+      <Content />
       <Footer setOpen={setOpen} />
     </AlertDialogContent>
   );

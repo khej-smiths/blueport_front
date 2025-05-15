@@ -1,5 +1,3 @@
-"use client";
-
 import {
   CustomSelect,
   Input,
@@ -14,7 +12,7 @@ interface Props {
   handleSelectSchool: (schoolName: string) => void;
 }
 
-export const Content = ({ handleSelectSchool }: Props) => {
+export function Content({ handleSelectSchool }: Props) {
   const [schoolType, setSchoolType] = useState<SchoolType>("univ_list");
   const [keyword, setKeyword] = useState("");
   const [empty, setEmpty] = useState("학교를 입력해 주세요");
@@ -80,4 +78,4 @@ export const Content = ({ handleSelectSchool }: Props) => {
       </ul>
     </div>
   );
-};
+}

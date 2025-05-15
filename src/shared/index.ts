@@ -31,7 +31,6 @@ export { EXAMPLE_DOC } from "./constant/preview";
 export { ROUTE } from "./constant/route";
 
 // Store
-export { useDialogStore } from "./store/dialog";
 
 // Hooks
 export { useRouteChangeBlocking } from "./hooks/useRouteChangeBlocking";

@@ -7,9 +7,9 @@ import {
 export function Header() {
   return (
     <AlertDialogHeader>
-      <AlertDialogTitle>학교 찾아보기</AlertDialogTitle>
+      <AlertDialogTitle>글쓰기</AlertDialogTitle>
       <AlertDialogDescription>
-        학교를 검색 후 선택해 주세요
+        글쓰기는 허가된 사용자만 작성할 수 있습니다
       </AlertDialogDescription>
     </AlertDialogHeader>
   );

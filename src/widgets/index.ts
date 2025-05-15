@@ -10,3 +10,4 @@ export { LandingIntro } from "./LandingIntro";
 export { LandingAbout } from "./LandingAbout";
 export { AboutForm } from "./AboutForm";
 export { ResumeForm } from "./ResumeForm";
+export { ClientLayoutBody } from "./ClientLayoutBody";

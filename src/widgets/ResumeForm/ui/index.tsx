@@ -1,10 +1,9 @@
 "use client";
 
-import { Button, Container, useDialogStore } from "@/shared";
+import { Button, Container } from "@/shared";
 import { SectionTitle } from "@/widgets";
 import { useForm, useFieldArray } from "react-hook-form";
 import { EducationItem } from "./EducationItem";
-import { SearchSchoolDialog } from "@/features";
 import {
   CareerDto,
   EducationDto,
@@ -13,7 +12,6 @@ import {
   ResumeFormDto,
   ResumeListType,
 } from "../model/type";
-import { useState } from "react";
 import { CareerItem } from "./CareerItem";
 import { ProjectItem } from "./ProjectItem";
 import { PortfolioItem } from "./PortfolioItem";
@@ -52,9 +50,6 @@ const initPortfolio: PortfolioDto = {
 };
 
 export function ResumeForm() {
-  const [modalCallerIndex, setModalCallerIndex] = useState<number>(0);
-
-  const { setOpen } = useDialogStore();
   const { control, watch, setValue, getValues, handleSubmit } =
     useForm<ResumeFormDto>({
       defaultValues: {
@@ -130,11 +125,6 @@ export function ResumeForm() {
     }
   };
 
-  const handleSelectSchool = (schoolName: string) => {
-    setValue(`educationList.${modalCallerIndex}.schoolName`, schoolName);
-    setOpen(false);
-  };
-
   return (
     <>
       <form
@@ -156,8 +146,8 @@ export function ResumeForm() {
                 index={index}
                 control={control}
                 watch={watch}
+                setValue={setValue}
                 remove={handleRemoveItem}
-                setModalCallerIndex={setModalCallerIndex}
               />
             ))}
           </div>
@@ -212,7 +202,6 @@ export function ResumeForm() {
         </Container>
         <Button type="submit">저장하기</Button>
       </form>
-      <SearchSchoolDialog handleSelectSchool={handleSelectSchool} />
     </>
   );
 }

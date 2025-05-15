@@ -1,12 +1,14 @@
-import { AlertDialogFooter, Button, useDialogStore } from "@/shared";
+import { AlertDialogCancel, AlertDialogFooter } from "@/shared";
+import { Dispatch, SetStateAction } from "react";
 
-export const Footer = () => {
-  const { setOpen } = useDialogStore();
+interface Props {
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+export function Footer({ setOpen }: Props) {
   return (
     <AlertDialogFooter>
-      <Button variant="outline" onClick={() => setOpen(false)}>
-        닫기
-      </Button>
+      <AlertDialogCancel onClick={() => setOpen(false)}>닫기</AlertDialogCancel>
     </AlertDialogFooter>
   );
-};
+}
