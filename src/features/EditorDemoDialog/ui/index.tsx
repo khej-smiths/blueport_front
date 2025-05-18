@@ -3,7 +3,7 @@ import { Header } from "./Header";
 import { Content } from "./Content";
 import { Footer } from "./Footer";
 
-export function EditorDemoModal() {
+export function EditorDemoDialog() {
   return (
     <AlertDialogContent className="w-full max-w-96">
       <Header />

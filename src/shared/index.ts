@@ -6,7 +6,6 @@ export { Label } from "./ui/Label";
 export { Container } from "./ui/Container";
 export { FormLabel } from "./ui/FormLabel";
 export { Loading } from "./ui/Loading";
-export { Logo } from "./ui/Logo";
 export { Toaster } from "./ui/Sonner";
 export { Textarea } from "./ui/Textarea";
 export { Calendar } from "./ui/Calendar";

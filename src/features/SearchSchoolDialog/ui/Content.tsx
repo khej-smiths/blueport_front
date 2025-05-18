@@ -1,15 +1,17 @@
+"use client";
+
 import {
   CustomSelect,
   Input,
   SchoolType,
   useDebounceSchoolListQuery,
+  OpenAPISchoolDto,
 } from "@/shared";
-import { OpenAPISchoolDto } from "@/shared";
 import { useEffect, useState } from "react";
 import { selectOptions } from "../const";
 
 interface Props {
-  handleSelectSchool: (schoolName: string) => void;
+  handleSelectSchool(schoolName: string): void;
 }
 
 export function Content({ handleSelectSchool }: Props) {
