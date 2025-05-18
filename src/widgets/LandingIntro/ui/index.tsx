@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function LandingIntro() {
   return (
     <div
@@ -5,11 +7,16 @@ export function LandingIntro() {
       aria-label="intro-section"
       className="whitespace-pre-line"
     >
-      <span className="text-7xl font-bold leading-relaxed">
-        블로그 이름을 뭘로할까요? EPlog...?
-      </span>
-      <p className="text-5xl font-thin leading-relaxed">
-        그거 아시나요 EPlog에는 에필로그라는 뜻이 있다는 사실을?
+      <div className="max-w-2xl">
+        <Image
+          src="/assets/text_logo.png"
+          alt="logo"
+          width={879}
+          height={200}
+        />
+      </div>
+      <p className="text-5xl font-thin leading-relaxed text-primary">
+        생각을 정박시키는 개발 블로그
       </p>
     </div>
   );

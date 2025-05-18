@@ -10,7 +10,7 @@ export function FormLabel({ children, required, labelStyle }: Props) {
   return (
     <div aria-label="label">
       <span className={cn("text-lg font-thin", labelStyle)}>{children}</span>
-      {required && <span className="ml-1 font-thin text-red-500">*</span>}
+      {required && <span className="ml-1 font-thin text-secondary">*</span>}
     </div>
   );
 }

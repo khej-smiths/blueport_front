@@ -7,6 +7,9 @@ export function ProfileLinks() {
       <a href="#" className="text-gray-600 hover:text-black hover:underline">
         Resume
       </a>
+      <a href="#" className="text-gray-600 hover:text-black hover:underline">
+        Email
+      </a>
     </div>
   );
 }

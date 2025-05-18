@@ -2,7 +2,9 @@ export interface AboutFormDto {
   blogName: string;
   domain: string;
   github: string;
+  head: string;
+  description: string;
   photo?: File | null;
-  description?: string;
+  email?: string;
   skills?: string[];
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import { useEditor } from "../model/useEditor";
 import { Toolbar } from "./Toolbar";
 import { cn } from "@/shared/lib/cn";
@@ -25,7 +23,7 @@ export function Editor({
       <div
         className={cn(
           "sticky top-[141px] z-10 flex w-full flex-wrap items-center border-y border-gray-200 bg-white p-2 transition-colors",
-          isCategoryInputFocused && "border-t-1 border-t-black"
+          isCategoryInputFocused && "border-t-1 border-t-primary"
         )}
       >
         <Toolbar editorView={editorView} />

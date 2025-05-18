@@ -1,6 +1,12 @@
 "use client";
 
-import { ChangeEvent, KeyboardEvent, useCallback, useState } from "react";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useRef,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -13,6 +19,9 @@ export function EditorPage() {
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");
   const [isCategoryInputFocused, setIsCategoryInputFocused] = useState(false);
+
+  const isComposition = useRef(false);
+
   const router = useRouter();
 
   const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +29,14 @@ export function EditorPage() {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if ((e.key === " " || e.key === "Enter") && category.trim()) {
+    const key = e.code;
+
+    if (isComposition.current) return;
+
+    if (
+      (key === "Space" || key === "Enter" || key === "Comma") &&
+      category.trim()
+    ) {
       e.preventDefault();
 
       if (categories.length > 9) {
@@ -33,7 +49,7 @@ export function EditorPage() {
     }
 
     if (
-      e.key === "Backspace" &&
+      key === "Backspace" &&
       categories.length > 0 &&
       category.trim() === ""
     ) {
@@ -83,6 +99,8 @@ export function EditorPage() {
               onKeyDown={handleKeyDown}
               onFocus={() => setIsCategoryInputFocused(true)}
               onBlur={() => setIsCategoryInputFocused(false)}
+              onCompositionStart={() => (isComposition.current = true)}
+              onCompositionEnd={() => (isComposition.current = false)}
               placeholder="태그를 입력하세요"
               className={cn(
                 "flex-1 text-lg placeholder:text-gray-500 placeholder:opacity-50",

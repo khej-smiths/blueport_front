@@ -9,6 +9,7 @@ import {
   FormLabel,
   Input,
   Textarea,
+  DefaultProfile
 } from "@/shared";
 import Image from "next/image";
 import { Controller, useForm } from "react-hook-form";
@@ -26,6 +27,8 @@ export function AboutForm() {
         blogName: "",
         domain: "",
         github: "",
+        head: "",
+        email: "",
         photo: null,
         description: "",
         skills: [],
@@ -104,32 +107,42 @@ export function AboutForm() {
           <div className="flex flex-col gap-2">
             <p className="text-sm text-gray-400">프로필 미리보기</p>
             <div className="flex flex-1 items-end gap-6">
-              <Image
-                className="h-[376px] w-[480px] rounded-md object-cover"
-                width={480}
-                height={376}
-                src={preview}
-                alt="profile_sample_default"
-              />
-              <Image
-                className="size-32 rounded-full object-cover"
-                width={128}
-                height={128}
-                src={preview}
-                alt="profile_sample_avatar"
-              />
+              {preview ? (
+                <>
+                  <Image
+                    className="h-[376px] w-[480px] rounded-md object-cover"
+                    width={480}
+                    height={376}
+                    src={preview}
+                    alt="profile_sample_default"
+                  />
+                  <Image
+                    className="size-32 rounded-full object-cover"
+                    width={128}
+                    height={128}
+                    src={preview}
+                    alt="profile_sample_avatar"
+                  />
+                </>
+              ) : (
+                <>
+                  <DefaultProfile variant="default" />
+                  <DefaultProfile variant="avatar" />
+                </>
+              )}
             </div>
           </div>
         </div>
         <Controller
           control={control}
-          name="github"
+          name="head"
           render={({ field }) => (
             <LabelInput
-              placeholder="github 프로필 링크를 입력해 주세요"
+              required
+              placeholder="인사말을 입력해주세요."
               {...field}
             >
-              Github
+              인사말
             </LabelInput>
           )}
         />
@@ -140,7 +153,7 @@ export function AboutForm() {
               name="description"
               render={({ field }) => (
                 <>
-                  <FormLabel>자기소개</FormLabel>
+                  <FormLabel required>자기소개</FormLabel>
                   <Textarea
                     placeholder="나를 어필할 수 있는 간단소개를 작성해보세요!"
                     {...field}
@@ -149,6 +162,27 @@ export function AboutForm() {
               )}
             />
           </div>
+          <Controller
+            control={control}
+            name="email"
+            render={({ field }) => (
+              <LabelInput placeholder="이메일을 입력해주세요." {...field}>
+                이메일
+              </LabelInput>
+            )}
+          />
+          <Controller
+            control={control}
+            name="github"
+            render={({ field }) => (
+              <LabelInput
+                placeholder="github 프로필 링크를 입력해 주세요"
+                {...field}
+              >
+                Github
+              </LabelInput>
+            )}
+          />
           <div className="flex flex-col gap-3">
             <FormLabel>기술스택</FormLabel>
             <ul className="flex gap-2">

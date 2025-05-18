@@ -13,6 +13,7 @@ export { Calendar } from "./ui/Calendar";
 export { DatePicker } from "./ui/DatePicker";
 export { CustomSelect } from "./ui/CustomSelect";
 export { MonthPicker } from "./ui/MonthPicker";
+export { DefaultProfile } from "./ui/DefaultProfile";
 export * from "./ui/ToggleGroup";
 export * from "./ui/Toggle";
 export * from "./ui/Dialog";

@@ -114,7 +114,10 @@ export function BlogPostPage() {
     <div className="relative mb-16 flex w-full justify-center">
       <article className="flex w-full max-w-5xl flex-col gap-5">
         <div className="flex w-full max-w-5xl flex-col gap-4">
-          <h1 ref={titleRef} className="text-5xl font-bold leading-relaxed">
+          <h1
+            ref={titleRef}
+            className="text-5xl font-bold leading-relaxed text-primary"
+          >
             제목을 뭘로 할까요?
           </h1>
           {/* 작성자 */}
