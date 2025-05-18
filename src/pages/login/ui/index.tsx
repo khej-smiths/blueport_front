@@ -1,19 +1,28 @@
 import Link from "next/link";
 
-import { Logo, ROUTE } from "@/shared";
+import { AlertDialog, AlertDialogTrigger, Button, ROUTE } from "@/shared";
 import LoginContainer from "./LoginContainer";
 import LoginForm from "./LoginForm";
+import Image from "next/image";
+import { SignupDialog } from "@/features";
 
 export function LoginPage() {
   return (
     <LoginContainer>
-      <Logo />
+      <Link href={ROUTE.HOME} className="w-fit">
+        <Image src="/assets/text_logo.png" alt="logo" width={128} height={64} />
+      </Link>
       <LoginForm />
-      <div className="flex flex-row gap-2 text-gray-400">
+      <div className="flex items-center gap-2 text-gray-400">
         <p>아직 계정이 없으신가요?</p>
-        <Link href={ROUTE.SIGNUP} className="hover:underline">
-          회원가입
-        </Link>
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <Button className="h-fit p-0 text-gray-400" variant="link">
+              회원가입
+            </Button>
+          </AlertDialogTrigger>
+          <SignupDialog />
+        </AlertDialog>
       </div>
     </LoginContainer>
   );
