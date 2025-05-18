@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Container } from "@/shared";
-import { SectionTitle } from "@/widgets";
+import { SectionTitle } from "../../SectionTitle";
 import { useForm, useFieldArray } from "react-hook-form";
 import { EducationItem } from "./EducationItem";
 import {

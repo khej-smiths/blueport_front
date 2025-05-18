@@ -2,7 +2,7 @@
 
 import { AlertDialog, AlertDialogTrigger } from "@/shared";
 import { Footer } from "../../Footer";
-import { FloatingButton, EditorDemoModal } from "@/features";
+import { FloatingButton, EditorDemoDialog } from "@/features";
 import { Plus } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -26,7 +26,7 @@ export function ClientLayoutBody() {
               icon={<Plus className="h-6 w-6" />}
             />
           </AlertDialogTrigger>
-          <EditorDemoModal />
+          <EditorDemoDialog />
         </AlertDialog>
       )}
     </>
