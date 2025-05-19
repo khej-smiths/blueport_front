@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 
 import { AlertDialog, AlertDialogTrigger, Button, ROUTE } from "@/shared";
@@ -5,8 +6,11 @@ import LoginContainer from "./LoginContainer";
 import LoginForm from "./LoginForm";
 import Image from "next/image";
 import { SignupDialog } from "@/features";
+import { useState } from "react";
 
 export function LoginPage() {
+  const [open, setOpen] = useState(false);
+
   return (
     <LoginContainer>
       <Link href={ROUTE.HOME} className="w-fit">
@@ -15,13 +19,13 @@ export function LoginPage() {
       <LoginForm />
       <div className="flex items-center gap-2 text-gray-400">
         <p>아직 계정이 없으신가요?</p>
-        <AlertDialog>
+        <AlertDialog open={open} onOpenChange={setOpen}>
           <AlertDialogTrigger asChild>
             <Button className="h-fit p-0 text-gray-400" variant="link">
               회원가입
             </Button>
           </AlertDialogTrigger>
-          <SignupDialog />
+          <SignupDialog setOpen={setOpen} />
         </AlertDialog>
       </div>
     </LoginContainer>
