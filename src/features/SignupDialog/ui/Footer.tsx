@@ -1,14 +1,16 @@
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogFooter,
-} from "@/shared";
+import { Button } from "@/shared";
 
-export function Footer() {
+interface Props {
+  setOpen(open: boolean): void;
+}
+
+export function Footer({ setOpen }: Props) {
   return (
-    <AlertDialogFooter>
-      <AlertDialogCancel>닫기</AlertDialogCancel>
-      <AlertDialogAction type="submit">회원가입</AlertDialogAction>
-    </AlertDialogFooter>
+    <div className="flex justify-end gap-2">
+      <Button variant="outline" type="button" onClick={() => setOpen(false)}>
+        닫기
+      </Button>
+      <Button type="submit">회원가입</Button>
+    </div>
   );
 }

@@ -53,6 +53,8 @@ input CreateUserInputDto {
   email: String!
   """유저의 이름"""
   name: String!
+  """유저의 비밀번호"""
+  password: String!
 }
 
 """
@@ -68,6 +70,8 @@ input DeletePostInputDto {
 input LoginInputDto {
   """유저의 이메일"""
   email: String!
+  """유저의 비밀번호"""
+  password: String!
 }
 
 type Mutation {
@@ -145,6 +149,8 @@ type User {
   id: String!
   """유저의 이름"""
   name: String!
+  """유저의 비밀번호"""
+  password: String!
   postList: [Post!]
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
