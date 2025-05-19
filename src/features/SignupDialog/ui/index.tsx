@@ -10,7 +10,8 @@ import { SignupFormDto } from "../model/type";
 export function SignupDialog() {
   const { control, watch, handleSubmit } = useForm<SignupFormDto>({
     defaultValues: {
-      username: "",
+      name: "",
+      email: "",
       password: "",
       passwordConfirm: "",
       verificationCode: "",
