@@ -1,8 +1,11 @@
+import { config as dotenvConfig } from "dotenv";
+dotenvConfig({ path: ".env.development" });
+
 import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: "http://43.202.65.38:7777/graphql/",
+  schema: `${process.env.NEXT_PUBLIC_API_ENDPOINT}/graphql/`,
   documents: ["src/**/*.tsx"],
   ignoreNoDocuments: true,
   generates: {
