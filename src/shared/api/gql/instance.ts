@@ -53,7 +53,7 @@ export async function instance<TResult, TVariables>(
           Accept: "application/graphql-response+json",
           ...(token && { Authorization: `Bearer ${token}` }),
         },
-        body: JSON.stringify({ query: variables }),
+        body: JSON.stringify({ query, variables }),
         credentials: "include",
       });
     } catch (error) {
