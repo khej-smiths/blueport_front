@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { H2 } from ".";
+
 import { useProcessor } from "@/shared/hooks/useProcessor";
+
+import { H2 } from ".";
 
 const H2WithProcessor = ({ children }: { children: string }) => {
   const Content = useProcessor(children);

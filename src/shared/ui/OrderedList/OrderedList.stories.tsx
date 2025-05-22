@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { OrderedList } from ".";
+
 import { useProcessor } from "../../hooks/useProcessor";
+import { OrderedList } from ".";
 
 const OrderedListWithProcessor = ({ children }: { children: string }) => {
   const Content = useProcessor(children);

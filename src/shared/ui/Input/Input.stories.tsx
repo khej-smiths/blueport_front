@@ -1,7 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { Input } from ".";
 import { expect } from "@storybook/jest";
+import type { Meta, StoryObj } from "@storybook/react";
 import { userEvent, within } from "@storybook/testing-library";
+
+import { Input } from ".";
 
 const meta: Meta<typeof Input> = {
   title: "Components/Common/Input",
@@ -22,7 +23,7 @@ const meta: Meta<typeof Input> = {
     disabled: {
       control: "boolean",
       description: "입력 필드의 비활성 상태",
-    }
+    },
   },
 };
 

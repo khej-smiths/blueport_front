@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { Blockquote } from ".";
+
 import { useProcessor } from "../../hooks/useProcessor";
+import { Blockquote } from ".";
 
 const BlockquoteWithProcessor = ({ children }: { children: string }) => {
   const Content = useProcessor(children);

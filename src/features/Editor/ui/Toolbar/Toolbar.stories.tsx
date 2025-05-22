@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+
 import { Toolbar } from ".";
 
 const meta: Meta<typeof Toolbar> = {
