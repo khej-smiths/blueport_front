@@ -1,6 +1,7 @@
+import { cn } from "@/shared/lib/cn";
+
 import { useEditor } from "../model/useEditor";
 import { Toolbar } from "./Toolbar";
-import { cn } from "@/shared/lib/cn";
 
 interface Props {
   initialDoc: string;

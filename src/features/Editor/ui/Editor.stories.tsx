@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
-import Editor from ".";
+
+import { Editor } from ".";
 
 const meta: Meta<typeof Editor> = {
   title: "Components/Section/Editor",
