@@ -4,4 +4,5 @@ export const ROUTE = {
   SIGNUP: "/signup",
   MANAGE_ABOUT: "/manage/about",
   MANAGE_RESUME: "/manage/resume",
+  EDITOR: "/editor",
 };

@@ -1,6 +1,8 @@
 import { Control, Controller } from "react-hook-form";
-import { SignupFormDto } from "../model/type";
+
 import { Input } from "@/shared";
+
+import { SignupFormDto } from "../model/type";
 
 interface Props {
   control: Control<SignupFormDto, any>;

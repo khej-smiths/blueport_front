@@ -31,7 +31,9 @@ export { cn } from "./lib/cn";
 export { getErrorMessage } from "./lib/getErrorMessage";
 export { imageUpload } from "./lib/imageUpload";
 export { onlyNumber } from "./lib/onlyNumber";
+
 // Store
+export { useAuthStore } from "./stores/auth";
 
 // Hooks
 export { useDebounce } from "./hooks/useDebounce";

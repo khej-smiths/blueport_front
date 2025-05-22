@@ -1,12 +1,14 @@
 "use client";
-import Link from "next/link";
 
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+
+import { SignupDialog } from "@/features";
 import { AlertDialog, AlertDialogTrigger, Button, ROUTE } from "@/shared";
+
 import LoginContainer from "./LoginContainer";
 import LoginForm from "./LoginForm";
-import Image from "next/image";
-import { SignupDialog } from "@/features";
-import { useState } from "react";
 
 export function LoginPage() {
   const [open, setOpen] = useState(false);
