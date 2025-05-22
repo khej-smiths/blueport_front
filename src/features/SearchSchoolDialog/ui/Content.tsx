@@ -1,13 +1,15 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 import {
   CustomSelect,
   Input,
+  OpenAPISchoolDto,
   SchoolType,
   useDebounceSchoolListQuery,
-  OpenAPISchoolDto,
 } from "@/shared";
-import { useEffect, useState } from "react";
+
 import { selectOptions } from "../const";
 
 interface Props {

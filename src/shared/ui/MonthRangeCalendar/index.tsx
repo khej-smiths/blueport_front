@@ -1,8 +1,9 @@
 "use client";
-import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { buttonVariants } from "../Button";
+import * as React from "react";
+
 import { cn } from "../../lib/cn";
+import { buttonVariants } from "../Button";
 
 type Month = {
   number: number;

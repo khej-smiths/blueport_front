@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getSchoolList } from ".";
-import { QUERY_KEY } from "../../constant/queryKey";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+
 import { GetSchoolListRequest } from "@/shared/types/open";
+
+import { QUERY_KEY } from "../../constant/queryKey";
+import { getSchoolList } from ".";
 
 // Query
 

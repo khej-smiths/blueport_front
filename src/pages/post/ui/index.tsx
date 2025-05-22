@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useParams } from "next/navigation";
-import Link from "next/link";
 import { format } from "date-fns";
+import { Heading as MdastHeading, PhrasingContent, Text } from "mdast";
+import { useInView } from "motion/react";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useEffect, useMemo, useRef, useState } from "react";
 import remarkGfm from "remark-gfm";
 import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
-import { Heading as MdastHeading, PhrasingContent, Text } from "mdast";
-import { useInView } from "motion/react";
-import { Category, cn, EXAMPLE_DOC } from "@/shared";
+
 import { Preview } from "@/features";
+import { Category, cn, EXAMPLE_DOC } from "@/shared";
 
 interface Heading {
   text: string;

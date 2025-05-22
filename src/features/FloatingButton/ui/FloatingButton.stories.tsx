@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { FloatingButton } from ".";
 import { Moon, Plus } from "lucide-react";
+
+import { FloatingButton } from ".";
 
 const iconOptions = {
   Plus: <Plus className="h-6 w-6" />,

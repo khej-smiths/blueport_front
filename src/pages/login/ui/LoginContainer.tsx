@@ -1,5 +1,6 @@
-import { ReactNode } from "react";
 import Image from "next/image";
+import { ReactNode } from "react";
+
 import Office from "../assets/office.jpg";
 
 export default function LoginContainer({ children }: { children: ReactNode }) {

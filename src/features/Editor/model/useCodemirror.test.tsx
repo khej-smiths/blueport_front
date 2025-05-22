@@ -1,7 +1,9 @@
-import { vi } from "vitest";
 import { renderHook } from "@testing-library/react";
-import { useCodemirror } from "./useCodemirror";
+import { vi } from "vitest";
+
 import { EXAMPLE_DOC } from "@/shared/constant/preview";
+
+import { useCodemirror } from "./useCodemirror";
 
 describe("useCodemirror", () => {
   const onChange = vi.fn();

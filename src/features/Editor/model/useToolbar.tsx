@@ -1,5 +1,6 @@
-import { EditorView } from "@codemirror/view";
 import { EditorSelection } from "@codemirror/state";
+import { EditorView } from "@codemirror/view";
+
 import { imageUpload } from "@/shared";
 
 interface Props {

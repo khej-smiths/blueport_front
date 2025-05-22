@@ -1,4 +1,4 @@
-import { cn, Button } from "@/shared";
+import { Button,cn } from "@/shared";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;

@@ -1,3 +1,5 @@
+import { Trash2 } from "lucide-react";
+import { KeyboardEvent, useRef, useState } from "react";
 import {
   Control,
   Controller,
@@ -5,7 +7,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { ResumeFormDto, ResumeListType } from "../model/type";
+
 import {
   Button,
   Category,
@@ -14,8 +16,8 @@ import {
   onlyNumber,
   Textarea,
 } from "@/shared";
-import { KeyboardEvent, useRef, useState } from "react";
-import { Trash2 } from "lucide-react";
+
+import { ResumeFormDto, ResumeListType } from "../model/type";
 
 interface Props {
   key: React.Key;

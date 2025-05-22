@@ -1,5 +1,6 @@
-import { ROUTE } from "@/shared";
 import { NextRequest, NextResponse } from "next/server";
+
+import { ROUTE } from "@/shared";
 
 export function middleware(req: NextRequest) {
   const pathname = req.nextUrl.pathname;

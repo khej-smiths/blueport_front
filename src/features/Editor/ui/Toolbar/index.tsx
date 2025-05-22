@@ -1,17 +1,18 @@
+import { EditorView } from "@codemirror/view";
 import {
+  MdCode,
   MdFormatBold,
   MdFormatItalic,
-  MdFormatStrikethrough,
-  MdInsertLink,
   MdFormatQuote,
+  MdFormatStrikethrough,
   MdImage,
-  MdCode,
+  MdInsertLink,
 } from "react-icons/md";
-import { ToolbarItem } from "../ToolbarItem";
+
 import { useToolbar } from "../../model/useToolbar";
+import { ToolbarItem } from "../ToolbarItem";
 import { Heading } from "./Heading";
 import { Separator } from "./Separator";
-import { EditorView } from "@codemirror/view";
 
 interface Props {
   editorView: EditorView | undefined;

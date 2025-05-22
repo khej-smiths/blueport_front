@@ -1,6 +1,7 @@
-import { vi, describe, it, expect, beforeEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
 import { EditorView } from "@codemirror/view";
+import { fireEvent,render, screen } from "@testing-library/react";
+import { beforeEach,describe, expect, it, vi } from "vitest";
+
 import { Toolbar } from ".";
 
 // imageUpload 모킹

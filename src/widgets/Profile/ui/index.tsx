@@ -1,4 +1,5 @@
 import { Category, DefaultProfile } from "@/shared";
+
 import { ProfileLinks } from "./ProfileLinks";
 
 /** 블로그 소개 섹션 */

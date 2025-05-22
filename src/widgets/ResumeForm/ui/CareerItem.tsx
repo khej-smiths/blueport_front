@@ -1,5 +1,7 @@
+import { Trash2 } from "lucide-react";
+import { useCallback, useState } from "react";
 import { Control, Controller, UseFormSetValue } from "react-hook-form";
-import { ResumeFormDto, ResumeListType } from "../model/type";
+
 import {
   Button,
   Input,
@@ -8,8 +10,8 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/shared";
-import { Trash2 } from "lucide-react";
-import { useCallback, useState } from "react";
+
+import { ResumeFormDto, ResumeListType } from "../model/type";
 
 interface Props {
   key: React.Key;

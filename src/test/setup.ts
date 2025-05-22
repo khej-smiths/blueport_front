@@ -1,7 +1,8 @@
 import "@testing-library/jest-dom";
+
 import { cleanup } from "@testing-library/react";
-import { afterEach } from "vitest";
 import * as React from "react";
+import { afterEach } from "vitest";
 
 global.React = React
 

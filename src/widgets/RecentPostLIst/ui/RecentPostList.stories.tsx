@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+
 import { RecentPostList } from ".";
 
 const meta: Meta<typeof RecentPostList> = {

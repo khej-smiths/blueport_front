@@ -1,8 +1,9 @@
-import { AboutFormDto } from "@/widgets/AboutForm/model/type";
 import { ImageUp } from "lucide-react";
 import { Dispatch, DragEvent, SetStateAction } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
+
+import { AboutFormDto } from "@/widgets/AboutForm/model/type";
 
 interface Props {
   setValue: UseFormSetValue<AboutFormDto>;

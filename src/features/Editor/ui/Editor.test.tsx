@@ -1,5 +1,7 @@
 import { render, screen } from "@testing-library/react";
+
 import { EXAMPLE_DOC } from "@/shared";
+
 import { Editor } from ".";
 
 describe("Editor | ", () => {

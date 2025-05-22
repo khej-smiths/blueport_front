@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 import { PASSWORD_REGEX } from "@/shared";
 
 export const signupFormSchema = z

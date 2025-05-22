@@ -1,5 +1,6 @@
-import { vi } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { vi } from "vitest";
+
 import { Input } from ".";
 
 describe("Input 컴포넌트", () => {

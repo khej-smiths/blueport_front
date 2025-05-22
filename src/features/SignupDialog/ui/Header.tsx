@@ -1,5 +1,6 @@
-import { AlertDialogHeader, AlertDialogTitle } from "@/shared";
 import Image from "next/image";
+
+import { AlertDialogHeader, AlertDialogTitle } from "@/shared";
 
 export function Header() {
   return (

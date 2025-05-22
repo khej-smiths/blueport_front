@@ -1,8 +1,10 @@
+import { Dispatch, SetStateAction } from "react";
+
 import { AlertDialogContent } from "@/shared";
-import { Header } from "./Header";
+
 import { Content } from "./Content";
 import { Footer } from "./Footer";
-import { Dispatch, SetStateAction } from "react";
+import { Header } from "./Header";
 
 interface Props {
   handleSelectSchool: (schoolName: string) => void;

@@ -1,5 +1,6 @@
-import { useProcessor } from "@/shared";
 import "../model/atom-light.css";
+
+import { useProcessor } from "@/shared";
 
 interface Props {
   doc: string;

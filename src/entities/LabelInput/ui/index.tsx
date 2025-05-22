@@ -1,4 +1,4 @@
-import { cn, Input, FormLabel } from "@/shared";
+import { cn, FormLabel,Input } from "@/shared";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   children: React.ReactNode;

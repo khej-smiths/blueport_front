@@ -1,22 +1,22 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { EditorState } from "@codemirror/state";
-import { EditorView, keymap, placeholder } from "@codemirror/view";
 import {
   defaultKeymap,
   history,
   historyKeymap,
   indentWithTab,
 } from "@codemirror/commands";
+import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import {
+  defaultHighlightStyle,
   indentOnInput,
   syntaxHighlighting,
-  defaultHighlightStyle,
 } from "@codemirror/language";
-
 import { languages } from "@codemirror/language-data";
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
+import { EditorState } from "@codemirror/state";
+import { EditorView, keymap, placeholder } from "@codemirror/view";
+import { useEffect, useRef,useState } from "react";
+
 import { customHighlightStyle, transparentTheme } from "./editorStyle";
 
 interface Props {

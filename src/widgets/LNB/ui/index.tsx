@@ -1,7 +1,8 @@
 "use client";
 
-import { menuTree } from "../model/tree";
 import { LNBMenuItem } from "@/entities";
+
+import { menuTree } from "../model/tree";
 
 export function LNB() {
   return (

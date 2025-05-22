@@ -1,11 +1,12 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogFooter,
 } from "@/shared";
-import { useRouter } from "next/navigation";
 
 export function Footer() {
   const router = useRouter();

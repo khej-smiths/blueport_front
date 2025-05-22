@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+
 import { SectionTitle } from ".";
 
 describe("SectionTitle | ", () => {

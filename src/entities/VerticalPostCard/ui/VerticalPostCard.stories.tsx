@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+
 import { VerticalPostCard } from ".";
 
 const meta: Meta<typeof VerticalPostCard> = {

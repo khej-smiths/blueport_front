@@ -1,5 +1,13 @@
 import { Trash2 } from "lucide-react";
-import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
+import { useState } from "react";
+import {
+  Control,
+  Controller,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
+
+import { SearchSchoolDialog } from "@/features";
 import {
   AlertDialog,
   AlertDialogTrigger,
@@ -9,14 +17,8 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/shared";
-import {
-  Control,
-  Controller,
-  UseFormSetValue,
-  UseFormWatch,
-} from "react-hook-form";
-import { SearchSchoolDialog } from "@/features";
-import { useState } from "react";
+
+import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
 interface Props {
   key: React.Key;
   index: number;

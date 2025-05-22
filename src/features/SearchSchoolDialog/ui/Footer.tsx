@@ -1,5 +1,6 @@
-import { AlertDialogCancel, AlertDialogFooter } from "@/shared";
 import { Dispatch, SetStateAction } from "react";
+
+import { AlertDialogCancel, AlertDialogFooter } from "@/shared";
 
 interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;

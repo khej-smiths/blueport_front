@@ -1,12 +1,14 @@
+import { Trash2 } from "lucide-react";
 import {
   Control,
   Controller,
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import { PortfolioType, ResumeFormDto, ResumeListType } from "../model/type";
+
 import { Button, Input, ToggleGroup, ToggleGroupItem } from "@/shared";
-import { Trash2 } from "lucide-react";
+
+import { PortfolioType, ResumeFormDto, ResumeListType } from "../model/type";
 
 interface Props {
   key: React.Key;

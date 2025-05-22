@@ -1,9 +1,11 @@
 "use client";
 
-import { cn } from "@/shared";
-import { usePathname } from "next/navigation";
-import { MenuTree } from "../model/type";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+import { cn } from "@/shared";
+
+import { MenuTree } from "../model/type";
 
 interface Props {
   menu: MenuTree;

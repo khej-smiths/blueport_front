@@ -1,5 +1,6 @@
-import { vi, describe, it, expect, beforeEach, afterEach } from "vitest";
 import { EditorView } from "@codemirror/view";
+import { afterEach,beforeEach, describe, expect, it, vi } from "vitest";
+
 import { imageUpload } from ".";
 
 describe("imageUpload", () => {

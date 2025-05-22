@@ -1,9 +1,10 @@
-import { SelectOption } from "../../types/common";
 import {
   SelectProps,
   SelectTriggerProps,
   SelectValueProps,
 } from "@radix-ui/react-select";
+
+import { SelectOption } from "../../types/common";
 import {
   Select,
   SelectContent,

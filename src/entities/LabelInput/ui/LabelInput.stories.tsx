@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from "@storybook/react";
+
 import { LabelInput } from ".";
 
 const meta: Meta<typeof LabelInput> = {

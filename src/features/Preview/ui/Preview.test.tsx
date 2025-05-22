@@ -1,7 +1,9 @@
-import { vi, describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Preview } from ".";
+import { describe, expect,it, vi } from "vitest";
+
 import { EXAMPLE_DOC } from "@/shared";
+
+import { Preview } from ".";
 
 // useProcessor 훅의 결과를 모킹
 vi.mock("@/shared/hooks/useProcessor", () => ({

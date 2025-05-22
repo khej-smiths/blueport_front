@@ -2,8 +2,8 @@
 
 import { useParams } from "next/navigation";
 
-import { Category, Loading } from "@/shared";
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
+import { Category, Loading } from "@/shared";
 import { Profile } from "@/widgets";
 
 export function BlogPage() {

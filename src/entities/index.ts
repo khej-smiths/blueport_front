@@ -1,7 +1,7 @@
 // UI Component
+export { HorizontalPostCard } from "./HorizontalPostCard";
 export { LabelInput } from "./LabelInput";
 export { LNBMenuItem } from "./LNBMenuItem";
-export { HorizontalPostCard } from "./HorizontalPostCard";
 export { VerticalPostCard } from "./VerticalPostCard";
 
 // Type

@@ -1,15 +1,16 @@
 import { Meta, StoryObj } from "@storybook/react";
-import { ToolbarItem } from ".";
 import {
+  MdCode,
   MdFormatBold,
   MdFormatItalic,
-  MdFormatStrikethrough,
-  MdInsertLink,
   MdFormatQuote,
+  MdFormatStrikethrough,
   MdImage,
-  MdCode,
+  MdInsertLink,
 } from "react-icons/md";
+
 import { Heading } from "../Toolbar/Heading";
+import { ToolbarItem } from ".";
 
 const iconMap = {
   heading1: <Heading level="1" />,

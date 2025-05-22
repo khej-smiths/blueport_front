@@ -1,5 +1,7 @@
-import { cn } from "@/shared/lib/cn";
 import { User } from "lucide-react";
+
+import { cn } from "@/shared/lib/cn";
+
 import { profileVariant } from "./variants";
 interface Props {
   variant: "default" | "avatar";

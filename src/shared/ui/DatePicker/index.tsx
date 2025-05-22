@@ -1,11 +1,11 @@
 import { format } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 
 import { cn } from "../../lib/cn";
 import { Button } from "../Button";
 import { Calendar } from "../Calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../Popover";
-import { Dispatch, SetStateAction } from "react";
 
 interface Props {
   date: Date | undefined;
