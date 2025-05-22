@@ -1,6 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -11,7 +12,7 @@ import { LoginFormDto } from "../model/type";
 
 export default function LoginForm() {
   const router = useRouter();
-  const { setAccessToken } = useAuthStore();
+  const { accessToken, setAccessToken } = useAuthStore();
 
   const { control, handleSubmit } = useForm<LoginFormDto>({
     defaultValues: {
@@ -22,12 +23,18 @@ export default function LoginForm() {
 
   const { mutate, isPending } = useLogin();
 
+  useEffect(() => {
+    if (accessToken) {
+      router.push(ROUTE.HOME);
+    }
+  }, [accessToken, router]);
+
   const onSubmit = handleSubmit(
     async (data) => {
       mutate(data, {
         onSuccess: (res) => {
           setAccessToken(res.login);
-          router.push(ROUTE.EDITOR);
+          router.push(ROUTE.HOME);
         },
       });
     },

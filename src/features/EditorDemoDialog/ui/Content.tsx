@@ -1,5 +1,7 @@
 import Link from "next/link";
 
+import { ROUTE } from "@/shared";
+
 export function Content() {
   return (
     <div className="flex flex-col gap-4">
@@ -13,7 +15,7 @@ export function Content() {
 
 방문해주셔서 감사합니다!😄`}
       </p>
-      <Link href="/editor">
+      <Link href={`${ROUTE.EDITOR}?demo=true`}>
         <p className="text-sm underline">글쓰기 체험하기</p>
       </Link>
     </div>

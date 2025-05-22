@@ -1,10 +1,12 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import "./prismTheme.css";
 
+import localFont from "next/font/local";
+
 import { Toaster } from "@/shared";
-import { Providers } from "./_provider";
 import { ClientLayoutBody } from "@/widgets";
+
+import { Providers } from "./_provider";
 
 const pretendard = localFont({
   src: "../src/shared/assets/fonts/PretendardVariable.woff2",

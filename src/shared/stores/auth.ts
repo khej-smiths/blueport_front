@@ -4,6 +4,7 @@ import { createJSONStorage, devtools, persist, PersistOptions } from "zustand/mi
 interface AuthStore {
   accessToken: string | null;
   setAccessToken: (accessToken: string) => void;
+  logout: () => void;
 }
 
 type PersistAuthStore = (

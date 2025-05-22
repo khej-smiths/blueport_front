@@ -1,7 +1,8 @@
 import { AlertDialogContent } from "@/shared";
-import { Header } from "./Header";
+
 import { Content } from "./Content";
 import { Footer } from "./Footer";
+import { Header } from "./Header";
 
 export function EditorDemoDialog() {
   return (

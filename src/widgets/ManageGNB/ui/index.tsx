@@ -1,6 +1,9 @@
-import { Button, ROUTE } from "@/shared";
 import Image from "next/image";
 import Link from "next/link";
+
+import { ROUTE } from "@/shared";
+
+import { LogoutButton } from "./LogoutButton";
 
 export function ManageGNB() {
   return (
@@ -8,7 +11,7 @@ export function ManageGNB() {
       <Link href={ROUTE.HOME}>
         <Image src="/assets/text_logo.png" alt="logo" width={128} height={64} />
       </Link>
-      <Button>로그아웃</Button>
+      <LogoutButton />
     </div>
   );
 }

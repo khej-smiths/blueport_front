@@ -1,17 +1,26 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import {
   ChangeEvent,
   KeyboardEvent,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from "react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import { Category, Button, Input, cn, EXAMPLE_DOC } from "@/shared";
-import { Preview, Editor } from "@/features";
+import { Editor, Preview } from "@/features";
+import {
+  Button,
+  Category,
+  cn,
+  EXAMPLE_DOC,
+  Input,
+  ROUTE,
+  useAuthStore,
+} from "@/shared";
 
 export function EditorPage() {
   const [doc, setDoc] = useState(EXAMPLE_DOC);
@@ -21,8 +30,17 @@ export function EditorPage() {
   const [isCategoryInputFocused, setIsCategoryInputFocused] = useState(false);
 
   const isComposition = useRef(false);
+  const isDemo = new URLSearchParams(window.location.search).get("demo");
 
   const router = useRouter();
+
+  const { accessToken } = useAuthStore();
+
+  useEffect(() => {
+    if (!isDemo && !accessToken) {
+      router.push(ROUTE.LOGIN);
+    }
+  }, [accessToken, isDemo, router]);
 
   const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCategory(e.target.value);

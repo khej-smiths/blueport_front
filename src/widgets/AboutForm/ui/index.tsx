@@ -1,26 +1,35 @@
 "use client";
 
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+
 import { LabelInput } from "@/entities";
 import { FileUpload } from "@/features";
 import {
   Button,
   Category,
   Container,
+  DefaultProfile,
   FormLabel,
   Input,
+  ROUTE,
   Textarea,
-  DefaultProfile
+  useAuthStore,
 } from "@/shared";
-import Image from "next/image";
-import { Controller, useForm } from "react-hook-form";
+
 import { AboutFormDto } from "../model/type";
-import { KeyboardEvent, useRef, useState } from "react";
 
 export function AboutForm() {
   const [skillKeyword, setSkillKeyword] = useState("");
   const [preview, setPreview] = useState("");
 
   const isComposite = useRef(false);
+
+  const router = useRouter();
+  const { accessToken } = useAuthStore();
+
   const { control, watch, setValue, getValues, handleSubmit } =
     useForm<AboutFormDto>({
       defaultValues: {
@@ -34,6 +43,12 @@ export function AboutForm() {
         skills: [],
       },
     });
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push(ROUTE.LOGIN);
+    }
+  }, [accessToken, router]);
 
   console.log(watch());
 

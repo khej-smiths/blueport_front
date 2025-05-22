@@ -1,9 +1,12 @@
 "use client";
 
-import { Button, Container } from "@/shared";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useFieldArray, useForm } from "react-hook-form";
+
+import { Button, Container, ROUTE, useAuthStore } from "@/shared";
+
 import { SectionTitle } from "../../SectionTitle";
-import { useForm, useFieldArray } from "react-hook-form";
-import { EducationItem } from "./EducationItem";
 import {
   CareerDto,
   EducationDto,
@@ -13,8 +16,9 @@ import {
   ResumeListType,
 } from "../model/type";
 import { CareerItem } from "./CareerItem";
-import { ProjectItem } from "./ProjectItem";
+import { EducationItem } from "./EducationItem";
 import { PortfolioItem } from "./PortfolioItem";
+import { ProjectItem } from "./ProjectItem";
 
 const initEducation: EducationDto = {
   schoolName: "",
@@ -95,6 +99,15 @@ export function ResumeForm() {
     name: "portfolioList",
     control,
   });
+
+  const router = useRouter();
+  const { accessToken } = useAuthStore();
+
+  useEffect(() => {
+    if (!accessToken) {
+      router.push(ROUTE.LOGIN);
+    }
+  }, [accessToken, router]);
 
   const onSubmit = handleSubmit((data) => console.log(data));
 
