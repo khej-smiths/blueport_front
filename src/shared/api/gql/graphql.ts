@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -210,6 +211,20 @@ export type User = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type CreateUserMutationVariables = Exact<{
+  input: CreateUserInputDto;
+}>;
+
+
+export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, createdAt: any, updatedAt: any } };
+
+export type LoginQueryVariables = Exact<{
+  input: LoginInputDto;
+}>;
+
+
+export type LoginQuery = { __typename?: 'Query', login: string };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -228,3 +243,20 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const CreateUserDocument = new TypedDocumentString(`
+    mutation CreateUser($input: CreateUserInputDto!) {
+  createUser(input: $input) {
+    id
+    name
+    email
+    createdAt
+    updatedAt
+  }
+}
+    `) as unknown as TypedDocumentString<CreateUserMutation, CreateUserMutationVariables>;
+export const LoginDocument = new TypedDocumentString(`
+    query Login($input: LoginInputDto!) {
+  login(input: $input)
+}
+    `) as unknown as TypedDocumentString<LoginQuery, LoginQueryVariables>;
