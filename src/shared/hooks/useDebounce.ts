@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef } from "react";
+
 import { DEFAULT_DEBOUNCE_WAIT } from "../constant/debounce";
 
 interface DebounceOptions {

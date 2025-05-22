@@ -1,21 +1,23 @@
 "use client";
 
-import { AlertDialogContent } from "@/shared";
-import { Header } from "./Header";
-import { Content } from "./Content";
-import { useForm } from "react-hook-form";
-import { SignupFormDto } from "../model/type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signupFormSchema } from "../model/schema";
-import { Footer } from "./Footer";
-import { useCreateUser } from "../api/mutation";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+
+import { AlertDialogContent, getErrorMessage } from "@/shared";
+
+import { useCreateUser } from "../api/mutation";
+import { signupFormSchema } from "../model/schema";
+import { SignupFormDto } from "../model/type";
+import { Content } from "./Content";
+import { Footer } from "./Footer";
+import { Header } from "./Header";
 interface Props {
   setOpen(open: boolean): void;
 }
 
 export function SignupDialog({ setOpen }: Props) {
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: createUser, isPending } = useCreateUser();
   const { control, watch, handleSubmit } = useForm<SignupFormDto>({
     defaultValues: {
       name: "",
@@ -35,11 +37,23 @@ export function SignupDialog({ setOpen }: Props) {
       return;
     }
 
-    createUser({
-      name: data.name,
-      email: data.email,
-      password: data.password,
-    });
+    createUser(
+      {
+        name: data.name,
+        email: data.email,
+        password: data.password,
+      },
+      {
+        onSuccess: () => {
+          toast.success("🎉 회원가입이 완료되었습니다.");
+          setOpen(false);
+        },
+        onError: (error) => {
+          const message = getErrorMessage(error);
+          toast.error(message);
+        },
+      }
+    );
   });
 
   console.log(watch());
@@ -52,7 +66,7 @@ export function SignupDialog({ setOpen }: Props) {
       <form onSubmit={onSubmit} className="flex flex-col gap-8">
         <Header />
         <Content control={control} />
-        <Footer setOpen={setOpen} />
+        <Footer setOpen={setOpen} isPending={isPending} />
       </form>
     </AlertDialogContent>
   );
