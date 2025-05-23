@@ -55,11 +55,11 @@ export function EducationItem({
               >
                 학교 찾아보기
               </Button>
-              <SearchSchoolDialog
-                handleSelectSchool={handleSelectSchool}
-                setOpen={setOpen}
-              />
             </AlertDialogTrigger>
+            <SearchSchoolDialog
+              handleSelectSchool={handleSelectSchool}
+              setOpen={setOpen}
+            />
           </AlertDialog>
           <Controller
             control={control}

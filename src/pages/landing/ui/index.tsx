@@ -1,3 +1,4 @@
+import { CreateBlogModal } from "@/features";
 import {
   LandingAbout,
   LandingIntro,
@@ -17,6 +18,7 @@ export function Landing() {
           <RecentPostList />
         </div>
       </div>
+      <CreateBlogModal />
     </article>
   );
 }

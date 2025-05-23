@@ -7,11 +7,9 @@ import {
 export function Header() {
   return (
     <AlertDialogHeader>
-      <AlertDialogTitle className="text-primary">
-        학교 찾아보기
-      </AlertDialogTitle>
+      <AlertDialogTitle className="text-primary">블로그 생성</AlertDialogTitle>
       <AlertDialogDescription>
-        학교를 검색 후 선택해 주세요
+        아직 생성된 블로그가 없어요 🥲
       </AlertDialogDescription>
     </AlertDialogHeader>
   );

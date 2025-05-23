@@ -1,4 +1,5 @@
 export { AddItemButton } from "./AddItemButton";
+export { CreateBlogModal } from "./CreateBlogModal";
 export { Editor } from "./Editor";
 export { EditorDemoDialog } from "./EditorDemoDialog";
 export { FileUpload } from "./FileUpload";
