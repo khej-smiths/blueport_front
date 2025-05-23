@@ -102,7 +102,7 @@ export function ProjectItem({
         </Button>
       </div>
       <div className="flex items-center gap-2">
-        <p>프로젝트 기간</p>
+        <p className="text-muted-foreground">프로젝트 기간</p>
         <Controller
           control={control}
           name={`projectList.${index}.projectDate`}
@@ -116,7 +116,7 @@ export function ProjectItem({
         />
       </div>
       <div className="flex items-center gap-2">
-        <p>프로젝트 참여 인원</p>
+        <p className="text-muted-foreground">프로젝트 참여 인원</p>
         <Controller
           control={control}
           name={`projectList.${index}.personnel`}
@@ -129,7 +129,7 @@ export function ProjectItem({
             />
           )}
         />
-        <p>명</p>
+        <p className="text-muted-foreground">명</p>
       </div>
       <div className="flex flex-col gap-2">
         <ul className="flex gap-2">

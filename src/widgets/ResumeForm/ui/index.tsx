@@ -145,7 +145,7 @@ export function ResumeForm() {
         onSubmit={onSubmit}
       >
         <Container>
-          <h1 className="text-h1 font-bold">이력서</h1>
+          <h1 className="text-h1 font-bold text-primary">이력서</h1>
         </Container>
         <Container className="gap-4">
           <div className="flex flex-col gap-3">

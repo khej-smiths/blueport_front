@@ -3,6 +3,10 @@ import { ROUTE } from "@/shared";
 
 export const menuTree: MenuTree[] = [
   {
+    title: "사용자 설정",
+    path: ROUTE.MANAGE_USER,
+  },
+  {
     title: "블로그 설정",
     path: ROUTE.MANAGE_ABOUT,
   },
