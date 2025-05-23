@@ -31,7 +31,6 @@ export function SignupDialog({ setOpen }: Props) {
   });
 
   const onSubmit = handleSubmit((data: SignupFormDto) => {
-    console.log(data);
     if (data.verificationCode !== process.env.NEXT_PUBLIC_VERIFICATION_CODE) {
       toast.error("인증 코드가 일치하지 않습니다.");
       return;
