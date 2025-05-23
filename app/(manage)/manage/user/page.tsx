@@ -1,3 +1,5 @@
+import { ManageUserPage } from "@/pages";
+
 export default function Page() {
-  return <div>ManageUserPage</div>
+  return <ManageUserPage />;
 }

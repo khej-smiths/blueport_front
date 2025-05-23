@@ -141,12 +141,9 @@ export function ResumeForm() {
   return (
     <>
       <form
-        className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6 p-6"
+        className="flex w-full min-w-96 max-w-[1328px] flex-col gap-6"
         onSubmit={onSubmit}
       >
-        <Container>
-          <h1 className="text-h1 font-bold text-primary">이력서</h1>
-        </Container>
         <Container className="gap-4">
           <div className="flex flex-col gap-3">
             <SectionTitle
