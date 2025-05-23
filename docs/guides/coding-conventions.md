@@ -67,3 +67,11 @@
   startLine: 6
   endLine: 6
   ```
+
+## ESLint
+
+- 프로젝트 전역에 ESLint를 적용하여 코드 스타일과 품질을 자동으로 검사합니다.
+- 주요 규칙: TypeScript, React, Next.js, import 정렬(simple-import-sort), Prettier 연동 등
+- 커스텀 룰 및 플러그인: @typescript-eslint, eslint-plugin-simple-import-sort, eslint-config-next 등
+- 코드 저장 시 자동 포맷팅 및 린트 에러 방지
+- .eslintrc, .eslintignore 파일로 세부 설정 관리

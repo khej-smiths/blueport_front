@@ -6,12 +6,18 @@
   - App Router 기반 페이지 구조
   - Server/Client 컴포넌트 분리
   - TypeScript 기반 개발
+- GraphQL
+  - graphql-request 기반 GraphQL 데이터 통신
+  - GraphQL Code Generator를 통한 타입 안전성 및 코드 제너레이션 활용
 
 ## UI/스타일링
 
 - Tailwind CSS
   - 레이아웃 > 크기 > 여백 > 스타일 순서로 클래스 작성
   - 커스텀 유틸리티 클래스 사용
+- shadcn/ui
+  - 재사용 가능한 UI 컴포넌트 라이브러리 활용
+  - Tailwind 기반의 손쉬운 커스터마이징 지원
 - Framer Motion
   - 페이지 전환 애니메이션
   ```typescript:src/app/template.tsx
