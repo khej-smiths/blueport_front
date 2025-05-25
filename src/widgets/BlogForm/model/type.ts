@@ -1,8 +1,8 @@
-export interface AboutFormDto {
+export interface BlogFormDto {
   blogName: string;
   domain: string;
   github: string;
-  head: string;
+  greeting: string;
   description: string;
   photo?: File | null;
   email?: string;

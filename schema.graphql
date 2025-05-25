@@ -8,35 +8,49 @@ type Blog {
   createdAt: DateTime!
   """데이터의 삭제 날짜(soft)"""
   deletedAt: DateTime
-  """도메인"""
+  """도메인, 50자 내외"""
   domain: String!
+  """이메일"""
+  email: String
+  """github 링크"""
+  github: String
+  """인사말"""
+  greeting: String!
   """id"""
   id: String!
   """자기소개"""
-  introduction: String
+  introduction: String!
   """블로그 이름"""
   name: String!
   """블로그 주인 전체 정보"""
   owner: User!
+  """블로그 주인의 id"""
+  ownerId: String!
   """프로필 사진"""
-  profilePhoto: String
-  """기술 스택"""
-  skills: String
+  photo: String!
+  """기술 스택, 100개 제한"""
+  skills: [String!]
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
 }
 
 input CreateBlogInputDto {
-  """도메인"""
+  """도메인, 50자 내외"""
   domain: String!
+  """이메일"""
+  email: String
+  """github 링크"""
+  github: String
+  """인사말"""
+  greeting: String!
   """자기소개"""
-  introduction: String
+  introduction: String!
   """블로그 이름"""
   name: String!
   """프로필 사진"""
-  profilePhoto: String
-  """기술 스택"""
-  skills: String
+  photo: String!
+  """기술 스택, 100개 제한"""
+  skills: [String!]
 }
 
 input CreatePostInputDto {
@@ -83,6 +97,8 @@ type Mutation {
   createUser(input: CreateUserInputDto!): User!
   """게시글 삭제하기"""
   deletePost(input: DeletePostInputDto!): Boolean!
+  """블로그 수정"""
+  updateBlog(input: UpdateBlogInputDto!): Blog!
   """게시글 수정하기"""
   updatePost(input: UpdatePostInputDto!): Post!
 }
@@ -108,10 +124,28 @@ type Post {
 
 type Query {
   login(input: LoginInputDto!): String!
+  """블로그 조회"""
+  readBlog(input: ReadBlogInputDto!): Blog!
+  """블로그 목록 조회"""
+  readBlogList(input: ReadBlogListInputDto!): [Blog!]!
   """게시글 조회하기"""
   readPost(input: ReadPostInputDto!): Post!
   """게시글 목록 조회하기"""
   readPostList(input: ReadPostListInputDto!): [Post!]!
+}
+
+input ReadBlogInputDto {
+  """id"""
+  id: String
+  """블로그 주인의 id"""
+  ownerId: String
+}
+
+input ReadBlogListInputDto {
+  """페이지 당 자료의 개수"""
+  limit: Int! = 10
+  """페이지 번호"""
+  pageNumber: Int! = 0
 }
 
 input ReadPostInputDto {
@@ -124,6 +158,25 @@ input ReadPostListInputDto {
   limit: Int! = 10
   """페이지 번호"""
   pageNumber: Int! = 0
+}
+
+input UpdateBlogInputDto {
+  """도메인, 50자 내외"""
+  domain: String
+  """이메일"""
+  email: String
+  """github 링크"""
+  github: String
+  """인사말"""
+  greeting: String
+  """자기소개"""
+  introduction: String
+  """블로그 이름"""
+  name: String
+  """프로필 사진"""
+  photo: String
+  """기술 스택, 100개 제한"""
+  skills: [String!]
 }
 
 input UpdatePostInputDto {

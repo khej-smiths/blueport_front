@@ -8,7 +8,7 @@ export const menuTree: MenuTree[] = [
   },
   {
     title: "블로그 설정",
-    path: ROUTE.MANAGE_ABOUT,
+    path: ROUTE.MANAGE_BLOG,
   },
   {
     title: "이력서",

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   ChangeEvent,
   KeyboardEvent,
@@ -30,9 +30,10 @@ export function EditorPage() {
   const [isCategoryInputFocused, setIsCategoryInputFocused] = useState(false);
 
   const isComposition = useRef(false);
-  const isDemo = new URLSearchParams(window.location.search).get("demo");
 
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isDemo = Boolean(searchParams?.get("demo"));
 
   const { accessToken } = useAuthStore();
 

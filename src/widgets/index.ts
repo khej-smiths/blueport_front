@@ -1,4 +1,4 @@
-export { AboutForm } from "./AboutForm";
+export { BlogForm } from "./BlogForm";
 export { ClientLayoutBody } from "./ClientLayoutBody";
 export { Footer } from "./Footer";
 export { GNB } from "./GNB";

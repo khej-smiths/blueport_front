@@ -19,9 +19,9 @@ import {
   useAuthStore,
 } from "@/shared";
 
-import { AboutFormDto } from "../model/type";
+import { BlogFormDto } from "../model/type";
 
-export function AboutForm() {
+export function BlogForm() {
   const [skillKeyword, setSkillKeyword] = useState("");
   const [preview, setPreview] = useState("");
 
@@ -31,12 +31,12 @@ export function AboutForm() {
   const { accessToken } = useAuthStore();
 
   const { control, watch, setValue, getValues, handleSubmit } =
-    useForm<AboutFormDto>({
+    useForm<BlogFormDto>({
       defaultValues: {
         blogName: "",
         domain: "",
         github: "",
-        head: "",
+        greeting: "",
         email: "",
         photo: null,
         description: "",
@@ -56,6 +56,10 @@ export function AboutForm() {
 
   const handleAddSkills = () => {
     const currentSkills = getValues("skills") ?? [];
+
+    if (currentSkills.includes(skillKeyword)) return;
+
+    if (currentSkills.length >= 100) return;
 
     setValue("skills", [...currentSkills, skillKeyword]);
     setSkillKeyword("");
@@ -150,7 +154,7 @@ export function AboutForm() {
         </div>
         <Controller
           control={control}
-          name="head"
+          name="greeting"
           render={({ field }) => (
             <LabelInput
               required
@@ -181,8 +185,11 @@ export function AboutForm() {
             control={control}
             name="email"
             render={({ field }) => (
-              <LabelInput placeholder="이메일을 입력해주세요." {...field}>
-                이메일
+              <LabelInput
+                placeholder="연락용 이메일을 입력해주세요."
+                {...field}
+              >
+                연락용 이메일
               </LabelInput>
             )}
           />

@@ -24,35 +24,49 @@ export type Blog = {
   createdAt: Scalars['DateTime']['output'];
   /** 데이터의 삭제 날짜(soft) */
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
-  /** 도메인 */
+  /** 도메인, 50자 내외 */
   domain: Scalars['String']['output'];
+  /** 이메일 */
+  email?: Maybe<Scalars['String']['output']>;
+  /** github 링크 */
+  github?: Maybe<Scalars['String']['output']>;
+  /** 인사말 */
+  greeting: Scalars['String']['output'];
   /** id */
   id: Scalars['String']['output'];
   /** 자기소개 */
-  introduction?: Maybe<Scalars['String']['output']>;
+  introduction: Scalars['String']['output'];
   /** 블로그 이름 */
   name: Scalars['String']['output'];
   /** 블로그 주인 전체 정보 */
   owner: User;
+  /** 블로그 주인의 id */
+  ownerId: Scalars['String']['output'];
   /** 프로필 사진 */
-  profilePhoto?: Maybe<Scalars['String']['output']>;
-  /** 기술 스택 */
-  skills?: Maybe<Scalars['String']['output']>;
+  photo: Scalars['String']['output'];
+  /** 기술 스택, 100개 제한 */
+  skills?: Maybe<Array<Scalars['String']['output']>>;
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
 };
 
 export type CreateBlogInputDto = {
-  /** 도메인 */
+  /** 도메인, 50자 내외 */
   domain: Scalars['String']['input'];
+  /** 이메일 */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** github 링크 */
+  github?: InputMaybe<Scalars['String']['input']>;
+  /** 인사말 */
+  greeting: Scalars['String']['input'];
   /** 자기소개 */
-  introduction?: InputMaybe<Scalars['String']['input']>;
+  introduction: Scalars['String']['input'];
   /** 블로그 이름 */
   name: Scalars['String']['input'];
   /** 프로필 사진 */
-  profilePhoto?: InputMaybe<Scalars['String']['input']>;
-  /** 기술 스택 */
-  skills?: InputMaybe<Scalars['String']['input']>;
+  photo: Scalars['String']['input'];
+  /** 기술 스택, 100개 제한 */
+  skills?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type CreatePostInputDto = {
@@ -95,6 +109,8 @@ export type Mutation = {
   createUser: User;
   /** 게시글 삭제하기 */
   deletePost: Scalars['Boolean']['output'];
+  /** 블로그 수정 */
+  updateBlog: Blog;
   /** 게시글 수정하기 */
   updatePost: Post;
 };
@@ -117,6 +133,11 @@ export type MutationCreateUserArgs = {
 
 export type MutationDeletePostArgs = {
   input: DeletePostInputDto;
+};
+
+
+export type MutationUpdateBlogArgs = {
+  input: UpdateBlogInputDto;
 };
 
 
@@ -147,6 +168,10 @@ export type Post = {
 export type Query = {
   __typename?: 'Query';
   login: Scalars['String']['output'];
+  /** 블로그 조회 */
+  readBlog: Blog;
+  /** 블로그 목록 조회 */
+  readBlogList: Array<Blog>;
   /** 게시글 조회하기 */
   readPost: Post;
   /** 게시글 목록 조회하기 */
@@ -159,6 +184,16 @@ export type QueryLoginArgs = {
 };
 
 
+export type QueryReadBlogArgs = {
+  input: ReadBlogInputDto;
+};
+
+
+export type QueryReadBlogListArgs = {
+  input: ReadBlogListInputDto;
+};
+
+
 export type QueryReadPostArgs = {
   input: ReadPostInputDto;
 };
@@ -166,6 +201,20 @@ export type QueryReadPostArgs = {
 
 export type QueryReadPostListArgs = {
   input: ReadPostListInputDto;
+};
+
+export type ReadBlogInputDto = {
+  /** id */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** 블로그 주인의 id */
+  ownerId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type ReadBlogListInputDto = {
+  /** 페이지 당 자료의 개수 */
+  limit?: Scalars['Int']['input'];
+  /** 페이지 번호 */
+  pageNumber?: Scalars['Int']['input'];
 };
 
 export type ReadPostInputDto = {
@@ -178,6 +227,25 @@ export type ReadPostListInputDto = {
   limit?: Scalars['Int']['input'];
   /** 페이지 번호 */
   pageNumber?: Scalars['Int']['input'];
+};
+
+export type UpdateBlogInputDto = {
+  /** 도메인, 50자 내외 */
+  domain?: InputMaybe<Scalars['String']['input']>;
+  /** 이메일 */
+  email?: InputMaybe<Scalars['String']['input']>;
+  /** github 링크 */
+  github?: InputMaybe<Scalars['String']['input']>;
+  /** 인사말 */
+  greeting?: InputMaybe<Scalars['String']['input']>;
+  /** 자기소개 */
+  introduction?: InputMaybe<Scalars['String']['input']>;
+  /** 블로그 이름 */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** 프로필 사진 */
+  photo?: InputMaybe<Scalars['String']['input']>;
+  /** 기술 스택, 100개 제한 */
+  skills?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
 export type UpdatePostInputDto = {
@@ -211,6 +279,13 @@ export type User = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type CreateBlogMutationVariables = Exact<{
+  input: CreateBlogInputDto;
+}>;
+
+
+export type CreateBlogMutation = { __typename?: 'Mutation', createBlog: { __typename?: 'Blog', domain: string } };
+
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInputDto;
 }>;
@@ -224,6 +299,18 @@ export type LoginQueryVariables = Exact<{
 
 
 export type LoginQuery = { __typename?: 'Query', login: string };
+
+export type ReadBlogQueryVariables = Exact<{
+  input: ReadBlogInputDto;
+}>;
+
+
+export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, owner: (
+      { __typename?: 'User' }
+      & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
+    ) } };
+
+export type UserFieldsFragment = { __typename?: 'User', id: string, name: string, email: string } & { ' $fragmentName'?: 'UserFieldsFragment' };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -243,7 +330,20 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-
+export const UserFieldsFragmentDoc = new TypedDocumentString(`
+    fragment UserFields on User {
+  id
+  name
+  email
+}
+    `, {"fragmentName":"UserFields"}) as unknown as TypedDocumentString<UserFieldsFragment, unknown>;
+export const CreateBlogDocument = new TypedDocumentString(`
+    mutation CreateBlog($input: CreateBlogInputDto!) {
+  createBlog(input: $input) {
+    domain
+  }
+}
+    `) as unknown as TypedDocumentString<CreateBlogMutation, CreateBlogMutationVariables>;
 export const CreateUserDocument = new TypedDocumentString(`
     mutation CreateUser($input: CreateUserInputDto!) {
   createUser(input: $input) {
@@ -260,3 +360,25 @@ export const LoginDocument = new TypedDocumentString(`
   login(input: $input)
 }
     `) as unknown as TypedDocumentString<LoginQuery, LoginQueryVariables>;
+export const ReadBlogDocument = new TypedDocumentString(`
+    query ReadBlog($input: ReadBlogInputDto!) {
+  readBlog(input: $input) {
+    id
+    name
+    domain
+    greeting
+    photo
+    introduction
+    skills
+    email
+    github
+    owner {
+      ...UserFields
+    }
+  }
+}
+    fragment UserFields on User {
+  id
+  name
+  email
+}`) as unknown as TypedDocumentString<ReadBlogQuery, ReadBlogQueryVariables>;

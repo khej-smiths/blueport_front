@@ -3,7 +3,7 @@ export const ROUTE = {
   HOME: "/",
   SIGNUP: "/signup",
   MANAGE_USER: "/manage/user",
-  MANAGE_ABOUT: "/manage/about",
+  MANAGE_BLOG: "/manage/blog",
   MANAGE_RESUME: "/manage/resume",
   EDITOR: "/editor",
 };

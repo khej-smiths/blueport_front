@@ -1,1 +1,0 @@
-export {ManageAboutPage} from "./ui"

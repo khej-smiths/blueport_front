@@ -1,1 +1,0 @@
-export { AboutForm } from "./ui";
