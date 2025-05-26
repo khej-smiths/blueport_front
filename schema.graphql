@@ -101,6 +101,8 @@ type Mutation {
   updateBlog(input: UpdateBlogInputDto!): Blog!
   """게시글 수정하기"""
   updatePost(input: UpdatePostInputDto!): Post!
+  """유저 업데이트"""
+  updateUser(input: UpdateUserInputDto!): User!
 }
 
 type Post {
@@ -132,6 +134,8 @@ type Query {
   readPost(input: ReadPostInputDto!): Post!
   """게시글 목록 조회하기"""
   readPostList(input: ReadPostListInputDto!): [Post!]!
+  """유저 정보 가져오기(현재는 본인의 정보만)"""
+  readUser: User!
 }
 
 input ReadBlogInputDto {
@@ -190,6 +194,13 @@ input UpdatePostInputDto {
   title: String
 }
 
+input UpdateUserInputDto {
+  """유저의 이름"""
+  name: String
+  """유저의 비밀번호"""
+  password: String
+}
+
 type User {
   blog: Blog
   """데이터의 생성 날짜"""
@@ -202,8 +213,6 @@ type User {
   id: String!
   """유저의 이름"""
   name: String!
-  """유저의 비밀번호"""
-  password: String!
   postList: [Post!]
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!

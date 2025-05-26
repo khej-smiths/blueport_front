@@ -19,7 +19,7 @@ export function Footer({ setOpen }: Props) {
       <AlertDialogCancel onClick={() => setOpen(false)}>
         FIXME: 개발용 닫기
       </AlertDialogCancel>
-      <Link href={`${ROUTE.MANAGE_ABOUT}`}>
+      <Link href={`${ROUTE.MANAGE_BLOG}`}>
         <AlertDialogAction onClick={() => setOpen(false)}>
           블로그 만들기
         </AlertDialogAction>

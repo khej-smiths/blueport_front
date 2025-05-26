@@ -1,10 +1,11 @@
-import { CreateBlogModal } from "@/features";
 import {
   LandingAbout,
   LandingIntro,
   PopularPostList,
   RecentPostList,
 } from "@/widgets";
+
+import { CheckBlog } from "./CheckBlog";
 
 export function Landing() {
   return (
@@ -18,7 +19,7 @@ export function Landing() {
           <RecentPostList />
         </div>
       </div>
-      <CreateBlogModal />
+      <CheckBlog />
     </article>
   );
 }

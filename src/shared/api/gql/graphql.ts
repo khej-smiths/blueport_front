@@ -113,6 +113,8 @@ export type Mutation = {
   updateBlog: Blog;
   /** 게시글 수정하기 */
   updatePost: Post;
+  /** 유저 업데이트 */
+  updateUser: User;
 };
 
 
@@ -143,6 +145,11 @@ export type MutationUpdateBlogArgs = {
 
 export type MutationUpdatePostArgs = {
   input: UpdatePostInputDto;
+};
+
+
+export type MutationUpdateUserArgs = {
+  input: UpdateUserInputDto;
 };
 
 export type Post = {
@@ -176,6 +183,8 @@ export type Query = {
   readPost: Post;
   /** 게시글 목록 조회하기 */
   readPostList: Array<Post>;
+  /** 유저 정보 가져오기(현재는 본인의 정보만) */
+  readUser: User;
 };
 
 
@@ -259,6 +268,13 @@ export type UpdatePostInputDto = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+export type UpdateUserInputDto = {
+  /** 유저의 이름 */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** 유저의 비밀번호 */
+  password?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type User = {
   __typename?: 'User';
   blog?: Maybe<Blog>;
@@ -272,8 +288,6 @@ export type User = {
   id: Scalars['String']['output'];
   /** 유저의 이름 */
   name: Scalars['String']['output'];
-  /** 유저의 비밀번호 */
-  password: Scalars['String']['output'];
   postList?: Maybe<Array<Post>>;
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
@@ -292,6 +306,16 @@ export type CreateUserMutationVariables = Exact<{
 
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, createdAt: any, updatedAt: any } };
+
+export type CheckBlogBySelfQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CheckBlogBySelfQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: (
+      { __typename?: 'Blog' }
+      & { ' $fragmentRefs'?: { 'BlogFieldsFragment': BlogFieldsFragment } }
+    ) | null } };
+
+export type BlogFieldsFragment = { __typename?: 'Blog', id: string, domain: string } & { ' $fragmentName'?: 'BlogFieldsFragment' };
 
 export type LoginQueryVariables = Exact<{
   input: LoginInputDto;
@@ -330,6 +354,12 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+export const BlogFieldsFragmentDoc = new TypedDocumentString(`
+    fragment BlogFields on Blog {
+  id
+  domain
+}
+    `, {"fragmentName":"BlogFields"}) as unknown as TypedDocumentString<BlogFieldsFragment, unknown>;
 export const UserFieldsFragmentDoc = new TypedDocumentString(`
     fragment UserFields on User {
   id
@@ -355,6 +385,21 @@ export const CreateUserDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CreateUserMutation, CreateUserMutationVariables>;
+export const CheckBlogBySelfDocument = new TypedDocumentString(`
+    query CheckBlogBySelf {
+  readUser {
+    id
+    email
+    name
+    blog {
+      ...BlogFields
+    }
+  }
+}
+    fragment BlogFields on Blog {
+  id
+  domain
+}`) as unknown as TypedDocumentString<CheckBlogBySelfQuery, CheckBlogBySelfQueryVariables>;
 export const LoginDocument = new TypedDocumentString(`
     query Login($input: LoginInputDto!) {
   login(input: $input)

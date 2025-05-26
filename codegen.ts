@@ -13,6 +13,7 @@ const config: CodegenConfig = {
       preset: "client",
       config: {
         documentMode: "string",
+        preResolveTypes: true,
       },
       plugins: [],
     },

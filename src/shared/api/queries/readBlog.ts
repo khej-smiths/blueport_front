@@ -1,6 +1,6 @@
 import { graphql } from "../gql";
 
-export const ReadBlogQuery = graphql(`
+export const readBlogQuery = graphql(`
   query ReadBlog($input: ReadBlogInputDto!) {
     readBlog(input: $input) {
       id

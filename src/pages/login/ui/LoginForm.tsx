@@ -24,6 +24,7 @@ export default function LoginForm() {
   const { mutate, isPending } = useLogin();
 
   useEffect(() => {
+    // 로그인 사용자 접속 방지
     if (accessToken) {
       router.push(ROUTE.HOME);
     }

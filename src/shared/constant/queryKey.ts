@@ -2,6 +2,7 @@ import { GetSchoolListRequest } from "../types/open";
 
 export const ROOT_KEY = {
   open: "open-api",
+  checkBlog: "check-blog",
 };
 
 export const QUERY_KEY = {
@@ -12,4 +13,5 @@ export const QUERY_KEY = {
       params,
     ],
   },
+  checkBlog: () => [ROOT_KEY.checkBlog, "checkBlog"],
 };
