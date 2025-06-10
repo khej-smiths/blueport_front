@@ -11,8 +11,8 @@ import remarkParse from "remark-parse";
 import { unified } from "unified";
 import { visit } from "unist-util-visit";
 
-import { Preview } from "@/features";
-import { Category, cn, EXAMPLE_DOC } from "@/shared";
+import { DeleteDialog, Preview } from "@/features";
+import { Button, Category, cn, EXAMPLE_DOC } from "@/shared";
 
 interface Heading {
   text: string;
@@ -136,11 +136,27 @@ export function BlogPostPage() {
             </p>
           </div>
           {/* 카테고리 */}
-          <div className="flex gap-4">
-            <Category key="1" category="javascript" />
-            <Category key="2" category="typescript" />
-            <Category key="3" category="React" />
-            <Category key="4" category="Next.js" />
+          <div className="flex items-end justify-between">
+            <div className="flex flex-wrap gap-x-4 gap-y-2">
+              <Category key="1" category="javascript" />
+              <Category key="2" category="typescript" />
+              <Category key="3" category="React" />
+              <Category key="4" category="Next.js" />
+            </div>
+            {/* 수정, 삭제 (작성자 본인만 표시) */}
+            {/* TODO: 작성자 본인만 표시 */}
+            <div className="flex gap-2">
+              <Button variant="outline">수정</Button>
+              <DeleteDialog
+                trigger={<Button variant="outline">삭제</Button>}
+                onCancel={() => {
+                  console.log("Cancel");
+                }} // 취소
+                onAction={() => {
+                  console.log("Action");
+                }} // 삭제
+              />
+            </div>
           </div>
           <div className="h-[1px] w-full bg-gray-200" />
           {/* 광고 */}

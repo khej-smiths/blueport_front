@@ -3,32 +3,32 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
-import { CreateBlogModal } from "@/features";
+import { CreateBlogDialog } from "@/features";
 import { useAuthStore } from "@/shared";
 
-import { useCheckBlog } from "../api/query";
+import { useReadUser } from "../api/query";
 
 export function CheckBlog() {
-  const [showCreateBlogModal, setShowCreateBlogModal] = useState(false);
+  const [showCreateBlogDialog, setShowCreateBlogDialog] = useState(false);
 
   const router = useRouter();
   const { accessToken } = useAuthStore();
 
-  const { data: checkBlog } = useCheckBlog();
+  const { data: user } = useReadUser();
 
   useEffect(() => {
-    console.log(checkBlog);
+    console.log(user);
 
-    if (!checkBlog && accessToken) {
-      setShowCreateBlogModal(true);
+    if (!user && accessToken) {
+      setShowCreateBlogDialog(true);
       return;
     }
-  }, [checkBlog, router, accessToken]);
+  }, [user, router, accessToken]);
 
   return (
-    <CreateBlogModal
-      open={showCreateBlogModal}
-      setOpen={setShowCreateBlogModal}
+    <CreateBlogDialog
+      open={showCreateBlogDialog}
+      setOpen={setShowCreateBlogDialog}
     />
   );
 }

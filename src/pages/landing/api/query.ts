@@ -5,12 +5,12 @@ import { toast } from "sonner";
 import { getErrorMessage, QUERIES } from "@/shared";
 import { QUERY_KEY } from "@/shared/constant/queryKey";
 
-export function useCheckBlog() {
+export function useReadUser() {
   return useQuery({
-    queryKey: QUERY_KEY.checkBlog(),
+    queryKey: QUERY_KEY.readUser(),
     queryFn: async () => {
       try {
-        const res = await QUERIES.checkBlog()
+        const res = await QUERIES.readUser()
         return res
       } catch (error) {
         const message = getErrorMessage(error as ClientError)

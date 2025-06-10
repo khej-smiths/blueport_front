@@ -11,7 +11,7 @@ interface Props {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export function CreateBlogModal({ open, setOpen }: Props) {
+export function CreateBlogDialog({ open, setOpen }: Props) {
   return (
     <AlertDialog open={open}>
       <AlertDialogContent className="w-full max-w-96">
