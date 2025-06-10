@@ -1,5 +1,5 @@
 import type { Preview } from "@storybook/react";
-import "../src/app/globals.css"; // Tailwind CSS 임포트
+import "../app/globals.css"; // Tailwind CSS 임포트
 import { withTests } from "@storybook/addon-jest";
 
 const preview: Preview = {

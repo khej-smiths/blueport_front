@@ -5,7 +5,7 @@ import { GNB } from ".";
 describe("GNB | ", () => {
   it("렌더링이 정상적으로 이루어져야 합니다", () => {
     render(<GNB />);
-    expect(screen.getByText("Pangho's Blog")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "title" })).toBeInTheDocument();
   });
 
   it.todo("Github 링크가 보여야 합니다");
