@@ -1,6 +1,6 @@
 import { graphql } from "../gql";
 
-export const CreateUserMutation = graphql(`
+export const createUserMutation = graphql(`
   mutation CreateUser($input: CreateUserInputDto!) {
     createUser(input: $input) {
       id

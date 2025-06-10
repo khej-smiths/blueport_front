@@ -298,7 +298,14 @@ export type CreateBlogMutationVariables = Exact<{
 }>;
 
 
-export type CreateBlogMutation = { __typename?: 'Mutation', createBlog: { __typename?: 'Blog', domain: string } };
+export type CreateBlogMutation = { __typename?: 'Mutation', createBlog: { __typename?: 'Blog', name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
+
+export type CreatePostMutationVariables = Exact<{
+  input: CreatePostInputDto;
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string } };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInputDto;
@@ -307,10 +314,38 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = { __typename?: 'Mutation', createUser: { __typename?: 'User', id: string, name: string, email: string, createdAt: any, updatedAt: any } };
 
-export type CheckBlogBySelfQueryVariables = Exact<{ [key: string]: never; }>;
+export type DeletePostMutationVariables = Exact<{
+  input: DeletePostInputDto;
+}>;
 
 
-export type CheckBlogBySelfQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: (
+export type DeletePostMutation = { __typename?: 'Mutation', deletePost: boolean };
+
+export type UpdateBlogMutationVariables = Exact<{
+  input: UpdateBlogInputDto;
+}>;
+
+
+export type UpdateBlogMutation = { __typename?: 'Mutation', updateBlog: { __typename?: 'Blog', name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
+
+export type UpdatePostMutationVariables = Exact<{
+  input: UpdatePostInputDto;
+}>;
+
+
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null } };
+
+export type UpdateUserMutationVariables = Exact<{
+  input: UpdateUserInputDto;
+}>;
+
+
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', name: string, email: string } };
+
+export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReadUserQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: (
       { __typename?: 'Blog' }
       & { ' $fragmentRefs'?: { 'BlogFieldsFragment': BlogFieldsFragment } }
     ) | null } };
@@ -335,6 +370,33 @@ export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Bl
     ) } };
 
 export type UserFieldsFragment = { __typename?: 'User', id: string, name: string, email: string } & { ' $fragmentName'?: 'UserFieldsFragment' };
+
+export type ReadBlogListQueryVariables = Exact<{
+  input: ReadBlogListInputDto;
+}>;
+
+
+export type ReadBlogListQuery = { __typename?: 'Query', readBlogList: Array<{ __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, ownerId: string }> };
+
+export type ReadPostQueryVariables = Exact<{
+  input: ReadPostInputDto;
+}>;
+
+
+export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: (
+      { __typename?: 'User' }
+      & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
+    ) } };
+
+export type ReadPostListQueryVariables = Exact<{
+  input: ReadPostListInputDto;
+}>;
+
+
+export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: (
+      { __typename?: 'User' }
+      & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
+    ) }> };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -370,10 +432,24 @@ export const UserFieldsFragmentDoc = new TypedDocumentString(`
 export const CreateBlogDocument = new TypedDocumentString(`
     mutation CreateBlog($input: CreateBlogInputDto!) {
   createBlog(input: $input) {
+    name
     domain
+    greeting
+    photo
+    introduction
+    skills
+    email
+    github
   }
 }
     `) as unknown as TypedDocumentString<CreateBlogMutation, CreateBlogMutationVariables>;
+export const CreatePostDocument = new TypedDocumentString(`
+    mutation CreatePost($input: CreatePostInputDto!) {
+  createPost(input: $input) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CreatePostMutation, CreatePostMutationVariables>;
 export const CreateUserDocument = new TypedDocumentString(`
     mutation CreateUser($input: CreateUserInputDto!) {
   createUser(input: $input) {
@@ -385,8 +461,45 @@ export const CreateUserDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CreateUserMutation, CreateUserMutationVariables>;
-export const CheckBlogBySelfDocument = new TypedDocumentString(`
-    query CheckBlogBySelf {
+export const DeletePostDocument = new TypedDocumentString(`
+    mutation DeletePost($input: DeletePostInputDto!) {
+  deletePost(input: $input)
+}
+    `) as unknown as TypedDocumentString<DeletePostMutation, DeletePostMutationVariables>;
+export const UpdateBlogDocument = new TypedDocumentString(`
+    mutation UpdateBlog($input: UpdateBlogInputDto!) {
+  updateBlog(input: $input) {
+    name
+    domain
+    greeting
+    photo
+    introduction
+    skills
+    email
+    github
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateBlogMutation, UpdateBlogMutationVariables>;
+export const UpdatePostDocument = new TypedDocumentString(`
+    mutation UpdatePost($input: UpdatePostInputDto!) {
+  updatePost(input: $input) {
+    id
+    title
+    content
+    hashtagList
+  }
+}
+    `) as unknown as TypedDocumentString<UpdatePostMutation, UpdatePostMutationVariables>;
+export const UpdateUserDocument = new TypedDocumentString(`
+    mutation UpdateUser($input: UpdateUserInputDto!) {
+  updateUser(input: $input) {
+    name
+    email
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateUserMutation, UpdateUserMutationVariables>;
+export const ReadUserDocument = new TypedDocumentString(`
+    query ReadUser {
   readUser {
     id
     email
@@ -399,7 +512,7 @@ export const CheckBlogBySelfDocument = new TypedDocumentString(`
     fragment BlogFields on Blog {
   id
   domain
-}`) as unknown as TypedDocumentString<CheckBlogBySelfQuery, CheckBlogBySelfQueryVariables>;
+}`) as unknown as TypedDocumentString<ReadUserQuery, ReadUserQueryVariables>;
 export const LoginDocument = new TypedDocumentString(`
     query Login($input: LoginInputDto!) {
   login(input: $input)
@@ -427,3 +540,53 @@ export const ReadBlogDocument = new TypedDocumentString(`
   name
   email
 }`) as unknown as TypedDocumentString<ReadBlogQuery, ReadBlogQueryVariables>;
+export const ReadBlogListDocument = new TypedDocumentString(`
+    query ReadBlogList($input: ReadBlogListInputDto!) {
+  readBlogList(input: $input) {
+    id
+    name
+    domain
+    greeting
+    photo
+    introduction
+    skills
+    email
+    github
+    ownerId
+  }
+}
+    `) as unknown as TypedDocumentString<ReadBlogListQuery, ReadBlogListQueryVariables>;
+export const ReadPostDocument = new TypedDocumentString(`
+    query ReadPost($input: ReadPostInputDto!) {
+  readPost(input: $input) {
+    id
+    title
+    content
+    hashtagList
+    writer {
+      ...UserFields
+    }
+  }
+}
+    fragment UserFields on User {
+  id
+  name
+  email
+}`) as unknown as TypedDocumentString<ReadPostQuery, ReadPostQueryVariables>;
+export const ReadPostListDocument = new TypedDocumentString(`
+    query ReadPostList($input: ReadPostListInputDto!) {
+  readPostList(input: $input) {
+    id
+    title
+    content
+    hashtagList
+    writer {
+      ...UserFields
+    }
+  }
+}
+    fragment UserFields on User {
+  id
+  name
+  email
+}`) as unknown as TypedDocumentString<ReadPostListQuery, ReadPostListQueryVariables>;

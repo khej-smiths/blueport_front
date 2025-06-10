@@ -1,8 +1,9 @@
 import { graphql } from "../gql";
 
-export const createBlogMutation = graphql(`
-  mutation CreateBlog($input: CreateBlogInputDto!) {
-    createBlog(input: $input) {
+export const readBlogListQuery = graphql(`
+  query ReadBlogList($input: ReadBlogListInputDto!) {
+    readBlogList(input: $input) {
+      id
       name
       domain
       greeting
@@ -11,5 +12,6 @@ export const createBlogMutation = graphql(`
       skills
       email
       github
+      ownerId
     }
   }`)

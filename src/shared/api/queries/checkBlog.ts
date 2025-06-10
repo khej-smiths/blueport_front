@@ -1,7 +1,7 @@
 import { graphql } from "../gql";
 
-export const checkBlogQuery = graphql(`
-  query CheckBlogBySelf {
+export const readUserQuery = graphql(`
+  query ReadUser {
     readUser {
       id
       email
