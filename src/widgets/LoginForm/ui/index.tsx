@@ -10,7 +10,7 @@ import { Button, getErrorMessage, Input, ROUTE, useAuthStore } from "@/shared";
 import { useLogin } from "../api/mutation";
 import { LoginFormDto } from "../model/type";
 
-export default function LoginForm() {
+export function LoginForm() {
   const router = useRouter();
   const { accessToken, setAccessToken } = useAuthStore();
 

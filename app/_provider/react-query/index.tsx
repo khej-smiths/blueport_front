@@ -17,6 +17,13 @@ export function QueryProvider({ children }: Props) {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            refetchInterval: false,
+            refetchIntervalInBackground: false,
+            retry: false,
+            retryDelay: 0,
+            retryOnMount: false,
           },
         },
       })

@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { KeyboardEvent, useEffect, useRef, useState } from "react";
+import { KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { LabelInput } from "@/entities";
 import { FileUpload } from "@/features";
@@ -11,14 +12,19 @@ import {
   Button,
   Category,
   Container,
+  CreateBlogInputDto,
   DefaultProfile,
   FormLabel,
+  getErrorMessage,
+  HOOKS,
   Input,
   ROUTE,
   Textarea,
   useAuthStore,
 } from "@/shared";
 
+import { useCreateBlog, useUpdateBlog } from "../api/mutation";
+import { useGetBlog } from "../api/query";
 import { BlogFormDto } from "../model/type";
 
 export function BlogForm() {
@@ -30,7 +36,7 @@ export function BlogForm() {
   const router = useRouter();
   const { accessToken } = useAuthStore();
 
-  const { control, watch, setValue, getValues, handleSubmit } =
+  const { control, watch, reset, setValue, getValues, handleSubmit } =
     useForm<BlogFormDto>({
       defaultValues: {
         blogName: "",
@@ -44,15 +50,69 @@ export function BlogForm() {
       },
     });
 
+  const { data: user } = HOOKS.useSelf();
+  const { data: blog } = useGetBlog(user?.id);
+  const { mutate: createBlog } = useCreateBlog();
+  const { mutate: updateBlog } = useUpdateBlog();
+
+  const isModify = useMemo(() => (blog?.id ? true : false), [blog]);
+
   useEffect(() => {
     if (!accessToken) {
       router.push(ROUTE.LOGIN);
     }
   }, [accessToken, router]);
 
-  console.log(watch());
+  useEffect(() => {
+    if (!blog) return;
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+    reset({
+      blogName: blog.name,
+      domain: blog.domain,
+      greeting: blog.greeting,
+      email: blog.email ?? "",
+      github: blog.github ?? "",
+      description: blog.introduction ?? "",
+      skills: blog.skills ?? [],
+    });
+  }, [blog, reset]);
+
+  const onSubmit = handleSubmit(
+    async (data) => {
+      // FIXME: 임시처리 이미지 업로드 추가 후 링크로 넣어야 함
+      const photo = typeof data.photo === "string" ? data.photo : "";
+
+      const body: CreateBlogInputDto = {
+        domain: data.domain,
+        greeting: data.greeting,
+        introduction: data.description,
+        name: data.blogName,
+        photo,
+        ...(data.skills && { skills: data.skills }),
+        ...(data.email && { email: data.email }),
+        ...(data.github && { github: data.github }),
+      };
+
+      if (isModify) {
+        updateBlog(body, {
+          onSuccess: () => {
+            toast.success("블로그 정보가 변경되었습니다.");
+          },
+        });
+        return;
+      }
+
+      createBlog(body, {
+        onSuccess: (res) => {
+          router.push(res.domain);
+        },
+      });
+    },
+    (error) => {
+      const message = getErrorMessage(error);
+      toast.error(message);
+    }
+  );
 
   const handleAddSkills = () => {
     const currentSkills = getValues("skills") ?? [];

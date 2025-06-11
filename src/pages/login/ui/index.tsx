@@ -6,9 +6,9 @@ import { useState } from "react";
 
 import { SignupDialog } from "@/features";
 import { AlertDialog, AlertDialogTrigger, Button, ROUTE } from "@/shared";
+import { LoginForm } from "@/widgets";
 
 import LoginContainer from "./LoginContainer";
-import LoginForm from "./LoginForm";
 
 export function LoginPage() {
   const [open, setOpen] = useState(false);

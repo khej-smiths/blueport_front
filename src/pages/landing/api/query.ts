@@ -7,7 +7,7 @@ import { QUERY_KEY } from "@/shared/constant/queryKey";
 
 export function useReadUser() {
   return useQuery({
-    queryKey: QUERY_KEY.readUser(),
+    queryKey: QUERY_KEY.user(),
     queryFn: async () => {
       try {
         const res = await QUERIES.readUser()
