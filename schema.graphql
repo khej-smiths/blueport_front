@@ -120,6 +120,8 @@ type Post {
   title: String!
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
+  """조회수"""
+  viewCount: Int!
   """게시글 작성자"""
   writer: User!
 }
@@ -158,10 +160,19 @@ input ReadPostInputDto {
 }
 
 input ReadPostListInputDto {
+  """조회할 블로그의 id, 없는 경우 전체 게시글을 기준으로 조회된다."""
+  blogId: String
   """페이지 당 자료의 개수"""
   limit: Int! = 10
   """페이지 번호"""
   pageNumber: Int! = 0
+  """정렬조건"""
+  sortOption: SORT_OPTION! = NEWEST
+}
+
+enum SORT_OPTION {
+  NEWEST
+  VIEW_COUNT
 }
 
 input UpdateBlogInputDto {

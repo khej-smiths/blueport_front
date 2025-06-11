@@ -12,15 +12,6 @@ export const readBlogQuery = graphql(`
       skills
       email
       github
-      owner {
-        ...UserFields
-      }
     }
-  }
-
-  fragment UserFields on User {
-    id
-    name
-    email
   }
 `)

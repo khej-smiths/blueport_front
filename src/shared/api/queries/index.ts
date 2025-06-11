@@ -12,11 +12,11 @@ import {
   ReadUserQuery,
 } from "../gql/graphql";
 import { instance } from "../gql/instance";
-import { readUserQuery } from "./checkBlog";
 import { loginQuery } from "./login";
 import { readBlogQuery } from "./readBlog";
 import { readBlogListQuery } from "./readBlogList";
 import { readPostListQuery } from "./readPostList";
+import { readUserQuery } from "./readUser";
 
 /** 로그인 */
 export async function login(input: LoginInputDto) {
@@ -39,7 +39,7 @@ export async function readPostList(input: ReadPostListInputDto) {
 }
 
 /** 단일 블로그 조회 */
-export async function readBlog(input: ReadBlogInputDto) {
+export async function readBlog(input: ReadBlogInputDto): Promise<ReadBlogQuery> {
   return await instance<ReadBlogQuery>(readBlogQuery, { input })
 }
 

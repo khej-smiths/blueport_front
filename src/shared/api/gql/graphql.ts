@@ -168,6 +168,8 @@ export type Post = {
   title: Scalars['String']['output'];
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
+  /** 조회수 */
+  viewCount: Scalars['Int']['output'];
   /** 게시글 작성자 */
   writer: User;
 };
@@ -232,11 +234,20 @@ export type ReadPostInputDto = {
 };
 
 export type ReadPostListInputDto = {
+  /** 조회할 블로그의 id, 없는 경우 전체 게시글을 기준으로 조회된다. */
+  blogId?: InputMaybe<Scalars['String']['input']>;
   /** 페이지 당 자료의 개수 */
   limit?: Scalars['Int']['input'];
   /** 페이지 번호 */
   pageNumber?: Scalars['Int']['input'];
+  /** 정렬조건 */
+  sortOption?: Sort_Option;
 };
+
+export enum Sort_Option {
+  Newest = 'NEWEST',
+  ViewCount = 'VIEW_COUNT'
+}
 
 export type UpdateBlogInputDto = {
   /** 도메인, 50자 내외 */
@@ -342,16 +353,6 @@ export type UpdateUserMutationVariables = Exact<{
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', name: string, email: string } };
 
-export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ReadUserQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: (
-      { __typename?: 'Blog' }
-      & { ' $fragmentRefs'?: { 'BlogFieldsFragment': BlogFieldsFragment } }
-    ) | null } };
-
-export type BlogFieldsFragment = { __typename?: 'Blog', id: string, domain: string } & { ' $fragmentName'?: 'BlogFieldsFragment' };
-
 export type LoginQueryVariables = Exact<{
   input: LoginInputDto;
 }>;
@@ -364,12 +365,7 @@ export type ReadBlogQueryVariables = Exact<{
 }>;
 
 
-export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, owner: (
-      { __typename?: 'User' }
-      & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
-    ) } };
-
-export type UserFieldsFragment = { __typename?: 'User', id: string, name: string, email: string } & { ' $fragmentName'?: 'UserFieldsFragment' };
+export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
 
 export type ReadBlogListQueryVariables = Exact<{
   input: ReadBlogListInputDto;
@@ -388,6 +384,8 @@ export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Po
       & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
     ) } };
 
+export type UserFieldsFragment = { __typename?: 'User', id: string, name: string, email: string } & { ' $fragmentName'?: 'UserFieldsFragment' };
+
 export type ReadPostListQueryVariables = Exact<{
   input: ReadPostListInputDto;
 }>;
@@ -397,6 +395,16 @@ export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __
       { __typename?: 'User' }
       & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
     ) }> };
+
+export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReadUserQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: (
+      { __typename?: 'Blog' }
+      & { ' $fragmentRefs'?: { 'BlogFieldsFragment': BlogFieldsFragment } }
+    ) | null } };
+
+export type BlogFieldsFragment = { __typename?: 'Blog', id: string, domain: string } & { ' $fragmentName'?: 'BlogFieldsFragment' };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -416,12 +424,6 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const BlogFieldsFragmentDoc = new TypedDocumentString(`
-    fragment BlogFields on Blog {
-  id
-  domain
-}
-    `, {"fragmentName":"BlogFields"}) as unknown as TypedDocumentString<BlogFieldsFragment, unknown>;
 export const UserFieldsFragmentDoc = new TypedDocumentString(`
     fragment UserFields on User {
   id
@@ -429,6 +431,12 @@ export const UserFieldsFragmentDoc = new TypedDocumentString(`
   email
 }
     `, {"fragmentName":"UserFields"}) as unknown as TypedDocumentString<UserFieldsFragment, unknown>;
+export const BlogFieldsFragmentDoc = new TypedDocumentString(`
+    fragment BlogFields on Blog {
+  id
+  domain
+}
+    `, {"fragmentName":"BlogFields"}) as unknown as TypedDocumentString<BlogFieldsFragment, unknown>;
 export const CreateBlogDocument = new TypedDocumentString(`
     mutation CreateBlog($input: CreateBlogInputDto!) {
   createBlog(input: $input) {
@@ -498,21 +506,6 @@ export const UpdateUserDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<UpdateUserMutation, UpdateUserMutationVariables>;
-export const ReadUserDocument = new TypedDocumentString(`
-    query ReadUser {
-  readUser {
-    id
-    email
-    name
-    blog {
-      ...BlogFields
-    }
-  }
-}
-    fragment BlogFields on Blog {
-  id
-  domain
-}`) as unknown as TypedDocumentString<ReadUserQuery, ReadUserQueryVariables>;
 export const LoginDocument = new TypedDocumentString(`
     query Login($input: LoginInputDto!) {
   login(input: $input)
@@ -530,16 +523,9 @@ export const ReadBlogDocument = new TypedDocumentString(`
     skills
     email
     github
-    owner {
-      ...UserFields
-    }
   }
 }
-    fragment UserFields on User {
-  id
-  name
-  email
-}`) as unknown as TypedDocumentString<ReadBlogQuery, ReadBlogQueryVariables>;
+    `) as unknown as TypedDocumentString<ReadBlogQuery, ReadBlogQueryVariables>;
 export const ReadBlogListDocument = new TypedDocumentString(`
     query ReadBlogList($input: ReadBlogListInputDto!) {
   readBlogList(input: $input) {
@@ -590,3 +576,18 @@ export const ReadPostListDocument = new TypedDocumentString(`
   name
   email
 }`) as unknown as TypedDocumentString<ReadPostListQuery, ReadPostListQueryVariables>;
+export const ReadUserDocument = new TypedDocumentString(`
+    query ReadUser {
+  readUser {
+    id
+    email
+    name
+    blog {
+      ...BlogFields
+    }
+  }
+}
+    fragment BlogFields on Blog {
+  id
+  domain
+}`) as unknown as TypedDocumentString<ReadUserQuery, ReadUserQueryVariables>;

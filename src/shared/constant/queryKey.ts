@@ -2,7 +2,8 @@ import { GetSchoolListRequest } from "../types/open";
 
 export const ROOT_KEY = {
   open: "open-api",
-  readUser: "read-user",
+  user: "user",
+  blog: "blog",
 };
 
 export const QUERY_KEY = {
@@ -13,5 +14,6 @@ export const QUERY_KEY = {
       params,
     ],
   },
-  readUser: () => [ROOT_KEY.readUser, "readUser"],
+  user: () => [ROOT_KEY.user, "readUser"],
+  blog: (userId?: string) => [ROOT_KEY.blog, "readBlog", userId],
 };

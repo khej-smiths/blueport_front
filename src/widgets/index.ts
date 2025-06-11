@@ -5,6 +5,7 @@ export { GNB } from "./GNB";
 export { LandingAbout } from "./LandingAbout";
 export { LandingIntro } from "./LandingIntro";
 export { LNB } from "./LNB";
+export { LoginForm } from "./LoginForm";
 export { ManageGNB } from "./ManageGNB";
 export { ManageUserForm } from "./ManageUserForm";
 export { PopularPostList } from "./PopularPostList";
