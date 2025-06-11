@@ -2,9 +2,9 @@ name: Develop Deploy
 
 on:
   push:
-    branches: [develop, codex/review]
+    branches: [develop]
   pull_request:
-    branches: [develop, codex/review]
+    branches: [develop]
 
 jobs:
   test:
