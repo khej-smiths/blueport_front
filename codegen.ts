@@ -5,11 +5,11 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: `${process.env.NEXT_PUBLIC_API_ENDPOINT}`,
-  documents: ["src/shared/api/mutations/*.{ts,tsx}", "src/shared/api/queries/*.{ts,tsx}"],
+  schema: `${import.meta.env.VITE_PUBLIC_API_ENDPOINT}`,
+  documents: ["app/shared/api/mutations/*.{ts,tsx}", "app/shared/api/queries/*.{ts,tsx}"],
   ignoreNoDocuments: true,
   generates: {
-    "./src/shared/api/gql/": {
+    "./app/shared/api/gql/": {
       preset: "client",
       config: {
         documentMode: "string",

@@ -5,11 +5,7 @@
     "sourceType": "module",
     "ecmaVersion": "latest"
   },
-  "extends": [
-    "next/core-web-vitals",
-    "next/typescript",
-    "plugin:storybook/recommended"
-  ],
+  "extends": ["plugin:storybook/recommended"],
   "plugins": ["@typescript-eslint", "simple-import-sort"],
   "rules": {
     "@typescript-eslint/interface-name-prefix": "off",

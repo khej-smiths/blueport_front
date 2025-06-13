@@ -6,12 +6,12 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     globals: true,
-    setupFiles: "./src/test/setup.ts",
+    setupFiles: "./app/test/setup.ts",
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
     },
-    include: ["src/**/*.{test,spec}.{js,jsx,ts,tsx}"],
+    include: ["app/**/*.{test,spec}.{js,jsx,ts,tsx}"],
     reporters: [
       "default",
       [
@@ -32,7 +32,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@": resolve(__dirname, "./src"),
+      "@": resolve(__dirname, "./app"),
     },
   },
 });

@@ -2,9 +2,8 @@
 
 ## 핵심 기술
 
-- Next.js 14
-  - App Router 기반 페이지 구조
-  - Server/Client 컴포넌트 분리
+- React 19
+  - React Router V7 기반 SSR(서버 사이드 렌더링) 프레임워크
   - TypeScript 기반 개발
 - GraphQL
   - graphql-request 기반 GraphQL 데이터 통신
@@ -20,10 +19,6 @@
   - Tailwind 기반의 손쉬운 커스터마이징 지원
 - Framer Motion
   - 페이지 전환 애니메이션
-  ```typescript:src/app/template.tsx
-  startLine: 13
-  endLine: 23
-  ```
 
 ## 에디터 기능
 
@@ -55,7 +50,7 @@
 ## 배포 환경
 
 - Docker
-  - Next.js 애플리케이션 컨테이너
+  - React Router 기반 SSR 애플리케이션 컨테이너
   - Storybook 개발 환경 컨테이너
 - GitHub Actions
   - 테스트 자동화
