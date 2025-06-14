@@ -59,7 +59,7 @@ export function SignupDialog({ setOpen }: Props) {
 
   return (
     <AlertDialogContent
-      className="w-full max-w-96"
+      className="w-full !max-w-96"
       aria-describedby="signup-dialog-content"
     >
       <form onSubmit={onSubmit} className="flex flex-col gap-8">
