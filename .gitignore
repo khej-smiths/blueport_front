@@ -5,5 +5,8 @@
 /.react-router/
 /build/
 
+# Jest
+.jest-test-results.json
+
 .env
 .env.*
