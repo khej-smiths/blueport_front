@@ -8,7 +8,9 @@ services:
     stdin_open: true
     tty: true
     # 현재 경로에 이미지 빌드
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     # 포트 포워딩
     ports:
       - 3000:3000
