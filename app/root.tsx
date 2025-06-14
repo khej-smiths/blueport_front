@@ -9,7 +9,8 @@ import {
 } from "react-router";
 
 import "./app.css";
-import { QueryProvider } from "./providers/react-query";
+import { QueryProvider } from "./shared";
+import { ClientLayoutBody } from "./widgets";
 
 export const links: LinksFunction = () => [
   {
@@ -29,6 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
+        <ClientLayoutBody />
         <ScrollRestoration />
         <Scripts />
       </body>

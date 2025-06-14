@@ -36,6 +36,9 @@ export { onlyNumber } from "./lib/onlyNumber";
 // Store
 export { useAuthStore } from "./stores/auth";
 
+// Providers
+export { QueryProvider } from "./providers/react-query";
+
 // Hooks
 export { useDebounce } from "./hooks/useDebounce";
 export { useDebounceMutation } from "./hooks/useDebounceMutation";
