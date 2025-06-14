@@ -22,14 +22,37 @@ type Blog {
   introduction: String!
   """블로그 이름"""
   name: String!
-  """블로그 주인 전체 정보"""
-  owner: User!
   """블로그 주인의 id"""
   ownerId: String!
   """프로필 사진"""
   photo: String!
   """기술 스택, 100개 제한"""
   skills: [String!]
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+}
+
+type Career {
+  """회사"""
+  company: String
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """부서"""
+  department: String
+  """업무 내용"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """id"""
+  id: String!
+  """정렬 순서"""
+  order: Int!
+  """직급"""
+  position: String
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
 }
@@ -53,6 +76,40 @@ input CreateBlogInputDto {
   skills: [String!]
 }
 
+input CreateCareerInputDto {
+  """회사"""
+  company: String
+  """부서"""
+  department: String
+  """업무 내용"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """정렬 순서"""
+  order: Int!
+  """직급"""
+  position: String
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+}
+
+input CreateEducationInputDto {
+  """기타"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """학점"""
+  grade: Float
+  """전공"""
+  major: String
+  """교육기관명"""
+  name: String!
+  """정렬 순서"""
+  order: Int!
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+}
+
 input CreatePostInputDto {
   """게시글 내용"""
   content: String!
@@ -60,6 +117,13 @@ input CreatePostInputDto {
   hashtagList: [String!]
   """게시글의 제목"""
   title: String!
+}
+
+input CreateResumeInputDto {
+  """경력"""
+  careerList: [CreateCareerInputDto!]
+  """학력"""
+  educationList: [CreateEducationInputDto!]
 }
 
 input CreateUserInputDto {
@@ -81,6 +145,31 @@ input DeletePostInputDto {
   id: String!
 }
 
+type Education {
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """기타"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """학점"""
+  grade: Float
+  """id"""
+  id: String!
+  """전공"""
+  major: String
+  """교육기관명"""
+  name: String!
+  """정렬 순서"""
+  order: Int!
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+}
+
 input LoginInputDto {
   """유저의 이메일"""
   email: String!
@@ -93,6 +182,8 @@ type Mutation {
   createBlog(input: CreateBlogInputDto!): Blog!
   """게시글 작성하기, 로그인 유저만 게시글 작성 가능"""
   createPost(input: CreatePostInputDto!): Post!
+  """이력서 생성"""
+  createResume(input: CreateResumeInputDto!): Resume!
   """유저 생성"""
   createUser(input: CreateUserInputDto!): User!
   """게시글 삭제하기"""
@@ -101,6 +192,8 @@ type Mutation {
   updateBlog(input: UpdateBlogInputDto!): Blog!
   """게시글 수정하기"""
   updatePost(input: UpdatePostInputDto!): Post!
+  """이력서 수정"""
+  updateResume(input: UpdateResumeInputDto!): Resume!
   """유저 업데이트"""
   updateUser(input: UpdateUserInputDto!): User!
 }
@@ -136,6 +229,8 @@ type Query {
   readPost(input: ReadPostInputDto!): Post!
   """게시글 목록 조회하기"""
   readPostList(input: ReadPostListInputDto!): [Post!]!
+  """이력서 조회"""
+  readResume(input: ReadResumeInputDto!): Resume!
   """유저 정보 가져오기(현재는 본인의 정보만)"""
   readUser: User!
 }
@@ -170,6 +265,28 @@ input ReadPostListInputDto {
   sortOption: SORT_OPTION! = NEWEST
 }
 
+input ReadResumeInputDto {
+  """id"""
+  id: String!
+}
+
+type Resume {
+  """경력"""
+  careerList: [Career!]
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """학력"""
+  educationList: [Education!]
+  """id"""
+  id: String!
+  """이력서 주인의 id"""
+  ownerId: String!
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+}
+
 enum SORT_OPTION {
   NEWEST
   VIEW_COUNT
@@ -194,6 +311,44 @@ input UpdateBlogInputDto {
   skills: [String!]
 }
 
+input UpdateCareerInputDto {
+  """회사"""
+  company: String
+  """부서"""
+  department: String
+  """업무 내용"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """id"""
+  id: String
+  """정렬 순서"""
+  order: Int!
+  """직급"""
+  position: String
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+}
+
+input UpdateEducationInputDto {
+  """기타"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """학점"""
+  grade: Float
+  """id"""
+  id: String
+  """전공"""
+  major: String
+  """교육기관명"""
+  name: String!
+  """정렬 순서"""
+  order: Int!
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+}
+
 input UpdatePostInputDto {
   """게시글 내용"""
   content: String
@@ -203,6 +358,13 @@ input UpdatePostInputDto {
   id: String!
   """게시글의 제목"""
   title: String
+}
+
+input UpdateResumeInputDto {
+  """경력"""
+  careerList: [UpdateCareerInputDto!]
+  """학력"""
+  educationList: [UpdateEducationInputDto!]
 }
 
 input UpdateUserInputDto {
@@ -225,6 +387,7 @@ type User {
   """유저의 이름"""
   name: String!
   postList: [Post!]
+  resume: Resume
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
 }

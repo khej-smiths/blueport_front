@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": ["DOM", "DOM.Iterable", "esnext"],
+    "types": ["node", "vite/client"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,18 +15,24 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      },
-      {
         "name": "@0no-co/graphqlsp",
-        "schema": "./schema.graphql",
+        "schema": "./schema.graphql"
       }
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./app/*"]
+    },
+    "rootDirs": [".", "./.react-router/types"]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "vitest.config.ts"],
+  "include": [
+    "**/*",
+    "**/.server/**/*",
+    "**/.client/**/*",
+    ".react-router/types/**/*",
+    "**/*.ts",
+    "**/*.tsx",
+    "vitest.config.ts"
+  ],
   "exclude": ["node_modules"]
 }

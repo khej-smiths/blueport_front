@@ -3,7 +3,7 @@ version: '2'
 
 # services는 컨테이너
 services:
-  next-app:
+  react-app:
     # -it 옵션을 위해 사용됨 (표준입출력)
     stdin_open: true
     tty: true
@@ -16,10 +16,10 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
-      - /app/.next
     # 환경변수 설정
     environment:
       - END_POINT=https://pangho297.endpoint:5000
+      - CHOKIDAR_USEPOLLING=true
     command: pnpm run dev
 
   storybook:

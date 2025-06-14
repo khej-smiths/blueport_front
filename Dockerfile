@@ -16,6 +16,10 @@ RUN pnpm install
 # 현재 디렉토리의 모든 파일을 도커 컨테이너의 워킹 디렉토리에 복사
 COPY . .
 
+# Vite 개발 서버 환경변수 설정
+ENV NODE_ENV=development
+ENV PATH /app/node_module/.bin:$PATH
+
 # 각각의 명령어들은 한줄 한줄씩 캐싱되어 실행된다.
 # package.json의 내용은 자주 바뀌진 않을 거지만
 # 소스 코드는 자주 바뀌는데

@@ -1,1 +1,0 @@
-export { ManageResumePage } from "./ui";

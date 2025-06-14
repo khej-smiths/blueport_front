@@ -1,64 +1,12 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
-/node_modules
-/.pnp
-.pnp.js
-.yarn/install-state.gz
-
-# testing
-/coverage
-
-# next.js
-/.next/
-/out/
-.swc/
-
-# production
-/build
-
-# misc
 .DS_Store
-*.pem
+/node_modules/
 
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+# React Router
+/.react-router/
+/build/
 
-# local env files
-.env*.local
-.env.development
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# cursor
-.cursorrules
-
-# pnpm
-.pnpm-store
-
-# playwright
-node_modules/
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-
-*storybook.log
-
-# jest
+# Jest
 .jest-test-results.json
 
-# 임시 문서 파일
-docs/**/*.tmp
-docs/**/*.temp
-docs/**/.DS_Store
-
-# 자동 생성되는 문서 (있는 경우)
-docs/generated/
+.env
+.env.*

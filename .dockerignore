@@ -5,6 +5,8 @@ coverage
 .env*
 !.env.example
 docs
+README.md
+AGENTS.md
 
 # jest
 .jest-test-results.json

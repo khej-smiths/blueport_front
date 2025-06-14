@@ -18,29 +18,6 @@
   endLine: 52
   ```
 
-## React/Next.js
-
-- 컴포넌트 구조화 방식
-
-  - 섹션별 폴더 구조 사용 (section/Landing, section/Editor 등)
-  - 컴포넌트별 stories, test 파일 포함
-
-- Props 인터페이스 정의
-
-  - Props 접미사 사용
-
-  ```typescript:src/components/section/Editor/index.tsx
-  startLine: 8
-  endLine: 11
-  ```
-
-- Server/Client 컴포넌트 구분
-  - 클라이언트 컴포넌트는 파일 최상단에 "use client" 지시어 사용
-  ```typescript:src/components/section/Editor/index.tsx
-  startLine: 1
-  endLine: 2
-  ```
-
 ## 스타일링
 
 - Tailwind CSS 클래스 순서
