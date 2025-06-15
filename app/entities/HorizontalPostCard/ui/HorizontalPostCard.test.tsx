@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 
 import { HorizontalPostCard } from ".";
 
 describe("Horizontal | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<HorizontalPostCard />);
+    render(
+      <MemoryRouter>
+        <HorizontalPostCard />
+      </MemoryRouter>
+    );
     const horizontal = screen.getByRole("feed", {
       name: "horizontal-post-card",
     });
