@@ -10,19 +10,19 @@
 
 - **FSD(Feature-Sliced Design) 아키텍처**를 기반으로, 유지보수성과 확장성을 극대화합니다.
 - 주요 폴더 구조:
-  - `app/`: Next.js 14 App Router, 글로벌 레이아웃 및 라우팅
-  - `src/pages/`: 실제 라우팅, 페이지 엔트리포인트, API 라우트
-  - `src/entities/`: 도메인 엔티티별 UI 컴포넌트 및 타입
-  - `src/features/`: 사용자 기능 단위별 UI, 로직, API 연동
-  - `src/widgets/`: 여러 feature/entity를 조합한 복합 UI 섹션
-  - `src/shared/`: 전역 공통 컴포넌트, 유틸, 타입, 상수, 커스텀 훅 등
+  - `app/`: React Router V7 기반 SSR 루트, 글로벌 레이아웃과 라우팅 관리
+  - `app/pages/`: 페이지 엔트리포인트와 라우트 정의
+  - `app/entities/`: 도메인 엔티티별 UI 컴포넌트 및 타입
+  - `app/features/`: 사용자 기능 단위별 UI, 로직, API 연동
+  - `app/widgets/`: 여러 feature/entity를 조합한 복합 UI 섹션
+  - `app/shared/`: 전역 공통 컴포넌트, 유틸, 타입, 상수, 커스텀 훅 등
 
 ### Slice 구조 예시
 
 각 Segment(예: widgets) 내부는 slice(기능/도메인별 폴더)로 나뉘며, slice 내부는 역할별로 세분화됩니다.
 
 ```
-src/widgets/ResumeForm/
+app/widgets/ResumeForm/
 ├── ui/
 ├── model/
 ├── api/
@@ -35,7 +35,7 @@ src/widgets/ResumeForm/
 
 ## 2. 기술 스택
 
-- **프레임워크**: Next.js 14 (App Router, TypeScript)
+- **프레임워크**: React Router V7 기반 SSR(React 19, TypeScript)
 - **데이터 통신**: GraphQL (graphql-request, Code Generator)
 - **UI/스타일링**: Tailwind CSS, shadcn/ui, Framer Motion
 - **에디터**: CodeMirror 6, Unified(마크다운 파싱, 수식/코드 하이라이팅)
@@ -51,7 +51,7 @@ src/widgets/ResumeForm/
 - **TypeScript**
   - Props, 데이터 구조 등은 인터페이스 우선 사용
   - 함수 반환 타입 명시, Hook은 제네릭 타입 활용
-- **React/Next.js**
+- **React/React Router**
   - 섹션별 폴더 구조, 컴포넌트별 stories/test 파일 포함
   - Props 인터페이스는 `Props` 접미사 사용
   - 클라이언트 컴포넌트는 "use client" 지시어 명시
@@ -60,7 +60,7 @@ src/widgets/ResumeForm/
   - 커스텀 유틸리티 클래스는 globals.css의 @layer base에 정의
   - 반응형 디자인은 Tailwind 브레이크포인트 활용
 - **ESLint**
-  - 프로젝트 전역 적용, TypeScript/React/Next.js/Prettier 연동
+  - 프로젝트 전역 적용, TypeScript/React/Prettier 연동
   - 커스텀 룰 및 플러그인 사용, 코드 저장 시 자동 포맷팅
 
 ---
