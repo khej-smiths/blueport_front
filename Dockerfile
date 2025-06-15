@@ -11,13 +11,13 @@ FROM base AS production-dependencies-env
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --prod
 
-# === [여기서부터 ARG 선언] ===
+FROM base AS build-env
+
 ARG VITE_PUBLIC_API_ENDPOINT
 ARG VITE_PUBLIC_OPEN_API_ENDPOINT
 ARG VITE_PUBLIC_OPEN_API_KEY
 ARG VITE_PUBLIC_VERIFICATION_CODE
 
-FROM base AS build-env
 COPY --from=development-dependencies-env /app/node_modules ./node_modules
 COPY . .
 
