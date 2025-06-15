@@ -55,13 +55,12 @@ jobs:
               sudo apt-get install -y docker.io
               sudo systemctl start docker
               sudo systemctl enable docker
-              sudo usermod -aG docker $USER
             fi
 
-            # 이후 기존 배포 스크립트
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
-            if [ $(docker ps -q -f name=blueport_front) ]; then
-              docker stop blueport_front
-              docker rm blueport_front
+            # 이후 기존 배포 스크립트 (모든 docker 명령어에 sudo 추가)
+            sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
+            if [ $(sudo docker ps -q -f name=blueport_front) ]; then
+              sudo docker stop blueport_front
+              sudo docker rm blueport_front
             fi
-            docker run -d --name blueport_front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
+            sudo docker run -d --name blueport_front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
