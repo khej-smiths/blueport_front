@@ -65,4 +65,4 @@ jobs:
 
             # 최신 이미지 pull 및 컨테이너 실행
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
-            sudo docker run -d --name blueport_front -p 80:80 ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
+            sudo docker run -d --name blueport_front -p 80:3000 ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
