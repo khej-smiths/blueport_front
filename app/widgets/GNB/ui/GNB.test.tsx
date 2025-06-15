@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 
 import { GNB } from ".";
 
 describe("GNB | ", () => {
   it("렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<GNB />);
+    render(
+      <MemoryRouter>
+        <GNB />
+      </MemoryRouter>
+    );
     expect(screen.getByRole("heading", { name: "title" })).toBeInTheDocument();
   });
 

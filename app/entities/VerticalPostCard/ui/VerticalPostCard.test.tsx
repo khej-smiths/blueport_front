@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 
 import { VerticalPostCard } from ".";
 
 describe("Vertical | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<VerticalPostCard />);
+    render(
+      <MemoryRouter>
+        <VerticalPostCard />
+      </MemoryRouter>
+    );
     const vertical = screen.getByRole("feed", {
       name: "vertical-post-card",
     });
