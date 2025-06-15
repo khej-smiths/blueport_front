@@ -47,6 +47,18 @@ jobs:
           username: ${{ secrets.LIGHTSAIL_USER }}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
           script: |
+            # docker가 없으면 설치
+            if ! command -v docker &> /dev/null
+            then
+              echo "Docker가 설치되어 있지 않아 설치를 진행합니다."
+              sudo apt-get update
+              sudo apt-get install -y docker.io
+              sudo systemctl start docker
+              sudo systemctl enable docker
+              sudo usermod -aG docker $USER
+            fi
+
+            # 이후 기존 배포 스크립트
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
             if [ $(docker ps -q -f name=blueport_front) ]; then
               docker stop blueport_front
