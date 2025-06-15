@@ -1,35 +1,24 @@
-FROM node:20-alpine AS development-dependencies-env
+FROM node:22.16-alpine AS base
 # pnpm 설치
 RUN npm install -g pnpm
-
-COPY . /app
 WORKDIR /app
+
+FROM base AS development-dependencies-env
+COPY . .
 RUN pnpm install
 
-FROM node:20-alpine AS production-dependencies-env
-# pnpm 설치
-RUN npm install -g pnpm
-
-COPY ./package.json pnpm-lock.yaml /app/
-WORKDIR /app
+FROM base AS production-dependencies-env
+COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --omit=dev
 
-FROM node:20-alpine AS build-env
-# pnpm 설치
-RUN npm install -g pnpm
-
-COPY . /app/
-COPY --from=development-dependencies-env /app/node_modules /app/node_modules
-WORKDIR /app
+FROM base AS build-env
+COPY --from=development-dependencies-env /app/node_modules ./node_modules
+COPY . .
 RUN pnpm run build
 
-FROM node:20-alpine
-# pnpm 설치
-RUN npm install -g pnpm
-
-COPY ./package.json pnpm-lock.yaml /app/
-COPY --from=production-dependencies-env /app/node_modules /app/node_modules
-COPY --from=build-env /app/build /app/build
-WORKDIR /app
+FROM base AS final
+COPY package.json pnpm-lock.yaml ./
+COPY --from=production-dependencies-env /app/node_modules ./node_modules
+COPY --from=build-env /app/build ./build
 
 CMD ["pnpm", "run", "start"]
