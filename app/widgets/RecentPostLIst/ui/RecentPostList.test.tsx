@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 
 import { RecentPostList } from ".";
 
 describe("RecentPostList | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<RecentPostList />);
+    render(
+      <MemoryRouter>
+        <RecentPostList />
+      </MemoryRouter>
+    );
     const recentPostList = screen.getByRole("listbox", {
       name: "recent-post-list-section",
     });
@@ -12,7 +17,11 @@ describe("RecentPostList | ", () => {
   });
 
   it("RecentPostItem이 렌더링 되어야 합니다", () => {
-    render(<RecentPostList />);
+    render(
+      <MemoryRouter>
+        <RecentPostList />
+      </MemoryRouter>
+    );
     const recentPostItems = screen.getAllByRole("feed", {
       name: "vertical-post-card",
     });

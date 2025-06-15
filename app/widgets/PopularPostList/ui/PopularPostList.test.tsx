@@ -1,10 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
 
 import { PopularPostList } from ".";
 
 describe("PopularPostList | ", () => {
   it("기본 렌더링이 정상적으로 이루어져야 합니다", () => {
-    render(<PopularPostList />);
+    render(
+      <MemoryRouter>
+        <PopularPostList />
+      </MemoryRouter>
+    );
     const popularPostList = screen.getByRole("listbox", {
       name: "popular-post-list-section",
     });
@@ -12,7 +17,11 @@ describe("PopularPostList | ", () => {
   });
 
   it("PopularPostItem이 렌더링 되어야 합니다", () => {
-    render(<PopularPostList />);
+    render(
+      <MemoryRouter>
+        <PopularPostList />
+      </MemoryRouter>
+    );
     const popularPostItems = screen.getAllByRole("feed", {
       name: "horizontal-post-card",
     });
