@@ -4,3 +4,8 @@ export interface SelectOption<T extends OptionValue> {
 }
 
 export type OptionValue = string | number | readonly string[] | undefined;
+
+export interface Pagination {
+  pageNumber: number;
+  limit: number;
+}

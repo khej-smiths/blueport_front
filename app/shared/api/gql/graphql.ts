@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -38,14 +38,38 @@ export type Blog = {
   introduction: Scalars['String']['output'];
   /** 블로그 이름 */
   name: Scalars['String']['output'];
-  /** 블로그 주인 전체 정보 */
-  owner: User;
   /** 블로그 주인의 id */
   ownerId: Scalars['String']['output'];
   /** 프로필 사진 */
   photo: Scalars['String']['output'];
   /** 기술 스택, 100개 제한 */
   skills?: Maybe<Array<Scalars['String']['output']>>;
+  /** 데이터의 업데이트 날짜 */
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type Career = {
+  __typename?: 'Career';
+  /** 회사 */
+  company?: Maybe<Scalars['String']['output']>;
+  /** 데이터의 생성 날짜 */
+  createdAt: Scalars['DateTime']['output'];
+  /** 데이터의 삭제 날짜(soft) */
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** 부서 */
+  department?: Maybe<Scalars['String']['output']>;
+  /** 업무 내용 */
+  description?: Maybe<Scalars['String']['output']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: Maybe<Scalars['String']['output']>;
+  /** id */
+  id: Scalars['String']['output'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['output'];
+  /** 직급 */
+  position?: Maybe<Scalars['String']['output']>;
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['output'];
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
 };
@@ -69,6 +93,51 @@ export type CreateBlogInputDto = {
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+export type CreateCareerInputDto = {
+  /** 회사 */
+  company?: InputMaybe<Scalars['String']['input']>;
+  /** 부서 */
+  department?: InputMaybe<Scalars['String']['input']>;
+  /** 업무 내용 */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: InputMaybe<Scalars['String']['input']>;
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 직급 */
+  position?: InputMaybe<Scalars['String']['input']>;
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['input'];
+};
+
+export type CreateEducationInputDto = {
+  /** 기타 */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: InputMaybe<Scalars['String']['input']>;
+  /** 학점 */
+  grade?: InputMaybe<Scalars['Float']['input']>;
+  /** 졸업 상태 */
+  graduationStatus?: InputMaybe<Graduation_Status>;
+  /** 전공 */
+  major?: InputMaybe<Scalars['String']['input']>;
+  /** 교육기관명 */
+  name: Scalars['String']['input'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['input'];
+};
+
+export type CreatePortfolioInputDto = {
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 포트폴리오 타입 */
+  type?: InputMaybe<Portfolio_Type>;
+  /** 포트폴리오 url */
+  url: Scalars['String']['input'];
+};
+
 export type CreatePostInputDto = {
   /** 게시글 내용 */
   content: Scalars['String']['input'];
@@ -76,6 +145,34 @@ export type CreatePostInputDto = {
   hashtagList?: InputMaybe<Array<Scalars['String']['input']>>;
   /** 게시글의 제목 */
   title: Scalars['String']['input'];
+};
+
+export type CreateProjectInputDto = {
+  /** 설명 */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: InputMaybe<Scalars['String']['input']>;
+  /** 프로젝트 명 */
+  name: Scalars['String']['input'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 참여 인원 */
+  personnel?: InputMaybe<Scalars['Int']['input']>;
+  /** 기술 스택 */
+  skillList?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['input'];
+};
+
+export type CreateResumeInputDto = {
+  /** 경력 */
+  careerList?: InputMaybe<Array<CreateCareerInputDto>>;
+  /** 학력 */
+  educationList?: InputMaybe<Array<CreateEducationInputDto>>;
+  /** 포트폴리오 */
+  portfolioList?: InputMaybe<Array<CreatePortfolioInputDto>>;
+  /** 프로젝트 */
+  projectList?: InputMaybe<Array<CreateProjectInputDto>>;
 };
 
 export type CreateUserInputDto = {
@@ -92,6 +189,44 @@ export type DeletePostInputDto = {
   id: Scalars['String']['input'];
 };
 
+export type Education = {
+  __typename?: 'Education';
+  /** 데이터의 생성 날짜 */
+  createdAt: Scalars['DateTime']['output'];
+  /** 데이터의 삭제 날짜(soft) */
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** 기타 */
+  description?: Maybe<Scalars['String']['output']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: Maybe<Scalars['String']['output']>;
+  /** 학점 */
+  grade?: Maybe<Scalars['Float']['output']>;
+  /** 졸업 상태 */
+  graduationStatus?: Maybe<Graduation_Status>;
+  /** id */
+  id: Scalars['String']['output'];
+  /** 전공 */
+  major?: Maybe<Scalars['String']['output']>;
+  /** 교육기관명 */
+  name: Scalars['String']['output'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['output'];
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['output'];
+  /** 데이터의 업데이트 날짜 */
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+/** 졸업 조건 */
+export enum Graduation_Status {
+  /** 재학중 */
+  Enrolled = 'ENROLLED',
+  /** 졸업 예정 */
+  ExpectedGraduation = 'EXPECTED_GRADUATION',
+  /** 졸업 */
+  Graduated = 'GRADUATED'
+}
+
 export type LoginInputDto = {
   /** 유저의 이메일 */
   email: Scalars['String']['input'];
@@ -105,6 +240,8 @@ export type Mutation = {
   createBlog: Blog;
   /** 게시글 작성하기, 로그인 유저만 게시글 작성 가능 */
   createPost: Post;
+  /** 이력서 생성 */
+  createResume: Resume;
   /** 유저 생성 */
   createUser: User;
   /** 게시글 삭제하기 */
@@ -113,6 +250,8 @@ export type Mutation = {
   updateBlog: Blog;
   /** 게시글 수정하기 */
   updatePost: Post;
+  /** 이력서 수정 */
+  updateResume: Resume;
   /** 유저 업데이트 */
   updateUser: User;
 };
@@ -125,6 +264,11 @@ export type MutationCreateBlogArgs = {
 
 export type MutationCreatePostArgs = {
   input: CreatePostInputDto;
+};
+
+
+export type MutationCreateResumeArgs = {
+  input: CreateResumeInputDto;
 };
 
 
@@ -148,8 +292,39 @@ export type MutationUpdatePostArgs = {
 };
 
 
+export type MutationUpdateResumeArgs = {
+  input: UpdateResumeInputDto;
+};
+
+
 export type MutationUpdateUserArgs = {
   input: UpdateUserInputDto;
+};
+
+/** 포트폴리오 타입 */
+export enum Portfolio_Type {
+  /** 파일 */
+  File = 'FILE',
+  /** 링크 */
+  Link = 'LINK'
+}
+
+export type Portfolio = {
+  __typename?: 'Portfolio';
+  /** 데이터의 생성 날짜 */
+  createdAt: Scalars['DateTime']['output'];
+  /** 데이터의 삭제 날짜(soft) */
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** id */
+  id: Scalars['String']['output'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['output'];
+  /** 포트폴리오 타입 */
+  type?: Maybe<Portfolio_Type>;
+  /** 데이터의 업데이트 날짜 */
+  updatedAt: Scalars['DateTime']['output'];
+  /** 포트폴리오 url */
+  url: Scalars['String']['output'];
 };
 
 export type Post = {
@@ -174,6 +349,32 @@ export type Post = {
   writer: User;
 };
 
+export type Project = {
+  __typename?: 'Project';
+  /** 데이터의 생성 날짜 */
+  createdAt: Scalars['DateTime']['output'];
+  /** 데이터의 삭제 날짜(soft) */
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** 설명 */
+  description?: Maybe<Scalars['String']['output']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: Maybe<Scalars['String']['output']>;
+  /** id */
+  id: Scalars['String']['output'];
+  /** 프로젝트 명 */
+  name: Scalars['String']['output'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['output'];
+  /** 참여 인원 */
+  personnel?: Maybe<Scalars['Int']['output']>;
+  /** 기술 스택 */
+  skillList?: Maybe<Array<Scalars['String']['output']>>;
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['output'];
+  /** 데이터의 업데이트 날짜 */
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export type Query = {
   __typename?: 'Query';
   login: Scalars['String']['output'];
@@ -185,6 +386,8 @@ export type Query = {
   readPost: Post;
   /** 게시글 목록 조회하기 */
   readPostList: Array<Post>;
+  /** 이력서 조회 */
+  readResume: Resume;
   /** 유저 정보 가져오기(현재는 본인의 정보만) */
   readUser: User;
 };
@@ -214,7 +417,14 @@ export type QueryReadPostListArgs = {
   input: ReadPostListInputDto;
 };
 
+
+export type QueryReadResumeArgs = {
+  input: ReadResumeInputDto;
+};
+
 export type ReadBlogInputDto = {
+  /** 도메인, 50자 내외 */
+  domain?: InputMaybe<Scalars['String']['input']>;
   /** id */
   id?: InputMaybe<Scalars['String']['input']>;
   /** 블로그 주인의 id */
@@ -244,6 +454,33 @@ export type ReadPostListInputDto = {
   sortOption?: Sort_Option;
 };
 
+export type ReadResumeInputDto = {
+  /** id */
+  id: Scalars['String']['input'];
+};
+
+export type Resume = {
+  __typename?: 'Resume';
+  /** 경력 */
+  careerList?: Maybe<Array<Career>>;
+  /** 데이터의 생성 날짜 */
+  createdAt: Scalars['DateTime']['output'];
+  /** 데이터의 삭제 날짜(soft) */
+  deletedAt?: Maybe<Scalars['DateTime']['output']>;
+  /** 학력 */
+  educationList?: Maybe<Array<Education>>;
+  /** id */
+  id: Scalars['String']['output'];
+  /** 이력서 주인의 id */
+  ownerId: Scalars['String']['output'];
+  /** 포트폴리오 */
+  portfolioList?: Maybe<Array<Portfolio>>;
+  /** 프로젝트 */
+  projectList?: Maybe<Array<Project>>;
+  /** 데이터의 업데이트 날짜 */
+  updatedAt: Scalars['DateTime']['output'];
+};
+
 export enum Sort_Option {
   Newest = 'NEWEST',
   ViewCount = 'VIEW_COUNT'
@@ -268,6 +505,57 @@ export type UpdateBlogInputDto = {
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
 };
 
+export type UpdateCareerInputDto = {
+  /** 회사 */
+  company?: InputMaybe<Scalars['String']['input']>;
+  /** 부서 */
+  department?: InputMaybe<Scalars['String']['input']>;
+  /** 업무 내용 */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: InputMaybe<Scalars['String']['input']>;
+  /** id */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 직급 */
+  position?: InputMaybe<Scalars['String']['input']>;
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['input'];
+};
+
+export type UpdateEducationInputDto = {
+  /** 기타 */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: InputMaybe<Scalars['String']['input']>;
+  /** 학점 */
+  grade?: InputMaybe<Scalars['Float']['input']>;
+  /** 졸업 상태 */
+  graduationStatus?: InputMaybe<Graduation_Status>;
+  /** id */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** 전공 */
+  major?: InputMaybe<Scalars['String']['input']>;
+  /** 교육기관명 */
+  name: Scalars['String']['input'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['input'];
+};
+
+export type UpdatePortfolioInputDto = {
+  /** id */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 포트폴리오 타입 */
+  type?: InputMaybe<Portfolio_Type>;
+  /** 포트폴리오 url */
+  url: Scalars['String']['input'];
+};
+
 export type UpdatePostInputDto = {
   /** 게시글 내용 */
   content?: InputMaybe<Scalars['String']['input']>;
@@ -277,6 +565,36 @@ export type UpdatePostInputDto = {
   id: Scalars['String']['input'];
   /** 게시글의 제목 */
   title?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateProjectInputDto = {
+  /** 설명 */
+  description?: InputMaybe<Scalars['String']['input']>;
+  /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
+  endAt?: InputMaybe<Scalars['String']['input']>;
+  /** id */
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** 프로젝트 명 */
+  name: Scalars['String']['input'];
+  /** 정렬 순서 */
+  order: Scalars['Int']['input'];
+  /** 참여 인원 */
+  personnel?: InputMaybe<Scalars['Int']['input']>;
+  /** 기술 스택 */
+  skillList?: InputMaybe<Array<Scalars['String']['input']>>;
+  /** 시작날짜. 날짜의 형태: yyyy.MM */
+  startAt: Scalars['String']['input'];
+};
+
+export type UpdateResumeInputDto = {
+  /** 경력 */
+  careerList?: InputMaybe<Array<UpdateCareerInputDto>>;
+  /** 학력 */
+  educationList?: InputMaybe<Array<UpdateEducationInputDto>>;
+  /** 포트폴리오 */
+  portfolioList?: InputMaybe<Array<UpdatePortfolioInputDto>>;
+  /** 프로젝트 */
+  projectList?: InputMaybe<Array<UpdateProjectInputDto>>;
 };
 
 export type UpdateUserInputDto = {
@@ -300,6 +618,7 @@ export type User = {
   /** 유저의 이름 */
   name: Scalars['String']['output'];
   postList?: Maybe<Array<Post>>;
+  resume?: Maybe<Resume>;
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
 };

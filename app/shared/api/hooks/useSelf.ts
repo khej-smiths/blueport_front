@@ -5,7 +5,7 @@ import { readUser } from "../queries";
 
 export function useSelf() {
   return useQuery({
-    queryKey: QUERY_KEY.user(),
+    queryKey: QUERY_KEY.user.readUser(),
     queryFn: async () => {
       const res = await readUser();
       return res.readUser;

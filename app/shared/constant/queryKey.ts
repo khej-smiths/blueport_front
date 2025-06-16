@@ -1,3 +1,4 @@
+import { Pagination } from "../types/common";
 import { GetSchoolListRequest } from "../types/open";
 
 export const ROOT_KEY = {
@@ -14,6 +15,11 @@ export const QUERY_KEY = {
       params,
     ],
   },
-  user: () => [ROOT_KEY.user, "readUser"],
-  blog: (userId?: string) => [ROOT_KEY.blog, "readBlog", userId],
+  user: {
+    readUser: () => [ROOT_KEY.user, "readUser"]
+  },
+  blog: {
+    readBlog: (domain?: string) => [ROOT_KEY.blog, "readBlog", domain],
+    readBlogList: (pagination?: Pagination) => [ROOT_KEY.blog, "readBlogList", pagination]
+  }
 };
