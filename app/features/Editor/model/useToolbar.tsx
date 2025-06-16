@@ -14,6 +14,9 @@ export function useToolbar({ editorView }: Props) {
     const handler: { [key: string]: () => void } = {
       ...[1, 2, 3, 4]
         .map((number) => () => {
+          // 선택 안하고 사용한 경우 쓰이는 범위 값;
+          const range = editorView.state.selection.main;
+
           const keyword = "#".repeat(number);
           const changes = [];
 
@@ -42,6 +45,10 @@ export function useToolbar({ editorView }: Props) {
           if (changes.length > 0) {
             editorView.dispatch({
               changes,
+              selection: EditorSelection.range(
+                range.from + number + 1,
+                range.to + number + 1
+              ),
             });
           }
         })

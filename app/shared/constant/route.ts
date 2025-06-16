@@ -6,4 +6,6 @@ export const ROUTE = {
   MANAGE_BLOG: "/manage/blog",
   MANAGE_RESUME: "/manage/resume",
   EDITOR: "/editor",
+  BLOG: "/:domain",
+  POST: "/:domain/:id"
 };

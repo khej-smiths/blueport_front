@@ -635,7 +635,7 @@ export type CreatePostMutationVariables = Exact<{
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string } };
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInputDto;
@@ -774,6 +774,11 @@ export const CreatePostDocument = new TypedDocumentString(`
     mutation CreatePost($input: CreatePostInputDto!) {
   createPost(input: $input) {
     id
+    writer {
+      blog {
+        domain
+      }
+    }
   }
 }
     `) as unknown as TypedDocumentString<CreatePostMutation, CreatePostMutationVariables>;
