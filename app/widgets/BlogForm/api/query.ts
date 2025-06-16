@@ -6,7 +6,7 @@ import { readBlog } from "@/shared/api/queries";
 
 export function useGetBlog(ownerId?: string) {
   return useQuery({
-    queryKey: QUERY_KEY.blog(ownerId),
+    queryKey: QUERY_KEY.blog.readBlog(ownerId),
     queryFn: async () => {
       if (!ownerId) {
         toast.error("유저를 찾을 수 없습니다.")

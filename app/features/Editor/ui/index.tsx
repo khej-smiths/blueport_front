@@ -29,7 +29,10 @@ export function Editor({
       >
         <Toolbar editorView={editorView} />
       </div>
-      <div className="w-full flex-1 px-5">
+      <div
+        className="w-full flex-1 cursor-text px-5"
+        onClick={() => editorView?.focus()}
+      >
         <div ref={editorRef} />
       </div>
     </div>

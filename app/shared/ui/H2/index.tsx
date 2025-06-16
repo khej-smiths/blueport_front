@@ -6,7 +6,7 @@ interface Props {
 
 export function H2({ children, ...props }: Props) {
   return (
-    <h2 className="mt-4 text-h2 font-bold" {...props}>
+    <h2 className="text-h2 text-primary mt-4 font-bold" {...props}>
       {children}
     </h2>
   );

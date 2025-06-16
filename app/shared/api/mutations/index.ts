@@ -1,4 +1,4 @@
-import { CreateBlogInputDto, CreateBlogMutation, CreatePostInputDto, CreateUserInputDto, DeletePostInputDto, UpdateBlogInputDto, UpdatePostInputDto, UpdateUserInputDto } from "../gql/graphql";
+import { CreateBlogInputDto, CreateBlogMutation, CreatePostInputDto, CreatePostMutation, CreateUserInputDto, DeletePostInputDto, UpdateBlogInputDto, UpdatePostInputDto, UpdateUserInputDto } from "../gql/graphql";
 import { instance } from "../gql/instance";
 import { createBlogMutation } from "./createBlog";
 import { createPostMutation } from "./createPost";
@@ -21,7 +21,7 @@ export async function updateUser(input: UpdateUserInputDto) {
 
 /** 게시글 작성 */
 export async function createPost(input: CreatePostInputDto) {
-  return await instance(createPostMutation, {input})
+  return await instance<CreatePostMutation>(createPostMutation, {input})
 }
 
 /** 게시글 수정 */

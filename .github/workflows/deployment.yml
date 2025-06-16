@@ -39,6 +39,11 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
+          build-args: |
+            VITE_PUBLIC_API_ENDPOINT=${{ secrets.VITE_PUBLIC_API_ENDPOINT }}
+            VITE_PUBLIC_OPEN_API_ENDPOINT=${{ secrets.VITE_PUBLIC_OPEN_API_ENDPOINT }}
+            VITE_PUBLIC_OPEN_API_KEY=${{ secrets.VITE_PUBLIC_OPEN_API_KEY }}
+            VITE_PUBLIC_VERIFICATION_CODE=${{ secrets.VITE_PUBLIC_VERIFICATION_CODE }}
 
       - name: AWS Lightsail 서버에 배포
         uses: appleboy/ssh-action@v1.0.3
@@ -63,6 +68,6 @@ jobs:
               sudo docker rm blueport_front || true
             fi
 
-            # 최신 이미지 pull 및 컨테이너 실행
+            # 최신 이미지 pull 및 컨테이너 실행 (환경변수 주입)
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest
             sudo docker run -d --name blueport_front -p 3000:3000 ${{ secrets.DOCKERHUB_USERNAME }}/blueport_front:latest

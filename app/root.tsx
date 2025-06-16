@@ -1,5 +1,6 @@
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
@@ -9,8 +10,10 @@ import {
 } from "react-router";
 
 import "./app.css";
-import { QueryProvider } from "./shared";
+import { Button, QueryProvider, ROUTE, Toaster } from "./shared";
 import { ClientLayoutBody } from "./widgets";
+import { Pre } from "./shared/ui/Pre";
+import { Code } from "./shared/ui/Code";
 
 export const links: LinksFunction = () => [
   {
@@ -28,9 +31,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-dvh">
         {children}
-        <ClientLayoutBody />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -42,34 +44,44 @@ export default function App() {
   return (
     <QueryProvider>
       <Outlet />
+      <ClientLayoutBody />
+      <Toaster />
     </QueryProvider>
   );
 }
 
 export function ErrorBoundary({ error }: any) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
+  let message = "";
+  let details = "";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
+    message = error.status === 404 ? "404" : "Error!";
     details =
       error.status === 404
-        ? "The requested page could not be found."
+        ? "요청하신 페이지를 찾을 수 없습니다"
         : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
+    message = "Error!";
     details = error.message;
     stack = error.stack;
   }
 
   return (
-    <main className="container mx-auto p-4 pt-16">
-      <h1>{message}</h1>
-      <p>{details}</p>
+    <main className="flex min-h-dvh w-full flex-col items-center justify-center gap-4">
+      <div className="flex flex-col items-center gap-4">
+        <h1 className="text-primary text-center text-9xl font-bold">
+          {message}
+        </h1>
+        <p className="text-2xl font-thin">{details}</p>
+        <Link to={ROUTE.HOME}>
+          <Button>홈 화면으로 돌아가기</Button>
+        </Link>
+      </div>
       {stack && (
-        <pre className="w-full overflow-x-auto p-4">
-          <code>{stack}</code>
-        </pre>
+        <Pre>
+          <Code>{stack}</Code>
+        </Pre>
       )}
     </main>
   );

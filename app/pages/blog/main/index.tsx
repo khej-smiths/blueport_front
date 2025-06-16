@@ -9,7 +9,7 @@ export default function Blog() {
   return (
     <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center bg-white">
       <article className="flex max-w-7xl flex-col gap-16 p-8">
-        <Profile />
+        <Profile domain={domain} />
 
         {/* 최신 글 섹션 */}
         <section className="">

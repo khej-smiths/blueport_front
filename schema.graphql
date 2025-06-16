@@ -100,6 +100,8 @@ input CreateEducationInputDto {
   endAt: String
   """학점"""
   grade: Float
+  """졸업 상태"""
+  graduationStatus: GRADUATION_STATUS
   """전공"""
   major: String
   """교육기관명"""
@@ -108,6 +110,15 @@ input CreateEducationInputDto {
   order: Int!
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
+}
+
+input CreatePortfolioInputDto {
+  """정렬 순서"""
+  order: Int!
+  """포트폴리오 타입"""
+  type: PORTFOLIO_TYPE
+  """포트폴리오 url"""
+  url: String!
 }
 
 input CreatePostInputDto {
@@ -119,11 +130,32 @@ input CreatePostInputDto {
   title: String!
 }
 
+input CreateProjectInputDto {
+  """설명"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """프로젝트 명"""
+  name: String!
+  """정렬 순서"""
+  order: Int!
+  """참여 인원"""
+  personnel: Int
+  """기술 스택"""
+  skillList: [String!]
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+}
+
 input CreateResumeInputDto {
   """경력"""
   careerList: [CreateCareerInputDto!]
   """학력"""
   educationList: [CreateEducationInputDto!]
+  """포트폴리오"""
+  portfolioList: [CreatePortfolioInputDto!]
+  """프로젝트"""
+  projectList: [CreateProjectInputDto!]
 }
 
 input CreateUserInputDto {
@@ -156,6 +188,8 @@ type Education {
   endAt: String
   """학점"""
   grade: Float
+  """졸업 상태"""
+  graduationStatus: GRADUATION_STATUS
   """id"""
   id: String!
   """전공"""
@@ -168,6 +202,16 @@ type Education {
   startAt: String!
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
+}
+
+"""졸업 조건"""
+enum GRADUATION_STATUS {
+  """재학중"""
+  ENROLLED
+  """졸업 예정"""
+  EXPECTED_GRADUATION
+  """졸업"""
+  GRADUATED
 }
 
 input LoginInputDto {
@@ -198,6 +242,31 @@ type Mutation {
   updateUser(input: UpdateUserInputDto!): User!
 }
 
+"""포트폴리오 타입"""
+enum PORTFOLIO_TYPE {
+  """파일"""
+  FILE
+  """링크"""
+  LINK
+}
+
+type Portfolio {
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """id"""
+  id: String!
+  """정렬 순서"""
+  order: Int!
+  """포트폴리오 타입"""
+  type: PORTFOLIO_TYPE
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+  """포트폴리오 url"""
+  url: String!
+}
+
 type Post {
   """게시글 내용"""
   content: String!
@@ -219,6 +288,31 @@ type Post {
   writer: User!
 }
 
+type Project {
+  """데이터의 생성 날짜"""
+  createdAt: DateTime!
+  """데이터의 삭제 날짜(soft)"""
+  deletedAt: DateTime
+  """설명"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """id"""
+  id: String!
+  """프로젝트 명"""
+  name: String!
+  """정렬 순서"""
+  order: Int!
+  """참여 인원"""
+  personnel: Int
+  """기술 스택"""
+  skillList: [String!]
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+  """데이터의 업데이트 날짜"""
+  updatedAt: DateTime!
+}
+
 type Query {
   login(input: LoginInputDto!): String!
   """블로그 조회"""
@@ -236,6 +330,8 @@ type Query {
 }
 
 input ReadBlogInputDto {
+  """도메인, 50자 내외"""
+  domain: String
   """id"""
   id: String
   """블로그 주인의 id"""
@@ -283,6 +379,10 @@ type Resume {
   id: String!
   """이력서 주인의 id"""
   ownerId: String!
+  """포트폴리오"""
+  portfolioList: [Portfolio!]
+  """프로젝트"""
+  projectList: [Project!]
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
 }
@@ -337,6 +437,8 @@ input UpdateEducationInputDto {
   endAt: String
   """학점"""
   grade: Float
+  """졸업 상태"""
+  graduationStatus: GRADUATION_STATUS
   """id"""
   id: String
   """전공"""
@@ -347,6 +449,17 @@ input UpdateEducationInputDto {
   order: Int!
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
+}
+
+input UpdatePortfolioInputDto {
+  """id"""
+  id: String
+  """정렬 순서"""
+  order: Int!
+  """포트폴리오 타입"""
+  type: PORTFOLIO_TYPE
+  """포트폴리오 url"""
+  url: String!
 }
 
 input UpdatePostInputDto {
@@ -360,11 +473,34 @@ input UpdatePostInputDto {
   title: String
 }
 
+input UpdateProjectInputDto {
+  """설명"""
+  description: String
+  """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
+  endAt: String
+  """id"""
+  id: String
+  """프로젝트 명"""
+  name: String!
+  """정렬 순서"""
+  order: Int!
+  """참여 인원"""
+  personnel: Int
+  """기술 스택"""
+  skillList: [String!]
+  """시작날짜. 날짜의 형태: yyyy.MM"""
+  startAt: String!
+}
+
 input UpdateResumeInputDto {
   """경력"""
   careerList: [UpdateCareerInputDto!]
   """학력"""
   educationList: [UpdateEducationInputDto!]
+  """포트폴리오"""
+  portfolioList: [UpdatePortfolioInputDto!]
+  """프로젝트"""
+  projectList: [UpdateProjectInputDto!]
 }
 
 input UpdateUserInputDto {
