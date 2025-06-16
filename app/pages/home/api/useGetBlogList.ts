@@ -1,5 +1,4 @@
-import { Pagination, QUERY_KEY } from "@/shared";
-import { readBlogList } from "@/shared/api/queries";
+import { Pagination, QUERIES, QUERY_KEY } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 
 export function useGetBlogList(pagination?: Pagination) {
@@ -8,7 +7,7 @@ export function useGetBlogList(pagination?: Pagination) {
     queryFn : async () => {
       if (!pagination) return;
 
-      const res = await readBlogList({
+      const res = await QUERIES.readBlogList({
         pageNumber: pagination.pageNumber,
         limit: pagination.limit,
       });
