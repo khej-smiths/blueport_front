@@ -1,33 +1,43 @@
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
-import { Category, Loading } from "@/shared";
+import { Category, Loading, Sort_Option } from "@/shared";
 import { Profile } from "@/widgets";
+import { Suspense } from "react";
 import { useParams } from "react-router";
+import { useGetBlogByDomain } from "./api/useGetBlogByDomain";
+import { useGetRecentPostList } from "./api/useGetRecentPostList";
 
 export default function Blog() {
   const { domain } = useParams();
+  const { data: blog } = useGetBlogByDomain(domain);
+  const { data: recentPostList } = useGetRecentPostList({
+    blogId: blog?.id,
+    sortOption: Sort_Option.Newest,
+    limit: 3,
+    pageNumber: 1,
+  });
+
+  if (blog === undefined) return null;
 
   return (
     <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center bg-white">
       <article className="flex max-w-7xl flex-col gap-16 p-8">
-        <Profile domain={domain} />
+        <Profile blog={blog} />
 
         {/* 최신 글 섹션 */}
         <section className="">
-          <h3 className="mb-6 text-2xl font-bold">최신 글</h3>
+          <h3 className="text-primary mb-6 text-2xl font-bold">최신 글</h3>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3].map((i) => (
-              <VerticalPostCard
-                key={i}
-                username={domain as string}
-                postId={i.toString()}
-              />
-            ))}
+            <Suspense fallback={<Loading />}>
+              {recentPostList?.map((post) => (
+                <VerticalPostCard key={post.id} post={post} />
+              ))}
+            </Suspense>
           </div>
         </section>
 
         {/* 카테고리 섹션 */}
         <section className="">
-          <h3 className="mb-6 text-2xl font-bold">카테고리</h3>
+          <h3 className="text-primary mb-6 text-2xl font-bold">카테고리</h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
             <Category key="all" category="전체" total={12} />
             {[
@@ -63,7 +73,7 @@ export default function Blog() {
 
         {/* 전체 글 목록 섹션 */}
         <section className="flex flex-col gap-4">
-          <h3 className="text-2xl font-bold">전체 글</h3>
+          <h3 className="text-primary text-2xl font-bold">전체 글</h3>
           <ul className="flex flex-col gap-4">
             {[1, 2, 3, 4, 5].map((i) => (
               <HorizontalPostCard

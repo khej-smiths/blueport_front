@@ -710,10 +710,7 @@ export type ReadPostListQueryVariables = Exact<{
 }>;
 
 
-export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: (
-      { __typename?: 'User' }
-      & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
-    ) }> };
+export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, writer: { __typename?: 'User', id: string, name: string, email: string, blog?: { __typename?: 'Blog', id: string, domain: string } | null } }> };
 
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -890,16 +887,19 @@ export const ReadPostListDocument = new TypedDocumentString(`
     title
     content
     hashtagList
+    createdAt
     writer {
-      ...UserFields
+      id
+      name
+      email
+      blog {
+        id
+        domain
+      }
     }
   }
 }
-    fragment UserFields on User {
-  id
-  name
-  email
-}`) as unknown as TypedDocumentString<ReadPostListQuery, ReadPostListQueryVariables>;
+    `) as unknown as TypedDocumentString<ReadPostListQuery, ReadPostListQueryVariables>;
 export const ReadUserDocument = new TypedDocumentString(`
     query ReadUser {
   readUser {

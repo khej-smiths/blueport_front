@@ -1,17 +1,20 @@
-import { Category, DefaultProfile, useLayoutStore } from "@/shared";
+import {
+  Category,
+  DefaultProfile,
+  Loading,
+  ReadBlogQuery,
+  useLayoutStore,
+} from "@/shared";
 
 import { ProfileLinks } from "./ProfileLinks";
-import { useGetBlogByDomain } from "../api/useGetBlogByDomain";
 import { Suspense, useEffect } from "react";
 
 interface Props {
-  domain?: string;
+  blog: ReadBlogQuery["readBlog"];
 }
 
 /** 블로그 소개 섹션 */
-export function Profile({ domain }: Props) {
-  const { data: blog } = useGetBlogByDomain(domain);
-
+export function Profile({ blog }: Props) {
   const { setBlogGNB } = useLayoutStore();
 
   useEffect(() => {
@@ -25,11 +28,11 @@ export function Profile({ domain }: Props) {
   }, [blog]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Loading />}>
       {blog && (
         <section className="flex flex-col items-center gap-4">
           <DefaultProfile variant="avatar" />
-          <h2 className="text-3xl font-bold">{blog.greeting}</h2>
+          <h2 className="text-primary text-3xl font-bold">{blog.greeting}</h2>
           <p className="text-gray-600">{blog.introduction}</p>
           <div className="flex justify-center gap-4">
             {blog.skills?.map((skill) => (
