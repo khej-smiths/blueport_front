@@ -7,15 +7,16 @@ export const readPostListQuery = graphql(`
       title
       content
       hashtagList
+      createdAt
       writer {
-        ...UserFields
+        id
+        name
+        email
+        blog {
+          id
+          domain
+        }
       }
     }
   }
-  
-  fragment UserFields on User {
-    id
-    name
-    email
-  }
-  `)
+`)
