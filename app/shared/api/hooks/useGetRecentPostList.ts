@@ -6,13 +6,13 @@ export function useGetRecentPostList(params?: ReadPostListInputDto) {
   return useQuery({
     queryKey: QUERY_KEY.post.readPostList(params),
     queryFn: async () => {
-      if (!params?.blogId) return;
+      if (!params) return;
       const res = await QUERIES.readPostList(params);
       return res.readPostList;
     },
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);
     },
-    enabled: Boolean(params?.blogId),
+    enabled: Boolean(params),
   });
 }

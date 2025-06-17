@@ -1,15 +1,14 @@
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
-import { Category, Loading, Sort_Option } from "@/shared";
+import { Category, HOOKS, Loading, Sort_Option } from "@/shared";
 import { Profile } from "@/widgets";
 import { Suspense } from "react";
 import { useParams } from "react-router";
 import { useGetBlogByDomain } from "./api/useGetBlogByDomain";
-import { useGetRecentPostList } from "./api/useGetRecentPostList";
 
 export default function Blog() {
   const { domain } = useParams();
   const { data: blog } = useGetBlogByDomain(domain);
-  const { data: recentPostList } = useGetRecentPostList({
+  const { data: recentPostList } = HOOKS.useGetRecentPostList({
     blogId: blog?.id,
     sortOption: Sort_Option.Newest,
     limit: 3,

@@ -12,7 +12,7 @@ export function VerticalPostCard({ post }: Props) {
       role="feed"
       aria-label="vertical-post-card"
       to={`/${post.writer.blog?.domain}/${post.id}`}
-      className="block overflow-hidden rounded-lg border transition hover:shadow-lg"
+      className="group block overflow-hidden rounded-lg border transition hover:shadow-lg"
     >
       {/* 썸네일 */}
       <div className="h-48 bg-gray-200" />
@@ -25,7 +25,7 @@ export function VerticalPostCard({ post }: Props) {
           </span>
           <span className="text-sm text-gray-500">• {post.writer.name}</span>
         </div>
-        <h3 className="text-primary mb-2 line-clamp-2 text-xl font-bold">
+        <h3 className="group-hover:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
           {post.title}
         </h3>
         <p className="mb-4 line-clamp-2 max-w-11/12 text-sm text-ellipsis whitespace-nowrap text-gray-600">
