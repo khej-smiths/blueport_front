@@ -9,14 +9,15 @@ import { Header } from "./Header";
 interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  userName: string;
 }
 
-export function CreateBlogDialog({ open, setOpen }: Props) {
+export function CreateBlogDialog({ open, setOpen, userName }: Props) {
   return (
     <AlertDialog open={open}>
       <AlertDialogContent className="w-full !max-w-96">
         <Header />
-        <Content />
+        <Content userName={userName} />
         <Footer setOpen={setOpen} />
       </AlertDialogContent>
     </AlertDialog>
