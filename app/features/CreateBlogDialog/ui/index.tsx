@@ -9,7 +9,7 @@ import { Header } from "./Header";
 interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  userName: string;
+  userName?: string;
 }
 
 export function CreateBlogDialog({ open, setOpen, userName }: Props) {

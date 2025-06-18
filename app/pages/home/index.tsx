@@ -23,8 +23,6 @@ export default function Home() {
     setOpen(Boolean(!self.blog.id));
   }, [self, accessToken]);
 
-  if (self === undefined) return null;
-
   return (
     <article className="mb-16 flex min-h-dvh justify-center">
       <div className="flex w-full max-w-7xl flex-col gap-12 py-24">
@@ -38,7 +36,7 @@ export default function Home() {
         </div>
       </div>
       <Suspense fallback={<Loading />}>
-        <CreateBlogDialog open={open} setOpen={setOpen} userName={self.name} />
+        <CreateBlogDialog open={open} setOpen={setOpen} userName={self?.name} />
       </Suspense>
     </article>
   );
