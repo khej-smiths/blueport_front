@@ -710,12 +710,7 @@ export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ReadUserQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: (
-      { __typename?: 'Blog' }
-      & { ' $fragmentRefs'?: { 'BlogFieldsFragment': BlogFieldsFragment } }
-    ) | null } };
-
-export type BlogFieldsFragment = { __typename?: 'Blog', id: string, domain: string } & { ' $fragmentName'?: 'BlogFieldsFragment' };
+export type ReadUserQuery = { __typename?: 'Query', readUser: { __typename?: 'User', id: string, email: string, name: string, blog?: { __typename?: 'Blog', id: string } | null } };
 
 export class TypedDocumentString<TResult, TVariables>
   extends String
@@ -735,12 +730,7 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const BlogFieldsFragmentDoc = new TypedDocumentString(`
-    fragment BlogFields on Blog {
-  id
-  domain
-}
-    `, {"fragmentName":"BlogFields"}) as unknown as TypedDocumentString<BlogFieldsFragment, unknown>;
+
 export const CreateBlogDocument = new TypedDocumentString(`
     mutation CreateBlog($input: CreateBlogInputDto!) {
   createBlog(input: $input) {
@@ -898,11 +888,8 @@ export const ReadUserDocument = new TypedDocumentString(`
     email
     name
     blog {
-      ...BlogFields
+      id
     }
   }
 }
-    fragment BlogFields on Blog {
-  id
-  domain
-}`) as unknown as TypedDocumentString<ReadUserQuery, ReadUserQueryVariables>;
+    `) as unknown as TypedDocumentString<ReadUserQuery, ReadUserQueryVariables>;
