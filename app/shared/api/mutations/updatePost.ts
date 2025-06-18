@@ -7,5 +7,10 @@ export const updatePostMutation = graphql(`
       title
       content
       hashtagList
+      writer {
+        blog {
+          domain
+        }
+      }
     }
   }`)

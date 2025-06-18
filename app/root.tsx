@@ -51,16 +51,14 @@ export default function App() {
 }
 
 export function ErrorBoundary({ error }: any) {
-  let message = "";
-  let details = "";
+  let message = "Error!";
+  let details = "서버와 연결할 수 없습니다 잠시 후 다시 시도해주세요";
   let stack: string | undefined;
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error!";
     details =
-      error.status === 404
-        ? "요청하신 페이지를 찾을 수 없습니다"
-        : error.statusText || details;
+      error.status === 404 ? "요청하신 페이지를 찾을 수 없습니다" : details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     message = "Error!";
     details = error.message;

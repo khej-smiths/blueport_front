@@ -663,7 +663,7 @@ export type UpdatePostMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null } };
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInputDto;
@@ -698,12 +698,7 @@ export type ReadPostQueryVariables = Exact<{
 }>;
 
 
-export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: (
-      { __typename?: 'User' }
-      & { ' $fragmentRefs'?: { 'UserFieldsFragment': UserFieldsFragment } }
-    ) } };
-
-export type UserFieldsFragment = { __typename?: 'User', id: string, name: string, email: string } & { ' $fragmentName'?: 'UserFieldsFragment' };
+export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, writer: { __typename?: 'User', id: string, name: string } } };
 
 export type ReadPostListQueryVariables = Exact<{
   input: ReadPostListInputDto;
@@ -740,13 +735,6 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
-export const UserFieldsFragmentDoc = new TypedDocumentString(`
-    fragment UserFields on User {
-  id
-  name
-  email
-}
-    `, {"fragmentName":"UserFields"}) as unknown as TypedDocumentString<UserFieldsFragment, unknown>;
 export const BlogFieldsFragmentDoc = new TypedDocumentString(`
     fragment BlogFields on Blog {
   id
@@ -816,6 +804,11 @@ export const UpdatePostDocument = new TypedDocumentString(`
     title
     content
     hashtagList
+    writer {
+      blog {
+        domain
+      }
+    }
   }
 }
     `) as unknown as TypedDocumentString<UpdatePostMutation, UpdatePostMutationVariables>;
@@ -870,16 +863,14 @@ export const ReadPostDocument = new TypedDocumentString(`
     title
     content
     hashtagList
+    createdAt
     writer {
-      ...UserFields
+      id
+      name
     }
   }
 }
-    fragment UserFields on User {
-  id
-  name
-  email
-}`) as unknown as TypedDocumentString<ReadPostQuery, ReadPostQueryVariables>;
+    `) as unknown as TypedDocumentString<ReadPostQuery, ReadPostQueryVariables>;
 export const ReadPostListDocument = new TypedDocumentString(`
     query ReadPostList($input: ReadPostListInputDto!) {
   readPostList(input: $input) {

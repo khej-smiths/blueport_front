@@ -1,13 +1,12 @@
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
-import { Category, HOOKS, Loading, Sort_Option } from "@/shared";
+import { HOOKS, Loading, Sort_Option, Hashtag } from "@/shared";
 import { Profile } from "@/widgets";
 import { Suspense } from "react";
 import { useParams } from "react-router";
-import { useGetBlogByDomain } from "./api/useGetBlogByDomain";
 
 export default function Blog() {
   const { domain } = useParams();
-  const { data: blog } = useGetBlogByDomain(domain);
+  const { data: blog } = HOOKS.useGetBlogByDomain(domain);
   const { data: recentPostList } = HOOKS.useGetRecentPostList({
     blogId: blog?.id,
     sortOption: Sort_Option.Newest,
@@ -25,20 +24,26 @@ export default function Blog() {
         {/* 최신 글 섹션 */}
         <section className="">
           <h3 className="text-primary mb-6 text-2xl font-bold">최신 글</h3>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <Suspense fallback={<Loading />}>
-              {recentPostList?.map((post) => (
-                <VerticalPostCard key={post.id} post={post} />
-              ))}
-            </Suspense>
-          </div>
+          {recentPostList && recentPostList.length > 0 ? (
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+              <Suspense fallback={<Loading />}>
+                {recentPostList.map((post) => (
+                  <VerticalPostCard key={post.id} post={post} />
+                ))}
+              </Suspense>
+            </div>
+          ) : (
+            <p className="text-center text-2xl font-thin">
+              작성된 글이 없습니다!
+            </p>
+          )}
         </section>
 
         {/* 카테고리 섹션 */}
         <section className="">
           <h3 className="text-primary mb-6 text-2xl font-bold">카테고리</h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
-            <Category key="all" category="전체" total={12} />
+            <Hashtag key="all" hashtag="전체" total={12} />
             {[
               "Frontend",
               "Backend",
@@ -64,8 +69,8 @@ export default function Blog() {
               "Security3",
               "Mobile3",
               "Cloud3",
-            ].map((category) => (
-              <Category key={category} category={category} total={12} />
+            ].map((hashtag) => (
+              <Hashtag key={hashtag} hashtag={hashtag} total={12} />
             ))}
           </div>
         </section>

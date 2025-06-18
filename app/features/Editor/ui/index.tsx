@@ -6,14 +6,10 @@ import { Toolbar } from "./Toolbar";
 interface Props {
   initialDoc: string;
   onChange: (doc: string) => void;
-  isCategoryInputFocused?: boolean;
+  isHashtagInputFocused?: boolean;
 }
 
-export function Editor({
-  initialDoc,
-  onChange,
-  isCategoryInputFocused,
-}: Props) {
+export function Editor({ initialDoc, onChange, isHashtagInputFocused }: Props) {
   const { editorRef, editorView } = useEditor({ initialDoc, onChange });
   return (
     <div
@@ -24,7 +20,7 @@ export function Editor({
       <div
         className={cn(
           "sticky top-[141px] z-10 flex w-full flex-wrap items-center border-y border-gray-200 bg-white p-2 transition-colors",
-          isCategoryInputFocused && "border-t-primary border-t-1"
+          isHashtagInputFocused && "border-t-primary border-t-1"
         )}
       >
         <Toolbar editorView={editorView} />

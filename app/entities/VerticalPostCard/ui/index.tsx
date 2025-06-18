@@ -1,4 +1,4 @@
-import { ReadPostListQuery } from "@/shared";
+import { mdToPlanText, ReadPostListQuery } from "@/shared";
 import { format } from "date-fns";
 import { Link } from "react-router";
 
@@ -29,7 +29,7 @@ export function VerticalPostCard({ post }: Props) {
           {post.title}
         </h3>
         <p className="mb-4 line-clamp-2 max-w-11/12 text-sm text-ellipsis whitespace-nowrap text-gray-600">
-          {post.content}
+          {mdToPlanText(post.content)}
         </p>
         <div className="flex gap-2">
           {post.hashtagList?.map((tag, index) => (

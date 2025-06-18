@@ -18,14 +18,22 @@ export const QUERY_KEY = {
     ],
   },
   user: {
-    readUser: () => [ROOT_KEY.user, "readUser"]
+    readUser: () => [ROOT_KEY.user, "readUser"],
   },
   blog: {
     readBlog: (domain?: string) => [ROOT_KEY.blog, "readBlog", domain],
-    readBlogList: (pagination?: Pagination) => [ROOT_KEY.blog, "readBlogList", pagination]
+    readBlogList: (pagination?: Pagination) => [
+      ROOT_KEY.blog,
+      "readBlogList",
+      pagination,
+    ],
   },
   post: {
-    readPostList: (params?: ReadPostListInputDto) => [ROOT_KEY.post, "readPostList", params],
-    readPost: (id?: string) => [ROOT_KEY.post, "readPost", id],
-  }
+    readPostList: (params?: ReadPostListInputDto) => [
+      ROOT_KEY.post,
+      "readPostList",
+      params,
+    ],
+    readPost: (id?: string | null) => [ROOT_KEY.post, "readPost", id],
+  },
 };

@@ -1,74 +1,28 @@
 import { format } from "date-fns";
-import { Heading as MdastHeading, PhrasingContent, Text } from "mdast";
 import { useInView } from "motion/react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useParams } from "react-router";
-import { useEffect, useMemo, useRef, useState } from "react";
-import remarkGfm from "remark-gfm";
-import remarkParse from "remark-parse";
-import { unified } from "unified";
-import { visit } from "unist-util-visit";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 import { DeleteDialog, Preview } from "@/features";
-import { Button, Category, cn, EXAMPLE_DOC } from "@/shared";
-
-interface Heading {
-  text: string;
-  level: number;
-  id: string;
-}
-
-interface HeadingNode extends MdastHeading {
-  type: "heading";
-  depth: 1 | 2 | 3 | 4 | 5 | 6;
-  children: PhrasingContent[];
-}
-
-const getToc = (markdown: string) => {
-  const heading: Heading[] = [];
-  const usedIds = new Set<string>();
-
-  const tree = unified().use(remarkParse).use(remarkGfm).parse(markdown);
-
-  visit(tree, "heading", (node: HeadingNode) => {
-    const textNodes = node.children.filter(
-      (child): child is Text => child.type === "text"
-    );
-
-    const text = textNodes.map((node) => node.value).join("");
-
-    const baseId = text
-      .toLowerCase()
-      .replace(/[^a-zA-Z0-9가-힣\s]/g, "")
-      .replace(/\s+/g, "-");
-
-    let id = `h${node.depth}-${baseId}`;
-
-    if (usedIds.has(id)) {
-      let counter = 1;
-      while (usedIds.has(`${id}-${counter}`)) {
-        counter++;
-      }
-
-      id = `${id}-${counter}`;
-    }
-    heading.push({
-      text,
-      level: node.depth,
-      id,
-    });
-  });
-
-  return heading;
-};
+import { Button, cn, HOOKS, Loading, ROUTE, Hashtag } from "@/shared";
+import { getToc } from "./model/getToc";
+import { Heading } from "./model/type";
+import { useDeletePost } from "./api/useDeletePost";
 
 export default function Post() {
   const [activeId, setActiveId] = useState<string>("");
   const { domain, postId } = useParams();
 
-  const headings = useMemo(() => getToc(EXAMPLE_DOC), []);
+  const { data: self } = HOOKS.useSelf();
+  const { data: blog } = HOOKS.useGetBlogByDomain(domain);
+  const { data: post } = HOOKS.useGetPost(postId);
+  const { mutate: deletePost } = useDeletePost();
+
+  const headings = useMemo(() => getToc(post?.content ?? ""), [post]);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const inView = useInView(titleRef);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Debouncing을 적용하여 성능 최적화가 가능할 것 같음
@@ -95,7 +49,7 @@ export default function Post() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [headings]);
 
   const goToHeading = (heading: Heading) => {
     const element = document.getElementById(heading.id);
@@ -108,91 +62,99 @@ export default function Post() {
     }
   };
 
-  return (
-    <div className="relative mb-16 flex w-full justify-center">
-      <article className="flex w-full max-w-5xl flex-col gap-5">
-        <div className="flex w-full max-w-5xl flex-col gap-4">
-          <h1
-            ref={titleRef}
-            className="text-primary text-5xl leading-relaxed font-bold"
-          >
-            제목을 뭘로 할까요?
-          </h1>
-          {/* 작성자 */}
-          <div className="flex items-center gap-2">
-            <Link
-              className="text-base font-bold hover:underline"
-              to={`/${domain}`}
-            >
-              {domain}
-            </Link>
-            <p>⁝</p>
-            {/* 작성일 */}
-            <p className="text-gray-400">
-              {format(new Date(), "yyyy년 MM월 dd일")}
-            </p>
-          </div>
-          {/* 카테고리 */}
-          <div className="flex items-end justify-between">
-            <div className="flex flex-wrap gap-x-4 gap-y-2">
-              <Category key="1" category="javascript" />
-              <Category key="2" category="typescript" />
-              <Category key="3" category="React" />
-              <Category key="4" category="Next.js" />
-            </div>
-            {/* 수정, 삭제 (작성자 본인만 표시) */}
-            {/* TODO: 작성자 본인만 표시 */}
-            <div className="flex gap-2">
-              <Button variant="outline">수정</Button>
-              <DeleteDialog
-                trigger={<Button variant="outline">삭제</Button>}
-                onCancel={() => {
-                  console.log("Cancel");
-                }} // 취소
-                onAction={() => {
-                  console.log("Action");
-                }} // 삭제
-              />
-            </div>
-          </div>
-          <div className="h-[1px] w-full bg-gray-200" />
-          {/* 광고 */}
-          <div className="relative flex">
-            <Preview doc={EXAMPLE_DOC} />
-          </div>
-        </div>
-      </article>
+  const goToModify = () => {
+    navigate(`${ROUTE.EDITOR}?postId=${postId}`);
+  };
 
-      {/* TOC를 article 밖으로 분리 */}
-      <div className="ml-8 w-48">
-        <nav
-          className={cn(
-            "border-l-4 p-4",
-            !inView ? "fixed top-[110px]" : "absolute top-48"
-          )}
-        >
-          <ul className="space-y-2 text-sm">
-            {headings.map((heading, index) => (
-              <li
-                key={index}
-                onClick={() => goToHeading(heading)}
-                className={cn(
-                  "cursor-pointer text-base text-gray-400 transition-colors hover:font-bold hover:text-black",
-                  heading.level === 1 || heading.level === 2
-                    ? "pl-0"
-                    : heading.level === 3
-                      ? "pl-4"
-                      : "pl-8",
-                  // activeId와 일치하면 볼드 처리
-                  activeId === heading.id && "font-bold text-black"
-                )}
+  if (post === undefined || blog === undefined || self === undefined)
+    return null;
+
+  return (
+    <Suspense fallback={<Loading />}>
+      <div className="relative mb-16 flex w-full justify-center">
+        <article className="flex w-full max-w-5xl flex-col gap-5">
+          <div className="flex w-full max-w-5xl flex-col gap-4">
+            <h1
+              ref={titleRef}
+              className="text-primary text-5xl leading-relaxed font-bold"
+            >
+              {post.title}
+            </h1>
+            {/* 작성자 */}
+            <div className="flex items-center gap-2">
+              <Link
+                className="text-base font-bold hover:underline"
+                to={`/${blog.domain}`}
               >
-                {heading.text}
-              </li>
-            ))}
-          </ul>
-        </nav>
+                {post.writer.name}
+              </Link>
+              <p>⁝</p>
+              {/* 작성일 */}
+              <p className="text-gray-400">
+                {format(post.createdAt, "yyyy년 MM월 dd일")}
+              </p>
+            </div>
+            {/* 카테고리 */}
+            <div className="flex items-end justify-between">
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {post.hashtagList?.map((hashtag, index) => (
+                  <Hashtag key={`${hashtag}_${index}`} hashtag={hashtag} />
+                ))}
+              </div>
+              {/* 수정, 삭제 (작성자 본인만 표시) */}
+              {self.id === post.writer.id && (
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={goToModify}>
+                    수정
+                  </Button>
+                  <DeleteDialog
+                    trigger={<Button variant="outline">삭제</Button>}
+                    onAction={() => deletePost({ id: post.id })}
+                  />
+                </div>
+              )}
+            </div>
+            <div className="h-[1px] w-full bg-gray-200" />
+            {/* 광고 */}
+            <div className="relative flex">
+              <Preview doc={post.content} />
+            </div>
+          </div>
+        </article>
+
+        {/* TOC를 article 밖으로 분리 */}
+        <div className="ml-8 w-48">
+          {headings.length > 0 && (
+            <nav
+              className={cn(
+                "border-l-4 p-4",
+                !inView ? "fixed top-[110px]" : "absolute top-48"
+              )}
+            >
+              <ul className="space-y-2 text-sm">
+                {headings.map((heading, index) => (
+                  <li
+                    key={index}
+                    onClick={() => goToHeading(heading)}
+                    className={cn(
+                      "cursor-pointer text-base text-gray-400 transition-colors hover:font-bold hover:text-black",
+                      heading.level === 1 || heading.level === 2
+                        ? "pl-0"
+                        : heading.level === 3
+                          ? "pl-4"
+                          : "pl-8",
+                      // activeId와 일치하면 볼드 처리
+                      activeId === heading.id && "text-primary font-bold"
+                    )}
+                  >
+                    {heading.text}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }

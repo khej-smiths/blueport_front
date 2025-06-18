@@ -22,7 +22,9 @@ export function DeleteDialog({ trigger, onCancel, onAction }: Props) {
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>정말 삭제하시겠습니까?</AlertDialogTitle>
+          <AlertDialogTitle className="text-primary">
+            정말 삭제하시겠습니까?
+          </AlertDialogTitle>
           <AlertDialogDescription>
             삭제 시 복구할 수 없습니다.
           </AlertDialogDescription>
@@ -30,7 +32,7 @@ export function DeleteDialog({ trigger, onCancel, onAction }: Props) {
         <AlertDialogFooter>
           <AlertDialogCancel onClick={onCancel}>취소</AlertDialogCancel>
           <AlertDialogAction
-            className="bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90"
+            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white shadow-sm"
             onClick={onAction}
           >
             삭제

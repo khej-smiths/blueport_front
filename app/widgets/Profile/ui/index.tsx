@@ -1,13 +1,7 @@
-import {
-  Category,
-  DefaultProfile,
-  Loading,
-  ReadBlogQuery,
-  useLayoutStore,
-} from "@/shared";
+import { DefaultProfile, Hashtag, Loading, ReadBlogQuery } from "@/shared";
 
 import { ProfileLinks } from "./ProfileLinks";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 
 interface Props {
   blog: ReadBlogQuery["readBlog"];
@@ -15,18 +9,6 @@ interface Props {
 
 /** 블로그 소개 섹션 */
 export function Profile({ blog }: Props) {
-  const { setBlogGNB } = useLayoutStore();
-
-  useEffect(() => {
-    if (!blog) return;
-
-    setBlogGNB({
-      name: blog.name,
-      domain: blog.domain,
-      github: blog.github,
-    });
-  }, [blog]);
-
   return (
     <Suspense fallback={<Loading />}>
       {blog && (
@@ -36,7 +18,7 @@ export function Profile({ blog }: Props) {
           <p className="text-gray-600">{blog.introduction}</p>
           <div className="flex justify-center gap-4">
             {blog.skills?.map((skill) => (
-              <Category key={skill} category={skill} />
+              <Hashtag key={skill} hashtag={skill} />
             ))}
           </div>
           <ProfileLinks github={blog.github} email={blog.email} />

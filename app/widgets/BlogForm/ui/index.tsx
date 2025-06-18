@@ -6,12 +6,12 @@ import { LabelInput } from "@/entities";
 import { FileUpload } from "@/features";
 import {
   Button,
-  Category,
   Container,
   CreateBlogInputDto,
   DefaultProfile,
   FormLabel,
   getErrorMessage,
+  Hashtag,
   HOOKS,
   Input,
   ROUTE,
@@ -266,8 +266,8 @@ export function BlogForm() {
             <ul className="flex gap-2">
               {watch("skills")?.map((skill, index) => (
                 <li key={index}>
-                  <Category
-                    category={skill}
+                  <Hashtag
+                    hashtag={skill}
                     onClick={() => handleDeleteSkill(index)}
                   />
                 </li>

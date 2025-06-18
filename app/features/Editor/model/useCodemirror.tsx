@@ -13,7 +13,7 @@ import {
 import { languages } from "@codemirror/language-data";
 import { EditorState } from "@codemirror/state";
 import { EditorView, keymap, placeholder } from "@codemirror/view";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type RefObject } from "react";
 
 import { customHighlightStyle, transparentTheme } from "./editorStyle";
 
@@ -33,8 +33,8 @@ interface Props {
 export function useCodemirror<T extends Element>({
   initialDoc,
   onChange,
-}: Props): [React.MutableRefObject<T | null>, EditorView?] {
-  const editorRef = useRef<T>(null);
+}: Props): [RefObject<T | null>, EditorView?] {
+  const editorRef = useRef<T | null>(null);
   const [editorView, setEditorView] = useState<EditorView>();
 
   useEffect(() => {
@@ -78,6 +78,17 @@ export function useCodemirror<T extends Element>({
     // initialDoc, onChange 들어갈 경우 에디터 리렌더링되어 작성 불가능
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editorRef]);
+
+  useEffect(() => {
+    /** 수정 등으로 접근 시 초기 문서 주입 */
+    if (!editorView) return;
+    const currentDoc = editorView.state.doc.toString();
+    if (currentDoc !== initialDoc) {
+      editorView.dispatch({
+        changes: { from: 0, to: currentDoc.length, insert: initialDoc },
+      });
+    }
+  }, [editorView, initialDoc]);
 
   return [editorRef, editorView];
 }

@@ -47,9 +47,11 @@ export function LandingAbout({ right, blog }: Props) {
               ))}
             </div>
           </div>
-          <Button variant="outline" className="max-w-fit cursor-pointer">
-            <Link to={`/${blog.domain}`}>더 알아보기</Link>
-          </Button>
+          <Link to={`/${blog.domain}`}>
+            <Button variant="outline" className="max-w-fit cursor-pointer">
+              더 알아보기
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
