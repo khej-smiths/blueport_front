@@ -15,6 +15,7 @@ import { instance } from "../gql/instance";
 import { loginQuery } from "./login";
 import { readBlogQuery } from "./readBlog";
 import { readBlogListQuery } from "./readBlogList";
+import { readPostQuery } from "./readPost";
 import { readPostListQuery } from "./readPostList";
 import { readUserQuery } from "./readUser";
 
@@ -30,7 +31,7 @@ export async function readUser() {
 
 /** 단일 게시글 조회 */
 export async function readPost(input: ReadPostInputDto) {
-  return await instance<ReadPostQuery>(readPost, { input })
+  return await instance<ReadPostQuery>(readPostQuery, { input })
 }
 
 /** 게시글 목록 조회 */

@@ -1,13 +1,7 @@
-import {
-  Category,
-  DefaultProfile,
-  Loading,
-  ReadBlogQuery,
-  useLayoutStore,
-} from "@/shared";
+import { Category, DefaultProfile, Loading, ReadBlogQuery } from "@/shared";
 
 import { ProfileLinks } from "./ProfileLinks";
-import { Suspense, useEffect } from "react";
+import { Suspense } from "react";
 
 interface Props {
   blog: ReadBlogQuery["readBlog"];
@@ -15,18 +9,6 @@ interface Props {
 
 /** 블로그 소개 섹션 */
 export function Profile({ blog }: Props) {
-  const { setBlogGNB } = useLayoutStore();
-
-  useEffect(() => {
-    if (!blog) return;
-
-    setBlogGNB({
-      name: blog.name,
-      domain: blog.domain,
-      github: blog.github,
-    });
-  }, [blog]);
-
   return (
     <Suspense fallback={<Loading />}>
       {blog && (

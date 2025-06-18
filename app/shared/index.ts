@@ -31,6 +31,7 @@ export { ROUTE } from "./constant/route";
 export { cn } from "./lib/cn";
 export { getErrorMessage } from "./lib/getErrorMessage";
 export { imageUpload } from "./lib/imageUpload";
+export { mdToPlanText } from "./lib/mdToPlanText";
 export { onlyNumber } from "./lib/onlyNumber";
 
 // Store
