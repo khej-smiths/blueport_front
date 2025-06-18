@@ -18,9 +18,9 @@ export default function Home() {
   const { data: self } = HOOKS.useSelf();
 
   useEffect(() => {
-    if (!self?.blog || !accessToken) return;
+    if (!self || !accessToken) return;
 
-    setOpen(Boolean(!self.blog.id));
+    setOpen(Boolean(!self.blog?.id));
   }, [self, accessToken]);
 
   return (
