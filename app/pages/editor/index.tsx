@@ -72,7 +72,7 @@ export default function EditorPage() {
     setHashtag(e.target.value);
   };
 
-  /** 카테고리 입력 키보드 함수 */
+  /** 해시태그 입력 키보드 함수 */
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const key = e.code;
 

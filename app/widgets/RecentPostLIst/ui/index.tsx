@@ -4,7 +4,7 @@ import { HOOKS } from "@/shared";
 import { Suspense } from "react";
 
 export function RecentPostList() {
-  const { data: recentPostList } = HOOKS.useGetRecentPostList({
+  const { data: recentPostList } = HOOKS.useGetPostList({
     sortOption: Sort_Option.Newest,
     limit: 10,
     pageNumber: 1,

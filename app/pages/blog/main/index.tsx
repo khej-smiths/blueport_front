@@ -1,18 +1,79 @@
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
-import { HOOKS, Loading, Sort_Option, Hashtag } from "@/shared";
+import {
+  HOOKS,
+  Loading,
+  Sort_Option,
+  Hashtag,
+  ReadPostListQuery,
+} from "@/shared";
 import { Profile } from "@/widgets";
-import { Suspense } from "react";
+import {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useParams } from "react-router";
 
 export default function Blog() {
+  const [postList, setPostList] = useState<ReadPostListQuery["readPostList"]>(
+    []
+  );
+  const [pageNumber, setPageNumber] = useState(1);
+  const [isLast, setIsLast] = useState(false);
   const { domain } = useParams();
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
-  const { data: recentPostList } = HOOKS.useGetRecentPostList({
+
+  const { data: recentPostList } = HOOKS.useGetPostList({
     blogId: blog?.id,
     sortOption: Sort_Option.Newest,
     limit: 3,
     pageNumber: 1,
   });
+
+  const memoizedParams = useMemo(
+    () => ({
+      blogId: blog?.id,
+      limit: 10,
+      pageNumber,
+    }),
+    [blog?.id, pageNumber]
+  );
+
+  const {
+    data: postListData,
+    isLoading,
+    isRefetching,
+  } = HOOKS.useDebounceGetPostList(memoizedParams);
+
+  const observer = useRef<IntersectionObserver | null>(null);
+
+  const loading = isLoading || isRefetching;
+
+  useEffect(() => {
+    if (!postListData) return;
+
+    setPostList((prev) => [...prev, ...postListData]);
+    setIsLast(postListData.length === 0);
+  }, [postListData]);
+
+  const loadingElement = useCallback(
+    (node: HTMLDivElement | null) => {
+      if (loading || isLast) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setPageNumber((prev) => prev + 1);
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [loading, isLast]
+  );
 
   if (blog === undefined) return null;
 
@@ -39,9 +100,9 @@ export default function Blog() {
           )}
         </section>
 
-        {/* 카테고리 섹션 */}
+        {/* 해시태그 섹션 */}
         <section className="">
-          <h3 className="text-primary mb-6 text-2xl font-bold">카테고리</h3>
+          <h3 className="text-primary mb-6 text-2xl font-bold">해시태그</h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
             <Hashtag key="all" hashtag="전체" total={12} />
             {[
@@ -79,16 +140,15 @@ export default function Blog() {
         <section className="flex flex-col gap-4">
           <h3 className="text-primary text-2xl font-bold">전체 글</h3>
           <ul className="flex flex-col gap-4">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <HorizontalPostCard
-                key={i}
-                username={domain as string}
-                postId={i.toString()}
-              />
+            {postList?.map((post) => (
+              <HorizontalPostCard key={post.id} post={post} />
             ))}
           </ul>
-
-          <Loading />
+          {!isLast && (
+            <div ref={loadingElement} className="flex justify-center">
+              {loading && <Loading />}
+            </div>
+          )}
         </section>
       </article>
     </main>
