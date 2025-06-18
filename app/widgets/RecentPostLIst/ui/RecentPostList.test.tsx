@@ -9,7 +9,7 @@ vi.mock("@/shared", async () => {
     ...actual,
     HOOKS: {
       ...actual.HOOKS,
-      useGetRecentPostList: () => ({
+      useGetPostList: () => ({
         data: [
           {
             id: "1",
