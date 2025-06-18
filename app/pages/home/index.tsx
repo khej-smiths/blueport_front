@@ -2,9 +2,9 @@ import { CreateBlogDialog } from "@/features";
 import { LandingAbout, PopularPostList, RecentPostList } from "@/widgets";
 
 import { LandingIntro } from "@/widgets";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useGetBlogList } from "./api/useGetBlogList";
-import { HOOKS, useAuthStore } from "@/shared";
+import { HOOKS, Loading, useAuthStore } from "@/shared";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -23,6 +23,8 @@ export default function Home() {
     setOpen(Boolean(!self.blog.id));
   }, [self, accessToken]);
 
+  if (self === undefined) return null;
+
   return (
     <article className="mb-16 flex min-h-dvh justify-center">
       <div className="flex w-full max-w-7xl flex-col gap-12 py-24">
@@ -35,7 +37,9 @@ export default function Home() {
           <RecentPostList />
         </div>
       </div>
-      <CreateBlogDialog open={open} setOpen={setOpen} />
+      <Suspense fallback={<Loading />}>
+        <CreateBlogDialog open={open} setOpen={setOpen} userName={self.name} />
+      </Suspense>
     </article>
   );
 }
