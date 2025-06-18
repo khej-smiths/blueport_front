@@ -100,7 +100,8 @@ export function BlogForm() {
 
       createBlog(body, {
         onSuccess: (res) => {
-          navigate(res.domain);
+          toast.success("블로그가 생성되었습니다.");
+          navigate(ROUTE.BLOG.replace(":domain", res.domain));
         },
       });
     },

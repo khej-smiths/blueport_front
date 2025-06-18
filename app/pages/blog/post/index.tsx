@@ -94,7 +94,7 @@ export default function Post() {
                 {format(post.createdAt, "yyyy년 MM월 dd일")}
               </p>
             </div>
-            {/* 카테고리 */}
+            {/* 해시태그 */}
             <div className="flex items-end justify-between">
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {post.hashtagList?.map((hashtag, index) => (
