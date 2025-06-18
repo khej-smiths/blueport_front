@@ -339,14 +339,14 @@ export type Post = {
   hashtagList?: Maybe<Array<Scalars['String']['output']>>;
   /** id */
   id: Scalars['String']['output'];
+  /** 게시글 작성자 */
+  owner: User;
   /** 게시글의 제목 */
   title: Scalars['String']['output'];
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
   /** 조회수 */
   viewCount: Scalars['Int']['output'];
-  /** 게시글 작성자 */
-  writer: User;
 };
 
 export type Project = {
@@ -635,7 +635,7 @@ export type CreatePostMutationVariables = Exact<{
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string, owner: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInputDto;
@@ -663,7 +663,7 @@ export type UpdatePostMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, owner: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInputDto;
@@ -698,14 +698,14 @@ export type ReadPostQueryVariables = Exact<{
 }>;
 
 
-export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, writer: { __typename?: 'User', id: string, name: string } } };
+export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string } } };
 
 export type ReadPostListQueryVariables = Exact<{
   input: ReadPostListInputDto;
 }>;
 
 
-export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, writer: { __typename?: 'User', id: string, name: string, email: string, blog?: { __typename?: 'Blog', id: string, domain: string } | null } }> };
+export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string, email: string, blog?: { __typename?: 'Blog', id: string, domain: string } | null } }> };
 
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -749,7 +749,7 @@ export const CreatePostDocument = new TypedDocumentString(`
     mutation CreatePost($input: CreatePostInputDto!) {
   createPost(input: $input) {
     id
-    writer {
+    owner {
       blog {
         domain
       }
@@ -794,7 +794,7 @@ export const UpdatePostDocument = new TypedDocumentString(`
     title
     content
     hashtagList
-    writer {
+    owner {
       blog {
         domain
       }
@@ -854,7 +854,7 @@ export const ReadPostDocument = new TypedDocumentString(`
     content
     hashtagList
     createdAt
-    writer {
+    owner {
       id
       name
     }
@@ -869,7 +869,7 @@ export const ReadPostListDocument = new TypedDocumentString(`
     content
     hashtagList
     createdAt
-    writer {
+    owner {
       id
       name
       email

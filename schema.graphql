@@ -278,14 +278,14 @@ type Post {
   hashtagList: [String!]
   """id"""
   id: String!
+  """게시글 작성자"""
+  owner: User!
   """게시글의 제목"""
   title: String!
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
   """조회수"""
   viewCount: Int!
-  """게시글 작성자"""
-  writer: User!
 }
 
 type Project {

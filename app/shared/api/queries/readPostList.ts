@@ -8,7 +8,7 @@ export const readPostListQuery = graphql(`
       content
       hashtagList
       createdAt
-      writer {
+      owner {
         id
         name
         email
@@ -19,4 +19,4 @@ export const readPostListQuery = graphql(`
       }
     }
   }
-`)
+`);

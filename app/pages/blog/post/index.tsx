@@ -86,7 +86,7 @@ export default function Post() {
                 className="text-base font-bold hover:underline"
                 to={`/${blog.domain}`}
               >
-                {post.writer.name}
+                {post.owner.name}
               </Link>
               <p>⁝</p>
               {/* 작성일 */}
@@ -102,7 +102,7 @@ export default function Post() {
                 ))}
               </div>
               {/* 수정, 삭제 (작성자 본인만 표시) */}
-              {self.id === post.writer.id && (
+              {self.id === post.owner.id && (
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={goToModify}>
                     수정
