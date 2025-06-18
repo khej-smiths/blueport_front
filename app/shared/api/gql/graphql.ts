@@ -663,7 +663,7 @@ export type UpdatePostMutationVariables = Exact<{
 }>;
 
 
-export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null } };
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInputDto;
@@ -804,6 +804,11 @@ export const UpdatePostDocument = new TypedDocumentString(`
     title
     content
     hashtagList
+    writer {
+      blog {
+        domain
+      }
+    }
   }
 }
     `) as unknown as TypedDocumentString<UpdatePostMutation, UpdatePostMutationVariables>;

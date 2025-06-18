@@ -1,5 +1,5 @@
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
-import { Category, HOOKS, Loading, Sort_Option } from "@/shared";
+import { HOOKS, Loading, Sort_Option, Hashtag } from "@/shared";
 import { Profile } from "@/widgets";
 import { Suspense } from "react";
 import { useParams } from "react-router";
@@ -43,7 +43,7 @@ export default function Blog() {
         <section className="">
           <h3 className="text-primary mb-6 text-2xl font-bold">카테고리</h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
-            <Category key="all" category="전체" total={12} />
+            <Hashtag key="all" hashtag="전체" total={12} />
             {[
               "Frontend",
               "Backend",
@@ -69,8 +69,8 @@ export default function Blog() {
               "Security3",
               "Mobile3",
               "Cloud3",
-            ].map((category) => (
-              <Category key={category} category={category} total={12} />
+            ].map((hashtag) => (
+              <Hashtag key={hashtag} hashtag={hashtag} total={12} />
             ))}
           </div>
         </section>

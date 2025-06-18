@@ -10,7 +10,7 @@ import {
 
 import {
   Button,
-  Category,
+  Hashtag,
   Input,
   MonthPicker,
   onlyNumber,
@@ -135,7 +135,7 @@ export function ProjectItem({
         <ul className="flex gap-2">
           {watch(`projectList.${index}.skill`).map((item, i) => (
             <li key={`${index}_${item}_${i}`}>
-              <Category category={item} onClick={() => handleDeleteSkill(i)} />
+              <Hashtag hashtag={item} onClick={() => handleDeleteSkill(i)} />
             </li>
           ))}
         </ul>

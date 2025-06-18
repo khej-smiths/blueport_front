@@ -1,4 +1,4 @@
-import { Category, DefaultProfile, Loading, ReadBlogQuery } from "@/shared";
+import { DefaultProfile, Hashtag, Loading, ReadBlogQuery } from "@/shared";
 
 import { ProfileLinks } from "./ProfileLinks";
 import { Suspense } from "react";
@@ -18,7 +18,7 @@ export function Profile({ blog }: Props) {
           <p className="text-gray-600">{blog.introduction}</p>
           <div className="flex justify-center gap-4">
             {blog.skills?.map((skill) => (
-              <Category key={skill} category={skill} />
+              <Hashtag key={skill} hashtag={skill} />
             ))}
           </div>
           <ProfileLinks github={blog.github} email={blog.email} />

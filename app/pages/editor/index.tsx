@@ -4,12 +4,14 @@ import { toast } from "sonner";
 import { Editor, Preview } from "@/features";
 import {
   Button,
-  Category,
   cn,
   CreatePostInputDto,
   getErrorMessage,
+  Hashtag,
+  HOOKS,
   Input,
   ROUTE,
+  UpdatePostInputDto,
   useAuthStore,
 } from "@/shared";
 import { useSearchParams } from "react-router";
@@ -19,39 +21,58 @@ import { EditorForm } from "./model/type";
 import { useCreatePost } from "./api/useCreatePost";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { editorSchema } from "./model/schema";
+import { useUpdatePost } from "./api/useUpdatePost";
 
 export default function EditorPage() {
-  const [category, setCategory] = useState("");
-  const [isCategoryInputFocused, setIsCategoryInputFocused] = useState(false);
-  const { control, setValue, watch, handleSubmit } = useForm<EditorForm>({
-    defaultValues: {
-      title: "",
-      hashtagList: [],
-      content: "",
-    },
-    resolver: zodResolver(editorSchema),
-  });
+  const [hashtag, setHashtag] = useState("");
+  const [isHashtagInputFocused, setIsHashtagInputFocused] = useState(false);
+  const { control, setValue, reset, watch, handleSubmit } = useForm<EditorForm>(
+    {
+      defaultValues: {
+        hashtagList: [],
+      },
+      resolver: zodResolver(editorSchema),
+    }
+  );
 
   const isComposition = useRef(false);
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const postId = searchParams.get("postId");
   const isDemo = Boolean(searchParams.get("demo"));
+  const isModify = Boolean(postId);
 
   const { accessToken } = useAuthStore();
 
+  const { data: post } = HOOKS.useGetPost(postId);
   const { mutate: createPost } = useCreatePost();
+  const { mutate: updatePost } = useUpdatePost();
 
   useEffect(() => {
+    // 비로그인, 데모 모드 아닐 시 로그인 화면으로 이동
     if (!isDemo && !accessToken) {
       navigate(ROUTE.LOGIN);
     }
   }, [accessToken, isDemo, navigate]);
 
-  const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setCategory(e.target.value);
+  useEffect(() => {
+    // 수정 진입 시 필드 초기화
+    if (isModify && post) {
+      reset({
+        title: post.title,
+        hashtagList: post.hashtagList ? post.hashtagList : [],
+        content: post.content,
+      });
+    }
+  }, [postId, post]);
+
+  //** 해시테그 변경 */
+  const handleHashtagChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setHashtag(e.target.value);
   };
 
+  /** 카테고리 입력 키보드 함수 */
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     const key = e.code;
 
@@ -59,65 +80,73 @@ export default function EditorPage() {
 
     if (
       (key === "Space" || key === "Enter" || key === "Comma") &&
-      category.trim()
+      hashtag.trim()
     ) {
       e.preventDefault();
 
       if (watch("hashtagList").length > 9) {
-        setCategory("");
+        setHashtag("");
         return;
       }
 
-      setValue("hashtagList", [...watch("hashtagList"), category.trim()]);
-      setCategory("");
+      setValue("hashtagList", [...watch("hashtagList"), hashtag.trim()]);
+      setHashtag("");
     }
 
     if (
       key === "Backspace" &&
       watch("hashtagList").length > 0 &&
-      category.length === 0
+      hashtag.length === 0
     ) {
-      handleCategoryDelete(watch("hashtagList").length - 1);
+      handleHashtagDelete(watch("hashtagList").length - 1);
     }
   };
 
-  const handleCategoryDelete = (indexToDelete: number) => {
+  /** 해시테그 삭제 함수 */
+  const handleHashtagDelete = (indexToDelete: number) => {
     setValue(
       "hashtagList",
       watch("hashtagList").filter((_, index) => index !== indexToDelete)
     );
   };
 
+  /** 게시글 작성 또는 수정 함수 */
   const onSubmit = handleSubmit(
     (data) => {
       if (isDemo || !accessToken) {
+        // 데모 모드 또는 비로그인 시 게시글 작성 불가
         toast("체험하기에서는 게시글을 작성할 수 없습니다 🥲");
         return;
       }
 
+      if (isModify && postId) {
+        // 수정 요청 시 수행
+        const input: UpdatePostInputDto = {
+          id: postId,
+          title: data.title,
+          content: data.content,
+          hashtagList: data.hashtagList,
+        };
+
+        updatePost(input);
+
+        return;
+      }
+
+      // 게시글 작성 요청 시 수행
       const input: CreatePostInputDto = {
         title: data.title,
         content: data.content,
         hashtagList: data.hashtagList,
       };
 
-      createPost(input, {
-        onSuccess: ({ domain, id }) => {
-          toast.success("게시글이 성공적으로 작성되었습니다.");
-          // TODO: 블로그 조회 가능 시 이 navigate 사용
-          // navigate(ROUTE.POST.replace(":domain", domain).replace(":id", id));
-
-          navigate(ROUTE.HOME);
-        },
-      });
+      createPost(input);
     },
     (error) => {
       const message = getErrorMessage(error);
       toast.error(message);
     }
   );
-
-  console.log(watch());
 
   return (
     <form onSubmit={onSubmit} className="flex min-h-dvh">
@@ -141,11 +170,11 @@ export default function EditorPage() {
           )}
         >
           <ul className="flex gap-2">
-            {watch("hashtagList").map((category, index) => (
+            {watch("hashtagList").map((hashtag, index) => (
               <li key={index}>
-                <Category
-                  category={category}
-                  onClick={() => handleCategoryDelete(index)}
+                <Hashtag
+                  hashtag={hashtag}
+                  onClick={() => handleHashtagDelete(index)}
                 />
               </li>
             ))}
@@ -153,11 +182,11 @@ export default function EditorPage() {
           {watch("hashtagList").length < 15 && (
             <Input
               variant="borderless"
-              value={category}
-              onChange={handleCategoryChange}
+              value={hashtag}
+              onChange={handleHashtagChange}
               onKeyDown={handleKeyDown}
-              onFocus={() => setIsCategoryInputFocused(true)}
-              onBlur={() => setIsCategoryInputFocused(false)}
+              onFocus={() => setIsHashtagInputFocused(true)}
+              onBlur={() => setIsHashtagInputFocused(false)}
               onCompositionStart={() => (isComposition.current = true)}
               onCompositionEnd={() => (isComposition.current = false)}
               placeholder="태그를 입력하세요"
@@ -175,7 +204,7 @@ export default function EditorPage() {
             <Editor
               initialDoc={field.value}
               onChange={field.onChange}
-              isCategoryInputFocused={isCategoryInputFocused}
+              isHashtagInputFocused={isHashtagInputFocused}
             />
           )}
         />

@@ -5,10 +5,9 @@ import { useParams } from "react-router";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 
 import { DeleteDialog, Preview } from "@/features";
-import { Button, Category, cn, HOOKS, Loading, ROUTE } from "@/shared";
+import { Button, cn, HOOKS, Loading, ROUTE, Hashtag } from "@/shared";
 import { getToc } from "./model/getToc";
 import { Heading } from "./model/type";
-import { useGetPost } from "./api/useGetPost";
 import { useDeletePost } from "./api/useDeletePost";
 
 export default function Post() {
@@ -17,7 +16,7 @@ export default function Post() {
 
   const { data: self } = HOOKS.useSelf();
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
-  const { data: post } = useGetPost(postId);
+  const { data: post } = HOOKS.useGetPost(postId);
   const { mutate: deletePost } = useDeletePost();
 
   const headings = useMemo(() => getToc(post?.content ?? ""), [post]);
@@ -99,7 +98,7 @@ export default function Post() {
             <div className="flex items-end justify-between">
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {post.hashtagList?.map((hashtag, index) => (
-                  <Category key={`${hashtag}_${index}`} category={hashtag} />
+                  <Hashtag key={`${hashtag}_${index}`} hashtag={hashtag} />
                 ))}
               </div>
               {/* 수정, 삭제 (작성자 본인만 표시) */}
