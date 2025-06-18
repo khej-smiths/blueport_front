@@ -15,7 +15,7 @@ export function Editor({ initialDoc, onChange, isHashtagInputFocused }: Props) {
     <div
       role="article"
       aria-label="editor-section"
-      className="relative mb-16 box-border flex h-full w-full flex-col gap-3"
+      className="relative box-border flex h-full w-full flex-col gap-3"
     >
       <div
         className={cn(
@@ -29,7 +29,7 @@ export function Editor({ initialDoc, onChange, isHashtagInputFocused }: Props) {
         className="w-full flex-1 cursor-text px-5"
         onClick={() => editorView?.focus()}
       >
-        <div ref={editorRef} />
+        <div ref={editorRef} className="h-full pb-16" />
       </div>
     </div>
   );
