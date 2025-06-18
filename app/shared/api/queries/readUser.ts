@@ -7,13 +7,8 @@ export const readUserQuery = graphql(`
       email
       name
       blog {
-        ...BlogFields
+        id
       }
     }
   }
-  
-  fragment BlogFields on Blog {
-      id
-      domain
-    }
-  `)
+`);

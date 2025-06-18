@@ -2,17 +2,26 @@ import { CreateBlogDialog } from "@/features";
 import { LandingAbout, PopularPostList, RecentPostList } from "@/widgets";
 
 import { LandingIntro } from "@/widgets";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetBlogList } from "./api/useGetBlogList";
-import { ReadBlogQuery } from "@/shared/api/gql/graphql";
+import { HOOKS, useAuthStore } from "@/shared";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+  const { accessToken } = useAuthStore();
 
   const { data: blogList } = useGetBlogList({
     pageNumber: 1,
     limit: 2,
   });
+
+  const { data: self } = HOOKS.useSelf();
+
+  useEffect(() => {
+    if (!self?.blog || !accessToken) return;
+
+    setOpen(Boolean(!self.blog.id));
+  }, [self, accessToken]);
 
   return (
     <article className="mb-16 flex min-h-dvh justify-center">
