@@ -642,6 +642,13 @@ export type CreatePostMutationVariables = Exact<{
 
 export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string, owner: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
 
+export type CreateResumeMutationVariables = Exact<{
+  input: CreateResumeInputDto;
+}>;
+
+
+export type CreateResumeMutation = { __typename?: 'Mutation', createResume: { __typename?: 'Resume', id: string } };
+
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInputDto;
 }>;
@@ -669,6 +676,13 @@ export type UpdatePostMutationVariables = Exact<{
 
 
 export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, owner: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+
+export type UpdateResumeMutationVariables = Exact<{
+  input: UpdateResumeInputDto;
+}>;
+
+
+export type UpdateResumeMutation = { __typename?: 'Mutation', updateResume: { __typename?: 'Resume', id: string } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInputDto;
@@ -769,6 +783,13 @@ export const CreatePostDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CreatePostMutation, CreatePostMutationVariables>;
+export const CreateResumeDocument = new TypedDocumentString(`
+    mutation CreateResume($input: CreateResumeInputDto!) {
+  createResume(input: $input) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CreateResumeMutation, CreateResumeMutationVariables>;
 export const CreateUserDocument = new TypedDocumentString(`
     mutation CreateUser($input: CreateUserInputDto!) {
   createUser(input: $input) {
@@ -814,6 +835,13 @@ export const UpdatePostDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<UpdatePostMutation, UpdatePostMutationVariables>;
+export const UpdateResumeDocument = new TypedDocumentString(`
+    mutation UpdateResume($input: UpdateResumeInputDto!) {
+  updateResume(input: $input) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateResumeMutation, UpdateResumeMutationVariables>;
 export const UpdateUserDocument = new TypedDocumentString(`
     mutation UpdateUser($input: UpdateUserInputDto!) {
   updateUser(input: $input) {

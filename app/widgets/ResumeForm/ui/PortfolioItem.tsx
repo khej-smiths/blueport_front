@@ -48,6 +48,7 @@ export function PortfolioItem({
         <Button
           className="size-8 rounded-sm p-0"
           variant="ghost"
+          type="button"
           onClick={() => remove(index, "portfolio")}
         >
           <Trash2 className="size-4 text-gray-400" />

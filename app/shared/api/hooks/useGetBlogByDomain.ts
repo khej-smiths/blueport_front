@@ -1,22 +1,19 @@
 import { QUERIES, QUERY_KEY, useLayoutStore } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { ClientError } from "graphql-request";
+import { useEffect } from "react";
+import { useSelf } from "./useSelf";
 
 export function useGetBlogByDomain(domain?: string) {
   const { setBlogGNB } = useLayoutStore();
 
-  return useQuery({
+  const { data: self } = useSelf();
+
+  const { data } = useQuery({
     queryKey: QUERY_KEY.blog.readBlog(domain),
     queryFn: async () => {
       if (!domain) return;
       const res = await QUERIES.readBlog({ domain });
-
-      setBlogGNB({
-        name: res.readBlog.name,
-        domain: res.readBlog.domain,
-        github: res.readBlog.github,
-        isMine: res.readBlog.domain === domain,
-      });
 
       return res.readBlog;
     },
@@ -25,4 +22,17 @@ export function useGetBlogByDomain(domain?: string) {
     },
     enabled: Boolean(domain),
   });
+
+  useEffect(() => {
+    if (!data || !self) return;
+
+    setBlogGNB({
+      name: data.name,
+      domain: data.domain,
+      github: data.github,
+      isMine: data.id === self.blog?.id,
+    });
+  }, [data, self]);
+
+  return { data };
 }

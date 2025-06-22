@@ -9,6 +9,7 @@ interface Props {
 export function AddItemButton({ onClick }: Props) {
   return (
     <Button
+      type="button"
       className="size-8 rounded-sm p-0"
       variant="ghost"
       onClick={() => onClick?.()}

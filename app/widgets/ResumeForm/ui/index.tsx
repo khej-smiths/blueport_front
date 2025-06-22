@@ -2,7 +2,14 @@ import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 
-import { Button, Container, ROUTE, useAuthStore } from "@/shared";
+import {
+  Button,
+  Container,
+  getErrorMessage,
+  HOOKS,
+  ROUTE,
+  useAuthStore,
+} from "@/shared";
 
 import { SectionTitle } from "../../SectionTitle";
 import {
@@ -17,6 +24,9 @@ import { CareerItem } from "./CareerItem";
 import { EducationItem } from "./EducationItem";
 import { PortfolioItem } from "./PortfolioItem";
 import { ProjectItem } from "./ProjectItem";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { resumeFormSchema } from "../model/schema";
+import { toast } from "sonner";
 
 const initEducation: EducationDto = {
   order: 0,
@@ -57,6 +67,8 @@ const initPortfolio: PortfolioDto = {
 };
 
 export function ResumeForm() {
+  const { data: resume } = HOOKS.useGetResume();
+
   const { control, watch, setValue, getValues, handleSubmit } =
     useForm<ResumeFormDto>({
       defaultValues: {
@@ -65,6 +77,7 @@ export function ResumeForm() {
         projectList: [initProject],
         portfolioList: [initPortfolio],
       },
+      resolver: zodResolver(resumeFormSchema),
     });
 
   const {
@@ -112,7 +125,13 @@ export function ResumeForm() {
     }
   }, [accessToken, navigate]);
 
-  const onSubmit = handleSubmit((data) => console.log(data));
+  const onSubmit = handleSubmit(
+    (data) => console.log(data),
+    (error) => {
+      const message = getErrorMessage(error);
+      toast.error(message);
+    }
+  );
 
   const handleRemoveItem = (index: number, type: ResumeListType) => {
     if (type === "education") {
@@ -151,7 +170,12 @@ export function ResumeForm() {
           <div className="flex flex-col gap-3">
             <SectionTitle
               title="학력"
-              onClick={() => educationListAppend(initEducation)}
+              onClick={() =>
+                educationListAppend({
+                  ...initEducation,
+                  order: educationList.length,
+                })
+              }
             />
             {educationList.map((item, index) => (
               <EducationItem
@@ -167,7 +191,12 @@ export function ResumeForm() {
           <div className="flex flex-col gap-3">
             <SectionTitle
               title="경력"
-              onClick={() => careerListAppend(initCareer)}
+              onClick={() =>
+                careerListAppend({
+                  ...initCareer,
+                  order: careerList.length,
+                })
+              }
             />
             {careerList.map((item, index) => (
               <CareerItem
@@ -182,7 +211,12 @@ export function ResumeForm() {
           <div className="flex flex-col gap-3">
             <SectionTitle
               title="프로젝트"
-              onClick={() => projectListAppend(initProject)}
+              onClick={() =>
+                projectListAppend({
+                  ...initProject,
+                  order: projectList.length,
+                })
+              }
             />
             {projectList.map((item, index) => (
               <ProjectItem
@@ -199,7 +233,12 @@ export function ResumeForm() {
           <div className="flex flex-col gap-3">
             <SectionTitle
               title="포트폴리오"
-              onClick={() => portfolioListAppend(initPortfolio)}
+              onClick={() =>
+                portfolioListAppend({
+                  ...initPortfolio,
+                  order: portfolioList.length,
+                })
+              }
             />
             {portfolioList.map((item, index) => (
               <PortfolioItem

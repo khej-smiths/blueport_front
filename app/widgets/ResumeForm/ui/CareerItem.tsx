@@ -57,6 +57,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
         <Button
           className="size-8 rounded-sm p-0"
           variant="ghost"
+          type="button"
           onClick={() => remove(index, "career")}
         >
           <Trash2 className="size-4 text-gray-400" />

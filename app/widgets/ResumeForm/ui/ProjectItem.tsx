@@ -41,6 +41,7 @@ export function ProjectItem({
   const [skillKeyword, setSkillKeyword] = useState("");
 
   const handleAddSkill = () => {
+    if (skillKeyword.trim() === "") return;
     const currentList = getValues(`projectList.${index}.skillList`);
 
     setValue(`projectList.${index}.skillList`, [
@@ -96,6 +97,7 @@ export function ProjectItem({
         <Button
           className="size-8 rounded-sm p-0"
           variant="ghost"
+          type="button"
           onClick={() => remove(index, "project")}
         >
           <Trash2 className="size-4 text-gray-400" />
@@ -154,7 +156,7 @@ export function ProjectItem({
               isComposing.current = false;
             }} // 문자 입력 상태를 감지하여 기술스택 입력
           />
-          <Button variant="outline" onClick={handleAddSkill}>
+          <Button variant="outline" type="button" onClick={handleAddSkill}>
             추가
           </Button>
         </div>

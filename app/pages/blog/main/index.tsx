@@ -16,6 +16,10 @@ import {
   useState,
 } from "react";
 import { useParams } from "react-router";
+import {
+  useDebounceGetPostListByBlogId,
+  useGetPostListByBlogId,
+} from "../api/query";
 
 export default function Blog() {
   const [postList, setPostList] = useState<ReadPostListQuery["readPostList"]>(
@@ -26,7 +30,7 @@ export default function Blog() {
   const { domain } = useParams();
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
 
-  const { data: recentPostList } = HOOKS.useGetPostList({
+  const { data: recentPostList } = useGetPostListByBlogId({
     blogId: blog?.id,
     sortOption: Sort_Option.Newest,
     limit: 3,
@@ -39,14 +43,14 @@ export default function Blog() {
       limit: 10,
       pageNumber,
     }),
-    [blog?.id, pageNumber]
+    [blog, pageNumber]
   );
 
   const {
     data: postListData,
     isLoading,
     isRefetching,
-  } = HOOKS.useDebounceGetPostList(memoizedParams);
+  } = useDebounceGetPostListByBlogId(memoizedParams);
 
   const observer = useRef<IntersectionObserver | null>(null);
 
@@ -57,7 +61,7 @@ export default function Blog() {
 
     setPostList((prev) => [...prev, ...postListData]);
     setIsLast(postListData.length === 0);
-  }, [postListData]);
+  }, [postListData, blog]);
 
   const loadingElement = useCallback(
     (node: HTMLDivElement | null) => {
@@ -144,7 +148,7 @@ export default function Blog() {
               <HorizontalPostCard key={post.id} post={post} />
             ))}
           </ul>
-          {!isLast && (
+          {postList.length > 0 && !isLast && (
             <div ref={loadingElement} className="flex justify-center">
               {loading && <Loading />}
             </div>

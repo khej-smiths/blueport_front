@@ -12,13 +12,16 @@ import {
   AlertDialog,
   AlertDialogTrigger,
   Button,
+  CustomSelect,
   Input,
   MonthPicker,
+  onlyNumber,
   ToggleGroup,
   ToggleGroupItem,
 } from "@/shared";
 
 import { ResumeFormDto, ResumeListType, GraduationStatus } from "../model/type";
+import { getStandardGradeOptions } from "../consts";
 interface Props {
   key: React.Key;
   index: number;
@@ -51,6 +54,7 @@ export function EducationItem({
               <Button
                 className="min-w-[212px]"
                 variant="outline"
+                type="button"
                 onClick={() => setOpen(true)}
               >
                 학교 찾아보기
@@ -77,6 +81,7 @@ export function EducationItem({
         <Button
           className="size-8 rounded-sm p-0"
           variant="ghost"
+          type="button"
           onClick={() => remove(index, "education")}
         >
           <Trash2 className="size-4 text-gray-400" />
@@ -103,7 +108,8 @@ export function EducationItem({
             <Input
               variant="underline"
               placeholder="학점 입력해 주세요"
-              {...field}
+              value={field.value}
+              onChange={(e) => onlyNumber(e, field.onChange, true)}
             />
           )}
         />
@@ -111,10 +117,11 @@ export function EducationItem({
           control={control}
           name={`educationList.${index}.standardGrade`}
           render={({ field }) => (
-            <Input
-              variant="underline"
+            <CustomSelect
+              selectOptions={getStandardGradeOptions()}
               placeholder="기준 학점 입력해 주세요"
-              {...field}
+              value={field.value}
+              onValueChange={(value) => field.onChange(value)}
             />
           )}
         />

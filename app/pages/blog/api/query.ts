@@ -3,24 +3,24 @@ import { useQuery } from "@tanstack/react-query";
 import { ClientError } from "graphql-request";
 import { useEffect, useState } from "react";
 
-export function useGetPostList(params?: ReadPostListInputDto) {
+export function useGetPostListByBlogId(params?: ReadPostListInputDto) {
   return useQuery({
     queryKey: QUERY_KEY.post.readPostList(params),
     queryFn: async () => {
-      if (!params) return;
+      if (!params || !params.blogId) return;
       const res = await QUERIES.readPostList(params);
       return res.readPostList;
     },
-    staleTime: 0,
-    gcTime: 0,
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);
     },
-    enabled: Boolean(params),
+    staleTime: 0,
+    gcTime: 0,
+    enabled: Boolean(params?.blogId),
   });
 }
 
-export function useDebounceGetPostList(params?: ReadPostListInputDto) {
+export function useDebounceGetPostListByBlogId(params?: ReadPostListInputDto) {
   const [debouncedParams, setDebouncedParams] = useState(params);
 
   useEffect(() => {
@@ -31,5 +31,5 @@ export function useDebounceGetPostList(params?: ReadPostListInputDto) {
     return () => clearTimeout(timeout);
   }, [params]);
 
-  return useGetPostList(debouncedParams);
+  return useGetPostListByBlogId(debouncedParams);
 }
