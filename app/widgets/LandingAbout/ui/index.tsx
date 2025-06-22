@@ -26,7 +26,7 @@ export function LandingAbout({ right, blog }: Props) {
           <h2 className="group-hover:text-primary line-clamp-3 text-2xl font-bold group-hover:transition-colors">
             {blog.greeting}
           </h2>
-          <p className="text-muted scrollbar-hide max-h-[348px] overflow-auto text-lg">
+          <p className="text-muted-foreground scrollbar-hide max-h-[348px] overflow-auto text-lg">
             {blog.introduction}
           </p>
         </div>

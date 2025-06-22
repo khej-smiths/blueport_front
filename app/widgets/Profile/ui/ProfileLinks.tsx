@@ -1,9 +1,13 @@
+import { ROUTE } from "@/shared";
+import { Link } from "react-router";
+
 interface Props {
   github?: string | null;
   email?: string | null;
+  resumeId?: string | null;
 }
 
-export function ProfileLinks({ github, email }: Props) {
+export function ProfileLinks({ github, email, resumeId }: Props) {
   return (
     <div className="flex justify-center gap-4">
       {github && (
@@ -15,9 +19,14 @@ export function ProfileLinks({ github, email }: Props) {
           GitHub
         </a>
       )}
-      <a href="#" className="text-gray-600 hover:text-black hover:underline">
-        Resume
-      </a>
+      {resumeId && (
+        <Link
+          to={ROUTE.RESUME.replace(":resumeId", resumeId)}
+          className="text-gray-600 hover:text-black hover:underline"
+        >
+          Resume
+        </Link>
+      )}
       {email && (
         <a
           href={`mailto:${email}`}

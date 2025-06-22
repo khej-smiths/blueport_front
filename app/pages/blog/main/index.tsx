@@ -78,12 +78,12 @@ export default function Blog() {
   if (blog === undefined) return null;
 
   return (
-    <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center bg-white">
+    <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center">
       <article className="flex max-w-7xl flex-col gap-16 p-8">
         <Profile blog={blog} />
 
         {/* 최신 글 섹션 */}
-        <section className="">
+        <section>
           <h3 className="text-primary mb-6 text-2xl font-bold">최신 글</h3>
           {recentPostList && recentPostList.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

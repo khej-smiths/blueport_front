@@ -19,25 +19,31 @@ import { PortfolioItem } from "./PortfolioItem";
 import { ProjectItem } from "./ProjectItem";
 
 const initEducation: EducationDto = {
-  schoolName: "",
-  educationStatus: "graduate",
-  admissionDate: null,
-  graduationDate: undefined,
-  specialty: "",
+  order: 0,
+  name: "",
+  graduationStatus: "GRADUATED",
+  major: "",
+  grade: "",
+  standardGrade: "",
+  startAt: null,
+  endAt: undefined,
 };
 
 const initCareer: CareerDto = {
-  companyName: "",
+  order: 0,
+  company: "",
+  department: "",
   position: "",
   description: "",
-  joinDate: null,
-  quitDate: undefined,
+  startAt: null,
+  endAt: undefined,
 };
 
 const initProject: ProjectDto = {
-  projectName: "",
+  order: 0,
+  name: "",
   personnel: "",
-  skill: [],
+  skillList: [],
   description: "",
   projectDate: {
     start: null,
@@ -46,9 +52,8 @@ const initProject: ProjectDto = {
 };
 
 const initPortfolio: PortfolioDto = {
-  type: "link",
+  order: 0,
   url: "",
-  file: null,
 };
 
 export function ResumeForm() {

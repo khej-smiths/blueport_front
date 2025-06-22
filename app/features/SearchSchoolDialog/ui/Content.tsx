@@ -69,7 +69,7 @@ export function Content({ handleSelectSchool }: Props) {
             {schoolList.map((item) => (
               <li
                 key={item.seq}
-                className="hover:bg-muted cursor-pointer rounded-md border p-2"
+                className="hover:bg-accent hover:text-primary text-muted-foreground cursor-pointer rounded-md border p-2 transition-colors"
                 onClick={() => handleSelectSchool(item.schoolName)}
               >
                 {item.schoolName}

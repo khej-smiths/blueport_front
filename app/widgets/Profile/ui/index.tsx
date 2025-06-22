@@ -21,7 +21,11 @@ export function Profile({ blog }: Props) {
               <Hashtag key={skill} hashtag={skill} />
             ))}
           </div>
-          <ProfileLinks github={blog.github} email={blog.email} />
+          <ProfileLinks
+            github={blog.github}
+            email={blog.email}
+            resumeId={blog.resumeId}
+          />
         </section>
       )}
     </Suspense>

@@ -42,6 +42,8 @@ export type Blog = {
   ownerId: Scalars['String']['output'];
   /** 프로필 사진 */
   photo: Scalars['String']['output'];
+  /** 블로그 주인의 이력서 Id */
+  resumeId?: Maybe<Scalars['String']['output']>;
   /** 기술 스택, 100개 제한 */
   skills?: Maybe<Array<Scalars['String']['output']>>;
   /** 데이터의 업데이트 날짜 */
@@ -606,6 +608,7 @@ export type UpdateUserInputDto = {
 
 export type User = {
   __typename?: 'User';
+  /** 유저의 블로그 */
   blog?: Maybe<Blog>;
   /** 데이터의 생성 날짜 */
   createdAt: Scalars['DateTime']['output'];
@@ -617,7 +620,9 @@ export type User = {
   id: Scalars['String']['output'];
   /** 유저의 이름 */
   name: Scalars['String']['output'];
+  /** 작성한 게시글 목록 */
   postList?: Maybe<Array<Post>>;
+  /** 유저의 이력서 */
   resume?: Maybe<Resume>;
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
@@ -684,7 +689,7 @@ export type ReadBlogQueryVariables = Exact<{
 }>;
 
 
-export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
+export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, ownerId: string, resumeId?: string | null } };
 
 export type ReadBlogListQueryVariables = Exact<{
   input: ReadBlogListInputDto;
@@ -706,6 +711,13 @@ export type ReadPostListQueryVariables = Exact<{
 
 
 export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string, email: string, blog?: { __typename?: 'Blog', id: string, domain: string } | null } }> };
+
+export type ReadResumeQueryVariables = Exact<{
+  input: ReadResumeInputDto;
+}>;
+
+
+export type ReadResumeQuery = { __typename?: 'Query', readResume: { __typename?: 'Resume', id: string, educationList?: Array<{ __typename?: 'Education', id: string, order: number, name: string, major?: string | null, grade?: number | null, description?: string | null, graduationStatus?: Graduation_Status | null, startAt: string, endAt?: string | null }> | null, careerList?: Array<{ __typename?: 'Career', id: string, order: number, company?: string | null, department?: string | null, position?: string | null, description?: string | null, startAt: string, endAt?: string | null }> | null, projectList?: Array<{ __typename?: 'Project', id: string, order: number, name: string, personnel?: number | null, skillList?: Array<string> | null, description?: string | null, startAt: string, endAt?: string | null }> | null, portfolioList?: Array<{ __typename?: 'Portfolio', id: string, order: number, type?: Portfolio_Type | null, url: string }> | null } };
 
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -827,6 +839,8 @@ export const ReadBlogDocument = new TypedDocumentString(`
     skills
     email
     github
+    ownerId
+    resumeId
   }
 }
     `) as unknown as TypedDocumentString<ReadBlogQuery, ReadBlogQueryVariables>;
@@ -881,6 +895,50 @@ export const ReadPostListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReadPostListQuery, ReadPostListQueryVariables>;
+export const ReadResumeDocument = new TypedDocumentString(`
+    query ReadResume($input: ReadResumeInputDto!) {
+  readResume(input: $input) {
+    id
+    educationList {
+      id
+      order
+      name
+      major
+      grade
+      description
+      graduationStatus
+      startAt
+      endAt
+    }
+    careerList {
+      id
+      order
+      company
+      department
+      position
+      description
+      startAt
+      endAt
+    }
+    projectList {
+      id
+      order
+      name
+      personnel
+      skillList
+      description
+      startAt
+      endAt
+    }
+    portfolioList {
+      id
+      order
+      type
+      url
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReadResumeQuery, ReadResumeQueryVariables>;
 export const ReadUserDocument = new TypedDocumentString(`
     query ReadUser {
   readUser {

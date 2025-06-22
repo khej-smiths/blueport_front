@@ -18,7 +18,7 @@ import {
   ToggleGroupItem,
 } from "@/shared";
 
-import { EducationStatus, ResumeFormDto, ResumeListType } from "../model/type";
+import { ResumeFormDto, ResumeListType, GraduationStatus } from "../model/type";
 interface Props {
   key: React.Key;
   index: number;
@@ -38,14 +38,14 @@ export function EducationItem({
   const [open, setOpen] = useState(false);
 
   const handleSelectSchool = (schoolName: string) => {
-    setValue(`educationList.${index}.schoolName`, schoolName);
+    setValue(`educationList.${index}.name`, schoolName);
     setOpen(false);
   };
 
   return (
     <div className="flex flex-col gap-5 rounded-lg border p-6">
       <div className="flex justify-between">
-        <div className="flex items-center gap-5">
+        <div className="flex max-w-[658px] flex-1 items-center gap-5">
           <AlertDialog open={open}>
             <AlertDialogTrigger>
               <Button
@@ -63,10 +63,10 @@ export function EducationItem({
           </AlertDialog>
           <Controller
             control={control}
-            name={`educationList.${index}.schoolName`}
+            name={`educationList.${index}.name`}
             render={({ field }) => (
               <Input
-                className="focus-visible:none min-w-96 hover:border-primary"
+                className="focus-visible:none hover:border-primary"
                 variant="underline"
                 readOnly
                 value={field.value}
@@ -82,15 +82,38 @@ export function EducationItem({
           <Trash2 className="size-4 text-gray-400" />
         </Button>
       </div>
-      <div className="flex items-center">
+      <div className="flex max-w-[658px] items-center">
         <Controller
           control={control}
-          name={`educationList.${index}.specialty`}
+          name={`educationList.${index}.major`}
           render={({ field }) => (
             <Input
-              className="max-w-[616px]"
               variant="underline"
               placeholder="전공을 입력해 주세요"
+              {...field}
+            />
+          )}
+        />
+      </div>
+      <div className="flex max-w-[658px] gap-4">
+        <Controller
+          control={control}
+          name={`educationList.${index}.grade`}
+          render={({ field }) => (
+            <Input
+              variant="underline"
+              placeholder="학점 입력해 주세요"
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name={`educationList.${index}.standardGrade`}
+          render={({ field }) => (
+            <Input
+              variant="underline"
+              placeholder="기준 학점 입력해 주세요"
               {...field}
             />
           )}
@@ -99,25 +122,27 @@ export function EducationItem({
       <div className="flex items-center gap-5">
         <Controller
           control={control}
-          name={`educationList.${index}.educationStatus`}
+          name={`educationList.${index}.graduationStatus`}
           render={({ field }) => (
             <ToggleGroup
               type="single"
               variant="outline"
               className="w-fit max-w-[212px]"
               value={field.value}
-              onValueChange={(value: EducationStatus) => field.onChange(value)}
+              onValueChange={(value: GraduationStatus) => field.onChange(value)}
             >
-              <ToggleGroupItem value="graduate">졸업</ToggleGroupItem>
-              <ToggleGroupItem value="attend">재학중</ToggleGroupItem>
-              <ToggleGroupItem value="expected">졸업예정</ToggleGroupItem>
+              <ToggleGroupItem value="GRADUATED">졸업</ToggleGroupItem>
+              <ToggleGroupItem value="ENROLLED">재학중</ToggleGroupItem>
+              <ToggleGroupItem value="EXPECTED_GRADUATION">
+                졸업예정
+              </ToggleGroupItem>
             </ToggleGroup>
           )}
         />
         <div className="flex gap-2">
           <Controller
             control={control}
-            name={`educationList.${index}.admissionDate`}
+            name={`educationList.${index}.startAt`}
             render={({ field }) => (
               <MonthPicker
                 date={field.value}
@@ -126,12 +151,12 @@ export function EducationItem({
             )}
           />
         </div>
-        {watch(`educationList.${index}.educationStatus`) !== "attend" && (
+        {watch(`educationList.${index}.graduationStatus`) !== "ENROLLED" && (
           <>
             <p> ~ </p>
             <Controller
               control={control}
-              name={`educationList.${index}.graduationDate`}
+              name={`educationList.${index}.endAt`}
               render={({ field }) => (
                 <MonthPicker
                   date={field.value}

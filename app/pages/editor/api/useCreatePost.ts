@@ -19,23 +19,19 @@ export function useCreatePost() {
     mutationFn: async (input: CreatePostInputDto) => {
       const res = await MUTATIONS.createPost(input);
 
-      // TODO: 블로그 조회 가능 시 이 주석 제거
-      // if (!res.createPost.writer.blog) {
-      //   throw new Error("블로그가 존재하지 않습니다.");
-      // }
+      if (!res.createPost.owner.blog) {
+        throw new Error("블로그가 존재하지 않습니다.");
+      }
 
       return {
-        domain: res.createPost.writer.blog?.domain,
+        domain: res.createPost.owner.blog.domain,
         id: res.createPost.id,
       };
     },
     onSuccess: ({ domain, id }) => {
       invalidateQueries(ROOT_KEY.post);
       toast.success("게시글이 성공적으로 작성되었습니다.");
-      // TODO: 블로그 조회 가능 시 이 navigate 사용
-      // navigate(ROUTE.POST.replace(":domain", domain).replace(":id", id));
-
-      navigate(ROUTE.HOME);
+      navigate(ROUTE.POST.replace(":domain", domain).replace(":id", id));
     },
     onError: (error) => {
       const message = getErrorMessage(error);

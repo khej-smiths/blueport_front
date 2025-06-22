@@ -26,6 +26,8 @@ type Blog {
   ownerId: String!
   """프로필 사진"""
   photo: String!
+  """블로그 주인의 이력서 Id"""
+  resumeId: String
   """기술 스택, 100개 제한"""
   skills: [String!]
   """데이터의 업데이트 날짜"""
@@ -511,6 +513,7 @@ input UpdateUserInputDto {
 }
 
 type User {
+  """유저의 블로그"""
   blog: Blog
   """데이터의 생성 날짜"""
   createdAt: DateTime!
@@ -522,7 +525,9 @@ type User {
   id: String!
   """유저의 이름"""
   name: String!
+  """작성한 게시글 목록"""
   postList: [Post!]
+  """유저의 이력서"""
   resume: Resume
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!

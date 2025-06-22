@@ -7,5 +7,6 @@ export const ROUTE = {
   MANAGE_RESUME: "/manage/resume",
   EDITOR: "/editor",
   BLOG: "/:domain",
-  POST: "/:domain/:id"
+  POST: "/:domain/:id",
+  RESUME: "/resume/:resumeId",
 };
