@@ -71,9 +71,14 @@ export function ErrorBoundary({ error }: any) {
           {message}
         </h1>
         <p className="text-2xl font-thin">{details}</p>
-        <Link to={ROUTE.HOME}>
-          <Button>홈 화면으로 돌아가기</Button>
-        </Link>
+        <div className="flex flex-row gap-4">
+          <Link to={ROUTE.HOME}>
+            <Button>홈 화면으로 돌아가기</Button>
+          </Link>
+          <Button onClick={() => window.history.back()}>
+            이전 페이지로 돌아가기
+          </Button>
+        </div>
       </div>
       {stack && (
         <Pre>

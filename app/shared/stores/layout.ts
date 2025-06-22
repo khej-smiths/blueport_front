@@ -4,7 +4,8 @@ import { devtools } from "zustand/middleware";
 interface BlogGNB {
   name: string;
   domain: string;
-  github?: string | null
+  github?: string | null;
+  isMine?: boolean;
 }
 
 interface LayoutStore {
@@ -17,8 +18,9 @@ export const useLayoutStore = create<LayoutStore>()(
     blogGNB: {
       name: "",
       domain: "",
-      github: null
+      github: null,
+      isMine: undefined,
     },
     setBlogGNB: (blogGNB) => set({ blogGNB }),
   }))
-)
+);

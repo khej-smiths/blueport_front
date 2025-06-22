@@ -9,12 +9,13 @@ export function useGetBlogByDomain(domain?: string) {
     queryKey: QUERY_KEY.blog.readBlog(domain),
     queryFn: async () => {
       if (!domain) return;
-      const res = await QUERIES.readBlog({domain})
+      const res = await QUERIES.readBlog({ domain });
 
       setBlogGNB({
         name: res.readBlog.name,
         domain: res.readBlog.domain,
         github: res.readBlog.github,
+        isMine: res.readBlog.domain === domain,
       });
 
       return res.readBlog;
@@ -22,6 +23,6 @@ export function useGetBlogByDomain(domain?: string) {
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);
     },
-    enabled: Boolean(domain)
+    enabled: Boolean(domain),
   });
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router";
-import { useLayoutStore } from "@/shared";
+import { ROUTE, useLayoutStore } from "@/shared";
 import { FaGithub } from "react-icons/fa";
+import { Settings } from "lucide-react";
 
 export function GNB() {
   const { blogGNB } = useLayoutStore();
@@ -18,12 +19,21 @@ export function GNB() {
             {blogGNB.name}
           </h1>
         </Link>
-        {/* TODO: 로그인 후 보여지는 Github 링크 달 수 있도록 추가 필요 */}
-        {blogGNB.github && (
-          <a href={blogGNB.github} target="_blank">
-            <FaGithub size={32} fill="var(--primary)" />
-          </a>
-        )}
+        <div className="flex flex-row items-center gap-4">
+          {blogGNB.github && (
+            <a href={blogGNB.github} target="_blank">
+              <FaGithub size={32} fill="var(--primary)" />
+            </a>
+          )}
+          {blogGNB.isMine && (
+            <Link
+              to={ROUTE.MANAGE_USER}
+              className="transition-transform hover:transform-[rotate(90deg)]"
+            >
+              <Settings size={32} stroke="var(--primary)" />
+            </Link>
+          )}
+        </div>
       </div>
     </nav>
   );
