@@ -5,9 +5,12 @@ import { useNavigate } from "react-router";
 import {
   Button,
   Container,
+  CreateResumeInputDto,
   getErrorMessage,
+  Graduation_Status,
   HOOKS,
   ROUTE,
+  UpdateResumeInputDto,
   useAuthStore,
 } from "@/shared";
 
@@ -27,11 +30,14 @@ import { ProjectItem } from "./ProjectItem";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { resumeFormSchema } from "../model/schema";
 import { toast } from "sonner";
+import { useCreateResume } from "../api/useCreateResume";
+import { useUpdateResume } from "../api/useUpdateResume";
+import { format } from "date-fns";
 
 const initEducation: EducationDto = {
   order: 0,
   name: "",
-  graduationStatus: "GRADUATED",
+  graduationStatus: Graduation_Status.Graduated,
   major: "",
   grade: "",
   standardGrade: "",
@@ -68,6 +74,10 @@ const initPortfolio: PortfolioDto = {
 
 export function ResumeForm() {
   const { data: resume } = HOOKS.useGetResume();
+  const { mutate: createResume } = useCreateResume();
+  const { mutate: updateResume } = useUpdateResume();
+
+  const isModify = !!resume;
 
   const { control, watch, setValue, getValues, handleSubmit } =
     useForm<ResumeFormDto>({
@@ -126,7 +136,47 @@ export function ResumeForm() {
   }, [accessToken, navigate]);
 
   const onSubmit = handleSubmit(
-    (data) => console.log(data),
+    (data) => {
+      const body = {
+        educationList: data.educationList.map((item) => ({
+          ...item,
+          standardGrade: undefined, // TODO: 아직 필드 없음
+          // standardGrade: item.standardGrade === "none" ? undefined : parseFloat(item.standardGrade),
+          grade: item.grade === "none" ? undefined : parseFloat(item.grade),
+          graduationStatus: item.graduationStatus as Graduation_Status,
+          // 시작일은 모두 유효성 검사에서 null 체크 중
+          startAt: format(item.startAt!, "yyyy.MM"),
+          endAt: item.endAt ? format(item.endAt, "yyyy.MM") : undefined,
+        })),
+        careerList: data.careerList.map((item) => ({
+          ...item,
+          // 시작일은 모두 유효성 검사에서 null 체크 중
+          startAt: format(item.startAt!, "yyyy.MM"),
+          endAt: item.endAt ? format(item.endAt, "yyyy.MM") : undefined,
+        })),
+        projectList: data.projectList.map((item) => ({
+          ...item,
+          projectDate: undefined, // projectDate는 form에서만 입력받기 위한 값, 서버에 전달할 때에는 제거
+          personnel: parseInt(item.personnel),
+          // 시작일은 모두 유효성 검사에서 null 체크 중
+          startAt: format(item.projectDate.start!, "yyyy.MM"),
+          endAt: item.projectDate.end
+            ? format(item.projectDate.end, "yyyy.MM")
+            : undefined,
+        })),
+        portfolioList: data.portfolioList?.map((item) => ({
+          ...item,
+        })),
+      };
+
+      console.log(body);
+
+      if (isModify) {
+        updateResume(body as UpdateResumeInputDto);
+      } else {
+        createResume(body as CreateResumeInputDto);
+      }
+    },
     (error) => {
       const message = getErrorMessage(error);
       toast.error(message);

@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const educationSchema = z
   .object({
+    order: z.number().optional(),
     name: z
       .string({
         required_error: "교육 기관명을 입력해주세요.",
@@ -48,6 +49,7 @@ export const educationSchema = z
 
 export const careerSchema = z
   .object({
+    order: z.number().optional(),
     company: z
       .string({
         required_error: "회사명을 입력해주세요.",
@@ -81,6 +83,7 @@ export const careerSchema = z
   }, "퇴사일은 입사일 이후여야 합니다.");
 
 export const projectSchema = z.object({
+  order: z.number().optional(),
   name: z
     .string({
       required_error: "프로젝트 명을 입력해주세요.",
@@ -121,6 +124,7 @@ export const projectSchema = z.object({
 });
 
 export const portfolioSchema = z.object({
+  order: z.number().optional(),
   url: z
     .string()
     .optional()

@@ -1,3 +1,5 @@
+import { Graduation_Status } from "@/shared";
+
 export interface ResumeFormDto {
   educationList: EducationDto[];
   careerList: CareerDto[];
@@ -11,7 +13,7 @@ export interface EducationDto {
   /** 교육 기관명 */
   name: string;
   /** 졸업 상태 */
-  graduationStatus: GraduationStatus;
+  graduationStatus: Graduation_Status;
   /** 전공 */
   major: string;
   /** 학점 */
@@ -66,7 +68,5 @@ export interface PortfolioDto {
   /** 포트폴리오 링크 */
   url: string;
 }
-
-export type GraduationStatus = "GRADUATED" | "ENROLLED" | "EXPECTED_GRADUATION";
 
 export type ResumeListType = "education" | "career" | "project" | "portfolio";

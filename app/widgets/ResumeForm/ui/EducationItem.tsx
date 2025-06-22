@@ -13,6 +13,7 @@ import {
   AlertDialogTrigger,
   Button,
   CustomSelect,
+  Graduation_Status,
   Input,
   MonthPicker,
   onlyNumber,
@@ -20,7 +21,7 @@ import {
   ToggleGroupItem,
 } from "@/shared";
 
-import { ResumeFormDto, ResumeListType, GraduationStatus } from "../model/type";
+import { ResumeFormDto, ResumeListType } from "../model/type";
 import { getStandardGradeOptions } from "../consts";
 interface Props {
   key: React.Key;
@@ -108,6 +109,9 @@ export function EducationItem({
             <Input
               variant="underline"
               placeholder="학점 입력해 주세요"
+              disabled={
+                watch(`educationList.${index}.standardGrade`) === "none"
+              }
               value={field.value}
               onChange={(e) => onlyNumber(e, field.onChange, true)}
             />
@@ -136,7 +140,9 @@ export function EducationItem({
               variant="outline"
               className="w-fit max-w-[212px]"
               value={field.value}
-              onValueChange={(value: GraduationStatus) => field.onChange(value)}
+              onValueChange={(value: Graduation_Status) =>
+                field.onChange(value)
+              }
             >
               <ToggleGroupItem value="GRADUATED">졸업</ToggleGroupItem>
               <ToggleGroupItem value="ENROLLED">재학중</ToggleGroupItem>
