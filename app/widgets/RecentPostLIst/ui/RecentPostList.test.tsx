@@ -17,7 +17,7 @@ vi.mock("@/shared", async () => {
             content: "content",
             createdAt: new Date(),
             hashtagList: ["tag"],
-            writer: {
+            owner: {
               id: "1",
               name: "writer",
               email: "",
