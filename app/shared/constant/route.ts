@@ -8,5 +8,5 @@ export const ROUTE = {
   EDITOR: "/editor",
   BLOG: "/:domain",
   POST: "/:domain/:id",
-  RESUME: "/resume/:resumeId",
+  RESUME: "/:domain/resume/:resumeId",
 };

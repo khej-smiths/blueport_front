@@ -22,6 +22,7 @@ export function Profile({ blog }: Props) {
             ))}
           </div>
           <ProfileLinks
+            domain={blog.domain}
             github={blog.github}
             email={blog.email}
             resumeId={blog.resumeId}
