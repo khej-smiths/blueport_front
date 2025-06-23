@@ -63,8 +63,7 @@ export default function Post() {
     navigate(`${ROUTE.EDITOR}?postId=${postId}`);
   };
 
-  if (post === undefined || blog === undefined || self === undefined)
-    return null;
+  if (post === undefined || blog === undefined) return null;
 
   return (
     <Suspense fallback={<Loading />}>
@@ -96,7 +95,7 @@ export default function Post() {
                 ))}
               </div>
               {/* 수정, 삭제 (작성자 본인만 표시) */}
-              {self.id === post.owner.id && (
+              {self?.id === post.owner.id && (
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={goToModify}>
                     수정

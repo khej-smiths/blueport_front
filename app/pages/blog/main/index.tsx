@@ -148,10 +148,14 @@ export default function Blog() {
               <HorizontalPostCard key={post.id} post={post} />
             ))}
           </ul>
-          {postList.length > 0 && !isLast && (
+          {postList.length > 0 && !isLast ? (
             <div ref={loadingElement} className="flex justify-center">
               {loading && <Loading />}
             </div>
+          ) : (
+            <p className="text-center text-2xl font-thin">
+              작성된 글이 없습니다!
+            </p>
           )}
         </section>
       </article>

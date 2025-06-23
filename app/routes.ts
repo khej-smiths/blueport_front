@@ -12,7 +12,7 @@ export default [
   layout("pages/blog/Layout.tsx", [
     route("/:domain", "pages/blog/main/index.tsx"),
     route("/:domain/:postId", "pages/blog/post/index.tsx"),
-    route("/resume/:ownerId", "pages/blog/resume/index.tsx"),
+    route("/:domain/resume/:resumeId", "pages/blog/resume/index.tsx"),
   ]),
   layout("pages/manage/Layout.tsx", [
     route("/manage/blog", "pages/manage/blog/index.tsx"),
