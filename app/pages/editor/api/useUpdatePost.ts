@@ -20,18 +20,19 @@ export function useUpdatePost() {
     mutationFn: async (input: UpdatePostInputDto) => {
       const res = await MUTATIONS.updatePost(input);
 
+      if (!res.updatePost.owner.blog) {
+        throw new Error("블로그가 존재하지 않습니다.");
+      }
+
       return {
-        domain: res.updatePost.writer.blog?.domain,
+        domain: res.updatePost.owner.blog.domain,
         id: res.updatePost.id,
       };
     },
     onSuccess: ({ domain, id }) => {
       invalidateQueries(ROOT_KEY.post);
       toast.success("게시글이 성공적으로 수정되었습니다.");
-      // TODO: 블로그 조회 가능 시 이 navigate 사용
-      // navigate(ROUTE.POST.replace(":domain", domain).replace(":id", id))
-
-      navigate(ROUTE.HOME);
+      navigate(ROUTE.POST.replace(":domain", domain).replace(":id", id));
     },
     onError: (error: ClientError["response"]) => {
       const message = getErrorMessage(error);

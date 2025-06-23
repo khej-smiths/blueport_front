@@ -21,3 +21,15 @@ export const getYearOptions = (
     label: `${startYear + index}년`,
   }));
 };
+
+export const getStandardGradeOptions = () => {
+  return [
+    { value: "none", label: "학점 없음" },
+    { value: "4.0", label: "4.0" },
+    { value: "4.3", label: "4.3" },
+    { value: "4.5", label: "4.5" },
+    { value: "5.0", label: "5.0" },
+    { value: "7.0", label: "7.0" },
+    { value: "100", label: "100" },
+  ];
+};

@@ -31,7 +31,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
       setStatus(value);
 
       if (status === "quit") {
-        setValue(`careerList.${index}.quitDate`, undefined);
+        setValue(`careerList.${index}.endAt`, undefined);
       }
 
       return;
@@ -44,10 +44,10 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
       <div className="flex items-center justify-between">
         <Controller
           control={control}
-          name={`careerList.${index}.companyName`}
+          name={`careerList.${index}.company`}
           render={({ field }) => (
             <Input
-              className="max-w-[616px]"
+              className="max-w-[658px]"
               variant="underline"
               placeholder="회사명을 입력해 주세요"
               {...field}
@@ -57,10 +57,37 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
         <Button
           className="size-8 rounded-sm p-0"
           variant="ghost"
+          type="button"
           onClick={() => remove(index, "career")}
         >
           <Trash2 className="size-4 text-gray-400" />
         </Button>
+      </div>
+      <div className="flex max-w-[658px] gap-4">
+        <Controller
+          control={control}
+          name={`careerList.${index}.department`}
+          render={({ field }) => (
+            <Input
+              className="max-w-[616px]"
+              variant="underline"
+              placeholder="부서를 입력해 주세요"
+              {...field}
+            />
+          )}
+        />
+        <Controller
+          control={control}
+          name={`careerList.${index}.position`}
+          render={({ field }) => (
+            <Input
+              className="max-w-[616px]"
+              variant="underline"
+              placeholder="직책을 입력해 주세요"
+              {...field}
+            />
+          )}
+        />
       </div>
       <div className="flex items-center gap-5">
         <ToggleGroup
@@ -75,7 +102,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
         <div className="flex gap-2">
           <Controller
             control={control}
-            name={`careerList.${index}.joinDate`}
+            name={`careerList.${index}.startAt`}
             render={({ field }) => (
               <MonthPicker
                 date={field.value}
@@ -90,7 +117,7 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
             <div className="flex gap-2">
               <Controller
                 control={control}
-                name={`careerList.${index}.quitDate`}
+                name={`careerList.${index}.endAt`}
                 render={({ field }) => (
                   <MonthPicker
                     date={field.value}
@@ -102,18 +129,6 @@ export function CareerItem({ index, control, setValue, remove }: Props) {
           </>
         )}
       </div>
-      <Controller
-        control={control}
-        name={`careerList.${index}.position`}
-        render={({ field }) => (
-          <Input
-            className="max-w-[616px]"
-            variant="underline"
-            placeholder="직책을 입력해 주세요"
-            {...field}
-          />
-        )}
-      />
       <Controller
         control={control}
         name={`careerList.${index}.description`}

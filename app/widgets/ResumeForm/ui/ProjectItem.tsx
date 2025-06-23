@@ -41,9 +41,10 @@ export function ProjectItem({
   const [skillKeyword, setSkillKeyword] = useState("");
 
   const handleAddSkill = () => {
-    const currentList = getValues(`projectList.${index}.skill`);
+    if (skillKeyword.trim() === "") return;
+    const currentList = getValues(`projectList.${index}.skillList`);
 
-    setValue(`projectList.${index}.skill`, [
+    setValue(`projectList.${index}.skillList`, [
       ...currentList,
       skillKeyword.trim(),
     ]);
@@ -71,9 +72,9 @@ export function ProjectItem({
   };
 
   const handleDeleteSkill = (i: number) => {
-    const currentList = getValues(`projectList.${index}.skill`);
+    const currentList = getValues(`projectList.${index}.skillList`);
     setValue(
-      `projectList.${index}.skill`,
+      `projectList.${index}.skillList`,
       currentList.filter((_, target) => target !== i)
     );
   };
@@ -83,7 +84,7 @@ export function ProjectItem({
       <div className="flex items-center justify-between">
         <Controller
           control={control}
-          name={`projectList.${index}.projectName`}
+          name={`projectList.${index}.name`}
           render={({ field }) => (
             <Input
               className="max-w-[616px]"
@@ -96,6 +97,7 @@ export function ProjectItem({
         <Button
           className="size-8 rounded-sm p-0"
           variant="ghost"
+          type="button"
           onClick={() => remove(index, "project")}
         >
           <Trash2 className="size-4 text-gray-400" />
@@ -133,7 +135,7 @@ export function ProjectItem({
       </div>
       <div className="flex flex-col gap-2">
         <ul className="flex gap-2">
-          {watch(`projectList.${index}.skill`).map((item, i) => (
+          {watch(`projectList.${index}.skillList`).map((item, i) => (
             <li key={`${index}_${item}_${i}`}>
               <Hashtag hashtag={item} onClick={() => handleDeleteSkill(i)} />
             </li>
@@ -154,7 +156,7 @@ export function ProjectItem({
               isComposing.current = false;
             }} // 문자 입력 상태를 감지하여 기술스택 입력
           />
-          <Button variant="outline" onClick={handleAddSkill}>
+          <Button variant="outline" type="button" onClick={handleAddSkill}>
             추가
           </Button>
         </div>

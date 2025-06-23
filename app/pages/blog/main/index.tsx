@@ -7,15 +7,9 @@ import {
   ReadPostListQuery,
 } from "@/shared";
 import { Profile } from "@/widgets";
-import {
-  Suspense,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
+import { useGetPostListByBlogId } from "../api/query";
 
 export default function Blog() {
   const [postList, setPostList] = useState<ReadPostListQuery["readPostList"]>(
@@ -26,38 +20,42 @@ export default function Blog() {
   const { domain } = useParams();
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
 
-  const { data: recentPostList } = HOOKS.useGetPostList({
+  // 최근 게시글 조회
+  const { data: recentPostList } = useGetPostListByBlogId({
     blogId: blog?.id,
     sortOption: Sort_Option.Newest,
     limit: 3,
     pageNumber: 1,
   });
 
-  const memoizedParams = useMemo(
-    () => ({
-      blogId: blog?.id,
-      limit: 10,
-      pageNumber,
-    }),
-    [blog?.id, pageNumber]
-  );
-
+  // 전체 게시글 조회
   const {
     data: postListData,
     isLoading,
     isRefetching,
-  } = HOOKS.useDebounceGetPostList(memoizedParams);
+  } = useGetPostListByBlogId({
+    blogId: blog?.id,
+    limit: 10,
+    pageNumber,
+  });
 
   const observer = useRef<IntersectionObserver | null>(null);
 
   const loading = isLoading || isRefetching;
+
+  // useEffect(() => {
+  //   // 블로그가 변경되면 상태 초기화
+  //   setPostList([]);
+  //   setPageNumber(1);
+  //   setIsLast(false);
+  // }, [blog]);
 
   useEffect(() => {
     if (!postListData) return;
 
     setPostList((prev) => [...prev, ...postListData]);
     setIsLast(postListData.length === 0);
-  }, [postListData]);
+  }, [postListData, blog]);
 
   const loadingElement = useCallback(
     (node: HTMLDivElement | null) => {
@@ -78,13 +76,13 @@ export default function Blog() {
   if (blog === undefined) return null;
 
   return (
-    <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center bg-white">
+    <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center">
       <article className="flex max-w-7xl flex-col gap-16 p-8">
         <Profile blog={blog} />
 
         {/* 최신 글 섹션 */}
-        <section className="">
-          <h3 className="text-primary mb-6 text-2xl font-bold">최신 글</h3>
+        <section>
+          <h3 className="text-primary mb-6 text-2xl font-bold">최근 게시글</h3>
           {recentPostList && recentPostList.length > 0 ? (
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               <Suspense fallback={<Loading />}>
@@ -138,15 +136,20 @@ export default function Blog() {
 
         {/* 전체 글 목록 섹션 */}
         <section className="flex flex-col gap-4">
-          <h3 className="text-primary text-2xl font-bold">전체 글</h3>
+          <h3 className="text-primary text-2xl font-bold">전체 게시글</h3>
           <ul className="flex flex-col gap-4">
-            {postList?.map((post) => (
+            {postList.map((post) => (
               <HorizontalPostCard key={post.id} post={post} />
             ))}
           </ul>
-          {!isLast && (
+          {!loading && isLast && postList.length === 0 && (
+            <p className="text-center text-2xl font-thin">
+              작성된 글이 없습니다!
+            </p>
+          )}
+          {(!isLast || loading) && (
             <div ref={loadingElement} className="flex justify-center">
-              {loading && <Loading />}
+              <Loading />
             </div>
           )}
         </section>

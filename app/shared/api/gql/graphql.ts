@@ -26,7 +26,7 @@ export type Blog = {
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
   /** 도메인, 50자 내외 */
   domain: Scalars['String']['output'];
-  /** 이메일 */
+  /** 연락용 이메일 */
   email?: Maybe<Scalars['String']['output']>;
   /** github 링크 */
   github?: Maybe<Scalars['String']['output']>;
@@ -41,7 +41,9 @@ export type Blog = {
   /** 블로그 주인의 id */
   ownerId: Scalars['String']['output'];
   /** 프로필 사진 */
-  photo: Scalars['String']['output'];
+  photo?: Maybe<Scalars['String']['output']>;
+  /** 블로그 주인의 이력서 Id */
+  resumeId?: Maybe<Scalars['String']['output']>;
   /** 기술 스택, 100개 제한 */
   skills?: Maybe<Array<Scalars['String']['output']>>;
   /** 데이터의 업데이트 날짜 */
@@ -77,7 +79,7 @@ export type Career = {
 export type CreateBlogInputDto = {
   /** 도메인, 50자 내외 */
   domain: Scalars['String']['input'];
-  /** 이메일 */
+  /** 연락용 이메일 */
   email?: InputMaybe<Scalars['String']['input']>;
   /** github 링크 */
   github?: InputMaybe<Scalars['String']['input']>;
@@ -88,7 +90,7 @@ export type CreateBlogInputDto = {
   /** 블로그 이름 */
   name: Scalars['String']['input'];
   /** 프로필 사진 */
-  photo: Scalars['String']['input'];
+  photo?: InputMaybe<Scalars['String']['input']>;
   /** 기술 스택, 100개 제한 */
   skills?: InputMaybe<Array<Scalars['String']['input']>>;
 };
@@ -111,8 +113,6 @@ export type CreateCareerInputDto = {
 };
 
 export type CreateEducationInputDto = {
-  /** 기타 */
-  description?: InputMaybe<Scalars['String']['input']>;
   /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
   endAt?: InputMaybe<Scalars['String']['input']>;
   /** 학점 */
@@ -125,6 +125,8 @@ export type CreateEducationInputDto = {
   name: Scalars['String']['input'];
   /** 정렬 순서 */
   order: Scalars['Int']['input'];
+  /** 학점 */
+  standardGrade?: InputMaybe<Scalars['Float']['input']>;
   /** 시작날짜. 날짜의 형태: yyyy.MM */
   startAt: Scalars['String']['input'];
 };
@@ -132,8 +134,6 @@ export type CreateEducationInputDto = {
 export type CreatePortfolioInputDto = {
   /** 정렬 순서 */
   order: Scalars['Int']['input'];
-  /** 포트폴리오 타입 */
-  type?: InputMaybe<Portfolio_Type>;
   /** 포트폴리오 url */
   url: Scalars['String']['input'];
 };
@@ -195,8 +195,6 @@ export type Education = {
   createdAt: Scalars['DateTime']['output'];
   /** 데이터의 삭제 날짜(soft) */
   deletedAt?: Maybe<Scalars['DateTime']['output']>;
-  /** 기타 */
-  description?: Maybe<Scalars['String']['output']>;
   /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
   endAt?: Maybe<Scalars['String']['output']>;
   /** 학점 */
@@ -211,6 +209,8 @@ export type Education = {
   name: Scalars['String']['output'];
   /** 정렬 순서 */
   order: Scalars['Int']['output'];
+  /** 학점 */
+  standardGrade?: Maybe<Scalars['Float']['output']>;
   /** 시작날짜. 날짜의 형태: yyyy.MM */
   startAt: Scalars['String']['output'];
   /** 데이터의 업데이트 날짜 */
@@ -301,14 +301,6 @@ export type MutationUpdateUserArgs = {
   input: UpdateUserInputDto;
 };
 
-/** 포트폴리오 타입 */
-export enum Portfolio_Type {
-  /** 파일 */
-  File = 'FILE',
-  /** 링크 */
-  Link = 'LINK'
-}
-
 export type Portfolio = {
   __typename?: 'Portfolio';
   /** 데이터의 생성 날짜 */
@@ -319,8 +311,6 @@ export type Portfolio = {
   id: Scalars['String']['output'];
   /** 정렬 순서 */
   order: Scalars['Int']['output'];
-  /** 포트폴리오 타입 */
-  type?: Maybe<Portfolio_Type>;
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
   /** 포트폴리오 url */
@@ -339,14 +329,14 @@ export type Post = {
   hashtagList?: Maybe<Array<Scalars['String']['output']>>;
   /** id */
   id: Scalars['String']['output'];
+  /** 게시글 작성자 */
+  owner: User;
   /** 게시글의 제목 */
   title: Scalars['String']['output'];
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
   /** 조회수 */
   viewCount: Scalars['Int']['output'];
-  /** 게시글 작성자 */
-  writer: User;
 };
 
 export type Project = {
@@ -456,7 +446,9 @@ export type ReadPostListInputDto = {
 
 export type ReadResumeInputDto = {
   /** id */
-  id: Scalars['String']['input'];
+  id?: InputMaybe<Scalars['String']['input']>;
+  /** 이력서 주인의 id */
+  ownerId?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Resume = {
@@ -471,6 +463,8 @@ export type Resume = {
   educationList?: Maybe<Array<Education>>;
   /** id */
   id: Scalars['String']['output'];
+  /** 이력서 주인 */
+  owner: User;
   /** 이력서 주인의 id */
   ownerId: Scalars['String']['output'];
   /** 포트폴리오 */
@@ -489,7 +483,7 @@ export enum Sort_Option {
 export type UpdateBlogInputDto = {
   /** 도메인, 50자 내외 */
   domain?: InputMaybe<Scalars['String']['input']>;
-  /** 이메일 */
+  /** 연락용 이메일 */
   email?: InputMaybe<Scalars['String']['input']>;
   /** github 링크 */
   github?: InputMaybe<Scalars['String']['input']>;
@@ -525,8 +519,6 @@ export type UpdateCareerInputDto = {
 };
 
 export type UpdateEducationInputDto = {
-  /** 기타 */
-  description?: InputMaybe<Scalars['String']['input']>;
   /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
   endAt?: InputMaybe<Scalars['String']['input']>;
   /** 학점 */
@@ -550,8 +542,6 @@ export type UpdatePortfolioInputDto = {
   id?: InputMaybe<Scalars['String']['input']>;
   /** 정렬 순서 */
   order: Scalars['Int']['input'];
-  /** 포트폴리오 타입 */
-  type?: InputMaybe<Portfolio_Type>;
   /** 포트폴리오 url */
   url: Scalars['String']['input'];
 };
@@ -606,6 +596,7 @@ export type UpdateUserInputDto = {
 
 export type User = {
   __typename?: 'User';
+  /** 유저의 블로그 */
   blog?: Maybe<Blog>;
   /** 데이터의 생성 날짜 */
   createdAt: Scalars['DateTime']['output'];
@@ -617,7 +608,9 @@ export type User = {
   id: Scalars['String']['output'];
   /** 유저의 이름 */
   name: Scalars['String']['output'];
+  /** 작성한 게시글 목록 */
   postList?: Maybe<Array<Post>>;
+  /** 유저의 이력서 */
   resume?: Maybe<Resume>;
   /** 데이터의 업데이트 날짜 */
   updatedAt: Scalars['DateTime']['output'];
@@ -628,14 +621,21 @@ export type CreateBlogMutationVariables = Exact<{
 }>;
 
 
-export type CreateBlogMutation = { __typename?: 'Mutation', createBlog: { __typename?: 'Blog', name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
+export type CreateBlogMutation = { __typename?: 'Mutation', createBlog: { __typename?: 'Blog', name: string, domain: string, greeting: string, photo?: string | null, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
 
 export type CreatePostMutationVariables = Exact<{
   input: CreatePostInputDto;
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+export type CreatePostMutation = { __typename?: 'Mutation', createPost: { __typename?: 'Post', id: string, owner: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+
+export type CreateResumeMutationVariables = Exact<{
+  input: CreateResumeInputDto;
+}>;
+
+
+export type CreateResumeMutation = { __typename?: 'Mutation', createResume: { __typename?: 'Resume', id: string } };
 
 export type CreateUserMutationVariables = Exact<{
   input: CreateUserInputDto;
@@ -656,14 +656,21 @@ export type UpdateBlogMutationVariables = Exact<{
 }>;
 
 
-export type UpdateBlogMutation = { __typename?: 'Mutation', updateBlog: { __typename?: 'Blog', name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
+export type UpdateBlogMutation = { __typename?: 'Mutation', updateBlog: { __typename?: 'Blog', name: string, domain: string, greeting: string, photo?: string | null, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
 
 export type UpdatePostMutationVariables = Exact<{
   input: UpdatePostInputDto;
 }>;
 
 
-export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, writer: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, owner: { __typename?: 'User', blog?: { __typename?: 'Blog', domain: string } | null } } };
+
+export type UpdateResumeMutationVariables = Exact<{
+  input: UpdateResumeInputDto;
+}>;
+
+
+export type UpdateResumeMutation = { __typename?: 'Mutation', updateResume: { __typename?: 'Resume', id: string } };
 
 export type UpdateUserMutationVariables = Exact<{
   input: UpdateUserInputDto;
@@ -684,28 +691,35 @@ export type ReadBlogQueryVariables = Exact<{
 }>;
 
 
-export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null } };
+export type ReadBlogQuery = { __typename?: 'Query', readBlog: { __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo?: string | null, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, ownerId: string, resumeId?: string | null } };
 
 export type ReadBlogListQueryVariables = Exact<{
   input: ReadBlogListInputDto;
 }>;
 
 
-export type ReadBlogListQuery = { __typename?: 'Query', readBlogList: Array<{ __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo: string, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, ownerId: string }> };
+export type ReadBlogListQuery = { __typename?: 'Query', readBlogList: Array<{ __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo?: string | null, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, ownerId: string }> };
 
 export type ReadPostQueryVariables = Exact<{
   input: ReadPostInputDto;
 }>;
 
 
-export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, writer: { __typename?: 'User', id: string, name: string } } };
+export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string } } };
 
 export type ReadPostListQueryVariables = Exact<{
   input: ReadPostListInputDto;
 }>;
 
 
-export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, writer: { __typename?: 'User', id: string, name: string, email: string, blog?: { __typename?: 'Blog', id: string, domain: string } | null } }> };
+export type ReadPostListQuery = { __typename?: 'Query', readPostList: Array<{ __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string, email: string, blog?: { __typename?: 'Blog', id: string, domain: string } | null } }> };
+
+export type ReadResumeQueryVariables = Exact<{
+  input: ReadResumeInputDto;
+}>;
+
+
+export type ReadResumeQuery = { __typename?: 'Query', readResume: { __typename?: 'Resume', id: string, educationList?: Array<{ __typename?: 'Education', id: string, order: number, name: string, major?: string | null, grade?: number | null, graduationStatus?: Graduation_Status | null, startAt: string, endAt?: string | null }> | null, careerList?: Array<{ __typename?: 'Career', id: string, order: number, company?: string | null, department?: string | null, position?: string | null, description?: string | null, startAt: string, endAt?: string | null }> | null, projectList?: Array<{ __typename?: 'Project', id: string, order: number, name: string, personnel?: number | null, skillList?: Array<string> | null, description?: string | null, startAt: string, endAt?: string | null }> | null, portfolioList?: Array<{ __typename?: 'Portfolio', id: string, order: number, url: string }> | null } };
 
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -749,7 +763,7 @@ export const CreatePostDocument = new TypedDocumentString(`
     mutation CreatePost($input: CreatePostInputDto!) {
   createPost(input: $input) {
     id
-    writer {
+    owner {
       blog {
         domain
       }
@@ -757,6 +771,13 @@ export const CreatePostDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<CreatePostMutation, CreatePostMutationVariables>;
+export const CreateResumeDocument = new TypedDocumentString(`
+    mutation CreateResume($input: CreateResumeInputDto!) {
+  createResume(input: $input) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<CreateResumeMutation, CreateResumeMutationVariables>;
 export const CreateUserDocument = new TypedDocumentString(`
     mutation CreateUser($input: CreateUserInputDto!) {
   createUser(input: $input) {
@@ -794,7 +815,7 @@ export const UpdatePostDocument = new TypedDocumentString(`
     title
     content
     hashtagList
-    writer {
+    owner {
       blog {
         domain
       }
@@ -802,6 +823,13 @@ export const UpdatePostDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<UpdatePostMutation, UpdatePostMutationVariables>;
+export const UpdateResumeDocument = new TypedDocumentString(`
+    mutation UpdateResume($input: UpdateResumeInputDto!) {
+  updateResume(input: $input) {
+    id
+  }
+}
+    `) as unknown as TypedDocumentString<UpdateResumeMutation, UpdateResumeMutationVariables>;
 export const UpdateUserDocument = new TypedDocumentString(`
     mutation UpdateUser($input: UpdateUserInputDto!) {
   updateUser(input: $input) {
@@ -827,6 +855,8 @@ export const ReadBlogDocument = new TypedDocumentString(`
     skills
     email
     github
+    ownerId
+    resumeId
   }
 }
     `) as unknown as TypedDocumentString<ReadBlogQuery, ReadBlogQueryVariables>;
@@ -854,7 +884,7 @@ export const ReadPostDocument = new TypedDocumentString(`
     content
     hashtagList
     createdAt
-    writer {
+    owner {
       id
       name
     }
@@ -869,7 +899,7 @@ export const ReadPostListDocument = new TypedDocumentString(`
     content
     hashtagList
     createdAt
-    writer {
+    owner {
       id
       name
       email
@@ -881,6 +911,48 @@ export const ReadPostListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReadPostListQuery, ReadPostListQueryVariables>;
+export const ReadResumeDocument = new TypedDocumentString(`
+    query ReadResume($input: ReadResumeInputDto!) {
+  readResume(input: $input) {
+    id
+    educationList {
+      id
+      order
+      name
+      major
+      grade
+      graduationStatus
+      startAt
+      endAt
+    }
+    careerList {
+      id
+      order
+      company
+      department
+      position
+      description
+      startAt
+      endAt
+    }
+    projectList {
+      id
+      order
+      name
+      personnel
+      skillList
+      description
+      startAt
+      endAt
+    }
+    portfolioList {
+      id
+      order
+      url
+    }
+  }
+}
+    `) as unknown as TypedDocumentString<ReadResumeQuery, ReadResumeQueryVariables>;
 export const ReadUserDocument = new TypedDocumentString(`
     query ReadUser {
   readUser {

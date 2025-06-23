@@ -63,7 +63,7 @@
   --warning-foreground: hsl(0, 0%, 0%);
   --error: hsl(0, 100%, 66%);
   --error-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(211, 7.4%, 55.3%);
+  --muted: hsl(210, 17%, 90%);
   --muted-foreground: hsl(211, 7.4%, 55.3%);
   --accent: hsl(197, 77%, 95%);
   --accent-foreground: hsl(197, 77%, 53%);

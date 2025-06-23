@@ -12,6 +12,8 @@ export const readBlogQuery = graphql(`
       skills
       email
       github
+      ownerId
+      resumeId
     }
   }
-`)
+`);

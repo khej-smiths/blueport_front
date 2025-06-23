@@ -1,0 +1,1 @@
+export { ResumeProjectItem } from "./ui";

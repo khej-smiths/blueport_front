@@ -11,6 +11,8 @@ export function useGetPostList(params?: ReadPostListInputDto) {
       const res = await QUERIES.readPostList(params);
       return res.readPostList;
     },
+    staleTime: 0,
+    gcTime: 0,
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);
     },

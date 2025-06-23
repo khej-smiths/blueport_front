@@ -7,12 +7,12 @@ interface Props {
 export function Hashtag({ hashtag, total, onClick }: Props) {
   return (
     <button
-      className="inline-flex items-center rounded-full bg-background px-3 py-1 text-sm transition-colors hover:bg-accent"
+      className="bg-background hover:bg-accent inline-flex cursor-pointer items-center rounded-full px-3 py-1 text-sm transition-colors"
       onClick={onClick}
       type="button"
     >
-      <span className="font-medium text-primary">{hashtag}</span>
-      {total && <span className="ml-2 text-xs text-secondary">{total}</span>}
+      <span className="text-primary font-medium">{hashtag}</span>
+      {total && <span className="text-secondary ml-2 text-xs">{total}</span>}
     </button>
   );
 }

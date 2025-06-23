@@ -3,7 +3,7 @@ export const createPostMutation = graphql(`
   mutation CreatePost($input: CreatePostInputDto!) {
     createPost(input: $input) {
       id
-      writer {
+      owner {
         blog {
           domain
         }

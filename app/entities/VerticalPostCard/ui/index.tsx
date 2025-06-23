@@ -7,11 +7,11 @@ interface Props {
 }
 
 export function VerticalPostCard({ post }: Props) {
-  const url = post ? `/${post.writer.blog?.domain}/${post.id}` : "#";
+  const url = post ? `/${post.owner.blog?.domain}/${post.id}` : "#";
   const createdAt = post
     ? format(post.createdAt, "yyyy.MM.dd")
     : new Date().toLocaleDateString("ko-KR");
-  const writer = post?.writer.name ?? "작성자 누구누구씨";
+  const owner = post?.owner.name ?? "작성자 누구누구씨";
   const title =
     post?.title ?? "게시글 제목이에요 게시글 제목이에요 게시글 제목이에요";
   const content =
@@ -33,7 +33,7 @@ export function VerticalPostCard({ post }: Props) {
       <div className="p-4">
         <div className="mb-2 flex items-center gap-4">
           <span className="text-sm text-gray-500">{createdAt}</span>
-          <span className="text-sm text-gray-500">• {writer}</span>
+          <span className="text-sm text-gray-500">• {owner}</span>
         </div>
         <h3 className="group-hover:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
           {title}

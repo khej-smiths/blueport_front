@@ -10,7 +10,7 @@ type Blog {
   deletedAt: DateTime
   """도메인, 50자 내외"""
   domain: String!
-  """이메일"""
+  """연락용 이메일"""
   email: String
   """github 링크"""
   github: String
@@ -25,7 +25,9 @@ type Blog {
   """블로그 주인의 id"""
   ownerId: String!
   """프로필 사진"""
-  photo: String!
+  photo: String
+  """블로그 주인의 이력서 Id"""
+  resumeId: String
   """기술 스택, 100개 제한"""
   skills: [String!]
   """데이터의 업데이트 날짜"""
@@ -60,7 +62,7 @@ type Career {
 input CreateBlogInputDto {
   """도메인, 50자 내외"""
   domain: String!
-  """이메일"""
+  """연락용 이메일"""
   email: String
   """github 링크"""
   github: String
@@ -71,7 +73,7 @@ input CreateBlogInputDto {
   """블로그 이름"""
   name: String!
   """프로필 사진"""
-  photo: String!
+  photo: String
   """기술 스택, 100개 제한"""
   skills: [String!]
 }
@@ -94,8 +96,6 @@ input CreateCareerInputDto {
 }
 
 input CreateEducationInputDto {
-  """기타"""
-  description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
   """학점"""
@@ -108,6 +108,8 @@ input CreateEducationInputDto {
   name: String!
   """정렬 순서"""
   order: Int!
+  """학점"""
+  standardGrade: Float
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
 }
@@ -115,8 +117,6 @@ input CreateEducationInputDto {
 input CreatePortfolioInputDto {
   """정렬 순서"""
   order: Int!
-  """포트폴리오 타입"""
-  type: PORTFOLIO_TYPE
   """포트폴리오 url"""
   url: String!
 }
@@ -182,8 +182,6 @@ type Education {
   createdAt: DateTime!
   """데이터의 삭제 날짜(soft)"""
   deletedAt: DateTime
-  """기타"""
-  description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
   """학점"""
@@ -198,6 +196,8 @@ type Education {
   name: String!
   """정렬 순서"""
   order: Int!
+  """학점"""
+  standardGrade: Float
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
   """데이터의 업데이트 날짜"""
@@ -242,14 +242,6 @@ type Mutation {
   updateUser(input: UpdateUserInputDto!): User!
 }
 
-"""포트폴리오 타입"""
-enum PORTFOLIO_TYPE {
-  """파일"""
-  FILE
-  """링크"""
-  LINK
-}
-
 type Portfolio {
   """데이터의 생성 날짜"""
   createdAt: DateTime!
@@ -259,8 +251,6 @@ type Portfolio {
   id: String!
   """정렬 순서"""
   order: Int!
-  """포트폴리오 타입"""
-  type: PORTFOLIO_TYPE
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
   """포트폴리오 url"""
@@ -278,14 +268,14 @@ type Post {
   hashtagList: [String!]
   """id"""
   id: String!
+  """게시글 작성자"""
+  owner: User!
   """게시글의 제목"""
   title: String!
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!
   """조회수"""
   viewCount: Int!
-  """게시글 작성자"""
-  writer: User!
 }
 
 type Project {
@@ -363,7 +353,9 @@ input ReadPostListInputDto {
 
 input ReadResumeInputDto {
   """id"""
-  id: String!
+  id: String
+  """이력서 주인의 id"""
+  ownerId: String
 }
 
 type Resume {
@@ -377,6 +369,8 @@ type Resume {
   educationList: [Education!]
   """id"""
   id: String!
+  """이력서 주인"""
+  owner: User!
   """이력서 주인의 id"""
   ownerId: String!
   """포트폴리오"""
@@ -395,7 +389,7 @@ enum SORT_OPTION {
 input UpdateBlogInputDto {
   """도메인, 50자 내외"""
   domain: String
-  """이메일"""
+  """연락용 이메일"""
   email: String
   """github 링크"""
   github: String
@@ -431,8 +425,6 @@ input UpdateCareerInputDto {
 }
 
 input UpdateEducationInputDto {
-  """기타"""
-  description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
   """학점"""
@@ -456,8 +448,6 @@ input UpdatePortfolioInputDto {
   id: String
   """정렬 순서"""
   order: Int!
-  """포트폴리오 타입"""
-  type: PORTFOLIO_TYPE
   """포트폴리오 url"""
   url: String!
 }
@@ -511,6 +501,7 @@ input UpdateUserInputDto {
 }
 
 type User {
+  """유저의 블로그"""
   blog: Blog
   """데이터의 생성 날짜"""
   createdAt: DateTime!
@@ -522,7 +513,9 @@ type User {
   id: String!
   """유저의 이름"""
   name: String!
+  """작성한 게시글 목록"""
   postList: [Post!]
+  """유저의 이력서"""
   resume: Resume
   """데이터의 업데이트 날짜"""
   updatedAt: DateTime!

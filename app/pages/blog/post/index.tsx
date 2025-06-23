@@ -1,8 +1,7 @@
 import { format } from "date-fns";
-import { useInView } from "motion/react";
 import { Link, useNavigate } from "react-router";
 import { useParams } from "react-router";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 
 import { DeleteDialog, Preview } from "@/features";
 import { Button, cn, HOOKS, Loading, ROUTE, Hashtag } from "@/shared";
@@ -20,8 +19,6 @@ export default function Post() {
   const { mutate: deletePost } = useDeletePost();
 
   const headings = useMemo(() => getToc(post?.content ?? ""), [post]);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  const inView = useInView(titleRef);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -66,18 +63,14 @@ export default function Post() {
     navigate(`${ROUTE.EDITOR}?postId=${postId}`);
   };
 
-  if (post === undefined || blog === undefined || self === undefined)
-    return null;
+  if (post === undefined || blog === undefined) return null;
 
   return (
     <Suspense fallback={<Loading />}>
-      <div className="relative mb-16 flex w-full justify-center">
+      <div className="relative mt-16 mb-16 flex w-full justify-center">
         <article className="flex w-full max-w-5xl flex-col gap-5">
           <div className="flex w-full max-w-5xl flex-col gap-4">
-            <h1
-              ref={titleRef}
-              className="text-primary text-5xl leading-relaxed font-bold"
-            >
+            <h1 className="text-primary text-5xl leading-relaxed font-bold">
               {post.title}
             </h1>
             {/* 작성자 */}
@@ -86,7 +79,7 @@ export default function Post() {
                 className="text-base font-bold hover:underline"
                 to={`/${blog.domain}`}
               >
-                {post.writer.name}
+                {post.owner.name}
               </Link>
               <p>⁝</p>
               {/* 작성일 */}
@@ -102,7 +95,7 @@ export default function Post() {
                 ))}
               </div>
               {/* 수정, 삭제 (작성자 본인만 표시) */}
-              {self.id === post.writer.id && (
+              {self?.id === post.owner.id && (
                 <div className="flex gap-2">
                   <Button variant="outline" onClick={goToModify}>
                     수정
@@ -125,19 +118,14 @@ export default function Post() {
         {/* TOC를 article 밖으로 분리 */}
         <div className="ml-8 w-48">
           {headings.length > 0 && (
-            <nav
-              className={cn(
-                "border-l-4 p-4",
-                !inView ? "fixed top-[110px]" : "absolute top-48"
-              )}
-            >
+            <nav className={"fixed top-[188px] border-l-4 p-4"}>
               <ul className="space-y-2 text-sm">
                 {headings.map((heading, index) => (
                   <li
                     key={index}
                     onClick={() => goToHeading(heading)}
                     className={cn(
-                      "cursor-pointer text-base text-gray-400 transition-colors hover:font-bold hover:text-black",
+                      "hover:text-primary cursor-pointer text-base text-gray-400 transition-colors hover:font-bold",
                       heading.level === 1 || heading.level === 2
                         ? "pl-0"
                         : heading.level === 3
