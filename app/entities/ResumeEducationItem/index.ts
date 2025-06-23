@@ -1,0 +1,1 @@
+export { ResumeEducationItem } from "./ui";

@@ -73,7 +73,14 @@ const initPortfolio: PortfolioDto = {
 };
 
 export function ResumeForm() {
-  const { data: resume } = HOOKS.useGetResume();
+  const { data: user } = HOOKS.useSelf();
+  const { data: resume } = HOOKS.useGetResume(
+    user
+      ? {
+          ownerId: user.id,
+        }
+      : undefined
+  );
   const { mutate: createResume } = useCreateResume();
   const { mutate: updateResume } = useUpdateResume();
 

@@ -10,7 +10,6 @@ export const readResumeQuery = graphql(`
         name
         major
         grade
-        description
         graduationStatus
         startAt
         endAt
@@ -38,7 +37,6 @@ export const readResumeQuery = graphql(`
       portfolioList {
         id
         order
-        type
         url
       }
     }

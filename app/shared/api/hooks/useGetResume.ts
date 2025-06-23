@@ -7,6 +7,7 @@ export function useGetResume(params?: ReadResumeInputDto) {
   return useQuery({
     queryKey: QUERY_KEY.resume.readResume(params),
     queryFn: async () => {
+      console.log(params);
       if (!params) return;
       const res = await QUERIES.readResume(params);
 
