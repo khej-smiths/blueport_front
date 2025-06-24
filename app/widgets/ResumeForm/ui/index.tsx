@@ -33,6 +33,7 @@ import { toast } from "sonner";
 import { useCreateResume } from "../api/useCreateResume";
 import { useUpdateResume } from "../api/useUpdateResume";
 import { format } from "date-fns";
+import { stringDateToFromDate } from "@/shared/lib/stringDateToFromDate";
 
 const initEducation: EducationDto = {
   order: 0,
@@ -86,7 +87,7 @@ export function ResumeForm() {
 
   const isModify = !!resume;
 
-  const { control, watch, setValue, getValues, handleSubmit } =
+  const { control, watch, reset, setValue, getValues, handleSubmit } =
     useForm<ResumeFormDto>({
       defaultValues: {
         educationList: [initEducation],
@@ -135,6 +136,55 @@ export function ResumeForm() {
 
   const navigate = useNavigate();
   const { accessToken } = useAuthStore();
+
+  useEffect(() => {
+    if (!resume) return;
+
+    reset({
+      ...(resume.educationList && {
+        educationList: resume.educationList.map((item) => ({
+          ...item,
+          graduationStatus:
+            (item.graduationStatus as Graduation_Status) ??
+            Graduation_Status.Graduated,
+          major: item.major ?? undefined,
+          grade: `${item.grade}`,
+          standardGrade: "", // TODO: 아직 필드 없음
+          startAt: stringDateToFromDate(item.startAt),
+          endAt: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
+        })),
+      }),
+      ...(resume.careerList && {
+        careerList: resume.careerList.map((item) => ({
+          ...item,
+          company: item.company ?? "",
+          department: item.department ?? "",
+          position: item.position ?? "",
+          description: item.description ?? "",
+          startAt: stringDateToFromDate(item.startAt),
+          endAt: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
+        })),
+      }),
+      ...(resume.projectList && {
+        projectList: resume.projectList.map((item) => ({
+          ...item,
+          personnel: `${item.personnel}`,
+          skillList: item.skillList ?? [],
+          description: item.description ?? "",
+          projectDate: {
+            start: stringDateToFromDate(item.startAt),
+            end: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
+          },
+        })),
+      }),
+      ...(resume.portfolioList && {
+        portfolioList: resume.portfolioList.map((item) => ({
+          ...item,
+          url: item.url ?? "",
+        })),
+      }),
+    });
+  }, [resume]);
 
   useEffect(() => {
     if (!accessToken) {
@@ -260,6 +310,7 @@ export function ResumeForm() {
                 key={item.id}
                 index={index}
                 control={control}
+                watch={watch}
                 setValue={setValue}
                 remove={handleRemoveItem}
               />

@@ -1,6 +1,12 @@
 import { Trash2 } from "lucide-react";
-import { useCallback, useState } from "react";
-import { Control, Controller, UseFormSetValue } from "react-hook-form";
+import { useCallback, useEffect, useState } from "react";
+import {
+  Control,
+  Controller,
+  UseFormSetValue,
+  UseFormWatch,
+  useWatch,
+} from "react-hook-form";
 
 import {
   Button,
@@ -17,27 +23,41 @@ interface Props {
   key: React.Key;
   index: number;
   control: Control<ResumeFormDto, any>;
+  watch: UseFormWatch<ResumeFormDto>;
   setValue: UseFormSetValue<ResumeFormDto>;
   remove: (index: number, type: ResumeListType) => void;
 }
 
 type StatusType = "working" | "quit";
 
-export function CareerItem({ index, control, setValue, remove }: Props) {
+export function CareerItem({ index, control, watch, setValue, remove }: Props) {
   const [status, setStatus] = useState<StatusType>("working");
+
+  // 렌더링되어있지 않은 상태에서 값의 변경을 감지하기 위하여 useWatch 사용
+  const endAt = useWatch({
+    control,
+    name: `careerList.${index}.endAt`,
+  });
 
   const handleChangeStatus = useCallback(
     (value: StatusType) => {
-      setStatus(value);
-
-      if (status === "quit") {
-        setValue(`careerList.${index}.endAt`, undefined);
+      if (value === "working") {
+        setValue(`careerList.${index}.endAt`, null);
       }
+
+      setStatus(value);
 
       return;
     },
     [index, setValue, status]
   );
+
+  // 서버에서 받아온 종료일이 있을 경우 퇴직 상태로 변경
+  useEffect(() => {
+    if (endAt) {
+      setStatus("quit");
+    }
+  }, [endAt]);
 
   return (
     <div className="flex flex-col gap-5 rounded-lg border p-6">

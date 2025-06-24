@@ -9,7 +9,7 @@ import {
 import { Profile } from "@/widgets";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import { useGetPostListByBlogId } from "../api/query";
+import { useGetPostListByBlogId } from "../api/useGetPostListByBlogId";
 
 export default function Blog() {
   const [postList, setPostList] = useState<ReadPostListQuery["readPostList"]>(

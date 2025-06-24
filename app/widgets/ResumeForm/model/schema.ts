@@ -27,7 +27,7 @@ export const educationSchema = z
     startAt: z.date({
       required_error: "입학일을 입력해주세요.",
     }),
-    endAt: z.date().optional(),
+    endAt: z.date().nullable().optional(),
   })
   .refine(({ standardGrade, grade }) => {
     if (standardGrade && parseFloat(standardGrade) < parseFloat(grade)) {
@@ -45,7 +45,23 @@ export const educationSchema = z
       return false;
     }
     return true;
-  }, "졸업일은 입학일 이후여야 합니다.");
+  }, "졸업일은 입학일 이후여야 합니다.")
+  .refine(({ graduationStatus, endAt }) => {
+    if (graduationStatus === "ENROLLED" && endAt) {
+      return false;
+    }
+    return true;
+  }, "재학중일 경우 졸업일은 입력할 수 없습니다.")
+  .refine(({ graduationStatus, endAt }) => {
+    if (
+      (graduationStatus === "GRADUATED" ||
+        graduationStatus === "EXPECTED_GRADUATION") &&
+      !endAt
+    ) {
+      return false;
+    }
+    return true;
+  }, "졸업 또는 졸업 예정일 경우 졸업일을 입력해야 합니다.");
 
 export const careerSchema = z
   .object({
@@ -73,7 +89,7 @@ export const careerSchema = z
     startAt: z.date({
       required_error: "입사일을 입력해주세요.",
     }),
-    endAt: z.date().optional(),
+    endAt: z.date().nullable().optional(),
   })
   .refine(({ endAt, startAt }) => {
     if (endAt && endAt <= startAt) {

@@ -140,9 +140,12 @@ export function EducationItem({
               variant="outline"
               className="w-fit max-w-[212px]"
               value={field.value}
-              onValueChange={(value: Graduation_Status) =>
-                field.onChange(value)
-              }
+              onValueChange={(value: Graduation_Status) => {
+                if (value === "ENROLLED") {
+                  setValue(`educationList.${index}.endAt`, null);
+                }
+                field.onChange(value);
+              }}
             >
               <ToggleGroupItem value="GRADUATED">졸업</ToggleGroupItem>
               <ToggleGroupItem value="ENROLLED">재학중</ToggleGroupItem>
