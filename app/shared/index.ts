@@ -28,6 +28,7 @@ export { EXAMPLE_DOC } from "./constant/preview";
 export { QUERY_KEY, ROOT_KEY } from "./constant/queryKey";
 export { PASSWORD_REGEX } from "./constant/regex";
 export { ROUTE } from "./constant/route";
+export { GraduationStatusMapper } from "./constant/common";
 export { cn } from "./lib/cn";
 export { getErrorMessage } from "./lib/getErrorMessage";
 export { imageUpload } from "./lib/imageUpload";

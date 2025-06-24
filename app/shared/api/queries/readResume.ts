@@ -4,6 +4,10 @@ export const readResumeQuery = graphql(`
   query ReadResume($input: ReadResumeInputDto!) {
     readResume(input: $input) {
       id
+      owner {
+        name
+        email
+      }
       educationList {
         id
         order

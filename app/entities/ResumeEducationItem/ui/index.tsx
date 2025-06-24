@@ -1,27 +1,46 @@
-export function ResumeEducationItem() {
+import { ReadResumeQuery } from "@/shared";
+import { GraduationStatusMapper } from "@/shared/constant/common";
+
+interface Props {
+  item: NonNullable<
+    NonNullable<ReadResumeQuery["readResume"]>["educationList"]
+  >[number];
+}
+
+export function ResumeEducationItem({ item }: Props) {
   return (
     <li className="border-border flex rounded-lg border p-4">
       <div className="flex flex-col gap-2">
-        <p className="text-2xl font-thin">학교명</p>
+        <p className="text-2xl font-thin">{item.name}</p>
         <div className="flex items-baseline gap-2">
           <div className="flex flex-col">
-            <p className="text-muted-foreground text-sm">졸업여부</p>
+            <p className="text-muted-foreground text-sm">
+              {GraduationStatusMapper[item.graduationStatus!]}
+            </p>
             <div className="flex items-baseline gap-2">
               <div className="flex gap-2">
-                <p className="text-muted-foreground">입학일</p>
-                <p className="text-muted-foreground">-</p>
-                <p className="text-muted-foreground">졸업일</p>
+                <p className="text-muted-foreground">{item.startAt}</p>
+                {item.endAt && (
+                  <>
+                    <p className="text-muted-foreground">-</p>
+                    <p className="text-muted-foreground">{item.endAt}</p>
+                  </>
+                )}
               </div>
               <div className="bg-muted-foreground h-3 w-[1px]" />
-              <p>전공</p>
+              <p>{item.major}</p>
             </div>
           </div>
         </div>
-        <div className="flex items-baseline gap-2">
-          <p className="text-muted-foreground">학점</p>
-          <div className="bg-muted-foreground h-3 w-[1px]" />
-          <p>입력 학점 / 기준학점</p>
-        </div>
+        {item.standardGrade !== "none" && item.standardGrade && (
+          <div className="flex items-baseline gap-2">
+            <p className="text-muted-foreground">학점</p>
+            <div className="bg-muted-foreground h-3 w-[1px]" />
+            <p>
+              {item.grade} / {item.standardGrade ?? "N/A"}
+            </p>
+          </div>
+        )}
       </div>
     </li>
   );

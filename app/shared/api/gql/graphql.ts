@@ -377,7 +377,7 @@ export type Query = {
   /** 게시글 목록 조회하기 */
   readPostList: Array<Post>;
   /** 이력서 조회 */
-  readResume: Resume;
+  readResume?: Maybe<Resume>;
   /** 유저 정보 가져오기(현재는 본인의 정보만) */
   readUser: User;
 };
@@ -719,7 +719,7 @@ export type ReadResumeQueryVariables = Exact<{
 }>;
 
 
-export type ReadResumeQuery = { __typename?: 'Query', readResume: { __typename?: 'Resume', id: string, educationList?: Array<{ __typename?: 'Education', id: string, order: number, name: string, major?: string | null, grade?: number | null, graduationStatus?: Graduation_Status | null, startAt: string, endAt?: string | null }> | null, careerList?: Array<{ __typename?: 'Career', id: string, order: number, company?: string | null, department?: string | null, position?: string | null, description?: string | null, startAt: string, endAt?: string | null }> | null, projectList?: Array<{ __typename?: 'Project', id: string, order: number, name: string, personnel?: number | null, skillList?: Array<string> | null, description?: string | null, startAt: string, endAt?: string | null }> | null, portfolioList?: Array<{ __typename?: 'Portfolio', id: string, order: number, url: string }> | null } };
+export type ReadResumeQuery = { __typename?: 'Query', readResume?: { __typename?: 'Resume', id: string, owner: { __typename?: 'User', name: string, email: string }, educationList?: Array<{ __typename?: 'Education', id: string, order: number, name: string, major?: string | null, grade?: number | null, graduationStatus?: Graduation_Status | null, startAt: string, endAt?: string | null }> | null, careerList?: Array<{ __typename?: 'Career', id: string, order: number, company?: string | null, department?: string | null, position?: string | null, description?: string | null, startAt: string, endAt?: string | null }> | null, projectList?: Array<{ __typename?: 'Project', id: string, order: number, name: string, personnel?: number | null, skillList?: Array<string> | null, description?: string | null, startAt: string, endAt?: string | null }> | null, portfolioList?: Array<{ __typename?: 'Portfolio', id: string, order: number, url: string }> | null } | null };
 
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -915,6 +915,10 @@ export const ReadResumeDocument = new TypedDocumentString(`
     query ReadResume($input: ReadResumeInputDto!) {
   readResume(input: $input) {
     id
+    owner {
+      name
+      email
+    }
     educationList {
       id
       order

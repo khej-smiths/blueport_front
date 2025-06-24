@@ -82,8 +82,10 @@ export function ResumeForm() {
         }
       : undefined
   );
-  const { mutate: createResume } = useCreateResume();
-  const { mutate: updateResume } = useUpdateResume();
+  const { mutate: createResume, isPending: isCreatePending } =
+    useCreateResume();
+  const { mutate: updateResume, isPending: isUpdatePending } =
+    useUpdateResume();
 
   const isModify = !!resume;
 
@@ -360,7 +362,11 @@ export function ResumeForm() {
             ))}
           </div>
         </Container>
-        <Button type="submit">저장하기</Button>
+        <Button type="submit" disabled={isCreatePending || isUpdatePending}>
+          {isCreatePending || isUpdatePending
+            ? "잠시만 기다려 주세요..."
+            : "저장하기"}
+        </Button>
       </form>
     </>
   );

@@ -314,7 +314,7 @@ type Query {
   """게시글 목록 조회하기"""
   readPostList(input: ReadPostListInputDto!): [Post!]!
   """이력서 조회"""
-  readResume(input: ReadResumeInputDto!): Resume!
+  readResume(input: ReadResumeInputDto!): Resume
   """유저 정보 가져오기(현재는 본인의 정보만)"""
   readUser: User!
 }
