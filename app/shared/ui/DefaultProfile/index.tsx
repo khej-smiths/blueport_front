@@ -9,7 +9,12 @@ interface Props {
 
 export function DefaultProfile({ variant }: Props) {
   return (
-    <div className={cn(profileVariant({ variant }))}>
+    <div
+      className={cn(
+        profileVariant({ variant }),
+        "object-cover not-xl:h-48 not-xl:w-full"
+      )}
+    >
       <User className="size-full p-4 text-gray-400" />
     </div>
   );

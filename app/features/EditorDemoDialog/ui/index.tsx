@@ -6,7 +6,7 @@ import { Header } from "./Header";
 
 export function EditorDemoDialog() {
   return (
-    <AlertDialogContent className="w-full !max-w-96">
+    <AlertDialogContent className="w-full !max-w-96 not-xl:!max-w-10/12">
       <Header />
       <Content />
       <Footer />

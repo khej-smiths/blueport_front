@@ -39,7 +39,7 @@ export function HorizontalPostCard({ post }: Props) {
               <span className="text-sm text-gray-500">{createdAt}</span>
               <span className="text-sm text-gray-500">• {owner}</span>
             </div>
-            <h4 className="group-hover:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
+            <h4 className="group-hover:text-primary not-xl:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
               {title}
             </h4>
             <p className="mb-4 line-clamp-3 text-gray-600">

@@ -46,6 +46,7 @@ export { useDebounce } from "./hooks/useDebounce";
 export { useDebounceMutation } from "./hooks/useDebounceMutation";
 export { useProcessor } from "./hooks/useProcessor";
 export { useInvalidateQueries } from "./hooks/useInvalidateQueries";
+export { useResponsive } from "./hooks/useResponsive";
 
 // API
 export * from "./api/gql";
