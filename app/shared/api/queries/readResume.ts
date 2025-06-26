@@ -14,6 +14,7 @@ export const readResumeQuery = graphql(`
         name
         major
         grade
+        standardGrade
         graduationStatus
         startAt
         endAt

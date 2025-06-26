@@ -151,7 +151,7 @@ export function ResumeForm() {
             Graduation_Status.Graduated,
           major: item.major ?? undefined,
           grade: `${item.grade}`,
-          standardGrade: "", // TODO: 아직 필드 없음
+          standardGrade: item.standardGrade ? `${item.standardGrade}` : "none",
           startAt: stringDateToFromDate(item.startAt),
           endAt: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
         })),
@@ -199,8 +199,10 @@ export function ResumeForm() {
       const body = {
         educationList: data.educationList.map((item) => ({
           ...item,
-          standardGrade: undefined, // TODO: 아직 필드 없음
-          // standardGrade: item.standardGrade === "none" ? undefined : parseFloat(item.standardGrade),
+          standardGrade:
+            item.standardGrade === "none"
+              ? undefined
+              : parseFloat(item.standardGrade),
           grade: item.grade === "none" ? undefined : parseFloat(item.grade),
           graduationStatus: item.graduationStatus as Graduation_Status,
           // 시작일은 모두 유효성 검사에서 null 체크 중

@@ -414,8 +414,6 @@ input UpdateCareerInputDto {
   description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
-  """id"""
-  id: String
   """정렬 순서"""
   order: Int!
   """직급"""
@@ -431,21 +429,19 @@ input UpdateEducationInputDto {
   grade: Float
   """졸업 상태"""
   graduationStatus: GRADUATION_STATUS
-  """id"""
-  id: String
   """전공"""
   major: String
   """교육기관명"""
   name: String!
   """정렬 순서"""
   order: Int!
+  """학점"""
+  standardGrade: Float
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
 }
 
 input UpdatePortfolioInputDto {
-  """id"""
-  id: String
   """정렬 순서"""
   order: Int!
   """포트폴리오 url"""
@@ -468,8 +464,6 @@ input UpdateProjectInputDto {
   description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
-  """id"""
-  id: String
   """프로젝트 명"""
   name: String!
   """정렬 순서"""
