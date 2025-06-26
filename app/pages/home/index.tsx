@@ -12,6 +12,8 @@ export default function Home() {
 
   const { isMobile } = useResponsive();
 
+  console.log(isMobile);
+
   const { data: blogList } = useGetBlogList({
     pageNumber: 1,
     limit: 2,
