@@ -5,6 +5,7 @@ import {
   Sort_Option,
   Hashtag,
   ReadPostListQuery,
+  useResponsive,
 } from "@/shared";
 import { Profile } from "@/widgets";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -19,6 +20,7 @@ export default function Blog() {
   const [isLast, setIsLast] = useState(false);
   const { domain } = useParams();
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
+  const { isMobile } = useResponsive();
 
   // 최근 게시글 조회
   const { data: recentPostList } = useGetPostListByBlogId({
@@ -42,13 +44,6 @@ export default function Blog() {
   const observer = useRef<IntersectionObserver | null>(null);
 
   const loading = isLoading || isRefetching;
-
-  // useEffect(() => {
-  //   // 블로그가 변경되면 상태 초기화
-  //   setPostList([]);
-  //   setPageNumber(1);
-  //   setIsLast(false);
-  // }, [blog]);
 
   useEffect(() => {
     if (!postListData) return;
@@ -76,23 +71,31 @@ export default function Blog() {
   if (blog === undefined) return null;
 
   return (
-    <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center">
-      <article className="flex max-w-7xl flex-col gap-16 p-8">
-        <Profile blog={blog} />
+    <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center not-xl:mt-4">
+      <article className="flex w-full flex-col gap-16 p-8 not-xl:p-4 xl:max-w-7xl">
+        <section className="flex flex-col items-center gap-4">
+          <Profile blog={blog} />
+        </section>
 
         {/* 최신 글 섹션 */}
         <section>
-          <h3 className="text-primary mb-6 text-2xl font-bold">최근 게시글</h3>
+          <h3 className="text-primary mb-6 text-2xl font-bold not-xl:text-xl">
+            최근 게시글
+          </h3>
           {recentPostList && recentPostList.length > 0 ? (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-6 xl:grid-cols-3">
               <Suspense fallback={<Loading />}>
                 {recentPostList.map((post) => (
-                  <VerticalPostCard key={post.id} post={post} />
+                  <>
+                    <VerticalPostCard key={post.id} post={post} />
+                    <VerticalPostCard key={post.id} post={post} />
+                    <VerticalPostCard key={post.id} post={post} />
+                  </>
                 ))}
               </Suspense>
             </div>
           ) : (
-            <p className="text-center text-2xl font-thin">
+            <p className="text-center text-2xl font-thin not-xl:text-xl">
               작성된 글이 없습니다!
             </p>
           )}
@@ -100,7 +103,9 @@ export default function Blog() {
 
         {/* 해시태그 섹션 */}
         <section className="">
-          <h3 className="text-primary mb-6 text-2xl font-bold">해시태그</h3>
+          <h3 className="text-primary mb-6 text-2xl font-bold not-xl:text-xl">
+            해시태그
+          </h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
             <Hashtag key="all" hashtag="전체" total={12} />
             {[
@@ -136,10 +141,18 @@ export default function Blog() {
 
         {/* 전체 글 목록 섹션 */}
         <section className="flex flex-col gap-4">
-          <h3 className="text-primary text-2xl font-bold">전체 게시글</h3>
+          <h3 className="text-primary text-2xl font-bold not-xl:text-xl">
+            전체 게시글
+          </h3>
           <ul className="flex flex-col gap-4">
             {postList.map((post) => (
-              <HorizontalPostCard key={post.id} post={post} />
+              <>
+                {isMobile ? (
+                  <VerticalPostCard key={post.id} post={post} />
+                ) : (
+                  <HorizontalPostCard key={post.id} post={post} />
+                )}
+              </>
             ))}
           </ul>
           {!loading && isLast && postList.length === 0 && (

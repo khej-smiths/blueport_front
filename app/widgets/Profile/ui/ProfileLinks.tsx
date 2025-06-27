@@ -15,7 +15,7 @@ export function ProfileLinks({ domain, github, email, resumeId }: Props) {
         <a
           href={github}
           target="_blank"
-          className="text-gray-600 hover:text-black hover:underline"
+          className="text-gray-600 not-xl:text-sm not-xl:underline hover:text-black hover:underline"
         >
           GitHub
         </a>
@@ -26,7 +26,7 @@ export function ProfileLinks({ domain, github, email, resumeId }: Props) {
             ":resumeId",
             resumeId
           )}
-          className="text-gray-600 hover:text-black hover:underline"
+          className="text-gray-600 not-xl:text-sm not-xl:underline hover:text-black hover:underline"
         >
           Resume
         </Link>
@@ -34,7 +34,7 @@ export function ProfileLinks({ domain, github, email, resumeId }: Props) {
       {email && (
         <a
           href={`mailto:${email}`}
-          className="text-gray-600 hover:text-black hover:underline"
+          className="text-gray-600 not-xl:text-sm not-xl:underline hover:text-black hover:underline"
         >
           Email
         </a>

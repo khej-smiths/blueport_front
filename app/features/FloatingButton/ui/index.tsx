@@ -1,4 +1,4 @@
-import { Button,cn } from "@/shared";
+import { Button, cn } from "@/shared";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   icon: React.ReactNode;
@@ -16,7 +16,7 @@ export function FloatingButton({
   return (
     <Button
       className={cn(
-        "fixed h-14 w-14 rounded-full p-0",
+        "fixed size-14 rounded-full p-0 not-xl:size-12",
         position,
         animation && "transition-all duration-300 hover:rotate-90",
         className

@@ -12,7 +12,7 @@ export function DefaultProfile({ variant }: Props) {
     <div
       className={cn(
         profileVariant({ variant }),
-        "object-cover not-xl:h-48 not-xl:w-full"
+        "object-cover"
       )}
     >
       <User className="size-full p-4 text-gray-400" />
