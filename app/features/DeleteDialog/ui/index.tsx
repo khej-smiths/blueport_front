@@ -30,13 +30,17 @@ export function DeleteDialog({ trigger, onCancel, onAction }: Props) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>취소</AlertDialogCancel>
-          <AlertDialogAction
-            className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white shadow-sm"
-            onClick={onAction}
-          >
-            삭제
-          </AlertDialogAction>
+          <div className="flex gap-2 not-xl:w-full">
+            <AlertDialogCancel onClick={onCancel} className="not-xl:w-full">
+              취소
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90 text-white shadow-sm not-xl:w-full"
+              onClick={onAction}
+            >
+              삭제
+            </AlertDialogAction>
+          </div>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

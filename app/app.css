@@ -139,4 +139,13 @@
   .text-h4 {
     @apply text-[1.313rem] font-bold;
   }
+
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
