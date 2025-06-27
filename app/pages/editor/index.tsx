@@ -13,6 +13,7 @@ import {
   ROUTE,
   UpdatePostInputDto,
   useAuthStore,
+  useResponsive,
 } from "@/shared";
 import { useSearchParams } from "react-router";
 import { useNavigate } from "react-router";
@@ -42,6 +43,7 @@ export default function EditorPage() {
   const postId = searchParams.get("postId");
   const isDemo = Boolean(searchParams.get("demo"));
   const isModify = Boolean(postId);
+  const { isMobile } = useResponsive();
 
   const { accessToken } = useAuthStore();
 
@@ -150,7 +152,7 @@ export default function EditorPage() {
 
   return (
     <form onSubmit={onSubmit} className="flex min-h-dvh">
-      <article className="flex w-1/2 min-w-[960px] flex-col">
+      <article className="flex w-1/2 flex-col not-xl:w-full xl:min-w-[960px]">
         <Controller
           control={control}
           name="title"
@@ -158,15 +160,15 @@ export default function EditorPage() {
             <Input
               variant="underline"
               placeholder="지금 생각하고있는 이야기를 써보세요..."
-              className="text-primary sticky top-0 z-10 h-22 bg-white px-5 pt-4 pb-2 text-[40px] font-bold placeholder:text-gray-500 placeholder:opacity-20"
+              className="text-primary sticky top-0 z-10 h-22 bg-white px-5 pt-4 pb-2 text-[2.5rem] font-bold not-xl:h-12 not-xl:px-3 not-xl:text-xl placeholder:text-gray-500 placeholder:opacity-20"
               {...field}
             />
           )}
         />
         <div
           className={cn(
-            "sticky top-[85px] z-10 flex min-h-14 items-center gap-2 bg-white",
-            watch("hashtagList").length > 0 && "pl-5"
+            "sticky top-[85px] z-10 flex min-h-14 items-center gap-2 bg-white not-xl:top-12 not-xl:min-h-10",
+            watch("hashtagList").length > 0 && "pl-5 not-xl:pl-3"
           )}
         >
           <ul className="flex gap-2">
@@ -191,8 +193,10 @@ export default function EditorPage() {
               onCompositionEnd={() => (isComposition.current = false)}
               placeholder="태그를 입력하세요"
               className={cn(
-                "flex-1 text-lg placeholder:text-gray-500 placeholder:opacity-50",
-                watch("hashtagList").length === 0 ? "px-5" : "px-2"
+                "flex-1 text-lg not-xl:text-sm placeholder:text-gray-500 placeholder:opacity-50",
+                watch("hashtagList").length === 0
+                  ? "px-5 not-xl:px-3"
+                  : "px-2 not-xl:px-1"
               )}
             />
           )}
@@ -208,29 +212,31 @@ export default function EditorPage() {
             />
           )}
         />
-        <div className="sticky bottom-0 flex justify-between border-t border-gray-200 bg-white px-5 py-3">
+        <div className="sticky bottom-0 flex justify-between border-t border-gray-200 bg-white px-5 py-3 not-xl:px-3 not-xl:py-2">
           <Button
             type="button"
             variant="link"
-            className="p-0 text-xl text-gray-500"
+            className="p-0 text-xl text-gray-500 not-xl:text-sm"
             onClick={() => navigate(-1)}
           >
             ← 나가기
           </Button>
           <div className="flex gap-2">
-            <Button variant="outline" type="button">
+            {/* <Button variant="outline" type="button">
               임시저장
-            </Button>
+            </Button> */}
             <Button type="submit">개시하기</Button>
           </div>
         </div>
       </article>
-      <article className="flex w-1/2 min-w-[940px] flex-col border-l border-gray-200 p-5">
-        <h1 className="text-primary mt-7 mb-16 text-[40px] font-bold">
-          {watch("title")}
-        </h1>
-        <Preview doc={watch("content")} />
-      </article>
+      {!isMobile && (
+        <article className="flex w-1/2 min-w-[940px] flex-col border-l border-gray-200 p-5">
+          <h1 className="text-primary mt-7 mb-16 text-[40px] font-bold">
+            {watch("title")}
+          </h1>
+          <Preview doc={watch("content")} />
+        </article>
+      )}
     </form>
   );
 }

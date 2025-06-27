@@ -1,4 +1,4 @@
-import { cn } from "@/shared";
+import { cn, useResponsive } from "@/shared";
 
 import { useEditor } from "../model/useEditor";
 import { Toolbar } from "./Toolbar";
@@ -11,6 +11,8 @@ interface Props {
 
 export function Editor({ initialDoc, onChange, isHashtagInputFocused }: Props) {
   const { editorRef, editorView } = useEditor({ initialDoc, onChange });
+  const { isMobile } = useResponsive();
+
   return (
     <div
       role="article"
@@ -19,7 +21,7 @@ export function Editor({ initialDoc, onChange, isHashtagInputFocused }: Props) {
     >
       <div
         className={cn(
-          "sticky top-[141px] z-10 flex w-full flex-wrap items-center border-y border-gray-200 bg-white p-2 transition-colors",
+          "sticky top-[141px] z-10 flex w-full flex-wrap items-center border-y border-gray-200 bg-white p-2 transition-colors not-xl:top-22",
           isHashtagInputFocused && "border-t-primary border-t-1"
         )}
       >
