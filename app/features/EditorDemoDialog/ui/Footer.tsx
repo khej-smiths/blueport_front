@@ -14,10 +14,12 @@ export function Footer() {
 
   return (
     <AlertDialogFooter>
-      <AlertDialogCancel>좀 더 둘러보기</AlertDialogCancel>
-      <AlertDialogAction onClick={handleLogin}>
-        로그인 하러가기
-      </AlertDialogAction>
+      <div className="flex justify-end gap-2">
+        <AlertDialogCancel>좀 더 둘러보기</AlertDialogCancel>
+        <AlertDialogAction onClick={handleLogin}>
+          로그인 하러가기
+        </AlertDialogAction>
+      </div>
     </AlertDialogFooter>
   );
 }

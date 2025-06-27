@@ -20,7 +20,7 @@ export function DeleteDialog({ trigger, onCancel, onAction }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
-      <AlertDialogContent className="not-xl:!max-w-10/12">
+      <AlertDialogContent className="max-md:!max-w-10/12">
         <AlertDialogHeader>
           <AlertDialogTitle className="text-primary">
             정말 삭제하시겠습니까?
