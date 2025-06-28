@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 
 import {
   Button,
@@ -11,7 +10,6 @@ import {
   HOOKS,
   MobileSubmitButton,
   UpdateResumeInputDto,
-  useAuthStore,
   useResponsive,
 } from "@/shared";
 
@@ -138,9 +136,6 @@ export function ManageResumeForm() {
     control,
   });
 
-  const navigate = useNavigate();
-  const { accessToken } = useAuthStore();
-
   useEffect(() => {
     if (!resume) return;
 
@@ -153,7 +148,9 @@ export function ManageResumeForm() {
             Graduation_Status.Graduated,
           major: item.major ?? undefined,
           grade: `${item.grade}`,
-          standardGrade: item.standardGrade ? `${item.standardGrade}` : "none",
+          standardGrade: item.standardGrade
+            ? `${item.standardGrade.toFixed(1)}`
+            : "none",
           startAt: stringDateToFromDate(item.startAt),
           endAt: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
         })),
