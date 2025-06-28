@@ -22,6 +22,7 @@ export function ClientLayoutBody() {
   const isEditor = location.pathname.includes("/editor");
   const isDisableButtonPage = disableButtonPageList.includes(location.pathname);
   const isMobileLogin = location.pathname.includes("/login") && isMobile;
+  const isMobileManage = location.pathname.includes("/manage") && isMobile;
 
   const { accessToken } = useAuthStore();
 
@@ -32,7 +33,7 @@ export function ClientLayoutBody() {
         <>
           {accessToken ? (
             <FloatingButton
-              position="bottom-10 right-10"
+              position={`bottom-10 right-10 ${isMobileManage ? "bottom-20" : ""}`}
               icon={<Plus className="h-6 w-6" />}
               onClick={() => {
                 navigate(ROUTE.EDITOR);

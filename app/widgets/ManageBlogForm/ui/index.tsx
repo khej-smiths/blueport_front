@@ -23,7 +23,7 @@ import { useGetBlog } from "../api/query";
 import { BlogFormDto } from "../model/type";
 import { useNavigate } from "react-router";
 
-export function BlogForm() {
+export function ManageBlogForm() {
   const [skillKeyword, setSkillKeyword] = useState("");
   const [preview, setPreview] = useState("");
 

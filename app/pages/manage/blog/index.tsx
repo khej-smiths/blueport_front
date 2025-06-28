@@ -1,5 +1,5 @@
 import { Container } from "@/shared";
-import { BlogForm } from "@/widgets";
+import { ManageBlogForm } from "@/widgets";
 
 export default function ManageBlog() {
   return (
@@ -7,7 +7,7 @@ export default function ManageBlog() {
       <Container>
         <h1 className="text-h1 text-primary font-bold">블로그 설정</h1>
       </Container>
-      <BlogForm />
+      <ManageBlogForm />
     </article>
   );
 }

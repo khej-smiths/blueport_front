@@ -1,5 +1,5 @@
 import { Container } from "@/shared";
-import { ResumeForm } from "@/widgets";
+import { ManageResumeForm } from "@/widgets";
 
 export default function ManageResume() {
   return (
@@ -7,7 +7,7 @@ export default function ManageResume() {
       <Container>
         <h1 className="text-h1 text-primary font-bold">이력서</h1>
       </Container>
-      <ResumeForm />
+      <ManageResumeForm />
     </article>
   );
 }

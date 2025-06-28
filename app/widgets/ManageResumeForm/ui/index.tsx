@@ -72,7 +72,7 @@ const initPortfolio: PortfolioDto = {
   url: "",
 };
 
-export function ResumeForm() {
+export function ManageResumeForm() {
   const { data: user } = HOOKS.useSelf();
   const { data: resume } = HOOKS.useGetResume(
     user

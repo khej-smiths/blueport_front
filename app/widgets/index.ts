@@ -1,4 +1,4 @@
-export { BlogForm } from "./BlogForm";
+export { ManageBlogForm } from "./ManageBlogForm";
 export { ClientLayoutBody } from "./ClientLayoutBody";
 export { Footer } from "./Footer";
 export { GNB } from "./GNB";
@@ -11,5 +11,5 @@ export { ManageUserForm } from "./ManageUserForm";
 export { PopularPostList } from "./PopularPostList";
 export { Profile } from "./Profile";
 export { RecentPostList } from "./RecentPostLIst";
-export { ResumeForm } from "./ResumeForm";
+export { ManageResumeForm } from "./ManageResumeForm";
 export { SectionTitle } from "./SectionTitle";
