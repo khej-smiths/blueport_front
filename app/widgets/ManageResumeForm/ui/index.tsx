@@ -270,7 +270,7 @@ export function ManageResumeForm() {
   return (
     <>
       <form
-        className="flex w-full max-w-[1328px] min-w-96 flex-col gap-6"
+        className="flex w-full max-w-[1328px] min-w-96 flex-col gap-6 not-xl:min-w-0"
         onSubmit={onSubmit}
       >
         <Container className="gap-4">
