@@ -1,16 +1,16 @@
 import { Link, useParams } from "react-router";
-import { HOOKS, ROUTE, useResponsive } from "@/shared";
+import { HOOKS, ROUTE, useAuthStore } from "@/shared";
 import { FaGithub } from "react-icons/fa";
 import { Settings } from "lucide-react";
 
 export function GNB() {
   const { domain } = useParams();
-  const { isMobile } = useResponsive();
   const { data: user } = HOOKS.useSelf();
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
+  const { accessToken } = useAuthStore();
 
   return (
-    <nav className="flex h-24 items-center justify-center border-b px-6 not-xl:h-16">
+    <nav className="flex h-16 items-center justify-center border-b px-6">
       <div className="flex w-full max-w-7xl items-center justify-between">
         {/* TODO: 블로그로 이동하도록 변경해야 함 */}
         <Link
@@ -31,15 +31,15 @@ export function GNB() {
         <div className="flex flex-row items-center gap-4">
           {blog?.github && (
             <a href={blog.github} target="_blank">
-              <FaGithub size={isMobile ? 24 : 32} fill="var(--primary)" />
+              <FaGithub size={24} fill="var(--primary)" />
             </a>
           )}
-          {user?.id === blog?.ownerId && (
+          {accessToken && user?.id === blog?.ownerId && (
             <Link
               to={ROUTE.MANAGE_USER}
               className="transition-transform hover:transform-[rotate(90deg)]"
             >
-              <Settings size={isMobile ? 24 : 32} stroke="var(--primary)" />
+              <Settings size={24} stroke="var(--primary)" />
             </Link>
           )}
         </div>

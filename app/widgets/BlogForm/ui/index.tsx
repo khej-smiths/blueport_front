@@ -16,7 +16,6 @@ import {
   Input,
   ROUTE,
   Textarea,
-  useAuthStore,
 } from "@/shared";
 
 import { useCreateBlog, useUpdateBlog } from "../api/mutation";
@@ -30,7 +29,6 @@ export function BlogForm() {
 
   const navigate = useNavigate();
   const isComposite = useRef(false);
-  const { accessToken } = useAuthStore();
 
   const { control, watch, reset, setValue, getValues, handleSubmit } =
     useForm<BlogFormDto>({
@@ -52,12 +50,6 @@ export function BlogForm() {
   const { mutate: updateBlog } = useUpdateBlog();
 
   const isModify = useMemo(() => (blog?.id ? true : false), [blog]);
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate(ROUTE.LOGIN);
-    }
-  }, [accessToken, navigate]);
 
   useEffect(() => {
     if (!blog) return;

@@ -9,7 +9,6 @@ import {
   getErrorMessage,
   Graduation_Status,
   HOOKS,
-  ROUTE,
   UpdateResumeInputDto,
   useAuthStore,
 } from "@/shared";
@@ -187,12 +186,6 @@ export function ResumeForm() {
       }),
     });
   }, [resume]);
-
-  useEffect(() => {
-    if (!accessToken) {
-      navigate(ROUTE.LOGIN);
-    }
-  }, [accessToken, navigate]);
 
   const onSubmit = handleSubmit(
     (data) => {
