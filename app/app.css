@@ -2,8 +2,8 @@
 @import "tw-animate-css";
 
 @font-face {
-  font-family: "Pretendard";
-  src: url("assets/fonts/PretendardVariable.woff2") format("woff2");
+  font-family: "Pretendard Variable";
+  src: url("/assets/fonts/PretendardVariable.woff2") format("woff2");
   font-display: swap;
 }
 
@@ -43,6 +43,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-pretendard: var(--font-pretendard);
 }
 
 :root {
@@ -78,7 +79,7 @@
   --chart-4: hsl(43, 74%, 66%);
   --chart-5: hsl(27, 87%, 67%);
   --radius: 0.5rem;
-      font-family: "Pretendard Variable";
+  --font-pretendard: "Pretendard Variable";
 }
 
 .dark {
@@ -118,7 +119,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50 font-pretendard;
   }
   body {
     @apply bg-background text-foreground;

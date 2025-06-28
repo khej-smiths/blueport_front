@@ -9,8 +9,10 @@ import {
   getErrorMessage,
   Graduation_Status,
   HOOKS,
+  MobileSubmitButton,
   UpdateResumeInputDto,
   useAuthStore,
+  useResponsive,
 } from "@/shared";
 
 import { SectionTitle } from "../../SectionTitle";
@@ -86,6 +88,7 @@ export function ManageResumeForm() {
   const { mutate: updateResume, isPending: isUpdatePending } =
     useUpdateResume();
 
+  const { isMobile } = useResponsive();
   const isModify = !!resume;
 
   const { control, watch, reset, setValue, getValues, handleSubmit } =
@@ -357,11 +360,22 @@ export function ManageResumeForm() {
             ))}
           </div>
         </Container>
-        <Button type="submit" disabled={isCreatePending || isUpdatePending}>
-          {isCreatePending || isUpdatePending
-            ? "잠시만 기다려 주세요..."
-            : "저장하기"}
-        </Button>
+        {isMobile ? (
+          <MobileSubmitButton
+            className="w-full"
+            disabled={isCreatePending || isUpdatePending}
+          >
+            {isCreatePending || isUpdatePending
+              ? "잠시만 기다려 주세요..."
+              : "저장하기"}
+          </MobileSubmitButton>
+        ) : (
+          <Button type="submit" disabled={isCreatePending || isUpdatePending}>
+            {isCreatePending || isUpdatePending
+              ? "잠시만 기다려 주세요..."
+              : "저장하기"}
+          </Button>
+        )}
       </form>
     </>
   );
