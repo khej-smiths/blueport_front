@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { LabelInput } from "@/entities";
 import { FileUpload } from "@/features";
 import {
+  BlogFormDto,
   Button,
   Container,
   CreateBlogInputDto,
@@ -14,13 +15,14 @@ import {
   Hashtag,
   HOOKS,
   Input,
+  MobileSubmitButton,
   ROUTE,
   Textarea,
+  useResponsive,
 } from "@/shared";
 
 import { useCreateBlog, useUpdateBlog } from "../api/mutation";
 import { useGetBlog } from "../api/query";
-import { BlogFormDto } from "../model/type";
 import { useNavigate } from "react-router";
 
 export function ManageBlogForm() {
@@ -29,6 +31,7 @@ export function ManageBlogForm() {
 
   const navigate = useNavigate();
   const isComposite = useRef(false);
+  const { isMobile } = useResponsive();
 
   const { control, watch, reset, setValue, getValues, handleSubmit } =
     useForm<BlogFormDto>({
@@ -139,8 +142,8 @@ export function ManageBlogForm() {
   return (
     <form className="flex flex-col gap-4" onSubmit={onSubmit}>
       <Container className="flex flex-col gap-4">
-        <div className="flex gap-6">
-          <div className="flex flex-1 flex-col gap-4">
+        {isMobile ? (
+          <div className="flex flex-col gap-6">
             <Controller
               control={control}
               name="blogName"
@@ -167,40 +170,95 @@ export function ManageBlogForm() {
                 </LabelInput>
               )}
             />
+            <div className="flex flex-col gap-2">
+              <p className="text-sm text-gray-400">프로필 미리보기</p>
+              <div className="flex flex-1 items-end gap-6">
+                {preview ? (
+                  <>
+                    <img
+                      className="h-[376px] w-[480px] rounded-md object-cover not-xl:h-48 not-xl:w-full"
+                      width={480}
+                      height={376}
+                      src={preview}
+                      alt="profile_sample_default"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <DefaultProfile variant="default" />
+                  </>
+                )}
+              </div>
+            </div>
             <div className="flex h-full flex-col gap-2">
               <FormLabel>프로필 사진</FormLabel>
               <FileUpload setValue={setValue} setPreview={setPreview} />
             </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <p className="text-sm text-gray-400">프로필 미리보기</p>
-            <div className="flex flex-1 items-end gap-6">
-              {preview ? (
-                <>
-                  <img
-                    className="h-[376px] w-[480px] rounded-md object-cover"
-                    width={480}
-                    height={376}
-                    src={preview}
-                    alt="profile_sample_default"
-                  />
-                  <img
-                    className="size-32 rounded-full object-cover"
-                    width={128}
-                    height={128}
-                    src={preview}
-                    alt="profile_sample_avatar"
-                  />
-                </>
-              ) : (
-                <>
-                  <DefaultProfile variant="default" />
-                  <DefaultProfile variant="avatar" />
-                </>
-              )}
+        ) : (
+          <div className="flex gap-6">
+            <div className="flex flex-1 flex-col gap-4">
+              <Controller
+                control={control}
+                name="blogName"
+                render={({ field }) => (
+                  <LabelInput
+                    required
+                    placeholder="블로그 이름을 입력해주세요."
+                    {...field}
+                  >
+                    블로그 이름
+                  </LabelInput>
+                )}
+              />
+              <Controller
+                control={control}
+                name="domain"
+                render={({ field }) => (
+                  <LabelInput
+                    required
+                    placeholder="도메인 이름을 입력해주세요."
+                    {...field}
+                  >
+                    도메인 이름
+                  </LabelInput>
+                )}
+              />
+              <div className="flex h-full flex-col gap-2">
+                <FormLabel>프로필 사진</FormLabel>
+                <FileUpload setValue={setValue} setPreview={setPreview} />
+              </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm text-gray-400">프로필 미리보기</p>
+              <div className="flex flex-1 items-end gap-6">
+                {preview ? (
+                  <>
+                    <img
+                      className="h-[376px] w-[480px] rounded-md object-cover not-xl:h-48 not-xl:w-full"
+                      width={480}
+                      height={376}
+                      src={preview}
+                      alt="profile_sample_default"
+                    />
+                    <img
+                      className="size-32 rounded-full object-cover"
+                      width={128}
+                      height={128}
+                      src={preview}
+                      alt="profile_sample_avatar"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <DefaultProfile variant="default" />
+                    <DefaultProfile variant="avatar" />
+                  </>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
         <Controller
           control={control}
           name="greeting"
@@ -256,7 +314,7 @@ export function ManageBlogForm() {
           />
           <div className="flex flex-col gap-3">
             <FormLabel>기술스택</FormLabel>
-            <ul className="flex gap-2">
+            <ul className="scrollbar-hide flex gap-2 overflow-x-auto">
               {watch("skills")?.map((skill, index) => (
                 <li key={index}>
                   <Hashtag
@@ -281,7 +339,11 @@ export function ManageBlogForm() {
           </div>
         </div>
       </Container>
-      <Button type="submit">저장하기</Button>
+      {isMobile ? (
+        <MobileSubmitButton className="w-full">저장하기</MobileSubmitButton>
+      ) : (
+        <Button type="submit">저장하기</Button>
+      )}
     </form>
   );
 }

@@ -1,4 +1,4 @@
-import { cn, FormLabel,Input } from "@/shared";
+import { FormLabel, Input } from "@/shared";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   children: React.ReactNode;
@@ -14,11 +14,7 @@ export function LabelInput({ children, required, labelStyle, ...rest }: Props) {
       <FormLabel labelStyle={labelStyle} required={required}>
         {children}
       </FormLabel>
-      <Input
-        variant="underline"
-        className={cn("w-full p-0", className)}
-        {...props}
-      />
+      <Input variant="underline" className={className} {...props} />
     </div>
   );
 }

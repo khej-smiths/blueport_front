@@ -33,7 +33,7 @@ export function ClientLayoutBody() {
         <>
           {accessToken ? (
             <FloatingButton
-              position={`bottom-10 right-10 ${isMobileManage ? "bottom-20" : ""}`}
+              position={`bottom-10 right-10 ${isMobileManage ? "bottom-16" : ""}`}
               icon={<Plus className="h-6 w-6" />}
               onClick={() => {
                 navigate(ROUTE.EDITOR);

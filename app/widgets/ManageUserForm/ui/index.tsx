@@ -1,13 +1,12 @@
 import { Controller, useForm } from "react-hook-form";
 
 import { LabelInput } from "@/entities";
-import { Button, Container } from "@/shared";
+import { Button, Container, MobileSubmitButton, useResponsive } from "@/shared";
 import { SectionTitle } from "@/widgets/SectionTitle";
 
 export function ManageUserForm() {
-  const { control, watch, handleSubmit } = useForm();
-
-  console.log(watch());
+  const { control, handleSubmit } = useForm();
+  const { isMobile } = useResponsive();
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
@@ -51,7 +50,11 @@ export function ManageUserForm() {
           </div>
         </div>
       </Container>
-      <Button type="submit">저장하기</Button>
+      {isMobile ? (
+        <MobileSubmitButton className="w-full" />
+      ) : (
+        <Button type="submit">저장하기</Button>
+      )}
     </form>
   );
 }

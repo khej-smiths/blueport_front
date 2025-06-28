@@ -3,14 +3,16 @@ import { Dispatch, DragEvent, SetStateAction } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
 
-import { AboutFormDto } from "@/widgets/AboutForm/model/type";
+import { BlogFormDto, useResponsive } from "@/shared";
 
 interface Props {
-  setValue: UseFormSetValue<AboutFormDto>;
+  setValue: UseFormSetValue<BlogFormDto>;
   setPreview: Dispatch<SetStateAction<string>>;
 }
 
 export function FileUpload({ setValue, setPreview }: Props) {
+  const { isMobile } = useResponsive();
+
   const handleDropFiles = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const fileList = event.dataTransfer.files;
@@ -35,7 +37,7 @@ export function FileUpload({ setValue, setPreview }: Props) {
 
   return (
     <div
-      className="h-full w-full rounded-lg border-2 border-dashed p-2"
+      className="h-full w-full rounded-lg border-2 border-dashed p-2 not-xl:h-12 not-xl:border-solid"
       role="button"
       onDrop={handleDropFiles}
       onDragOver={(e) => e.preventDefault()}
@@ -50,8 +52,8 @@ export function FileUpload({ setValue, setPreview }: Props) {
         className="flex h-full w-full cursor-pointer items-center justify-center rounded-lg p-4 transition-colors hover:bg-gray-100"
         htmlFor="file-upload"
       >
-        <div className="flex flex-col items-center gap-2 text-gray-400">
-          <ImageUp size={72} />
+        <div className="flex flex-col items-center gap-2 text-gray-400 not-xl:flex-row not-xl:text-sm">
+          <ImageUp size={isMobile ? 32 : 72} />
           <p className="text-sm">이미지를 업로드 해주세요</p>
         </div>
       </label>
