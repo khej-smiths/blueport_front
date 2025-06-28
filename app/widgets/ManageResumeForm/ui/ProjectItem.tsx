@@ -80,14 +80,14 @@ export function ProjectItem({
   };
 
   return (
-    <div className="flex flex-col gap-5 rounded-lg border p-6">
-      <div className="flex items-center justify-between">
+    <div className="flex flex-col gap-5 rounded-lg border p-6 not-xl:p-4">
+      <div className="flex items-center justify-between not-xl:gap-5">
         <Controller
           control={control}
           name={`projectList.${index}.name`}
           render={({ field }) => (
             <Input
-              className="max-w-[616px]"
+              className="max-w-[616px] not-xl:max-w-full"
               variant="underline"
               placeholder="프로젝트 이름을 입력해 주세요"
               {...field}
@@ -103,8 +103,7 @@ export function ProjectItem({
           <Trash2 className="size-4 text-gray-400" />
         </Button>
       </div>
-      <div className="flex items-center gap-2">
-        <p className="text-muted-foreground">프로젝트 기간</p>
+      <div className="flex items-center gap-5 not-xl:flex-col not-xl:items-start">
         <Controller
           control={control}
           name={`projectList.${index}.projectDate`}
@@ -113,28 +112,30 @@ export function ProjectItem({
               range
               rangeDate={field.value}
               setRangeDate={field.onChange}
+              placeholder="프로젝트 기간"
             />
           )}
         />
-      </div>
-      <div className="flex items-center gap-2">
-        <p className="text-muted-foreground">프로젝트 참여 인원</p>
-        <Controller
-          control={control}
-          name={`projectList.${index}.personnel`}
-          render={({ field }) => (
-            <Input
-              className="max-w-14"
-              variant="underline"
-              value={field.value}
-              onChange={(e) => onlyNumber(e, field.onChange)}
-            />
-          )}
-        />
-        <p className="text-muted-foreground">명</p>
+        <div className="flex items-center gap-2">
+          <p className="text-muted-foreground">프로젝트 참여 인원</p>
+          <Controller
+            control={control}
+            name={`projectList.${index}.personnel`}
+            render={({ field }) => (
+              <Input
+                className="max-w-14"
+                variant="underline"
+                value={field.value}
+                onChange={(e) => onlyNumber(e, field.onChange)}
+                inputMode="numeric"
+              />
+            )}
+          />
+          <p className="text-muted-foreground">명</p>
+        </div>
       </div>
       <div className="flex flex-col gap-2">
-        <ul className="flex gap-2">
+        <ul className="scrollbar-hide flex gap-2 overflow-x-auto">
           {watch(`projectList.${index}.skillList`).map((item, i) => (
             <li key={`${index}_${item}_${i}`}>
               <Hashtag hashtag={item} onClick={() => handleDeleteSkill(i)} />
@@ -143,7 +144,7 @@ export function ProjectItem({
         </ul>
         <div className="flex gap-5">
           <Input
-            className="max-w-60"
+            className="max-w-60 not-xl:max-w-full"
             variant="underline"
             placeholder="사용된 기술을 추가해 주세요"
             value={skillKeyword}
@@ -166,6 +167,7 @@ export function ProjectItem({
         name={`projectList.${index}.description`}
         render={({ field }) => (
           <Textarea
+            className="not-xl:resize-none"
             placeholder={`프로젝트 단위로 본인의 역활과 성과를 작성해 보세요
 
 - 업무 주요 내용, 역활, 기여도, 성과등을 작성해 보세요

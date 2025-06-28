@@ -55,7 +55,7 @@ export function EducationItem({
         <div className="flex flex-col gap-5">
           <div className="flex justify-between">
             <AlertDialog open={open}>
-              <AlertDialogTrigger>
+              <AlertDialogTrigger asChild>
                 <Button
                   variant="outline"
                   type="button"
@@ -95,7 +95,7 @@ export function EducationItem({
         <div className="flex justify-between">
           <div className="flex max-w-[658px] flex-1 items-center gap-5">
             <AlertDialog open={open}>
-              <AlertDialogTrigger>
+              <AlertDialogTrigger asChild>
                 <Button
                   className="min-w-[212px]"
                   variant="outline"
@@ -133,7 +133,7 @@ export function EducationItem({
           </Button>
         </div>
       )}
-      <div className="flex max-w-[658px] items-center">
+      <div className="flex max-w-[658px] items-center not-xl:max-w-full">
         <Controller
           control={control}
           name={`educationList.${index}.major`}
@@ -154,7 +154,7 @@ export function EducationItem({
             render={({ field }) => (
               <CustomSelect
                 selectOptions={getStandardGradeOptions()}
-                placeholder="기준 학점 입력해 주세요"
+                placeholder="기준 학점 선택해 주세요"
                 value={field.value}
                 onValueChange={(value) => field.onChange(value)}
               />
@@ -167,6 +167,7 @@ export function EducationItem({
               <Input
                 variant="underline"
                 placeholder="학점 입력해 주세요"
+                inputMode="decimal"
                 disabled={
                   watch(`educationList.${index}.standardGrade`) === "none"
                 }

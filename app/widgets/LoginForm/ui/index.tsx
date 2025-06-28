@@ -67,6 +67,7 @@ export function LoginForm() {
             <Input
               variant="underline"
               placeholder="이메일을 입력해 주세요"
+              inputMode="email"
               autoComplete="off"
               {...field}
             />
@@ -81,6 +82,7 @@ export function LoginForm() {
               type="password"
               placeholder="비밀번호를 입력해 주세요"
               autoComplete="off"
+              inputMode="text"
               {...field}
             />
           )}
