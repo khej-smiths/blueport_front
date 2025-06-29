@@ -223,8 +223,6 @@ export function ManageResumeForm() {
         })),
       };
 
-      console.log(body);
-
       if (isModify) {
         updateResume(body as UpdateResumeInputDto);
       } else {

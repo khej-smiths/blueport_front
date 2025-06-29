@@ -14,7 +14,7 @@ export default function Resume() {
     id: resumeId,
   });
 
-  if (!resume) return null;
+  if (!resume) throw new Error("이력서가 존재하지 않습니다.", { cause: 404 });
 
   const { educationList, careerList, projectList, portfolioList } = resume;
 
@@ -23,7 +23,13 @@ export default function Resume() {
       <main className="mb-16 flex min-h-dvh flex-col items-center">
         <article className="flex w-full max-w-7xl flex-col gap-16 p-8">
           {/* 개인정보 */}
-          <div className="flex items-end gap-2">
+          <div
+            className={
+              resume?.owner.name.length > 12
+                ? "flex flex-col gap-2"
+                : "flex items-end gap-2"
+            }
+          >
             <h3 className="text-primary text-5xl font-bold">
               {resume.owner.name}
             </h3>

@@ -35,7 +35,7 @@ export function ResumeCareerItem({ item }: Props) {
             </div>
           </div>
         </div>
-        <div className="text-sm">{item.description}</div>
+        <div className="text-sm whitespace-pre-line">{item.description}</div>
       </div>
     </li>
   );

@@ -1,5 +1,4 @@
-import { ReadResumeQuery } from "@/shared";
-import { GraduationStatusMapper } from "@/shared/constant/common";
+import { ReadResumeQuery, GraduationStatusMapper } from "@/shared";
 
 interface Props {
   item: NonNullable<
@@ -32,12 +31,12 @@ export function ResumeEducationItem({ item }: Props) {
             </div>
           </div>
         </div>
-        {item.standardGrade !== "none" && item.standardGrade && (
+        {item.standardGrade && (
           <div className="flex items-baseline gap-2">
             <p className="text-muted-foreground">학점</p>
             <div className="bg-muted-foreground h-3 w-[1px]" />
             <p>
-              {item.grade} / {item.standardGrade ?? "N/A"}
+              {item.grade} / {item.standardGrade.toFixed(1) ?? "N/A"}
             </p>
           </div>
         )}

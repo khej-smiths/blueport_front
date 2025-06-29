@@ -8,7 +8,7 @@ interface Props {
 
 export function ResumeProjectItem({ item }: Props) {
   return (
-    <li className="border-border flex rounded-lg border p-4">
+    <li className="border-border flex w-full rounded-lg border p-4">
       <div className="flex flex-col gap-2">
         <p className="text-2xl font-thin">{item.name}</p>
         <div className="flex items-baseline gap-2">
@@ -20,12 +20,12 @@ export function ResumeProjectItem({ item }: Props) {
           <div className="bg-muted-foreground h-3 w-[1px]" />
           <p className="text-muted-foreground">{item.personnel}명</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           {item.skillList?.map((skill) => (
             <Hashtag key={skill} hashtag={skill} />
           ))}
         </div>
-        <div className="text-sm">{item.description}</div>
+        <div className="text-sm whitespace-pre-line">{item.description}</div>
       </div>
     </li>
   );
