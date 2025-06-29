@@ -6,6 +6,7 @@ import {
   useResponsive,
 } from "@/shared";
 import { Link } from "react-router";
+import { useState } from "react";
 
 interface Props {
   right?: boolean;
@@ -14,6 +15,8 @@ interface Props {
 
 export function LandingAbout({ right, blog }: Props) {
   const { isMobile } = useResponsive();
+  const [isValidImage, setIsValidImage] = useState(true);
+
   return (
     <>
       {isMobile ? (
@@ -23,7 +26,16 @@ export function LandingAbout({ right, blog }: Props) {
             aria-label="about-section"
             className="group flex flex-col gap-0 overflow-hidden rounded-lg border transition hover:shadow-lg"
           >
-            <DefaultProfile variant="default" />
+            {blog.photo && isValidImage ? (
+              <img
+                className="h-[376px] w-full object-cover"
+                src={blog.photo}
+                alt={blog.name}
+                onError={() => setIsValidImage(false)}
+              />
+            ) : (
+              <DefaultProfile variant="default" />
+            )}
             <div className="flex flex-col gap-4 px-2 py-4">
               <h2 className="text-primary line-clamp-3 text-2xl font-bold not-lg:text-xl">
                 {blog.greeting}
@@ -58,8 +70,17 @@ export function LandingAbout({ right, blog }: Props) {
             right && "flex-row-reverse"
           )}
         >
-          <div className="relative h-64 w-full flex-shrink-0 md:h-auto md:w-[480px]">
-            <DefaultProfile variant="default" />
+          <div className="relative h-[376px] w-full flex-shrink-0 md:h-auto md:w-[480px]">
+            {blog.photo && isValidImage ? (
+              <img
+                className="h-[376px] w-full object-cover"
+                src={blog.photo}
+                alt={blog.name}
+                onError={() => setIsValidImage(false)}
+              />
+            ) : (
+              <DefaultProfile variant="default" />
+            )}
           </div>
 
           <div className="flex flex-grow flex-col justify-between gap-8 p-6 md:p-8">

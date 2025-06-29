@@ -3,7 +3,7 @@ export interface BlogFormDto {
   domain: string;
   greeting: string;
   description: string;
-  photo?: File | null;
+  photo?: File | string | null;
   github?: string;
   email?: string;
   skills?: string[];

@@ -59,3 +59,4 @@ export * as HOOKS from "./api/hooks";
 export * as MUTATIONS from "./api/mutations";
 export * from "./api/open/hooks";
 export * as QUERIES from "./api/queries";
+export { instance, useAxiosInstance } from "./api/axios";

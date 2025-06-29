@@ -37,3 +37,12 @@ export function useUpdateBlog() {
 
   return useDebounceMutation(mutation);
 }
+
+export function useUploadProfileImage() {
+  return useMutation({
+    mutationFn: async (formData: FormData) => {
+      const res = await MUTATIONS.uploadProfileImage(formData);
+      return res.data;
+    },
+  });
+}

@@ -1,5 +1,5 @@
 import { ImageUp } from "lucide-react";
-import { Dispatch, DragEvent, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, DragEvent, SetStateAction } from "react";
 import { UseFormSetValue } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -35,6 +35,15 @@ export function FileUpload({ setValue, setPreview }: Props) {
     setPreview(image);
   };
 
+  const handleChangeFile = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (!file) return;
+
+    setValue("photo", file);
+    setPreview(URL.createObjectURL(file));
+  };
+
   return (
     <div
       className="h-full w-full rounded-lg border-2 border-dashed p-2 not-xl:h-12 not-xl:border-solid"
@@ -47,6 +56,7 @@ export function FileUpload({ setValue, setPreview }: Props) {
         id="file-upload"
         type="file"
         accept="image/jpg, image/jpeg, image/png"
+        onChange={handleChangeFile}
       />
       <label
         className="flex h-full w-full cursor-pointer items-center justify-center rounded-lg p-4 transition-colors hover:bg-gray-100"

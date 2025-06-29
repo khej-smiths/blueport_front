@@ -1,3 +1,4 @@
+import { instance as axiosInstance } from "@/shared";
 import {
   CreateBlogInputDto,
   CreateBlogMutation,
@@ -66,4 +67,14 @@ export async function createResume(input: CreateResumeInputDto) {
 /** 이력서 수정 */
 export async function updateResume(input: UpdateResumeInputDto) {
   return await instance(updateResumeMutation, { input });
+}
+
+/** 프로필 이미지 업로드 */
+export async function uploadProfileImage(formData: FormData) {
+  return await axiosInstance.post<string>("/upload/profile-image", formData);
+}
+
+/** 게시글 이미지 업로드 */
+export async function uploadPostImage(formData: FormData) {
+  return await axiosInstance.post<string>("/upload/post-image", formData);
 }
