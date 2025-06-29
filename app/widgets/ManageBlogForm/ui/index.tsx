@@ -21,9 +21,15 @@ import {
   useResponsive,
 } from "@/shared";
 
-import { useCreateBlog, useUpdateBlog } from "../api/mutation";
+import {
+  useCreateBlog,
+  useUpdateBlog,
+  useUploadProfileImage,
+} from "../api/mutation";
 import { useGetBlog } from "../api/query";
 import { useNavigate } from "react-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { blogSchema } from "../model/schema";
 
 export function ManageBlogForm() {
   const [skillKeyword, setSkillKeyword] = useState("");
@@ -45,13 +51,22 @@ export function ManageBlogForm() {
         description: "",
         skills: [],
       },
+      resolver: zodResolver(blogSchema),
     });
+
+  console.log(watch());
 
   const { data: user } = HOOKS.useSelf();
   const { data: blog } = useGetBlog(user?.id);
-  const { mutate: createBlog } = useCreateBlog();
-  const { mutate: updateBlog } = useUpdateBlog();
+  const { mutate: createBlog, isPending: createBlogPending } = useCreateBlog();
+  const { mutate: updateBlog, isPending: updateBlogPending } = useUpdateBlog();
+  const { mutate: uploadProfileImage, isPending: imageUploadPending } =
+    useUploadProfileImage();
 
+  const isLoading = useMemo(
+    () => createBlogPending || updateBlogPending || imageUploadPending,
+    [createBlogPending, updateBlogPending, imageUploadPending]
+  );
   const isModify = useMemo(() => (blog?.id ? true : false), [blog]);
 
   useEffect(() => {
@@ -65,20 +80,40 @@ export function ManageBlogForm() {
       github: blog.github ?? "",
       description: blog.introduction ?? "",
       skills: blog.skills ?? [],
+      photo: blog.photo ?? null,
     });
+    setPreview(blog.photo ?? "");
   }, [blog, reset]);
 
   const onSubmit = handleSubmit(
     async (data) => {
-      // FIXME: 임시처리 이미지 업로드 추가 후 링크로 넣어야 함
-      const photo = typeof data.photo === "string" ? data.photo : "";
+      if (typeof data.photo !== "string" && data.photo) {
+        // 이미지 업로드를 위한 FormData 생성
+        const formData = new FormData();
+        formData.append("file", data.photo);
+
+        // 이미지 업로드 완료 후 이미지 링크를 반환하는 비동기 작업
+        // 이 작업이 완료된 후 블로그 생성/수정 작업 진행
+        data.photo = await new Promise((resolve, reject) =>
+          uploadProfileImage(formData, {
+            onSuccess: (res) => {
+              resolve(res);
+            },
+            onError: (error) => {
+              const message = getErrorMessage(error);
+              toast.error(message);
+              reject(error);
+            },
+          })
+        );
+      }
 
       const body: CreateBlogInputDto = {
         domain: data.domain,
         greeting: data.greeting,
         introduction: data.description,
         name: data.blogName,
-        photo,
+        photo: data.photo as string,
         ...(data.skills && { skills: data.skills }),
         ...(data.email && { email: data.email }),
         ...(data.github && { github: data.github }),
@@ -176,7 +211,7 @@ export function ManageBlogForm() {
                 {preview ? (
                   <>
                     <img
-                      className="h-[376px] w-[480px] rounded-md object-cover not-xl:h-48 not-xl:w-full"
+                      className="h-[376px] w-[480px] rounded-md object-cover not-xl:w-full"
                       width={480}
                       height={376}
                       src={preview}
@@ -340,9 +375,13 @@ export function ManageBlogForm() {
         </div>
       </Container>
       {isMobile ? (
-        <MobileSubmitButton className="w-full">저장하기</MobileSubmitButton>
+        <MobileSubmitButton className="w-full" disabled={isLoading}>
+          {isLoading ? "잠시만 기다려 주세요" : "저장하기"}
+        </MobileSubmitButton>
       ) : (
-        <Button type="submit">저장하기</Button>
+        <Button type="submit" disabled={isLoading}>
+          {isLoading ? "잠시만 기다려 주세요" : "저장하기"}
+        </Button>
       )}
     </form>
   );

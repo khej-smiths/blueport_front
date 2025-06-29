@@ -9,7 +9,13 @@ import {
 } from "react-router";
 
 import "./app.css";
-import { Button, QueryProvider, ROUTE, Toaster } from "./shared";
+import {
+  Button,
+  QueryProvider,
+  ROUTE,
+  Toaster,
+  useAxiosInstance,
+} from "./shared";
 import { ClientLayoutBody } from "./widgets";
 import { Pre } from "./shared/ui/Pre";
 import { Code } from "./shared/ui/Code";
@@ -40,6 +46,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  useAxiosInstance();
+
   return (
     <QueryProvider>
       <Outlet />
