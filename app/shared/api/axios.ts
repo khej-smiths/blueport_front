@@ -8,8 +8,13 @@ import { useCallback } from "react";
 import { getErrorMessage } from "../lib/getErrorMessage";
 import { toast } from "sonner";
 
+const baseURL = (import.meta.env?.VITE_PUBLIC_API_ENDPOINT || "").replace(
+  "/graphql",
+  ""
+);
+
 export const instance: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_PUBLIC_API_ENDPOINT.replace("/graphql", ""),
+  baseURL,
   headers: {
     "Content-Type": "multipart/form-data",
   },
