@@ -54,7 +54,7 @@ export function LandingAbout({ right, blog }: Props) {
           role="article"
           aria-label="about-section"
           className={cn(
-            "group flex gap-0 overflow-hidden rounded-lg border transition hover:shadow-lg",
+            "group flex flex-row gap-0 overflow-hidden rounded-lg border transition hover:shadow-lg",
             right && "flex-row-reverse"
           )}
         >
