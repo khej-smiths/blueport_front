@@ -1,4 +1,10 @@
-import { DefaultProfile, Hashtag, Loading, ReadBlogQuery } from "@/shared";
+import {
+  DefaultProfile,
+  Hashtag,
+  Loading,
+  ReadBlogQuery,
+  useResponsive,
+} from "@/shared";
 
 import { ProfileLinks } from "./ProfileLinks";
 import { Suspense } from "react";
@@ -9,14 +15,25 @@ interface Props {
 
 /** 블로그 소개 섹션 */
 export function Profile({ blog }: Props) {
+  const { isMobile } = useResponsive();
   return (
     <Suspense fallback={<Loading />}>
       {blog && (
-        <section className="flex flex-col items-center gap-4">
-          <DefaultProfile variant="avatar" />
-          <h2 className="text-primary text-3xl font-bold">{blog.greeting}</h2>
-          <p className="text-gray-600">{blog.introduction}</p>
-          <div className="flex justify-center gap-4">
+        <section className="flex w-full max-w-2xl flex-col items-center gap-4">
+          {isMobile ? (
+            <div className="w-full overflow-hidden rounded-md">
+              <DefaultProfile variant="default" />
+            </div>
+          ) : (
+            <DefaultProfile variant="avatar" />
+          )}
+          <h2 className="text-primary text-center text-3xl font-bold not-xl:text-2xl">
+            {blog.greeting}
+          </h2>
+          <p className="text-center text-gray-600 not-xl:text-sm">
+            {blog.introduction}
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
             {blog.skills?.map((skill) => (
               <Hashtag key={skill} hashtag={skill} />
             ))}

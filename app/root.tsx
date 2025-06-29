@@ -65,12 +65,12 @@ export function ErrorBoundary({ error }: any) {
   }
 
   return (
-    <main className="flex min-h-dvh w-full flex-col items-center justify-center gap-4">
+    <main className="flex min-h-dvh w-full flex-col items-center justify-center gap-4 not-xl:p-4">
       <div className="flex flex-col items-center gap-4">
-        <h1 className="text-primary text-center text-9xl font-bold">
+        <h1 className="text-primary text-center text-9xl font-bold not-xl:text-6xl">
           {message}
         </h1>
-        <p className="text-2xl font-thin">{details}</p>
+        <p className="text-2xl font-thin not-xl:text-xl">{details}</p>
         <div className="flex flex-row gap-4">
           <Link to={ROUTE.HOME}>
             <Button>홈 화면으로 돌아가기</Button>
@@ -81,9 +81,11 @@ export function ErrorBoundary({ error }: any) {
         </div>
       </div>
       {stack && (
-        <Pre>
-          <Code>{stack}</Code>
-        </Pre>
+        <div className="not-xl:w-full">
+          <Pre>
+            <Code>{stack}</Code>
+          </Pre>
+        </div>
       )}
     </main>
   );

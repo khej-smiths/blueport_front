@@ -1,26 +1,31 @@
-import { Hashtag } from "@/shared";
+import { Hashtag, ReadResumeQuery } from "@/shared";
 
-export function ResumeProjectItem() {
-  const skillList = ["React", "Next.js", "TypeScript", "Tailwind CSS"];
+interface Props {
+  item: NonNullable<
+    NonNullable<ReadResumeQuery["readResume"]>["projectList"]
+  >[number];
+}
+
+export function ResumeProjectItem({ item }: Props) {
   return (
-    <li className="border-border flex rounded-lg border p-4">
+    <li className="border-border flex w-full rounded-lg border p-4">
       <div className="flex flex-col gap-2">
-        <p className="text-2xl font-thin">프로젝트명</p>
+        <p className="text-2xl font-thin">{item.name}</p>
         <div className="flex items-baseline gap-2">
           <div className="flex gap-2">
-            <p className="text-muted-foreground">시작일</p>
+            <p className="text-muted-foreground">{item.startAt}</p>
             <p className="text-muted-foreground">-</p>
-            <p className="text-muted-foreground">마감일</p>
+            <p className="text-muted-foreground">{item.endAt}</p>
           </div>
           <div className="bg-muted-foreground h-3 w-[1px]" />
-          <p className="text-muted-foreground">프로젝트 인원</p>
+          <p className="text-muted-foreground">{item.personnel}명</p>
         </div>
-        <div className="flex gap-2">
-          {skillList.map((skill) => (
+        <div className="flex flex-wrap gap-2">
+          {item.skillList?.map((skill) => (
             <Hashtag key={skill} hashtag={skill} />
           ))}
         </div>
-        <div className="text-sm">담당업무</div>
+        <div className="text-sm whitespace-pre-line">{item.description}</div>
       </div>
     </li>
   );

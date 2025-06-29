@@ -1,6 +1,6 @@
 import { LNBMenuItem } from "@/entities";
 
-import { menuTree } from "../model/tree";
+import { menuTree } from "@/shared";
 
 export function LNB() {
   return (

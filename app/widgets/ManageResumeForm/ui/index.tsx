@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
 
 import {
   Button,
@@ -9,9 +8,9 @@ import {
   getErrorMessage,
   Graduation_Status,
   HOOKS,
-  ROUTE,
+  MobileSubmitButton,
   UpdateResumeInputDto,
-  useAuthStore,
+  useResponsive,
 } from "@/shared";
 
 import { SectionTitle } from "../../SectionTitle";
@@ -33,6 +32,7 @@ import { toast } from "sonner";
 import { useCreateResume } from "../api/useCreateResume";
 import { useUpdateResume } from "../api/useUpdateResume";
 import { format } from "date-fns";
+import { stringDateToFromDate } from "@/shared/lib/stringDateToFromDate";
 
 const initEducation: EducationDto = {
   order: 0,
@@ -72,7 +72,7 @@ const initPortfolio: PortfolioDto = {
   url: "",
 };
 
-export function ResumeForm() {
+export function ManageResumeForm() {
   const { data: user } = HOOKS.useSelf();
   const { data: resume } = HOOKS.useGetResume(
     user
@@ -81,12 +81,15 @@ export function ResumeForm() {
         }
       : undefined
   );
-  const { mutate: createResume } = useCreateResume();
-  const { mutate: updateResume } = useUpdateResume();
+  const { mutate: createResume, isPending: isCreatePending } =
+    useCreateResume();
+  const { mutate: updateResume, isPending: isUpdatePending } =
+    useUpdateResume();
 
+  const { isMobile } = useResponsive();
   const isModify = !!resume;
 
-  const { control, watch, setValue, getValues, handleSubmit } =
+  const { control, watch, reset, setValue, getValues, handleSubmit } =
     useForm<ResumeFormDto>({
       defaultValues: {
         educationList: [initEducation],
@@ -133,22 +136,66 @@ export function ResumeForm() {
     control,
   });
 
-  const navigate = useNavigate();
-  const { accessToken } = useAuthStore();
-
   useEffect(() => {
-    if (!accessToken) {
-      navigate(ROUTE.LOGIN);
-    }
-  }, [accessToken, navigate]);
+    if (!resume) return;
+
+    reset({
+      ...(resume.educationList && {
+        educationList: resume.educationList.map((item) => ({
+          ...item,
+          graduationStatus:
+            (item.graduationStatus as Graduation_Status) ??
+            Graduation_Status.Graduated,
+          major: item.major ?? undefined,
+          grade: `${item.grade}`,
+          standardGrade: item.standardGrade
+            ? `${item.standardGrade.toFixed(1)}`
+            : "none",
+          startAt: stringDateToFromDate(item.startAt),
+          endAt: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
+        })),
+      }),
+      ...(resume.careerList && {
+        careerList: resume.careerList.map((item) => ({
+          ...item,
+          company: item.company ?? "",
+          department: item.department ?? "",
+          position: item.position ?? "",
+          description: item.description ?? "",
+          startAt: stringDateToFromDate(item.startAt),
+          endAt: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
+        })),
+      }),
+      ...(resume.projectList && {
+        projectList: resume.projectList.map((item) => ({
+          ...item,
+          personnel: `${item.personnel}`,
+          skillList: item.skillList ?? [],
+          description: item.description ?? "",
+          projectDate: {
+            start: stringDateToFromDate(item.startAt),
+            end: item.endAt ? stringDateToFromDate(item.endAt) : undefined,
+          },
+        })),
+      }),
+      ...(resume.portfolioList && {
+        portfolioList: resume.portfolioList.map((item) => ({
+          ...item,
+          url: item.url ?? "",
+        })),
+      }),
+    });
+  }, [resume]);
 
   const onSubmit = handleSubmit(
     (data) => {
       const body = {
         educationList: data.educationList.map((item) => ({
           ...item,
-          standardGrade: undefined, // TODO: 아직 필드 없음
-          // standardGrade: item.standardGrade === "none" ? undefined : parseFloat(item.standardGrade),
+          standardGrade:
+            item.standardGrade === "none"
+              ? undefined
+              : parseFloat(item.standardGrade),
           grade: item.grade === "none" ? undefined : parseFloat(item.grade),
           graduationStatus: item.graduationStatus as Graduation_Status,
           // 시작일은 모두 유효성 검사에서 null 체크 중
@@ -175,8 +222,6 @@ export function ResumeForm() {
           ...item,
         })),
       };
-
-      console.log(body);
 
       if (isModify) {
         updateResume(body as UpdateResumeInputDto);
@@ -220,7 +265,7 @@ export function ResumeForm() {
   return (
     <>
       <form
-        className="flex w-full max-w-[1328px] min-w-96 flex-col gap-6"
+        className="flex w-full max-w-[1328px] min-w-96 flex-col gap-6 not-xl:min-w-0"
         onSubmit={onSubmit}
       >
         <Container className="gap-4">
@@ -260,6 +305,7 @@ export function ResumeForm() {
                 key={item.id}
                 index={index}
                 control={control}
+                watch={watch}
                 setValue={setValue}
                 remove={handleRemoveItem}
               />
@@ -309,7 +355,22 @@ export function ResumeForm() {
             ))}
           </div>
         </Container>
-        <Button type="submit">저장하기</Button>
+        {isMobile ? (
+          <MobileSubmitButton
+            className="w-full"
+            disabled={isCreatePending || isUpdatePending}
+          >
+            {isCreatePending || isUpdatePending
+              ? "잠시만 기다려 주세요..."
+              : "저장하기"}
+          </MobileSubmitButton>
+        ) : (
+          <Button type="submit" disabled={isCreatePending || isUpdatePending}>
+            {isCreatePending || isUpdatePending
+              ? "잠시만 기다려 주세요..."
+              : "저장하기"}
+          </Button>
+        )}
       </form>
     </>
   );

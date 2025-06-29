@@ -2,7 +2,14 @@ import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import { Button, getErrorMessage, Input, ROUTE, useAuthStore } from "@/shared";
+import {
+  Button,
+  getErrorMessage,
+  Input,
+  ROUTE,
+  useAuthStore,
+  useResponsive,
+} from "@/shared";
 
 import { useLogin } from "../api/mutation";
 import { LoginFormDto } from "../model/type";
@@ -11,6 +18,7 @@ import { useNavigate } from "react-router";
 export function LoginForm() {
   const navigate = useNavigate();
   const { accessToken, setAccessToken } = useAuthStore();
+  const { isMobile } = useResponsive();
 
   const { control, handleSubmit } = useForm<LoginFormDto>({
     defaultValues: {
@@ -44,9 +52,14 @@ export function LoginForm() {
   );
 
   return (
-    <form className="flex items-center justify-center" onSubmit={onSubmit}>
-      <div className="flex w-[480px] flex-col gap-4">
-        <p className="text-2xl font-thin">당신만의 이야기를 시작해보세요</p>
+    <form
+      className="flex w-full items-center justify-center p-4"
+      onSubmit={onSubmit}
+    >
+      <div className="flex w-[480px] flex-col gap-4 max-md:w-full">
+        {!isMobile && (
+          <p className="text-2xl font-thin">당신만의 이야기를 시작해보세요</p>
+        )}
         <Controller
           control={control}
           name="email"
@@ -54,6 +67,7 @@ export function LoginForm() {
             <Input
               variant="underline"
               placeholder="이메일을 입력해 주세요"
+              inputMode="email"
               autoComplete="off"
               {...field}
             />
@@ -68,6 +82,7 @@ export function LoginForm() {
               type="password"
               placeholder="비밀번호를 입력해 주세요"
               autoComplete="off"
+              inputMode="text"
               {...field}
             />
           )}

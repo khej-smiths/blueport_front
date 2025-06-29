@@ -55,11 +55,9 @@ export function SignupDialog({ setOpen }: Props) {
     );
   });
 
-  console.log(watch());
-
   return (
     <AlertDialogContent
-      className="w-full !max-w-96"
+      className="w-full !max-w-96 max-md:!max-w-10/12"
       aria-describedby="signup-dialog-content"
     >
       <form onSubmit={onSubmit} className="flex flex-col gap-8">

@@ -1,5 +1,5 @@
-import { HorizontalPostCard } from "@/entities";
-import { Loading, Sort_Option } from "@/shared";
+import { HorizontalPostCard, VerticalPostCard } from "@/entities";
+import { Loading, Sort_Option, useResponsive } from "@/shared";
 import { HOOKS } from "@/shared";
 import { Suspense } from "react";
 
@@ -9,6 +9,8 @@ export function PopularPostList() {
     limit: 10,
     pageNumber: 1,
   });
+
+  const { isMobile } = useResponsive();
 
   if (popularPostList === undefined) return null;
 
@@ -22,7 +24,13 @@ export function PopularPostList() {
       <ul className="flex flex-col gap-5">
         <Suspense fallback={<Loading />}>
           {popularPostList.map((post) => (
-            <HorizontalPostCard key={post.id} post={post} />
+            <>
+              {isMobile ? (
+                <VerticalPostCard key={post.id} post={post} />
+              ) : (
+                <HorizontalPostCard key={post.id} post={post} />
+              )}
+            </>
           ))}
         </Suspense>
       </ul>

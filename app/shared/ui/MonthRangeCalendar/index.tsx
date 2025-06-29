@@ -98,7 +98,13 @@ function MonthRangeCalendar({
   ...props
 }: React.HTMLAttributes<HTMLDivElement> & MonthRangeCalProps) {
   return (
-    <div className={cn("min-w-[400px] p-3", className)} {...props}>
+    <div
+      className={cn(
+        "min-w-[400px] p-3 not-xl:w-full not-xl:min-w-0 not-xl:p-1",
+        className
+      )}
+      {...props}
+    >
       <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4">
         <div className="w-full">
           <MonthRangeCal
@@ -149,7 +155,7 @@ function MonthRangeCal({
 
   return (
     <div className="flex gap-4">
-      <div className="min-w-[400px] space-y-4">
+      <div className="min-w-[400px] space-y-4 not-xl:w-full not-xl:min-w-0">
         <div className="relative flex items-center justify-evenly pt-1">
           <div className="text-sm font-medium">
             {callbacks?.yearLabel ? callbacks?.yearLabel(menuYear) : menuYear}
@@ -162,7 +168,7 @@ function MonthRangeCal({
               }}
               className={cn(
                 buttonVariants({ variant: variant?.chevrons ?? "outline" }),
-                "absolute left-1 inline-flex h-7 w-7 items-center justify-center p-0"
+                "absolute left-1 inline-flex h-7 w-7 items-center justify-center p-0 not-xl:h-5 not-xl:w-5"
               )}
             >
               <ChevronLeft className="h-4 w-4 opacity-50" />
@@ -174,7 +180,7 @@ function MonthRangeCal({
               }}
               className={cn(
                 buttonVariants({ variant: variant?.chevrons ?? "outline" }),
-                "absolute right-1 inline-flex h-7 w-7 items-center justify-center p-0"
+                "absolute right-1 inline-flex h-7 w-7 items-center justify-center p-0 not-xl:h-5 not-xl:w-5"
               )}
             >
               <ChevronRight className="h-4 w-4 opacity-50" />
@@ -199,7 +205,7 @@ function MonthRangeCal({
                           cn(
                             cn(
                               cn(
-                                "[&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 relative h-10 w-1/4 p-0 text-center text-sm focus-within:relative focus-within:z-20 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md",
+                                "[&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-outside)]:bg-accent/50 relative h-10 w-1/4 p-0 text-center text-sm not-xl:h-8 not-xl:w-9 focus-within:relative focus-within:z-20 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md [&:has([aria-selected].day-range-end)]:rounded-r-md",
                                 (menuYear + m.yearOffset > startYear ||
                                   (menuYear + m.yearOffset == startYear &&
                                     m.number > startMonth)) &&
@@ -305,7 +311,7 @@ function MonthRangeCal({
                                   ? (variant?.calendar?.selected ?? "default")
                                   : (variant?.calendar?.main ?? "ghost"),
                             }),
-                            "h-full w-full p-0 font-normal aria-selected:opacity-100"
+                            "h-full w-full p-0 font-normal not-xl:text-sm aria-selected:opacity-100"
                           )}
                         >
                           {callbacks?.monthLabel

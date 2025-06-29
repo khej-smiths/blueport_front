@@ -10,7 +10,7 @@ export function SectionTitle({ title, onClick, hideButton = false }: Props) {
   return (
     <div className="flex w-full flex-row items-center justify-between border-b pb-3">
       <h2
-        className="text-h2 font-bold text-primary"
+        className="text-h2 text-primary font-bold not-xl:text-xl"
         aria-label="section-heading"
       >
         {title}

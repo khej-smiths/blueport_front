@@ -15,7 +15,7 @@ interface Props {
 export function CreateBlogDialog({ open, setOpen, userName }: Props) {
   return (
     <AlertDialog open={open}>
-      <AlertDialogContent className="w-full !max-w-96">
+      <AlertDialogContent className="w-full !max-w-96 max-md:!max-w-10/12">
         <Header />
         <Content userName={userName} />
         <Footer setOpen={setOpen} />

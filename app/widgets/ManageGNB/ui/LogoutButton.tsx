@@ -1,14 +1,12 @@
-import { useNavigate } from "react-router";
-
-import { Button, ROUTE, useAuthStore } from "@/shared";
+import { Button, ROOT_KEY, useAuthStore, useInvalidateQueries } from "@/shared";
 
 export function LogoutButton() {
-  const navigate = useNavigate();
   const { logout } = useAuthStore();
+  const { invalidateQueries } = useInvalidateQueries();
 
   const handleLogout = () => {
     logout();
-    navigate(ROUTE.HOME);
+    invalidateQueries(ROOT_KEY.user);
   };
 
   return <Button onClick={handleLogout}>로그아웃</Button>;

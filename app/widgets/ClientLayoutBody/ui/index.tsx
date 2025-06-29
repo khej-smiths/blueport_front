@@ -1,7 +1,13 @@
 import { Plus } from "lucide-react";
 
 import { EditorDemoDialog, FloatingButton } from "@/features";
-import { AlertDialog, AlertDialogTrigger, ROUTE, useAuthStore } from "@/shared";
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  ROUTE,
+  useAuthStore,
+  useResponsive,
+} from "@/shared";
 
 import { Footer } from "../../Footer";
 import { useLocation, useNavigate } from "react-router";
@@ -9,22 +15,25 @@ import { useLocation, useNavigate } from "react-router";
 export function ClientLayoutBody() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { isMobile } = useResponsive();
 
   const disableButtonPageList = ["/editor", "/login"];
 
   const isEditor = location.pathname.includes("/editor");
   const isDisableButtonPage = disableButtonPageList.includes(location.pathname);
+  const isMobileLogin = location.pathname.includes("/login") && isMobile;
+  const isMobileManage = location.pathname.includes("/manage") && isMobile;
 
   const { accessToken } = useAuthStore();
 
   return (
     <>
-      {!isEditor && <Footer />}
+      {!isEditor && !isMobileLogin && <Footer />}
       {!isDisableButtonPage && (
         <>
           {accessToken ? (
             <FloatingButton
-              position="bottom-10 right-10"
+              position={`bottom-10 right-10 ${isMobileManage ? "bottom-16" : ""}`}
               icon={<Plus className="h-6 w-6" />}
               onClick={() => {
                 navigate(ROUTE.EDITOR);

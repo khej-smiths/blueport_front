@@ -24,7 +24,7 @@ export function Toolbar({ editorView }: Props) {
   return (
     <div
       id="editor_toolbar"
-      className="sticky top-0 flex w-full flex-wrap items-center"
+      className="sticky top-0 flex w-full flex-wrap items-center not-xl:gap-0.5 not-xl:px-2"
     >
       <ToolbarItem
         icon={<Heading level={"1"} />}

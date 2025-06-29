@@ -35,7 +35,7 @@ export function VerticalPostCard({ post }: Props) {
           <span className="text-sm text-gray-500">{createdAt}</span>
           <span className="text-sm text-gray-500">• {owner}</span>
         </div>
-        <h3 className="group-hover:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
+        <h3 className="group-hover:text-primary not-xl:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
           {title}
         </h3>
         <p className="mb-4 line-clamp-2 max-w-11/12 text-sm text-ellipsis whitespace-nowrap text-gray-600">

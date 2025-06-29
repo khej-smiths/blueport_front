@@ -18,6 +18,7 @@ interface Props {
     end: Date | null;
   };
   setRangeDate?: ({ start, end }: { start: Date; end: Date }) => void;
+  placeholder?: string;
 }
 
 export function MonthPicker({
@@ -26,6 +27,7 @@ export function MonthPicker({
   range,
   rangeDate,
   setRangeDate,
+  placeholder,
 }: Props) {
   return (
     <Popover>
@@ -33,7 +35,7 @@ export function MonthPicker({
         <Button
           variant="outline"
           className={cn(
-            "w-fit justify-start text-left font-normal",
+            "w-fit justify-start text-left font-normal not-xl:w-full",
             !date && "text-muted-foreground"
           )}
         >
@@ -42,12 +44,12 @@ export function MonthPicker({
             rangeDate && rangeDate.start && rangeDate.end ? (
               `${format(rangeDate.start, "yyyy.MM", { locale: ko })} ~ ${format(rangeDate.end, "yyyy.MM", { locale: ko })}`
             ) : (
-              <span>날짜를 입력해 주세요</span>
+              <span>{placeholder ? placeholder : "날짜를 입력해 주세요"}</span>
             )
           ) : date ? (
             format(date, "yyyy.MM", { locale: ko })
           ) : (
-            <span>날짜를 선택해 주세요.</span>
+            <span>{placeholder ? placeholder : "날짜를 선택해 주세요"}</span>
           )}
         </Button>
       </PopoverTrigger>

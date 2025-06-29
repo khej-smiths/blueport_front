@@ -7,11 +7,16 @@ interface Props {
 
 export function Footer({ setOpen, isPending }: Props) {
   return (
-    <div className="flex justify-end gap-2">
-      <Button variant="outline" type="button" onClick={() => setOpen(false)}>
+    <div className="flex justify-end gap-2 not-xl:w-full">
+      <Button
+        variant="outline"
+        type="button"
+        onClick={() => setOpen(false)}
+        className="not-xl:w-full"
+      >
         닫기
       </Button>
-      <Button type="submit" disabled={isPending}>
+      <Button className="not-xl:w-full" type="submit" disabled={isPending}>
         회원가입
       </Button>
     </div>

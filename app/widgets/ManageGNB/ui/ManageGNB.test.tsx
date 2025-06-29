@@ -12,14 +12,20 @@ vi.mock("react-router", async () => {
 
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { ManageGNB } from ".";
 
 describe("ManageGNB | ", () => {
   it("렌더링이 정상적으로 이루어져야 합니다", () => {
+    const queryClient = new QueryClient({
+      defaultOptions: { queries: { retry: false } },
+    });
     render(
       <MemoryRouter>
-        <ManageGNB />
+        <QueryClientProvider client={queryClient}>
+          <ManageGNB />
+        </QueryClientProvider>
       </MemoryRouter>
     );
     expect(screen.getByTestId("ManageGNB")).toBeInTheDocument();
