@@ -54,26 +54,18 @@ export type Career = {
   __typename?: 'Career';
   /** 회사 */
   company?: Maybe<Scalars['String']['output']>;
-  /** 데이터의 생성 날짜 */
-  createdAt: Scalars['DateTime']['output'];
-  /** 데이터의 삭제 날짜(soft) */
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
   /** 부서 */
   department?: Maybe<Scalars['String']['output']>;
   /** 업무 내용 */
   description?: Maybe<Scalars['String']['output']>;
   /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
   endAt?: Maybe<Scalars['String']['output']>;
-  /** id */
-  id: Scalars['String']['output'];
   /** 정렬 순서 */
   order: Scalars['Int']['output'];
   /** 직급 */
   position?: Maybe<Scalars['String']['output']>;
   /** 시작날짜. 날짜의 형태: yyyy.MM */
   startAt: Scalars['String']['output'];
-  /** 데이터의 업데이트 날짜 */
-  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type CreateBlogInputDto = {
@@ -191,18 +183,12 @@ export type DeletePostInputDto = {
 
 export type Education = {
   __typename?: 'Education';
-  /** 데이터의 생성 날짜 */
-  createdAt: Scalars['DateTime']['output'];
-  /** 데이터의 삭제 날짜(soft) */
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
   /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
   endAt?: Maybe<Scalars['String']['output']>;
   /** 학점 */
   grade?: Maybe<Scalars['Float']['output']>;
   /** 졸업 상태 */
   graduationStatus?: Maybe<Graduation_Status>;
-  /** id */
-  id: Scalars['String']['output'];
   /** 전공 */
   major?: Maybe<Scalars['String']['output']>;
   /** 교육기관명 */
@@ -213,8 +199,6 @@ export type Education = {
   standardGrade?: Maybe<Scalars['Float']['output']>;
   /** 시작날짜. 날짜의 형태: yyyy.MM */
   startAt: Scalars['String']['output'];
-  /** 데이터의 업데이트 날짜 */
-  updatedAt: Scalars['DateTime']['output'];
 };
 
 /** 졸업 조건 */
@@ -303,16 +287,8 @@ export type MutationUpdateUserArgs = {
 
 export type Portfolio = {
   __typename?: 'Portfolio';
-  /** 데이터의 생성 날짜 */
-  createdAt: Scalars['DateTime']['output'];
-  /** 데이터의 삭제 날짜(soft) */
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
-  /** id */
-  id: Scalars['String']['output'];
   /** 정렬 순서 */
   order: Scalars['Int']['output'];
-  /** 데이터의 업데이트 날짜 */
-  updatedAt: Scalars['DateTime']['output'];
   /** 포트폴리오 url */
   url: Scalars['String']['output'];
 };
@@ -341,16 +317,10 @@ export type Post = {
 
 export type Project = {
   __typename?: 'Project';
-  /** 데이터의 생성 날짜 */
-  createdAt: Scalars['DateTime']['output'];
-  /** 데이터의 삭제 날짜(soft) */
-  deletedAt?: Maybe<Scalars['DateTime']['output']>;
   /** 설명 */
   description?: Maybe<Scalars['String']['output']>;
   /** 끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM */
   endAt?: Maybe<Scalars['String']['output']>;
-  /** id */
-  id: Scalars['String']['output'];
   /** 프로젝트 명 */
   name: Scalars['String']['output'];
   /** 정렬 순서 */
@@ -361,8 +331,6 @@ export type Project = {
   skillList?: Maybe<Array<Scalars['String']['output']>>;
   /** 시작날짜. 날짜의 형태: yyyy.MM */
   startAt: Scalars['String']['output'];
-  /** 데이터의 업데이트 날짜 */
-  updatedAt: Scalars['DateTime']['output'];
 };
 
 export type Query = {
@@ -372,6 +340,8 @@ export type Query = {
   readBlog: Blog;
   /** 블로그 목록 조회 */
   readBlogList: Array<Blog>;
+  /** 게시글의 해시태그 목록 전달하기 */
+  readHashtagList: Array<Scalars['String']['output']>;
   /** 게시글 조회하기 */
   readPost: Post;
   /** 게시글 목록 조회하기 */
@@ -436,6 +406,8 @@ export type ReadPostInputDto = {
 export type ReadPostListInputDto = {
   /** 조회할 블로그의 id, 없는 경우 전체 게시글을 기준으로 조회된다. */
   blogId?: InputMaybe<Scalars['String']['input']>;
+  /** 게시글의 해시태그 */
+  hashtagList?: InputMaybe<Array<Scalars['String']['input']>>;
   /** 페이지 당 자료의 개수 */
   limit?: Scalars['Int']['input'];
   /** 페이지 번호 */
@@ -699,7 +671,7 @@ export type ReadPostQueryVariables = Exact<{
 }>;
 
 
-export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string } } };
+export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, viewCount: number, owner: { __typename?: 'User', id: string, name: string } } };
 
 export type ReadPostListQueryVariables = Exact<{
   input: ReadPostListInputDto;
@@ -713,7 +685,7 @@ export type ReadResumeQueryVariables = Exact<{
 }>;
 
 
-export type ReadResumeQuery = { __typename?: 'Query', readResume?: { __typename?: 'Resume', id: string, owner: { __typename?: 'User', name: string, email: string }, educationList?: Array<{ __typename?: 'Education', id: string, order: number, name: string, major?: string | null, grade?: number | null, standardGrade?: number | null, graduationStatus?: Graduation_Status | null, startAt: string, endAt?: string | null }> | null, careerList?: Array<{ __typename?: 'Career', id: string, order: number, company?: string | null, department?: string | null, position?: string | null, description?: string | null, startAt: string, endAt?: string | null }> | null, projectList?: Array<{ __typename?: 'Project', id: string, order: number, name: string, personnel?: number | null, skillList?: Array<string> | null, description?: string | null, startAt: string, endAt?: string | null }> | null, portfolioList?: Array<{ __typename?: 'Portfolio', id: string, order: number, url: string }> | null } | null };
+export type ReadResumeQuery = { __typename?: 'Query', readResume?: { __typename?: 'Resume', id: string, owner: { __typename?: 'User', name: string, email: string }, educationList?: Array<{ __typename?: 'Education', order: number, name: string, major?: string | null, grade?: number | null, standardGrade?: number | null, graduationStatus?: Graduation_Status | null, startAt: string, endAt?: string | null }> | null, careerList?: Array<{ __typename?: 'Career', order: number, company?: string | null, department?: string | null, position?: string | null, description?: string | null, startAt: string, endAt?: string | null }> | null, projectList?: Array<{ __typename?: 'Project', order: number, name: string, personnel?: number | null, skillList?: Array<string> | null, description?: string | null, startAt: string, endAt?: string | null }> | null, portfolioList?: Array<{ __typename?: 'Portfolio', order: number, url: string }> | null } | null };
 
 export type ReadUserQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -878,6 +850,7 @@ export const ReadPostDocument = new TypedDocumentString(`
     content
     hashtagList
     createdAt
+    viewCount
     owner {
       id
       name
@@ -914,7 +887,6 @@ export const ReadResumeDocument = new TypedDocumentString(`
       email
     }
     educationList {
-      id
       order
       name
       major
@@ -925,7 +897,6 @@ export const ReadResumeDocument = new TypedDocumentString(`
       endAt
     }
     careerList {
-      id
       order
       company
       department
@@ -935,7 +906,6 @@ export const ReadResumeDocument = new TypedDocumentString(`
       endAt
     }
     projectList {
-      id
       order
       name
       personnel
@@ -945,7 +915,6 @@ export const ReadResumeDocument = new TypedDocumentString(`
       endAt
     }
     portfolioList {
-      id
       order
       url
     }

@@ -8,6 +8,7 @@ export const readPostQuery = graphql(`
       content
       hashtagList
       createdAt
+      viewCount
       owner {
         id
         name

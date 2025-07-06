@@ -37,26 +37,18 @@ type Blog {
 type Career {
   """회사"""
   company: String
-  """데이터의 생성 날짜"""
-  createdAt: DateTime!
-  """데이터의 삭제 날짜(soft)"""
-  deletedAt: DateTime
   """부서"""
   department: String
   """업무 내용"""
   description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
-  """id"""
-  id: String!
   """정렬 순서"""
   order: Int!
   """직급"""
   position: String
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
-  """데이터의 업데이트 날짜"""
-  updatedAt: DateTime!
 }
 
 input CreateBlogInputDto {
@@ -178,18 +170,12 @@ input DeletePostInputDto {
 }
 
 type Education {
-  """데이터의 생성 날짜"""
-  createdAt: DateTime!
-  """데이터의 삭제 날짜(soft)"""
-  deletedAt: DateTime
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
   """학점"""
   grade: Float
   """졸업 상태"""
   graduationStatus: GRADUATION_STATUS
-  """id"""
-  id: String!
   """전공"""
   major: String
   """교육기관명"""
@@ -200,8 +186,6 @@ type Education {
   standardGrade: Float
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
-  """데이터의 업데이트 날짜"""
-  updatedAt: DateTime!
 }
 
 """졸업 조건"""
@@ -243,16 +227,8 @@ type Mutation {
 }
 
 type Portfolio {
-  """데이터의 생성 날짜"""
-  createdAt: DateTime!
-  """데이터의 삭제 날짜(soft)"""
-  deletedAt: DateTime
-  """id"""
-  id: String!
   """정렬 순서"""
   order: Int!
-  """데이터의 업데이트 날짜"""
-  updatedAt: DateTime!
   """포트폴리오 url"""
   url: String!
 }
@@ -279,16 +255,10 @@ type Post {
 }
 
 type Project {
-  """데이터의 생성 날짜"""
-  createdAt: DateTime!
-  """데이터의 삭제 날짜(soft)"""
-  deletedAt: DateTime
   """설명"""
   description: String
   """끝난 날짜. 없는 경우 현재 진행중. 날짜의 형태: yyyy.MM"""
   endAt: String
-  """id"""
-  id: String!
   """프로젝트 명"""
   name: String!
   """정렬 순서"""
@@ -299,8 +269,6 @@ type Project {
   skillList: [String!]
   """시작날짜. 날짜의 형태: yyyy.MM"""
   startAt: String!
-  """데이터의 업데이트 날짜"""
-  updatedAt: DateTime!
 }
 
 type Query {
@@ -309,6 +277,8 @@ type Query {
   readBlog(input: ReadBlogInputDto!): Blog!
   """블로그 목록 조회"""
   readBlogList(input: ReadBlogListInputDto!): [Blog!]!
+  """게시글의 해시태그 목록 전달하기"""
+  readHashtagList: [String!]!
   """게시글 조회하기"""
   readPost(input: ReadPostInputDto!): Post!
   """게시글 목록 조회하기"""
@@ -343,6 +313,8 @@ input ReadPostInputDto {
 input ReadPostListInputDto {
   """조회할 블로그의 id, 없는 경우 전체 게시글을 기준으로 조회된다."""
   blogId: String
+  """게시글의 해시태그"""
+  hashtagList: [String!]
   """페이지 당 자료의 개수"""
   limit: Int! = 10
   """페이지 번호"""
