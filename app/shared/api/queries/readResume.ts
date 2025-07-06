@@ -9,7 +9,6 @@ export const readResumeQuery = graphql(`
         email
       }
       educationList {
-        id
         order
         name
         major
@@ -20,7 +19,6 @@ export const readResumeQuery = graphql(`
         endAt
       }
       careerList {
-        id
         order
         company
         department
@@ -30,7 +28,6 @@ export const readResumeQuery = graphql(`
         endAt
       }
       projectList {
-        id
         order
         name
         personnel
@@ -40,7 +37,6 @@ export const readResumeQuery = graphql(`
         endAt
       }
       portfolioList {
-        id
         order
         url
       }
