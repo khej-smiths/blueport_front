@@ -1,5 +1,6 @@
 import { EditorView } from "@codemirror/view";
-import { afterEach,beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { instance } from "../../api/axios";
 
 import { imageUpload } from ".";
 
@@ -19,44 +20,52 @@ describe("imageUpload", () => {
       dispatch: vi.fn(),
     } as unknown as EditorView;
 
-    // fetch 전역 모킹
-    global.fetch = vi.fn();
+    // axios 인스턴스 모킹
+    vi.spyOn(instance, "post").mockResolvedValue(undefined as never);
   });
 
   afterEach(() => {
-    vi.clearAllMocks();
+    vi.restoreAllMocks();
   });
 
   it("이미지 업로드 성공 시 마크다운 문법이 삽입되어야 합니다", async () => {
     const mockFile = new File(["test"], "test.png", { type: "image/png" });
     const mockImageUrl = "https://example.com/image.png";
 
-    (global.fetch as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
-      json: () => Promise.resolve({ imageUrl: mockImageUrl }),
+    (instance.post as ReturnType<typeof vi.fn>).mockResolvedValueOnce({
+      data: mockImageUrl,
     });
 
     await imageUpload(mockFile, mockEditorView);
 
     // FormData가 올바르게 생성되었는지 확인
-    expect(global.fetch).toHaveBeenCalledWith("/api", {
-      method: "POST",
-      body: expect.any(FormData),
-    });
+    expect(instance.post).toHaveBeenCalledWith(
+      "/upload/post-image",
+      expect.any(FormData)
+    );
 
     // 에디터에 마크다운 문법이 삽입되었는지 확인
-    expect(mockEditorView.dispatch).toHaveBeenCalledWith({
-      changes: {
-        from: 0,
-        insert: `![이미지 설명](${mockImageUrl})`,
-      },
-    });
+    expect(mockEditorView.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        changes: {
+          from: 0,
+          insert: `![이미지 설명](${mockImageUrl})`,
+        },
+        selection: expect.any(Object),
+      })
+    );
+
+    const selection = (mockEditorView.dispatch as ReturnType<typeof vi.fn>).mock
+      .calls[0][0].selection;
+    expect(selection.from).toBe(2);
+    expect(selection.to).toBe(8);
   });
 
   it("이미지 업로드 실패 시 에러 메시지가 삽입되어야 합니다", async () => {
     const mockFile = new File(["test"], "test.png", { type: "image/png" });
     const consoleErrorSpy = vi.spyOn(console, "error");
 
-    (global.fetch as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
+    (instance.post as ReturnType<typeof vi.fn>).mockRejectedValueOnce(
       new Error("Upload failed")
     );
 
@@ -68,13 +77,27 @@ describe("imageUpload", () => {
       expect.any(Error)
     );
 
+    // FormData가 올바르게 생성되었는지 확인
+    expect(instance.post).toHaveBeenCalledWith(
+      "/upload/post-image",
+      expect.any(FormData)
+    );
+
     // 에디터에 에러 메시지가 삽입되었는지 확인
-    expect(mockEditorView.dispatch).toHaveBeenCalledWith({
-      changes: {
-        from: 0,
-        insert: "![이미지 업로드에 실패했습니다]()",
-      },
-    });
+    expect(mockEditorView.dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        changes: {
+          from: 0,
+          insert: "![이미지 업로드에 실패했습니다]()",
+        },
+        selection: expect.any(Object),
+      })
+    );
+
+    const selection = (mockEditorView.dispatch as ReturnType<typeof vi.fn>).mock
+      .calls[0][0].selection;
+    expect(selection.from).toBe(2);
+    expect(selection.to).toBe(17);
 
     consoleErrorSpy.mockRestore();
   });
