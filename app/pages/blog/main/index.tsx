@@ -11,11 +11,13 @@ import { Profile } from "@/widgets";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useGetPostListByBlogId } from "../api/useGetPostListByBlogId";
+import { useGetHashtagList } from "../api/useGetHashtagList";
 
 export default function Blog() {
   const [postList, setPostList] = useState<ReadPostListQuery["readPostList"]>(
     []
   );
+  const [selectedHashtag, setSelectedHashtag] = useState<string[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLast, setIsLast] = useState(false);
   const { domain } = useParams();
@@ -30,6 +32,9 @@ export default function Blog() {
     pageNumber: 1,
   });
 
+  // 해시태그 목록 조회
+  const { data: hashtagList } = useGetHashtagList();
+
   // 전체 게시글 조회
   const {
     data: postListData,
@@ -39,6 +44,7 @@ export default function Blog() {
     blogId: blog?.id,
     limit: 10,
     pageNumber,
+    hashtagList: selectedHashtag.length > 0 ? selectedHashtag : undefined,
   });
 
   const observer = useRef<IntersectionObserver | null>(null);
@@ -51,6 +57,12 @@ export default function Blog() {
     setPostList((prev) => [...prev, ...postListData]);
     setIsLast(postListData.length === 0);
   }, [postListData, blog]);
+
+  useEffect(() => {
+    setPostList([]);
+    setPageNumber(1);
+    setIsLast(false);
+  }, [selectedHashtag]);
 
   const loadingElement = useCallback(
     (node: HTMLDivElement | null) => {
@@ -67,6 +79,20 @@ export default function Blog() {
     },
     [loading, isLast]
   );
+
+  const handleSelectHashtag = (hashtag: string) => {
+    if (selectedHashtag.includes(hashtag)) {
+      setSelectedHashtag(selectedHashtag.filter((h) => h !== hashtag));
+    } else {
+      setSelectedHashtag([...selectedHashtag, hashtag]);
+    }
+  };
+
+  const handleSelectAllHashtag = () => {
+    if (selectedHashtag.length === 0) return;
+
+    setSelectedHashtag([]);
+  };
 
   if (blog === undefined) return null;
 
@@ -103,34 +129,18 @@ export default function Blog() {
             해시태그
           </h3>
           <div className="flex flex-wrap gap-x-2 gap-y-4">
-            <Hashtag key="all" hashtag="전체" total={12} />
-            {[
-              "Frontend",
-              "Backend",
-              "DevOps",
-              "Algorithm",
-              "Database",
-              "Security",
-              "Mobile",
-              "Cloud",
-              "Frontend2",
-              "Backend2",
-              "DevOps2",
-              "Algorithm2",
-              "Database2",
-              "Security2",
-              "Mobile2",
-              "Cloud2",
-              "Frontend3",
-              "Backend3",
-              "DevOps3",
-              "Algorithm3",
-              "Database3",
-              "Security3",
-              "Mobile3",
-              "Cloud3",
-            ].map((hashtag) => (
-              <Hashtag key={hashtag} hashtag={hashtag} total={12} />
+            <Hashtag
+              key="all"
+              hashtag="전체"
+              onClick={handleSelectAllHashtag}
+            />
+            {hashtagList?.map((hashtag) => (
+              <Hashtag
+                key={hashtag}
+                hashtag={hashtag}
+                onClick={() => handleSelectHashtag(hashtag)}
+                isSelected={selectedHashtag.includes(hashtag)}
+              />
             ))}
           </div>
         </section>

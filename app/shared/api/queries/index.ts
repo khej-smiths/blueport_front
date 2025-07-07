@@ -5,6 +5,7 @@ import {
   ReadBlogListInputDto,
   ReadBlogListQuery,
   ReadBlogQuery,
+  ReadHashtagListQuery,
   ReadPostInputDto,
   ReadPostListInputDto,
   ReadPostListQuery,
@@ -21,6 +22,7 @@ import { readPostQuery } from "./readPost";
 import { readPostListQuery } from "./readPostList";
 import { readUserQuery } from "./readUser";
 import { readResumeQuery } from "./readResume";
+import { readHashtagListQuery } from "./readHashtagList";
 
 /** 로그인 */
 export async function login(input: LoginInputDto) {
@@ -57,4 +59,9 @@ export async function readBlogList(input: ReadBlogListInputDto) {
 /** 이력서 조회 */
 export async function readResume(input: ReadResumeInputDto) {
   return await instance<ReadResumeQuery>(readResumeQuery, { input });
+}
+
+/** 해시태그 목록 조회 */
+export async function readHashtagList() {
+  return await instance<ReadHashtagListQuery>(readHashtagListQuery);
 }
