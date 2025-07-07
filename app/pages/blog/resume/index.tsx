@@ -10,11 +10,15 @@ import { useParams } from "react-router";
 
 export default function Resume() {
   const { resumeId } = useParams();
-  const { data: resume } = HOOKS.useGetResume({
-    id: resumeId,
-  });
+  const { data: resume } = HOOKS.useGetResume(
+    resumeId
+      ? {
+          id: resumeId,
+        }
+      : undefined
+  );
 
-  if (!resume) throw new Error("이력서가 존재하지 않습니다.", { cause: 404 });
+  if (!resume) return null;
 
   const { educationList, careerList, projectList, portfolioList } = resume;
 
@@ -42,8 +46,8 @@ export default function Resume() {
             <ul className="flex flex-col gap-4">
               {educationList &&
                 educationList.length > 0 &&
-                educationList.map((item) => (
-                  <ResumeEducationItem key={item.id} item={item} />
+                educationList.map((item, index) => (
+                  <ResumeEducationItem key={index} item={item} />
                 ))}
             </ul>
           </div>
@@ -54,8 +58,8 @@ export default function Resume() {
             <ul className="flex flex-col gap-4">
               {careerList &&
                 careerList.length > 0 &&
-                careerList.map((item) => (
-                  <ResumeCareerItem key={item.id} item={item} />
+                careerList.map((item, index) => (
+                  <ResumeCareerItem key={index} item={item} />
                 ))}
             </ul>
           </div>
@@ -66,8 +70,8 @@ export default function Resume() {
             <ul className="flex flex-col gap-4">
               {projectList &&
                 projectList.length > 0 &&
-                projectList.map((item) => (
-                  <ResumeProjectItem key={item.id} item={item} />
+                projectList.map((item, index) => (
+                  <ResumeProjectItem key={index} item={item} />
                 ))}
             </ul>
           </div>
@@ -78,9 +82,9 @@ export default function Resume() {
               <div className="flex flex-col gap-4">
                 <h3 className="text-primary text-3xl font-bold">포트폴리오</h3>
                 <ul className="flex flex-col gap-4">
-                  {portfolioList.flatMap((item) =>
+                  {portfolioList.flatMap((item, index) =>
                     item.url ? (
-                      <ResumePortfolioItem key={item.id} item={item} />
+                      <ResumePortfolioItem key={index} item={item} />
                     ) : (
                       []
                     )
