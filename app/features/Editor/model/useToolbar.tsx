@@ -252,11 +252,26 @@ export function useToolbar({ editorView }: Props) {
         return;
       },
       link: () => {
-        //TODO: 링크 추가방식 생각해봐야함
-        return console.log("link");
+        const range = editorView.state.selection.main;
+        const linkMarkdown = `[링크](URL을 입력해 주세요)`;
+        // 삽입 후 selection 범위 계산: 괄호 위치를 기준으로 정확히 계산
+        const insertFrom = range.from;
+        const openParen = linkMarkdown.indexOf("(");
+        const closeParen = linkMarkdown.indexOf(")");
+        const urlStart = insertFrom + openParen + 1;
+        const urlEnd = insertFrom + closeParen;
+        editorView.dispatch({
+          changes: {
+            from: range.from,
+            to: range.to,
+            insert: linkMarkdown,
+          },
+          selection: EditorSelection.range(urlStart, urlEnd),
+        });
+        return;
       },
       image: () => {
-        //TODO: 이미지 업로드 방식 생각해봐야함
+        /** 이미지 업로드 api를 통해 cloud flare images에 업로드 후 받아온 url을 입력함 */
         const fileInput = document.createElement("input");
         fileInput.type = "file";
         fileInput.accept = "image/*";

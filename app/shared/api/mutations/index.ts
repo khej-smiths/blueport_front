@@ -74,7 +74,4 @@ export async function uploadProfileImage(formData: FormData) {
   return await axiosInstance.post<string>("/upload/profile-image", formData);
 }
 
-/** 게시글 이미지 업로드 */
-export async function uploadPostImage(formData: FormData) {
-  return await axiosInstance.post<string>("/upload/post-image", formData);
-}
+/** 게시글 이미지 업로드는 imageUpload 함수를 통해 업로드함 */

@@ -8,6 +8,7 @@ export const ROOT_KEY = {
   blog: "blog",
   post: "post",
   resume: "resume",
+  hashtag: "hashtag",
 };
 
 export const QUERY_KEY = {
@@ -43,5 +44,8 @@ export const QUERY_KEY = {
       "readResume",
       params,
     ],
+  },
+  hashtag: {
+    readHashtagList: () => [ROOT_KEY.hashtag, "readHashtagList"],
   },
 };

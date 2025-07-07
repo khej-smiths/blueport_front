@@ -666,12 +666,17 @@ export type ReadBlogListQueryVariables = Exact<{
 
 export type ReadBlogListQuery = { __typename?: 'Query', readBlogList: Array<{ __typename?: 'Blog', id: string, name: string, domain: string, greeting: string, photo?: string | null, introduction: string, skills?: Array<string> | null, email?: string | null, github?: string | null, ownerId: string }> };
 
+export type ReadHashtagListQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ReadHashtagListQuery = { __typename?: 'Query', readHashtagList: Array<string> };
+
 export type ReadPostQueryVariables = Exact<{
   input: ReadPostInputDto;
 }>;
 
 
-export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, viewCount: number, owner: { __typename?: 'User', id: string, name: string } } };
+export type ReadPostQuery = { __typename?: 'Query', readPost: { __typename?: 'Post', id: string, title: string, content: string, hashtagList?: Array<string> | null, createdAt: any, owner: { __typename?: 'User', id: string, name: string } } };
 
 export type ReadPostListQueryVariables = Exact<{
   input: ReadPostListInputDto;
@@ -842,6 +847,11 @@ export const ReadBlogListDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ReadBlogListQuery, ReadBlogListQueryVariables>;
+export const ReadHashtagListDocument = new TypedDocumentString(`
+    query ReadHashtagList {
+  readHashtagList
+}
+    `) as unknown as TypedDocumentString<ReadHashtagListQuery, ReadHashtagListQueryVariables>;
 export const ReadPostDocument = new TypedDocumentString(`
     query ReadPost($input: ReadPostInputDto!) {
   readPost(input: $input) {
@@ -850,7 +860,6 @@ export const ReadPostDocument = new TypedDocumentString(`
     content
     hashtagList
     createdAt
-    viewCount
     owner {
       id
       name
