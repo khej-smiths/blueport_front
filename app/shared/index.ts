@@ -19,6 +19,8 @@ export { Textarea } from "./ui/Textarea";
 export * from "./ui/Toggle";
 export * from "./ui/ToggleGroup";
 export * from "./ui/Drawer";
+export * from "./ui/Pre";
+export * from "./ui/Code";
 export { MobileSubmitButton } from "./ui/MobileSubmitButton";
 
 // Types
@@ -44,6 +46,7 @@ export { useAuthStore } from "./stores/auth";
 
 // Providers
 export { QueryProvider } from "./providers/react-query";
+export { HydrateProvider } from "./providers/hydrate";
 
 // Hooks
 export { useDebounce } from "./hooks/useDebounce";
@@ -51,6 +54,7 @@ export { useDebounceMutation } from "./hooks/useDebounceMutation";
 export { useProcessor } from "./hooks/useProcessor";
 export { useInvalidateQueries } from "./hooks/useInvalidateQueries";
 export { useResponsive } from "./hooks/useResponsive";
+export { useDehydratedState } from "./hooks/useDehydratedState";
 
 // API
 export * from "./api/gql";

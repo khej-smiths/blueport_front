@@ -7,7 +7,7 @@ import {
   UseFormWatch,
 } from "react-hook-form";
 
-import { SearchSchoolDialog } from "@/features";
+import { SearchSchoolDialog } from "@/entities";
 import {
   AlertDialog,
   AlertDialogTrigger,

@@ -1,10 +1,10 @@
 import { Pagination, QUERIES, QUERY_KEY } from "@/shared";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 export function useGetBlogList(pagination?: Pagination) {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: QUERY_KEY.blog.readBlogList(pagination),
-    queryFn : async () => {
+    queryFn: async () => {
       if (!pagination) return;
 
       const res = await QUERIES.readBlogList({
@@ -12,8 +12,7 @@ export function useGetBlogList(pagination?: Pagination) {
         limit: pagination.limit,
       });
 
-      return res.readBlogList;
+      return res;
     },
-    enabled: Boolean(pagination),
   });
 }

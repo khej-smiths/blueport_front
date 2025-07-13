@@ -1,6 +1,7 @@
 import { Plus } from "lucide-react";
 
-import { EditorDemoDialog, FloatingButton } from "@/features";
+import { EditorDemoDialog } from "@/entities";
+import { FloatingButton } from "@/features";
 import {
   AlertDialog,
   AlertDialogTrigger,

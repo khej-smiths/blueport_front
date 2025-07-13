@@ -53,7 +53,8 @@ export async function readBlog(
 
 /** 블로그 목록 조회 */
 export async function readBlogList(input: ReadBlogListInputDto) {
-  return await instance<ReadBlogListQuery>(readBlogListQuery, { input });
+  return (await instance<ReadBlogListQuery>(readBlogListQuery, { input }))
+    .readBlogList;
 }
 
 /** 이력서 조회 */
