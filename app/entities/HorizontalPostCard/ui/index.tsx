@@ -28,6 +28,7 @@ export function HorizontalPostCard({ post }: Props) {
       <Link
         to={url}
         className="flex w-full flex-col overflow-hidden rounded-lg border transition hover:shadow-lg md:flex-row"
+        prefetch="viewport"
       >
         {/* 썸네일 */}
         <div className="h-full w-full min-w-[256px] bg-gray-200 md:w-64" />

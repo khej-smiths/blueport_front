@@ -14,6 +14,7 @@ export function GNB() {
       <div className="flex w-full max-w-7xl items-center justify-between">
         {/* TODO: 블로그로 이동하도록 변경해야 함 */}
         <Link
+          prefetch="viewport"
           to={
             blog
               ? `${ROUTE.BLOG.replace(":domain", blog.domain)}`

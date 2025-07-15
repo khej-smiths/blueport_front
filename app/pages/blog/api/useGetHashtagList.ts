@@ -7,7 +7,7 @@ export function useGetHashtagList() {
     queryFn: async () => {
       const data = await QUERIES.readHashtagList();
 
-      return data.readHashtagList;
+      return data;
     },
   });
 }

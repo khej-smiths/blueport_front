@@ -8,7 +8,7 @@ export function useGetPostListByBlogId(params?: ReadPostListInputDto) {
     queryFn: async () => {
       if (!params || !params.blogId) return;
       const res = await QUERIES.readPostList(params);
-      return res.readPostList;
+      return res;
     },
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);

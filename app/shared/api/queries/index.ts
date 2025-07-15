@@ -46,10 +46,8 @@ export async function readPostList(input: ReadPostListInputDto) {
 }
 
 /** 단일 블로그 조회 */
-export async function readBlog(
-  input: ReadBlogInputDto
-): Promise<ReadBlogQuery> {
-  return await instance<ReadBlogQuery>(readBlogQuery, { input });
+export async function readBlog(input: ReadBlogInputDto) {
+  return (await instance<ReadBlogQuery>(readBlogQuery, { input })).readBlog;
 }
 
 /** 블로그 목록 조회 */
@@ -65,5 +63,6 @@ export async function readResume(input: ReadResumeInputDto) {
 
 /** 해시태그 목록 조회 */
 export async function readHashtagList() {
-  return await instance<ReadHashtagListQuery>(readHashtagListQuery);
+  return (await instance<ReadHashtagListQuery>(readHashtagListQuery))
+    .readHashtagList;
 }
