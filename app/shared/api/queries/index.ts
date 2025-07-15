@@ -41,7 +41,8 @@ export async function readPost(input: ReadPostInputDto) {
 
 /** 게시글 목록 조회 */
 export async function readPostList(input: ReadPostListInputDto) {
-  return await instance<ReadPostListQuery>(readPostListQuery, { input });
+  return (await instance<ReadPostListQuery>(readPostListQuery, { input }))
+    .readPostList;
 }
 
 /** 단일 블로그 조회 */

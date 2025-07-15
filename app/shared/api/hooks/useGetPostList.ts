@@ -1,7 +1,6 @@
 import { QUERIES, QUERY_KEY, ReadPostListInputDto } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { ClientError } from "graphql-request";
-import { useEffect, useState } from "react";
 
 export function useGetPostList(params?: ReadPostListInputDto) {
   return useQuery({
@@ -9,7 +8,7 @@ export function useGetPostList(params?: ReadPostListInputDto) {
     queryFn: async () => {
       if (!params) return;
       const res = await QUERIES.readPostList(params);
-      return res.readPostList;
+      return res;
     },
     staleTime: 0,
     gcTime: 0,
@@ -18,18 +17,4 @@ export function useGetPostList(params?: ReadPostListInputDto) {
     },
     enabled: Boolean(params),
   });
-}
-
-export function useDebounceGetPostList(params?: ReadPostListInputDto) {
-  const [debouncedParams, setDebouncedParams] = useState(params);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setDebouncedParams(params);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, [params]);
-
-  return useGetPostList(debouncedParams);
 }

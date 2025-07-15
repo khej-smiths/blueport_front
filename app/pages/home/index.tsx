@@ -4,7 +4,13 @@ import {
   PopularPostList,
   RecentPostList,
 } from "@/widgets";
-import { Loading, QUERIES, QUERY_KEY, useResponsive } from "@/shared";
+import {
+  Loading,
+  QUERIES,
+  QUERY_KEY,
+  Sort_Option,
+  useResponsive,
+} from "@/shared";
 import { MetaFunction } from "react-router";
 import { CheckBlog } from "@/entities";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
@@ -26,9 +32,34 @@ export async function loader() {
     limit: 2,
   };
 
+  const popularPostListParams = {
+    sortOption: Sort_Option.ViewCount,
+    limit: 10,
+    pageNumber: 1,
+  };
+
+  const recentPostListParams = {
+    sortOption: Sort_Option.Newest,
+    limit: 10,
+    pageNumber: 1,
+  };
+
+  /** 블로그 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.blog.readBlogList(pagination),
     queryFn: () => QUERIES.readBlogList(pagination),
+  });
+
+  /** 인기 게시글 목록 조회 */
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.post.readPostList(popularPostListParams),
+    queryFn: () => QUERIES.readPostList(popularPostListParams),
+  });
+
+  /** 최근 게시글 목록 조회 */
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.post.readPostList(recentPostListParams),
+    queryFn: () => QUERIES.readPostList(recentPostListParams),
   });
 
   return { dehydratedState: dehydrate(queryClient) };
@@ -51,9 +82,15 @@ export default function Home() {
             <LandingAbout key={blog.id} right={index % 2 === 1} blog={blog} />
           ))}
         </Suspense>
-        <div className="flex flex-row gap-5">
-          <PopularPostList />
-          {!isMobile && <RecentPostList />}
+        <div className="flex w-full flex-row gap-5">
+          <Suspense fallback={<Loading />}>
+            <PopularPostList />
+          </Suspense>
+          {!isMobile && (
+            <Suspense fallback={<Loading />}>
+              <RecentPostList />
+            </Suspense>
+          )}
         </div>
       </div>
       <CheckBlog />

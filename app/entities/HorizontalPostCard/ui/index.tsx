@@ -30,10 +30,10 @@ export function HorizontalPostCard({ post }: Props) {
         className="flex w-full flex-col overflow-hidden rounded-lg border transition hover:shadow-lg md:flex-row"
       >
         {/* 썸네일 */}
-        <div className="h-full w-full flex-shrink-0 bg-gray-200 md:w-64" />
+        <div className="h-full w-full min-w-[256px] bg-gray-200 md:w-64" />
 
         {/* 콘텐츠 */}
-        <div className="flex flex-grow flex-col justify-between p-6">
+        <div className="flex max-w-[540px] flex-1 flex-col justify-between p-6">
           <div className="flex flex-col gap-2">
             <div className="mb-2 flex items-center gap-4">
               <span className="text-sm text-gray-500">{createdAt}</span>
@@ -42,7 +42,7 @@ export function HorizontalPostCard({ post }: Props) {
             <h4 className="group-hover:text-primary not-xl:text-primary mb-2 line-clamp-2 text-xl font-bold group-hover:transition-colors">
               {title}
             </h4>
-            <p className="mb-4 line-clamp-3 text-gray-600">
+            <p className="mb-4 line-clamp-3 w-full text-gray-600">
               {mdToPlanText(content)}
             </p>
             <div className="flex gap-2">
