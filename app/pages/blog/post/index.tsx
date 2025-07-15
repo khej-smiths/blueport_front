@@ -12,11 +12,31 @@ import {
   ROUTE,
   Hashtag,
   useResponsive,
+  QUERIES,
+  QUERY_KEY,
 } from "@/shared";
 import { getToc } from "./model/getToc";
 import { Heading } from "./model/type";
 import { useDeletePost } from "./api/useDeletePost";
 import { Pencil, Trash2 } from "lucide-react";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+
+export async function loader({
+  params: { postId },
+}: {
+  params: { postId: string };
+}) {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.post.readPost(postId),
+    queryFn: () => QUERIES.readPost({ id: postId }),
+  });
+
+  return {
+    dehydratedState: dehydrate(queryClient),
+  };
+}
 
 export default function Post() {
   const [activeId, setActiveId] = useState<string>("");
@@ -87,6 +107,7 @@ export default function Post() {
             {/* 작성자 */}
             <div className="flex items-center gap-2">
               <Link
+                prefetch="viewport"
                 className="text-base font-bold not-xl:underline hover:underline"
                 to={`/${blog.domain}`}
               >

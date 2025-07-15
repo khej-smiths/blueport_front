@@ -10,7 +10,7 @@ export function useGetPost(postId?: string | null) {
 
       const res = await QUERIES.readPost({ id: postId });
 
-      return res.readPost;
+      return res;
     },
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);

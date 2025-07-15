@@ -36,7 +36,7 @@ export async function readUser() {
 
 /** 단일 게시글 조회 */
 export async function readPost(input: ReadPostInputDto) {
-  return await instance<ReadPostQuery>(readPostQuery, { input });
+  return (await instance<ReadPostQuery>(readPostQuery, { input })).readPost;
 }
 
 /** 게시글 목록 조회 */
@@ -58,7 +58,8 @@ export async function readBlogList(input: ReadBlogListInputDto) {
 
 /** 이력서 조회 */
 export async function readResume(input: ReadResumeInputDto) {
-  return await instance<ReadResumeQuery>(readResumeQuery, { input });
+  return (await instance<ReadResumeQuery>(readResumeQuery, { input }))
+    .readResume;
 }
 
 /** 해시태그 목록 조회 */
