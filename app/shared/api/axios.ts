@@ -21,7 +21,7 @@ export const instance: AxiosInstance = axios.create({
 });
 
 export function useAxiosInstance() {
-  const { accessToken } = useAuthStore();
+  const { accessToken, logout } = useAuthStore();
 
   const requestInterceptor = useCallback(
     (config: InternalAxiosRequestConfig) => {
@@ -36,6 +36,11 @@ export function useAxiosInstance() {
 
   const responseErrorInterceptor = useCallback(
     (error: AxiosError) => {
+      if (error.response?.status === 401) {
+        // TODO: refresh token으로 access token 토큰 재발급
+        logout();
+      }
+
       const message = getErrorMessage(error);
       toast.error(message);
       return Promise.reject(error);
