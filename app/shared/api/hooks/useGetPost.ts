@@ -2,13 +2,13 @@ import { QUERIES, QUERY_KEY } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { ClientError } from "graphql-request";
 
-export function useGetPost(postId?: string | null) {
+export function useGetPost(accessToken: string | null, postId?: string | null) {
   return useQuery({
     queryKey: QUERY_KEY.post.readPost(postId),
     queryFn: async () => {
       if (!postId) return;
 
-      const res = await QUERIES.readPost({ id: postId });
+      const res = await QUERIES.readPost(accessToken, { id: postId });
 
       return res;
     },

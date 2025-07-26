@@ -3,7 +3,7 @@ import { HOOKS, Loading, Sort_Option, useResponsive } from "@/shared";
 import { Suspense } from "react";
 
 export function PopularPostList() {
-  const { data: popularPostList } = HOOKS.useGetPostList({
+  const { data: popularPostList } = HOOKS.useGetPostList(null, {
     sortOption: Sort_Option.ViewCount,
     limit: 10,
     pageNumber: 1,

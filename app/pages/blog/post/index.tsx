@@ -14,6 +14,7 @@ import {
   useResponsive,
   QUERIES,
   QUERY_KEY,
+  useAuthStore,
 } from "@/shared";
 import { getToc } from "./model/getToc";
 import { Heading } from "./model/type";
@@ -23,14 +24,18 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 export async function loader({
   params: { postId },
+  request,
 }: {
   params: { postId: string };
+  request: Request;
 }) {
+  const accessToken =
+    request.headers.get("Authorization")?.split(" ")[1] ?? null;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.post.readPost(postId),
-    queryFn: () => QUERIES.readPost({ id: postId }),
+    queryFn: () => QUERIES.readPost(accessToken, { id: postId }),
   });
 
   return {
@@ -41,10 +46,11 @@ export async function loader({
 export default function Post() {
   const [activeId, setActiveId] = useState<string>("");
   const { domain, postId } = useParams();
+  const { accessToken } = useAuthStore();
 
-  const { data: self } = HOOKS.useSelf();
-  const { data: blog } = HOOKS.useGetBlogByDomain(domain);
-  const { data: post } = HOOKS.useGetPost(postId);
+  const { data: self } = HOOKS.useSelf(accessToken);
+  const { data: blog } = HOOKS.useGetBlogByDomain(accessToken, domain);
+  const { data: post } = HOOKS.useGetPost(accessToken, postId);
   const { mutate: deletePost } = useDeletePost();
 
   const { isMobile } = useResponsive();

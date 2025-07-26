@@ -18,6 +18,7 @@ import {
   MobileSubmitButton,
   ROUTE,
   Textarea,
+  useAuthStore,
   useResponsive,
 } from "@/shared";
 
@@ -53,10 +54,9 @@ export function ManageBlogForm() {
       },
       resolver: zodResolver(blogSchema),
     });
+  const { accessToken } = useAuthStore();
 
-  console.log(watch());
-
-  const { data: user } = HOOKS.useSelf();
+  const { data: user } = HOOKS.useSelf(accessToken);
   const { data: blog } = useGetBlog(user?.id);
   const { mutate: createBlog, isPending: createBlogPending } = useCreateBlog();
   const { mutate: updateBlog, isPending: updateBlogPending } = useUpdateBlog();

@@ -7,7 +7,7 @@ export function CheckBlog() {
   const [open, setOpen] = useState(false);
   const { accessToken } = useAuthStore();
 
-  const { data: self } = HOOKS.useSelf();
+  const { data: self } = HOOKS.useSelf(accessToken);
 
   useEffect(() => {
     if (!self || !accessToken) return;

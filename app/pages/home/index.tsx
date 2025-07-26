@@ -24,7 +24,9 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader() {
+export async function loader({ request }: { request: Request }) {
+  const accessToken =
+    request.headers.get("Authorization")?.split(" ")[1] ?? null;
   const queryClient = new QueryClient();
 
   const pagination = {
@@ -47,19 +49,24 @@ export async function loader() {
   /** 블로그 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.blog.readBlogList(pagination),
-    queryFn: () => QUERIES.readBlogList(pagination),
+    queryFn: () => QUERIES.readBlogList(accessToken, pagination),
   });
 
   /** 인기 게시글 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.post.readPostList(popularPostListParams),
-    queryFn: () => QUERIES.readPostList(popularPostListParams),
+    queryFn: () => QUERIES.readPostList(accessToken, popularPostListParams),
   });
 
   /** 최근 게시글 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.post.readPostList(recentPostListParams),
-    queryFn: () => QUERIES.readPostList(recentPostListParams),
+    queryFn: () => QUERIES.readPostList(accessToken, recentPostListParams),
+  });
+
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.user.readUser(),
+    queryFn: () => QUERIES.readUser(accessToken),
   });
 
   return { dehydratedState: dehydrate(queryClient) };
