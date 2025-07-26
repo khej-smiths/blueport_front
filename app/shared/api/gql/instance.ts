@@ -3,6 +3,7 @@ import { ClientError, GraphQLClient } from "graphql-request";
 import { useAuthStore } from "@/shared/stores/auth";
 import { useNavigate } from "react-router";
 import { ROUTE } from "../../constant/route";
+
 export const graphql = new GraphQLClient(
   import.meta.env.VITE_PUBLIC_API_ENDPOINT ?? "",
   {
@@ -30,19 +31,22 @@ export async function instance<TResult, TVariables extends object = object>(
     return await graphql.request(queryString, variables ?? {});
   } catch (error: any) {
     if (error instanceof ClientError) {
-      const extensions = error.response
-        .extensions as ClientError["response"]["extensions"] as any;
-
-      console.log(extensions);
-      console.log(error)
-
-      if (extensions.code.includes("ERR_EXPIRED_TOKEN")) {
-        // TODO: refresh token으로 access token 토큰 재발급
-        logout();
-        navigate(ROUTE.LOGIN);
+      if (
+        error.response &&
+        error.response.errors &&
+        error.response.errors.length > 0
+      ) {
+        // 첫 번째 에러의 code 추출
+        const code = error.response.errors[0].extensions?.code;
+        
+        console.log("에러 코드:", code);
+        // code 값으로 분기 처리
+        if (code && (code as string).includes("ERR_EXPIRED_TOKEN")) {
+          // 토큰 만료 처리
+          logout();
+          navigate(ROUTE.LOGIN);
+        }
       }
-
-      throw error.response;
     }
 
     throw {
