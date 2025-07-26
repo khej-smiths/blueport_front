@@ -8,6 +8,7 @@ import {
   useResponsive,
   QUERY_KEY,
   QUERIES,
+  useAuthStore,
 } from "@/shared";
 import { Profile } from "@/widgets";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
@@ -18,15 +19,19 @@ import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 export async function loader({
   params: { domain },
+  request,
 }: {
   params: { domain: string };
+  request: Request;
 }) {
+  const accessToken =
+    request.headers.get("Authorization")?.split(" ")[1] ?? null;
   const queryClient = new QueryClient();
 
   /** 블로그 조회 */
   const blog = await queryClient.fetchQuery({
     queryKey: QUERY_KEY.blog.readBlog(domain),
-    queryFn: () => QUERIES.readBlog({ domain }),
+    queryFn: () => QUERIES.readBlog(accessToken, { domain }),
   });
 
   const recentPostListParams = {
@@ -45,19 +50,19 @@ export async function loader({
   /** 최근 게시글 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.post.readPostList(recentPostListParams),
-    queryFn: () => QUERIES.readPostList(recentPostListParams),
+    queryFn: () => QUERIES.readPostList(accessToken, recentPostListParams),
   });
 
   /** 전체 게시글 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.post.readPostList(postListParams),
-    queryFn: () => QUERIES.readPostList(postListParams),
+    queryFn: () => QUERIES.readPostList(accessToken, postListParams),
   });
 
   /** 해시태그 목록 조회 */
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.hashtag.readHashtagList(),
-    queryFn: () => QUERIES.readHashtagList(),
+    queryFn: () => QUERIES.readHashtagList(accessToken),
   });
 
   return {
@@ -74,9 +79,10 @@ export default function Blog() {
   const [isLast, setIsLast] = useState(false);
 
   const { domain } = useParams();
+  const { accessToken } = useAuthStore();
 
   // 블로그 조회
-  const { data: blog } = HOOKS.useGetBlogByDomain(domain);
+  const { data: blog } = HOOKS.useGetBlogByDomain(accessToken, domain);
 
   // 최근 게시글 조회
   const { data: recentPostList } = useGetPostListByBlogId({

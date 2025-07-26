@@ -6,9 +6,10 @@ import { Suspense } from "react";
 
 export function GNB() {
   const { domain } = useParams();
-  const { data: user } = HOOKS.useSelf();
-  const { data: blog } = HOOKS.useGetBlogByDomain(domain);
   const { accessToken } = useAuthStore();
+
+  const { data: user } = HOOKS.useSelf(accessToken);
+  const { data: blog } = HOOKS.useGetBlogByDomain(accessToken, domain);
 
   return (
     <nav className="flex h-16 items-center justify-center border-b px-6">

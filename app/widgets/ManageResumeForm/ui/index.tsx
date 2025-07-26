@@ -10,6 +10,7 @@ import {
   HOOKS,
   MobileSubmitButton,
   UpdateResumeInputDto,
+  useAuthStore,
   useResponsive,
 } from "@/shared";
 
@@ -73,8 +74,10 @@ const initPortfolio: PortfolioDto = {
 };
 
 export function ManageResumeForm() {
-  const { data: user } = HOOKS.useSelf();
+  const { accessToken } = useAuthStore();
+  const { data: user } = HOOKS.useSelf(accessToken);
   const { data: resume } = HOOKS.useGetResume(
+    accessToken,
     user
       ? {
           ownerId: user.id,

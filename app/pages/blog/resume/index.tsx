@@ -4,21 +4,25 @@ import {
   ResumePortfolioItem,
   ResumeProjectItem,
 } from "@/entities";
-import { HOOKS, Loading, QUERIES, QUERY_KEY } from "@/shared";
+import { HOOKS, Loading, QUERIES, QUERY_KEY, useAuthStore } from "@/shared";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { useParams } from "react-router";
 
 export async function loader({
   params: { resumeId },
+  request,
 }: {
   params: { resumeId: string };
+  request: Request;
 }) {
+  const accessToken =
+    request.headers.get("Authorization")?.split(" ")[1] ?? null;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: QUERY_KEY.resume.readResume({ id: resumeId }),
-    queryFn: () => QUERIES.readResume({ id: resumeId }),
+    queryFn: () => QUERIES.readResume(accessToken, { id: resumeId }),
   });
 
   return {
@@ -28,7 +32,9 @@ export async function loader({
 
 export default function Resume() {
   const { resumeId } = useParams();
+  const { accessToken } = useAuthStore();
   const { data: resume } = HOOKS.useGetResume(
+    accessToken,
     resumeId
       ? {
           id: resumeId,

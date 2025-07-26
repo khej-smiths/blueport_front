@@ -2,12 +2,15 @@ import { QUERIES, QUERY_KEY } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { ClientError } from "graphql-request";
 
-export function useGetBlogByDomain(domain?: string) {
+export function useGetBlogByDomain(
+  accessToken: string | null,
+  domain?: string
+) {
   return useQuery({
     queryKey: QUERY_KEY.blog.readBlog(domain),
     queryFn: async () => {
       if (!domain) return;
-      const res = await QUERIES.readBlog({ domain });
+      const res = await QUERIES.readBlog(accessToken, { domain });
 
       return res;
     },

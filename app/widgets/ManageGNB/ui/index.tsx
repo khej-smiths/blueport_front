@@ -9,6 +9,7 @@ import {
   DrawerTrigger,
   HOOKS,
   ROUTE,
+  useAuthStore,
   useResponsive,
 } from "@/shared";
 
@@ -20,7 +21,8 @@ import { useState } from "react";
 
 export function ManageGNB() {
   const { isMobile } = useResponsive();
-  const { data: self } = HOOKS.useSelf();
+  const { accessToken } = useAuthStore();
+  const { data: self } = HOOKS.useSelf(accessToken);
   const [open, setOpen] = useState(false);
 
   return (

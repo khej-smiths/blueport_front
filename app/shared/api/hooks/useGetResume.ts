@@ -4,12 +4,15 @@ import { ClientError } from "graphql-request";
 import { readResume } from "../queries";
 import { ReadResumeInputDto } from "../gql/graphql";
 
-export function useGetResume(params?: ReadResumeInputDto) {
+export function useGetResume(
+  accessToken: string | null,
+  params?: ReadResumeInputDto
+) {
   return useQuery({
     queryKey: QUERY_KEY.resume.readResume(params),
     queryFn: async () => {
       if (!params) return;
-      const res = await readResume(params);
+      const res = await readResume(accessToken, params);
 
       return res;
     },

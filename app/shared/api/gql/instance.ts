@@ -1,9 +1,5 @@
 import { ClientError, GraphQLClient } from "graphql-request";
 
-import { useAuthStore } from "@/shared/stores/auth";
-import { useNavigate } from "react-router";
-import { ROUTE } from "../../constant/route";
-
 export const graphql = new GraphQLClient(
   import.meta.env.VITE_PUBLIC_API_ENDPOINT ?? "",
   {
@@ -15,12 +11,10 @@ export const graphql = new GraphQLClient(
 );
 
 export async function instance<TResult, TVariables extends object = object>(
+  accessToken: string | null,
   query: any,
   variables?: TVariables
 ): Promise<TResult> {
-  const { accessToken, logout } = useAuthStore.getState();
-  const navigate = useNavigate();
-
   if (accessToken) {
     graphql.setHeader("Authorization", `Bearer ${accessToken}`);
   }
@@ -28,25 +22,11 @@ export async function instance<TResult, TVariables extends object = object>(
   try {
     const queryString =
       typeof query === "object" && "value" in query ? query.value : query;
+
     return await graphql.request(queryString, variables ?? {});
   } catch (error: any) {
     if (error instanceof ClientError) {
-      if (
-        error.response &&
-        error.response.errors &&
-        error.response.errors.length > 0
-      ) {
-        // 첫 번째 에러의 code 추출
-        const code = error.response.errors[0].extensions?.code;
-        
-        console.log("에러 코드:", code);
-        // code 값으로 분기 처리
-        if (code && (code as string).includes("ERR_EXPIRED_TOKEN")) {
-          // 토큰 만료 처리
-          logout();
-          navigate(ROUTE.LOGIN);
-        }
-      }
+      throw error.response;
     }
 
     throw {
