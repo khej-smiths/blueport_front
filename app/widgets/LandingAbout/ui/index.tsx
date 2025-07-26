@@ -20,7 +20,7 @@ export function LandingAbout({ right, blog }: Props) {
   return (
     <>
       {isMobile ? (
-        <Link to={`/${blog.domain}`}>
+        <Link to={`/${blog.domain}`} prefetch="viewport">
           <article
             role="article"
             aria-label="about-section"
@@ -109,7 +109,7 @@ export function LandingAbout({ right, blog }: Props) {
                   ))}
                 </div>
               </div>
-              <Link to={`/${blog.domain}`}>
+              <Link to={`/${blog.domain}`} prefetch="intent">
                 <Button variant="outline" className="max-w-fit cursor-pointer">
                   더 알아보기
                 </Button>

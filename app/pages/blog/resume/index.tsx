@@ -4,9 +4,27 @@ import {
   ResumePortfolioItem,
   ResumeProjectItem,
 } from "@/entities";
-import { HOOKS, Loading } from "@/shared";
+import { HOOKS, Loading, QUERIES, QUERY_KEY } from "@/shared";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
 import { Suspense } from "react";
 import { useParams } from "react-router";
+
+export async function loader({
+  params: { resumeId },
+}: {
+  params: { resumeId: string };
+}) {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.resume.readResume({ id: resumeId }),
+    queryFn: () => QUERIES.readResume({ id: resumeId }),
+  });
+
+  return {
+    dehydratedState: dehydrate(queryClient),
+  };
+}
 
 export default function Resume() {
   const { resumeId } = useParams();

@@ -22,6 +22,7 @@ export function ProfileLinks({ domain, github, email, resumeId }: Props) {
       )}
       {resumeId && (
         <Link
+          prefetch="viewport"
           to={ROUTE.RESUME.replace(":domain", domain).replace(
             ":resumeId",
             resumeId

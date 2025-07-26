@@ -5,20 +5,25 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
+  useNavigation,
   type LinksFunction,
 } from "react-router";
+import { motion } from "motion/react";
 
 import "./app.css";
 import {
   Button,
+  cn,
   QueryProvider,
   ROUTE,
   Toaster,
   useAxiosInstance,
+  HydrateProvider,
+  Pre,
+  Code,
 } from "./shared";
 import { ClientLayoutBody } from "./widgets";
-import { Pre } from "./shared/ui/Pre";
-import { Code } from "./shared/ui/Code";
 
 export const links: LinksFunction = () => [
   {
@@ -47,12 +52,28 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   useAxiosInstance();
+  const location = useLocation();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === "loading";
 
   return (
     <QueryProvider>
-      <Outlet />
-      <ClientLayoutBody />
-      <Toaster position="bottom-center" />
+      <HydrateProvider>
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className={cn({
+            "animate-pulse transition-opacity": isLoading,
+          })}
+        >
+          <Outlet />
+        </motion.div>
+        <ClientLayoutBody />
+        <Toaster position="bottom-center" />
+      </HydrateProvider>
     </QueryProvider>
   );
 }

@@ -9,7 +9,7 @@ export function useGetBlogByDomain(domain?: string) {
       if (!domain) return;
       const res = await QUERIES.readBlog({ domain });
 
-      return res.readBlog;
+      return res;
     },
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);

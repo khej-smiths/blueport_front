@@ -21,6 +21,7 @@ export function QueryProvider({ children }: Props) {
             retry: false,
             retryDelay: 0,
             retryOnMount: false,
+            staleTime: 60 * 1000,
           },
         },
       })

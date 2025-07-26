@@ -1,7 +1,8 @@
 import { Link, useParams } from "react-router";
-import { HOOKS, ROUTE, useAuthStore } from "@/shared";
+import { HOOKS, Loading, ROUTE, useAuthStore } from "@/shared";
 import { FaGithub } from "react-icons/fa";
 import { Settings } from "lucide-react";
+import { Suspense } from "react";
 
 export function GNB() {
   const { domain } = useParams();
@@ -12,22 +13,24 @@ export function GNB() {
   return (
     <nav className="flex h-16 items-center justify-center border-b px-6">
       <div className="flex w-full max-w-7xl items-center justify-between">
-        {/* TODO: 블로그로 이동하도록 변경해야 함 */}
-        <Link
-          to={
-            blog
-              ? `${ROUTE.BLOG.replace(":domain", blog.domain)}`
-              : `${ROUTE.HOME}`
-          }
-        >
-          <h1
-            role="heading"
-            aria-label="title"
-            className="text-primary text-2xl font-bold not-xl:text-xl hover:underline"
+        <Suspense fallback={<Loading />}>
+          <Link
+            prefetch="viewport"
+            to={
+              blog
+                ? `${ROUTE.BLOG.replace(":domain", blog.domain)}`
+                : `${ROUTE.HOME}`
+            }
           >
-            {blog?.name || "Blueport"}
-          </h1>
-        </Link>
+            <h1
+              role="heading"
+              aria-label="title"
+              className="text-primary text-2xl font-bold not-xl:text-xl hover:underline"
+            >
+              {blog?.name || "Blueport"}
+            </h1>
+          </Link>
+        </Suspense>
         <div className="flex flex-row items-center gap-4">
           {blog?.github && (
             <a href={blog.github} target="_blank">

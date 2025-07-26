@@ -25,6 +25,7 @@ export function VerticalPostCard({ post }: Props) {
       aria-label="vertical-post-card"
       to={url}
       className="group block overflow-hidden rounded-lg border transition hover:shadow-lg"
+      prefetch="viewport"
     >
       {/* 썸네일 */}
       <div className="h-48 bg-gray-200" />

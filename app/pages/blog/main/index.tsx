@@ -6,12 +6,64 @@ import {
   Hashtag,
   ReadPostListQuery,
   useResponsive,
+  QUERY_KEY,
+  QUERIES,
 } from "@/shared";
 import { Profile } from "@/widgets";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
 import { useGetPostListByBlogId } from "../api/useGetPostListByBlogId";
 import { useGetHashtagList } from "../api/useGetHashtagList";
+import { dehydrate, QueryClient } from "@tanstack/react-query";
+
+export async function loader({
+  params: { domain },
+}: {
+  params: { domain: string };
+}) {
+  const queryClient = new QueryClient();
+
+  /** 블로그 조회 */
+  const blog = await queryClient.fetchQuery({
+    queryKey: QUERY_KEY.blog.readBlog(domain),
+    queryFn: () => QUERIES.readBlog({ domain }),
+  });
+
+  const recentPostListParams = {
+    blogId: blog.id,
+    sortOption: Sort_Option.Newest,
+    limit: 3,
+    pageNumber: 1,
+  };
+
+  const postListParams = {
+    blogId: blog.id,
+    limit: 10,
+    pageNumber: 1,
+  };
+
+  /** 최근 게시글 목록 조회 */
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.post.readPostList(recentPostListParams),
+    queryFn: () => QUERIES.readPostList(recentPostListParams),
+  });
+
+  /** 전체 게시글 목록 조회 */
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.post.readPostList(postListParams),
+    queryFn: () => QUERIES.readPostList(postListParams),
+  });
+
+  /** 해시태그 목록 조회 */
+  await queryClient.prefetchQuery({
+    queryKey: QUERY_KEY.hashtag.readHashtagList(),
+    queryFn: () => QUERIES.readHashtagList(),
+  });
+
+  return {
+    dehydratedState: dehydrate(queryClient),
+  };
+}
 
 export default function Blog() {
   const [postList, setPostList] = useState<ReadPostListQuery["readPostList"]>(
@@ -20,9 +72,11 @@ export default function Blog() {
   const [selectedHashtag, setSelectedHashtag] = useState<string[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [isLast, setIsLast] = useState(false);
+
   const { domain } = useParams();
+
+  // 블로그 조회
   const { data: blog } = HOOKS.useGetBlogByDomain(domain);
-  const { isMobile } = useResponsive();
 
   // 최근 게시글 조회
   const { data: recentPostList } = useGetPostListByBlogId({
@@ -47,6 +101,7 @@ export default function Blog() {
     hashtagList: selectedHashtag.length > 0 ? selectedHashtag : undefined,
   });
 
+  const { isMobile } = useResponsive();
   const observer = useRef<IntersectionObserver | null>(null);
 
   const loading = isLoading || isRefetching;
@@ -54,12 +109,16 @@ export default function Blog() {
   useEffect(() => {
     if (!postListData) return;
 
-    setPostList((prev) => [...prev, ...postListData]);
+    setPostList((prev) => {
+      // prefetch 데이터가 존재하기 때문에 첫 번째 페이지는 데이터를 넣지 않음
+      if (pageNumber === 1) return postListData;
+      return [...prev, ...postListData];
+    });
+
     setIsLast(postListData.length === 0);
-  }, [postListData, blog]);
+  }, [postListData, pageNumber]);
 
   useEffect(() => {
-    setPostList([]);
     setPageNumber(1);
     setIsLast(false);
   }, [selectedHashtag]);
@@ -86,6 +145,8 @@ export default function Blog() {
     } else {
       setSelectedHashtag([...selectedHashtag, hashtag]);
     }
+
+    setPostList([]);
   };
 
   const handleSelectAllHashtag = () => {
@@ -100,7 +161,9 @@ export default function Blog() {
     <main className="mt-16 mb-16 flex min-h-dvh flex-col items-center not-xl:mt-4">
       <article className="flex w-full flex-col gap-16 p-8 not-xl:p-4 xl:max-w-7xl">
         <section className="flex flex-col items-center gap-4">
-          <Profile blog={blog} />
+          <Suspense fallback={<Loading />}>
+            <Profile blog={blog} />
+          </Suspense>
         </section>
 
         {/* 최신 글 섹션 */}
@@ -134,14 +197,16 @@ export default function Blog() {
               hashtag="전체"
               onClick={handleSelectAllHashtag}
             />
-            {hashtagList?.map((hashtag) => (
-              <Hashtag
-                key={hashtag}
-                hashtag={hashtag}
-                onClick={() => handleSelectHashtag(hashtag)}
-                isSelected={selectedHashtag.includes(hashtag)}
-              />
-            ))}
+            <Suspense fallback={<Loading />}>
+              {hashtagList?.map((hashtag) => (
+                <Hashtag
+                  key={hashtag}
+                  hashtag={hashtag}
+                  onClick={() => handleSelectHashtag(hashtag)}
+                  isSelected={selectedHashtag.includes(hashtag)}
+                />
+              ))}
+            </Suspense>
           </div>
         </section>
 
@@ -151,15 +216,17 @@ export default function Blog() {
             전체 게시글
           </h3>
           <ul className="flex flex-col gap-4">
-            {postList.map((post) => (
-              <>
-                {isMobile ? (
-                  <VerticalPostCard key={post.id} post={post} />
-                ) : (
-                  <HorizontalPostCard key={post.id} post={post} />
-                )}
-              </>
-            ))}
+            <Suspense fallback={<Loading />}>
+              {postList.map((post) => (
+                <>
+                  {isMobile ? (
+                    <VerticalPostCard key={post.id} post={post} />
+                  ) : (
+                    <HorizontalPostCard key={post.id} post={post} />
+                  )}
+                </>
+              ))}
+            </Suspense>
           </ul>
           {!loading && isLast && postList.length === 0 && (
             <p className="text-center text-2xl font-thin">

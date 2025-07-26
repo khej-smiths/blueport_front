@@ -11,7 +11,7 @@ export function useGetResume(params?: ReadResumeInputDto) {
       if (!params) return;
       const res = await readResume(params);
 
-      return res.readResume;
+      return res;
     },
     throwOnError: (error: ClientError["response"]) => {
       throw new Error(error.errors?.[0].message);

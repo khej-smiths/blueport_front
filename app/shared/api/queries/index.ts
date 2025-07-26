@@ -36,32 +36,34 @@ export async function readUser() {
 
 /** 단일 게시글 조회 */
 export async function readPost(input: ReadPostInputDto) {
-  return await instance<ReadPostQuery>(readPostQuery, { input });
+  return (await instance<ReadPostQuery>(readPostQuery, { input })).readPost;
 }
 
 /** 게시글 목록 조회 */
 export async function readPostList(input: ReadPostListInputDto) {
-  return await instance<ReadPostListQuery>(readPostListQuery, { input });
+  return (await instance<ReadPostListQuery>(readPostListQuery, { input }))
+    .readPostList;
 }
 
 /** 단일 블로그 조회 */
-export async function readBlog(
-  input: ReadBlogInputDto
-): Promise<ReadBlogQuery> {
-  return await instance<ReadBlogQuery>(readBlogQuery, { input });
+export async function readBlog(input: ReadBlogInputDto) {
+  return (await instance<ReadBlogQuery>(readBlogQuery, { input })).readBlog;
 }
 
 /** 블로그 목록 조회 */
 export async function readBlogList(input: ReadBlogListInputDto) {
-  return await instance<ReadBlogListQuery>(readBlogListQuery, { input });
+  return (await instance<ReadBlogListQuery>(readBlogListQuery, { input }))
+    .readBlogList;
 }
 
 /** 이력서 조회 */
 export async function readResume(input: ReadResumeInputDto) {
-  return await instance<ReadResumeQuery>(readResumeQuery, { input });
+  return (await instance<ReadResumeQuery>(readResumeQuery, { input }))
+    .readResume;
 }
 
 /** 해시태그 목록 조회 */
 export async function readHashtagList() {
-  return await instance<ReadHashtagListQuery>(readHashtagListQuery);
+  return (await instance<ReadHashtagListQuery>(readHashtagListQuery))
+    .readHashtagList;
 }

@@ -1,6 +1,5 @@
 import { HorizontalPostCard, VerticalPostCard } from "@/entities";
-import { Loading, Sort_Option, useResponsive } from "@/shared";
-import { HOOKS } from "@/shared";
+import { HOOKS, Loading, Sort_Option, useResponsive } from "@/shared";
 import { Suspense } from "react";
 
 export function PopularPostList() {
@@ -18,12 +17,12 @@ export function PopularPostList() {
     <div
       role="listbox"
       aria-label="popular-post-list-section"
-      className="flex w-full flex-col gap-5"
+      className="flex w-full max-w-[798px] flex-col gap-5"
     >
       <h2 className="text-primary text-2xl font-bold">인기 게시글</h2>
       <ul className="flex flex-col gap-5">
         <Suspense fallback={<Loading />}>
-          {popularPostList.map((post) => (
+          {popularPostList?.map((post) => (
             <>
               {isMobile ? (
                 <VerticalPostCard key={post.id} post={post} />

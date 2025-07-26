@@ -15,7 +15,7 @@ export function RecentPostList() {
     <div
       role="listbox"
       aria-label="recent-post-list-section"
-      className="flex max-w-[480px] min-w-[480px] flex-col gap-5"
+      className="flex w-full min-w-[480px] flex-col gap-5"
     >
       <h2 className="text-primary text-2xl font-bold">최근 게시글</h2>
       <ul className="flex flex-col gap-4">
