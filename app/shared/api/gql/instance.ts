@@ -33,6 +33,8 @@ export async function instance<TResult, TVariables extends object = object>(
       const extensions = error.response
         .extensions as ClientError["response"]["extensions"] as any;
 
+      console.log(extensions);
+
       if (extensions.code.includes("ERR_EXPIRED_TOKEN")) {
         // TODO: refresh token으로 access token 토큰 재발급
         logout();
