@@ -1,7 +1,8 @@
 import { ClientError, GraphQLClient } from "graphql-request";
 
 import { useAuthStore } from "@/shared/stores/auth";
-
+import { useNavigate } from "react-router";
+import { ROUTE } from "../../constant/route";
 export const graphql = new GraphQLClient(
   import.meta.env.VITE_PUBLIC_API_ENDPOINT ?? "",
   {
@@ -17,6 +18,7 @@ export async function instance<TResult, TVariables extends object = object>(
   variables?: TVariables
 ): Promise<TResult> {
   const { accessToken, logout } = useAuthStore.getState();
+  const navigate = useNavigate();
 
   if (accessToken) {
     graphql.setHeader("Authorization", `Bearer ${accessToken}`);
@@ -34,6 +36,7 @@ export async function instance<TResult, TVariables extends object = object>(
       if (extensions.code.includes("ERR_EXPIRED_TOKEN")) {
         // TODO: refresh token으로 access token 토큰 재발급
         logout();
+        navigate(ROUTE.LOGIN);
       }
 
       throw error.response;
