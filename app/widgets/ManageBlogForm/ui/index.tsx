@@ -57,7 +57,7 @@ export function ManageBlogForm() {
   const { accessToken } = useAuthStore();
 
   const { data: user } = HOOKS.useSelf(accessToken);
-  const { data: blog } = useGetBlog(user?.id);
+  const { data: blog } = useGetBlog(accessToken, user?.id);
   const { mutate: createBlog, isPending: createBlogPending } = useCreateBlog();
   const { mutate: updateBlog, isPending: updateBlogPending } = useUpdateBlog();
   const { mutate: uploadProfileImage, isPending: imageUploadPending } =

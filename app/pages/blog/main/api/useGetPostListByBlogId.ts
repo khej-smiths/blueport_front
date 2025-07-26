@@ -2,12 +2,15 @@ import { QUERIES, QUERY_KEY, ReadPostListInputDto } from "@/shared";
 import { useQuery } from "@tanstack/react-query";
 import { ClientError } from "graphql-request";
 
-export function useGetPostListByBlogId(params?: ReadPostListInputDto) {
+export function useGetPostListByBlogId(
+  accessToken: string | null,
+  params?: ReadPostListInputDto
+) {
   return useQuery({
     queryKey: QUERY_KEY.post.readPostList(params),
     queryFn: async () => {
       if (!params || !params.blogId) return;
-      const res = await QUERIES.readPostList(params);
+      const res = await QUERIES.readPostList(accessToken, params);
       return res;
     },
     throwOnError: (error: ClientError["response"]) => {

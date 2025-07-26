@@ -4,20 +4,20 @@ import { toast } from "sonner";
 import { QUERY_KEY } from "@/shared";
 import { readBlog } from "@/shared/api/queries";
 
-export function useGetBlog(ownerId?: string) {
+export function useGetBlog(accessToken: string | null, ownerId?: string) {
   return useQuery({
     queryKey: QUERY_KEY.blog.readBlog(ownerId),
     queryFn: async () => {
       if (!ownerId) {
-        toast.error("유저를 찾을 수 없습니다.")
-        return
-      };
+        toast.error("유저를 찾을 수 없습니다.");
+        return;
+      }
 
-      const res = await readBlog({
+      const res = await readBlog(accessToken, {
         ownerId,
       });
 
-      return res.readBlog;
+      return res;
     },
     enabled: !!ownerId,
   });

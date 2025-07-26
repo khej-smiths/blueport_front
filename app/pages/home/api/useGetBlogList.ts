@@ -7,7 +7,7 @@ export function useGetBlogList(pagination?: Pagination) {
     queryFn: async () => {
       if (!pagination) return;
 
-      const res = await QUERIES.readBlogList({
+      const res = await QUERIES.readBlogList(null, {
         pageNumber: pagination.pageNumber,
         limit: pagination.limit,
       });

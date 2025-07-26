@@ -13,8 +13,8 @@ import {
 import { Profile } from "@/widgets";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router";
-import { useGetPostListByBlogId } from "../api/useGetPostListByBlogId";
-import { useGetHashtagList } from "../api/useGetHashtagList";
+import { useGetPostListByBlogId } from "./api/useGetPostListByBlogId";
+import { useGetHashtagList } from "./api/useGetHashtagList";
 import { dehydrate, QueryClient } from "@tanstack/react-query";
 
 export async function loader({
@@ -85,7 +85,7 @@ export default function Blog() {
   const { data: blog } = HOOKS.useGetBlogByDomain(accessToken, domain);
 
   // 최근 게시글 조회
-  const { data: recentPostList } = useGetPostListByBlogId({
+  const { data: recentPostList } = useGetPostListByBlogId(accessToken, {
     blogId: blog?.id,
     sortOption: Sort_Option.Newest,
     limit: 3,
@@ -93,14 +93,14 @@ export default function Blog() {
   });
 
   // 해시태그 목록 조회
-  const { data: hashtagList } = useGetHashtagList();
+  const { data: hashtagList } = useGetHashtagList(accessToken);
 
   // 전체 게시글 조회
   const {
     data: postListData,
     isLoading,
     isRefetching,
-  } = useGetPostListByBlogId({
+  } = useGetPostListByBlogId(accessToken, {
     blogId: blog?.id,
     limit: 10,
     pageNumber,
